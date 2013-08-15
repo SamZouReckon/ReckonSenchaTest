@@ -1,0 +1,1859 @@
+// The following two lines import the default Sencha Touch theme. If you are building
+// a new theme, remove them and the add your own CSS on top of the base CSS (which
+// is already included in your app.json file).
+//@import 'sencha-touch/default';
+//@import 'sencha-touch/default/all';
+
+// Custom code goes here..
+
+// Examples of using the icon mixin:
+// @include icon('user');
+
+$base-color: #F82C2C;				//Global theme color used for theming app
+
+$list-color: #646464;				//List Text color
+$list-header-bg-color: #EBEBEB;		//group header bg color
+$list-header-gradient: none;		//group header gradient
+$list-bg-color: #FFFFFF ;			//List row bg color
+$list-pressed-color: #F0F0F0;		//List row color when pressed
+$list-active-color: #F0F0F0;		//List row color when selected
+$list-active-gradient: none;		//List row gradient, none for flat look
+$include-list-highlights: none;
+
+@import 'sencha-touch/default';
+@import 'sencha-touch/default/all';
+
+@import 'TouchCalendarView.scss';
+@import 'TouchCalendarSimpleEvents.scss';
+@import 'dashboard.scss';
+
+@include TouchCalendarView;
+@include TouchCalendarSimpleEvents;
+@include dashboard;
+
+
+// You may remove any of the following modules that you
+// do not use in order to create a smaller css file.
+/*@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-list-pullrefresh;*/
+
+//topbarbutton style is for flat toolbar buttons
+  @mixin rm_topbarbuttonstyle {
+	background: none;    
+    border: none;
+    min-height: 0;
+    text-shadow: none;     
+    line-height: auto;
+    height: $global-row-height;
+    //padding: 0em 0.5em;
+    margin: 0;
+	border-radius:0;	
+    
+
+    & > * {
+      overflow: visible;
+    }
+
+    .x-button-icon {
+      -webkit-mask-size: $toolbar-icon-size;
+      width: $toolbar-icon-size;
+      height: $toolbar-icon-size;
+    }
+
+    &.x-button-pressing, &.x-button-pressed {
+      background: none;
+
+      
+      .x-button-icon.x-button-mask {
+        @include background-gradient(#fff, 'flat');
+      }
+    }
+  }
+  
+  //For TextFields with flat look and white bg color in label and field, also icon on left side using bg image on lalel
+@mixin rm_flatfieldlefticon($img){
+        background: white;			
+		border-top: 1px solid #DBDBDB;		
+		@if($img!=""){
+			//background-image: theme_image('default', $img)!important;
+			background-image: url($img) !important;
+			background-repeat: no-repeat;	
+			background-position-x: 5%;
+            background-position-y: 50%; 					
+			}			
+		.x-form-label{			
+			color:#646464;
+			background-color: #FFFFFF;
+			text-align: left;	
+			margin-left: 52px;	
+		}
+		.x-input-el{
+			text-align: right;	
+			color: #969696;	
+            font-size: 0.8em;
+            font-weight: bold;
+            padding-top: 0.9em;
+            padding-right: 0.6em;	
+		}		
+}
+
+// Android Textfield input color fix 
+.x-android .x-input-el {
+    -webkit-text-fill-color: #787878 !important;
+    padding-top: 1.6em !important;     	
+}
+
+//For TextFields with flat look and white bg color in label and field, also icon on right side using bg image
+@mixin rm_flatfield($img){	
+		background: white;
+		border-top: 1px solid #DBDBDB;
+		@if($img!=""){
+			//background-image: theme_image('default', $img)!important;
+			background-image: url($img) !important; 
+			background-repeat:no-repeat;	
+			background-position-x: 97%;
+            background-position-y: 50%;
+			.x-component-outer{
+				margin-right: 50px;
+			}	
+		}		
+		.x-form-label{			
+			color: #646464;
+			background: #FFFFFF;			
+		}        
+        
+		.x-input-el{
+			text-align: right;	
+			color: #787878;
+            font-size: 0.8em;
+            font-weight: bold;
+            padding-top: 0.9em;	
+            padding-right: 0.6em;
+		}	
+        
+        input::-webkit-input-placeholder {
+           color: #A0A0A0;   
+           font-weight: normal;        
+        }	
+}
+
+//Toolbar UI for gray toolbar used for sort search component
+@include sencha-toolbar-ui('rm-sortsearch-topbar', #4E4E4E, 'none');
+@include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
+@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
+
+
+
+//List item selection cls with white background when tapped
+
+.rm-listitemselection{    
+    background-color: #FFFFFF !important;        
+}
+
+//Below code block is mainly for list header text color and size
+.x-list{	
+	.x-list-header {
+      color: #646464;				//Changed from default color #777 to #646464	  
+      font-size: 0.8em;			//To get the right height of header without text wrap
+      font-weight: bold;
+      padding-left: 8px; //26px;
+      line-height: 1.7em;			
+      //      background: rgba(238,238,238,.8);
+      background-color: #EBEBEB;        //Added to get flat look    
+      //@include background-image(linear-gradient(top, rgba(238, 238, 238, 1), rgba(238, 238, 238, .9) 30%, rgba(238, 238, 238, .4))); //commented to remove gradient effect
+      border-bottom: none;
+      border-top: none !important;
+    }
+    
+    //.x-list-header-wrap .x-item-header, .x-list-normal .x-list-header {
+    //    border-bottom: none;
+    //}
+}
+
+
+//For datepicker 
+.x-picker-bar {
+    border-top: none;
+    border-bottom: none;
+    height: 2.5em;
+    background: #A0A0A0;
+    opacity: 0.4;
+	//background: theme_image($theme-name, "pictos/picker_bg.png") repeat-x left top;
+    //background: url(../images/picker_bg.png) repeat-x left top;
+
+  }
+
+.x-picker-slot-title {
+    height: 1.5em;
+    position:relative;
+    z-index: 2;
+    background: #292929;
+    border: none;
+    border-radius: 0px 0px 0px 0px !important;
+    text-shadow: none;
+    text-align: center;    
+    text-transform: uppercase;
+    //@include background-gradient($picker-title-bg-color, $picker-title-bg-gradient);
+    //border-top: 1px solid $picker-title-bg-color;
+    //border-bottom: 1px solid darken($picker-title-bg-color, 20%);
+    //@include box-shadow(rgba(0, 0, 0, 0.3) 0px .1em .3em);
+    padding: 0.2em 1.02em;
+
+    > div {
+      text-shadow: none;
+      font-weight: normal;
+      font-size: 0.8em;
+      color: white;      
+    }    
+  } 
+
+.x-picker .x-scroll-container {
+    border-left: 0;
+    border-right: 1px solid #ACACAC;
+    text-align: center;
+}
+
+.x-picker {	
+		border-top: none; 
+		background: #000000;
+        .x-toolbar{
+           background: #4e4e4e;
+        }
+		.x-toolbar .x-button{
+			@include rm_topbarbuttonstyle;			
+		}
+		.x-toolbar .x-button-normal{
+            
+            text-transform: uppercase;
+			//border-right: 0.1em solid #000;
+            background: url(../images/rm-pickerbtn-border.png) repeat-y right top;
+            margin-left: -5px;
+            margin-right: 5px;
+		}
+		.x-toolbar .x-button-action{
+            
+            width: 3.8em !important;
+            text-transform: uppercase;
+			//border-left: 0.1em solid #000;
+            background: url(../images/rm-pickerbtn-border.png) repeat-y left top;
+            margin-left: 5px;
+            margin-right: -5px;
+		}
+	}
+ 	
+//datepicker end
+
+//For left side toolbar button with right side border
+  .x-button.x-button-rm_topbarbuttonleft,
+  .x-toolbar .x-button.x-button-rm_topbarbuttonleft{
+    @include rm_topbarbuttonstyle;
+	//border-right: 1px solid #000000;
+    background: url(../images/rm-topbar-border.png) repeat-y right top;
+	margin-left: -5px;
+    margin-right: 5px;
+    
+    .x-button-label{
+        font-size: 85%;
+        font-weight: bold;
+    }
+    
+  }
+  
+  //For right side toolbar button with left side border
+  .x-button.x-button-rm_topbarbuttonright,
+  .x-toolbar .x-button.x-button-rm_topbarbuttonright {
+    @include rm_topbarbuttonstyle;
+	//border-left: 1px solid #000000;
+    background: url(../images/rm-topbar-border.png) repeat-y left top;
+	margin-left: 5px;
+    margin-right: -5px;
+    width: 3.4em;
+
+    .x-button-label{
+        font-size: 85%;
+        font-weight: bold;
+    }
+
+  }
+
+//For main (black) left side toolbar button with right side border
+  .x-button.x-button-rm_maintopbarbuttonleft,
+  .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft{
+    @include rm_topbarbuttonstyle;
+	//border-right: 1px solid #000000;
+    background: url(../images/rm-maintopbar-border.png) repeat-y right top;
+	margin-left: -5px;
+    margin-right: 5px;
+    
+    .x-button-label{
+        font-size: 85%;
+        font-weight: bold;
+    }
+    
+  }
+
+//For main (black) right side toolbar button with left side border
+  .x-button.x-button-rm_maintopbarbuttonright,
+  .x-toolbar .x-button.x-button-rm_maintopbarbuttonright {
+    @include rm_topbarbuttonstyle;
+	//border-left: 1px solid #000000;
+    background: url(../images/rm-maintopbar-border.png) repeat-y left top;
+	margin-left: 5px;
+    margin-right: -5px;
+    width: 3.4em;
+
+    .x-button-label{
+        font-size: 85%;
+        font-weight: bold;
+    }
+
+  }
+
+
+//Flat Select field
+.rm-flatselectfield.x-field-select .x-component-outer::after {
+			
+			background: none;
+			position: absolute;
+			width: 0;
+			height: 0;
+			top: 0;
+			left: auto;
+			right: 0;
+			margin-top: 0;
+		}
+
+.rm-emailpasswordfield.x-field{
+	@include rm_flatfieldlefticon("../images/icons/rm-email.png");
+}
+
+.rm-flatfield{
+	@include rm_flatfield("");
+}
+/*.customername-icon.x-field{
+	@include rm_flatfield("../images/icons/rm-customer.png");
+}
+
+.projectname-icon.x-field{
+	@include rm_flatfield("");
+}
+
+.duedate-icon.x-field{
+	@include rm_flatfield("../images/icons/rm-date.png");
+}
+
+.date-icon.x-field{
+	@include rm_flatfield("../images/icons/rm-date.png");
+}
+
+.duration-icon.x-field{
+    @include rm_flatfield("../images/icons/rm-date.png");
+}
+
+.discount-icon.x-field{
+	@include rm_flatfield("");
+}
+
+.notes-icon.x-field{
+    @include rm_flatfield("../images/icons/rm-description.png");
+}*/
+
+// Flat textfield style code end
+
+
+.rm-arrowimgbtn {	
+	background-image: url("../images/icons/rm-btn-arrow.png") !important;
+	background-repeat:no-repeat;	
+	background-position-x: 95%;
+	background-position-y: 50%;
+	background-color: #EBEBEB;
+    color: #646464;
+	padding: 5px;
+    padding-left: 10px;	
+	border-radius: 0;
+	border:0;
+	height: $global-row-height;
+
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: normal;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+        padding-left: 5px;
+	}
+}
+
+.rm-plusimgbtn{
+	
+	background-image: url("../images/icons/rm-plus.png") !important;
+	background-repeat: no-repeat;	
+	background-position: left; 
+	background-color: #FFFFFF;
+	padding: 0.3em;
+	border-radius: 0;
+	border:0;
+	
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: bold;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+		margin-right: 1em;
+	}
+}
+
+.rm-whitebg{
+	background-color:#FFFFFF !important;
+}
+
+// Dropdown menu style and button as menu items. Button text aligned to left using button-label 
+.rm-dropdown{
+	background: #4D4D4D;
+	color: #FFFFFF;
+	border: none;
+	border-radius:0;
+	padding: 0px;
+	margin:0px;	
+
+  .x-button-rm_btnaslistrow {
+		border-radius: 0;
+		border: none;
+		background: url(../images/rm-menuitem-topborder.png) repeat-x left top;	
+		
+        
+	}
+  .x-button-label {    
+    text-overflow: ellipsis;
+    text-align: left;
+    font-weight: normal;
+    font-size: 115%;
+    display: block;
+    overflow: hidden;
+    padding:10px 10px 10px 15px;   	
+	}		
+}
+
+.rm-dropdownmain{
+	background: #000000;
+	color: #FFFFFF;
+	border: none;
+	border-radius:0;
+	padding: 0px;
+	margin:0px;	
+
+  .x-button-rm_btnaslistrow {
+		border-radius: 0;
+		border: none;
+		background: url(../images/rm-menuitem-topborder.png) repeat-x left top;	
+		
+        
+	}
+  .x-button-label {    
+    text-overflow: ellipsis;
+    text-align: right;
+    font-weight: normal;
+    font-size: 115%;
+    display: block;
+    overflow: hidden;
+    padding:10px;   	
+	}		
+}
+
+// Main/Module dropdown menu style and button as menu items. Button text aligned to left using button-label 
+.x-button-rm_btnaslistrowmain {
+		border-radius: 0;
+		border: none;		
+        background: #000000;
+    	color: #FFFFFF;
+    	border-top: 1px solid #4F4F4F;
+    	padding: 0px;
+    	margin:0px;            
+	}
+
+ 
+//For sortsearch dropdown button
+ .x-toolbar .x-button.x-button-rm_dropdownbtn {
+    @include rm_topbarbuttonstyle;	
+	margin: -5px;
+    padding-left: 15px !important;
+  }
+
+//dropdown button with dropdown arrow mark
+.rm-dropdownbtn{
+    color: #ffffff;
+	border: none;
+	border-radius:0;
+	padding: 0;
+	margin:0;  
+        
+    .x-button-label {    
+        text-overflow: ellipsis;
+        text-align: left;
+        font-weight: normal !important;
+        font-size: 115% !important;                
+	}	
+}
+
+
+.x-select-overlay .x-item-selected .x-list-label {
+	margin-right: 2.6em;
+	background: #4e4e4e;
+	color: #fff;
+}
+.x-select-overlay .x-list-item-body {
+	background: #4e4e4e;
+	color: #fff;
+	min-height: 46px;
+	padding: 0.65em 0.8em;
+}
+ .x-panel.x-floating,  .x-form.x-floating {
+	padding: 6px;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	-webkit-box-shadow: rgba(0,0,0,0.8) 0 0.2em 0.6em;
+	box-shadow: rgba(0,0,0,0.8) 0 0.2em 0.6em;
+	background-image: none;
+	background-color: #4e4e4e;
+	border: 0;
+	margin:0;
+}
+
+//Below code is to remove triangle shape from overlay when showBy method or Selectfield is used.
+.x-anchor.x-anchor-left,
+.x-anchor.x-anchor-right,
+.x-anchor.x-anchor-top,
+.x-anchor.x-anchor-bottom, {
+	margin:0;
+	height:0;
+	width: 0;
+	background-color: #4e4e4e;
+
+}
+ 
+ //To get white font in toolbar title
+.rm-topbartitle {
+	color: #FFFFFF;
+    padding-left: 9px;    
+    font-size: 115%;
+}
+
+//Code block for swipe container and its button styled as list rows with button text aligned to left
+.rm-swipecontainer{
+	color: #FFFFFF;
+	background: #4E4E4E;
+	
+	.x-button-rm_btnaslistrow {
+		border-radius: 0;
+		border: 0;			
+		margin: 0;        
+		background-image: url("../images/icons/btn_arrow.png"), url(../images/rm-menuitem-topborder.png);
+	    background-repeat:no-repeat, repeat-x;	
+	    background-position-x: 96%,0%;
+	    background-position-y: 50%,0%; 
+        height: $global-row-height;
+	}
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: normal;
+        font-size: 80%;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;        
+	    
+  }
+}
+
+//Keypad button style used in EnterPin screen
+.rm-flatkeypadbutton {
+	border-radius: 0;
+	border: 1px solid #989898;	
+	margin: 0;
+	background: #646464;
+	color: #FFFFFF;
+    font-size: 140%;
+    
+    .x-button-label{
+        font-weight: normal;
+    }
+}
+
+.rm-flatkeypadtextbutton {
+    .x-button-label{
+        font-size: 100%;
+    }
+}
+
+.rm-flatkeypad-crossbtn{
+    background-image: url("../images/icons/rm-keypad-cross.png");
+	background-repeat: no-repeat;	
+    background-position: center;
+}
+
+//Flat button with arrow icon set using iconCls property 
+.rm-flatbuttonwitharrow {
+	border-radius: 0;
+	border-top:0;
+	border-right:0;
+	border-left:0;
+	border-bottom:0.2em solid #E4E4E4;
+	margin:0;
+	background:#F3F3F3;
+	color: #646464;
+	
+}
+
+.rm-msgpopup {  
+	  background: #FFFFFF;
+	  color: #787878;  
+      border: 0;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      font-size: 90%;
+ 
+    .x-button {    
+        width: 100%;
+        height: 3.25em;        
+        margin: 0;        
+        border-radius: 0;        
+        color: #646464;
+        background: #efefef;  
+        border: 0 !important; 
+        border-top: 1px solid #B4B4B4 !important;              
+    }  
+
+    .x-layout-box-item {
+        text-align: center;
+    }  
+}
+
+//Popup menu used for popup dialog with cross icon. 
+.rm-popup {
+
+	  min-width: 13em;
+	  max-width: 15em;
+	  padding: 0.1em 0.1em;
+	  //font-size: 80%;
+	  //line-height: 1.1em;
+	  border: 0px solid #c2c2c2;
+	  border-radius: 0px;
+	  background: #4E4E4E;
+	  color: #FFFFFF;  
+      
+  
+	  .rm-title {
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			padding: 0.7em;
+			text-align: left;
+			color: #C8C8C8;
+			font-weight:bold;
+			p {
+				margin-bottom: 0.7em;
+			}
+	  }
+	  
+	  .rm-textitemgray{
+			margin-top: 0.2em;
+			margin-bottom: 0.2em;
+			padding: 0.5em;
+			text-align: left;
+			color: #C8C8C8;
+		
+			p {
+				margin-bottom: 0.2em;
+			}
+	  }
+	  .rm-textitemwhite{
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			padding: 0.5em;
+			text-align: left;
+			color: #FFFFFF;
+			
+			p {
+			  margin-bottom: 0.2em;
+			}
+	  } 
+	  
+	  .x-list{
+			background: #4F4F4F;	
+	  }
+	  
+		.x-list-item,
+		.x-list-item.x-item-selected {
+			
+			background: #4F4F4F;
+			color: #FFFFFF; 
+			border: 0px none !important;
+	  }
+
+	  .rm-topright {
+		margin-top: 0.3em; 
+		margin-right: 0.3em;
+		border-radius: 0;
+		padding: 0.2em;
+		border: 0;
+		height: 1.8em;
+		color: #C8C8C8;
+		background: #4F4F4F;
+		p {
+		  margin-bottom: 0.2em;
+		}
+	  }	  
+
+	  .x-button-rm_btnaslistrow {
+			border-radius: 0;
+			border: 0;			
+			margin: 0;	
+			background-image: url("../images/icons/btn_arrow.png"), url(../images/rm-menuitem-topborder.png);
+    	    background-repeat:no-repeat, repeat-x;	
+    	    background-position-x: 95%,0%;
+    	    background-position-y: 50%,0%; 
+            height: $global-row-height;
+
+			.x-button-label {    
+				text-overflow: ellipsis;
+				text-align: left;
+				font-weight: normal;
+                font-size: 100%;
+				//line-height: 1.2em;
+				display: block;
+				overflow: hidden;
+				padding: 5px;	
+			}
+		}
+
+	  .x-button-close {
+		position: absolute;
+		width: 31px;
+		height: 31px;
+		border:0;
+		//background: theme_image('default', "pictos/redcross.png") no-repeat;   
+		background: url("../images/icons/rm-popupcross.png") no-repeat;   
+		top: -14px; // ST2.1 tweak
+		right: -14px; // ST2.1 tweak
+	  }
+
+	  .x-component-outer {
+		width: 100%;
+	  }
+	  
+	  .rm-picker {		
+		background-color: #4F4F4F;
+        text-shadow: none;        
+		color: #FFFFFF;
+		border:0;
+		border-radius:0;
+		background-image: url(../images/rm-menuitem-topborder.png);
+        background-repeat:repeat-x;
+        background-position:top left;
+	  }
+
+	  .x-field-radio .x-input-el {
+	    /*background-color: #4F4F4F;
+        text-shadow: none; 
+		color: #4F4F4F;
+		border:0;
+		border-radius:0;
+        background-image: url(../images/rm-menuitem-topborder.png);
+        background-repeat:repeat-x;
+        background-position:top left;*/
+
+		&:checked:before {
+		  background-color: $base-color;
+		}
+	  }  
+	  
+}
+
+//
+//
+//
+//PakDev Code Starts here...
+//
+//
+//	
+    .rm-pl5{
+        padding-left: 5px;
+    }
+    .rm-pl0{
+        padding-left: 0px !important;
+    }
+    .rm-pr5{
+        padding-right: 5px;
+    }
+    .rm-ml5{
+        margin-left: 5px;
+    }
+    .rm-mr5{
+        margin-right: 5px;
+    }
+    .rm-mr20{
+        margin-right: 20px;
+    }
+    .rm-fontsize100{
+        font-size: 100%;
+    }
+    .rm-p5{
+        padding: 5px;
+    }
+	.rm-pt5{ padding-top:5px !important;}
+	.rm-m-1{ margin: -1px -5px -1px -5px; margin-top: -1px;}
+	.rm-tablelayout{
+		table-layout: fixed;
+	}
+
+	.rm-textlimit{
+		white-space: nowrap;
+		overflow: hidden;text-overflow: ellipsis;	
+	}
+
+	.rm-alignr{ text-align: right !important; }
+    .rm-alignl{ text-align: left !important;}
+    .rm-inputel-alignl{ .x-input-el{ text-align: left; margin-left: 5px; font-weight: normal;}	 }
+    .rm-floatl { float: left !important;}
+    .rm-floatr { float: right !important;}
+    .rm-floatr15 { position: absolute; right: 15px;}
+
+//cashbook.scss
+.rm-orgnametext{
+		color:#646464;font-size:90%;
+		font-weight:bold;
+	}
+	.rm-booknametext{
+		color:#969696;font-size:80%;
+		font-weight:bold;
+	}
+	.rm-accesstext{
+		color: #969696;
+        font-size: 68%;
+		font-weight: normal;
+	}
+
+	.rm-listdynamiccolor{
+		width:10px;height:10px;float:left;
+		background:#d2d2d2;margin-top:5px;
+	}
+	
+	.rm-nextgrayarrow {
+		background-position:right; 
+        background-repeat: no-repeat;
+		padding-right: 20px;
+        
+	}
+	
+	.rm-nextgrayarrow{		
+		background-image: url("../images/icons/rm-listitem-arrow.png"); 
+	}
+	
+	
+//bills.scss
+.rm-bill-listcls{
+		.rm-booknametext{
+			color:#969696;font-size:80%;
+			font-weight:normal;
+		}
+	}
+	.rm-reddoticon, .rm-reddotright{
+		//background-image: theme_image($theme-name, "pictos/base64/redDot.png");
+		background-image: url("../images/redDot.png"); 
+		padding-left:18px;
+	}
+	.rm-plusicon{
+		background-image: url("../images/icons/rm-plus.png");
+        background-position-x: center;
+        background-position-y: 41%;
+        background-repeat: no-repeat;
+        margin-left: -10px;
+        margin-right: 5px;
+        margin-top: -5px;
+        padding: 14px;
+	}
+	.rm-reddot {
+		background: red;
+		border-radius: 3px;
+		width: 6px;
+		height: 6px;
+		display: inline-block;
+		margin-left: 5px;
+		margin-bottom: 1px;
+	}
+
+//Timesheets
+.rm-listdynamicicon{
+		padding-left:30px;
+		background-position:left center; background-repeat: no-repeat;
+			&.rm-empty {
+				//background-image: theme_image($theme-name, "pictos/base64/empty.png") !important;
+				background-image: url("../images/empty.png") !important; 
+			}
+			&.rm-download {
+				//background-image: theme_image($theme-name, "pictos/base64/download.png") !important;
+				background-image: url("../images/download.png") !important; 
+			}
+			&.rm-dummyIcon {
+				//background-image: theme_image($theme-name, "pictos/base64/dummyIcon.png") !important;
+				background-image: url("../images/dummyIcon.png") !important; 
+			}
+	}
+.rm-timesheetrowfields{
+    color: #969696;
+    font-size: 80%;
+    font-weight: normal;
+}
+
+//Expenses
+.rm-statustext{
+    color:#969696;
+    font-size:68%;
+	font-weight:normal;
+    margin-right: 22px;
+}
+.rm-expensesrowfields{
+    color: #969696;
+    font-size: 80%;
+    font-weight: normal;
+}
+//
+//
+//PakDev Code Ends here...
+//
+//
+
+//CustomerInvoices
+.rm-customerinvoices-invoicecount{
+	color: #969696; 
+    font-size: 90%;
+	font-weight: normal;
+}
+
+.rm-addnotefield{
+    .x-input-el{
+        text-align: left;	
+    	color: #969696;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+}
+
+//Invoices
+.rm-invoices-invoicecode{
+	color: #969696; 
+    font-size: 85%;
+    font-weight: bold;
+}
+
+.rm-invoices-invoiceamount{
+	color: #646464;
+    font-size: 90%;
+	font-weight: bold;
+}
+.rm-invoices-duestatus{
+    color: #969696;
+    font-size: 85%;
+	//font-weight: bold;
+}
+.rm-emailreminder{
+	color: #0096CF;     
+	font-weight: normal;		
+}
+
+//InvoiceTimeSelect
+.rm-notelink{
+	color: #0096CF; 
+    font-size: 80%;
+	font-weight: normal;
+}
+
+.rm-invoicetimeselect-date{
+	color: #969696;
+    font-size: 80%;
+	font-weight: bold;
+}
+
+.rm-invoicetimeselect-project{
+	color: #969696;
+    font-size: 80%;
+	font-weight: normal;
+}
+
+.rm-invoicetimeselect-desc{
+    color: #969696;
+    font-size: 80%;
+    font-weight: bold;
+}
+
+.rm-billabletext{
+	color: #969696;
+    font-size: 68%;
+	padding-right: 12px;
+	font-weight: normal;
+}
+
+.rm-invoiceitemtext{
+	color: #0096D0; 
+	font-size: 86%;     
+}
+
+.rm-invoiceitemamount{
+    text-align: right;
+    color: #646464;
+    font-size: 86%;     
+}
+
+.rm-checkbox-on{	
+	background-image: url("../images/icons/checkbox-on.png"); 
+}
+
+.rm-checkbox-off{	
+	background-image: url("../images/icons/checkbox-off.png"); 
+}
+
+.rm-checkbox{
+	background-position: center; 
+    background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;    
+}
+
+.rm-checkbox-label{
+		color: #969696;
+        font-size: 80%; 
+		font-weight: normal;
+        margin-left: 5px;
+        margin-right: 5px;
+}
+
+.rm-budgetlineitem-name{
+		color: #646464; 
+        font-size: 90%;
+		font-weight: bold;
+}
+
+.rm-budgetlineitem-field{
+		color: #646464;
+        font-size: 72%;	
+}
+
+.rm-budgetlineitem-value{        
+		color: #969696;
+        font-size: 84%; 
+        font-weight: bold;		
+}
+
+.rm-budgetlineitem-total-bgcolor{
+		background: #F0F0F0;
+}
+
+.rm-pricevalue{
+		color: #646464;
+        font-size: 90%;
+		font-weight: normal;
+}
+
+.rm-historydate{
+		color: #C8C8C8;
+        font-size: 70%;		
+}
+
+.rm-historytext{
+		color: #969696;
+        font-size: 80%;         	
+}
+
+.rm-invoiceaction-bg{
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #DBDBDB;    
+}
+
+.rm-notes-icon.x-field{
+	@include rm_flatfield("pictos/note.png");
+}
+
+.rm-note-icon{
+		
+		background-image: url("../images/icons/rm-note.png");
+		background-position: center; 
+        background-repeat: no-repeat;
+		width: 22px;
+		height: 26px;
+        margin-right: 2px
+}
+
+.x-list.rmbudgetlist{
+		.x-list-item{
+			.x-list-item-body{
+				padding: 0;
+				.rmbudgetlistcoloredbg{
+					background: #f0f0f0;
+					padding: 0.65em 0.8em;
+				}
+				.rmbudgetlistplainbg{
+					padding: 0.65em 0.8em;
+				}
+			}
+		}
+	}
+
+.rm-balance-breakdown-amount{
+	float: right;
+}
+
+.rm-balance-breakdown-row{	
+	padding: 0.6em;
+	background: #FFFFFF;
+	color: #646464;
+	margin-right: -8px;
+	margin-left: -8px;
+    border-bottom: 1px solid #DBDBDB;
+}
+
+.rm-balance-breakdown-due{	
+	padding: 0.6em;
+	background: #626262;
+	color: #FFFFFF;
+	margin-right: -8px;
+	margin-left: -8px;
+    border-bottom: 2px solid #DBDBDB;
+}
+
+rm-emailinvoicebackground{
+    background: #F8F8F8;
+}
+
+.rm-emailscreenbtn {	
+	
+	background-image: url("../images/icons/rm-btn-arrow.png") !important;
+	background-repeat: no-repeat;	
+	background-position-x: 75%;
+	background-position-y: 50%; 
+	background-color: #EBEBEB;
+	padding: 0.3em;	
+	border-radius: 0;
+	border: 0;	
+	border-bottom: 2px solid #DBDBDB;
+    height: $global-row-height;
+	
+	.x-button-label { 		  
+		text-overflow: ellipsis;		
+		font-weight: bold;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+		margin-right: 15px;
+		color: #646464;
+	}
+}
+
+.rm-emailcheckmark{	
+	background-image: url("../images/icons/rm-emailtickmark.png") !important;
+	background-repeat: no-repeat;
+	background-color: #A1CF79;	
+	margin: 3px 10px 3px 10px;
+}
+
+.rm-emailpositivepanel{	
+	background-color: #A1CF79;
+	.x-innerhtml {		
+		color: #FFFFFF;		
+	}
+    padding: 20px 10px 20px 15px;
+}
+
+.rm-emailcrossmark{	
+	background-image: url("../images/icons/rm-emailcrossmark.png") !important;	
+	background-repeat: no-repeat;	
+	background-color: #ED3D57;
+	margin: 3px 10px 3px 10px;
+}
+
+.rm-emailnegativepanel{	
+	background-color: #ED3D57;
+	.x-innerhtml {		
+		color: #FFFFFF;		
+	}
+    padding: 20px 10px 20px 15px;	
+}
+
+.rm-paymenttype-btn-bg{	
+	background-color: #FFFFFF;
+    border-bottom: 1px solid #DBDBDB;
+    padding: 6px 18px 6px 18px;
+}
+
+.rm-pincode {
+	border-bottom: solid 3px #DCDCDC;
+	text-align: center;    
+}
+.rm-pincode-entered {	
+	background: url("../images/icons/rm-pinmask.png") no-repeat center;				
+}
+
+.rm-dashboard{
+    background: #FFFFFF;
+    margin:-5px;    
+}
+
+.rm-dashboard-nodata{
+    padding: 10px 0px 10px 20px;  
+    font-size: 86%;   
+    color: #969696;   
+}
+.rm-clear{
+    height: 0px;
+    clear: both;
+}
+
+.rm-budgetoverview{
+    padding: 10px 10px 0px 10px;    
+}
+
+.rm-dashboardtopexpenses{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.rm-dashboardnetposition{
+    margin: 7px 5px 7px 5px;
+    color: #646464;
+}
+
+.rm-activate-btn{
+    background: #91CA42;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 0;    
+}
+
+.rm-module-close-btn{
+    
+	background-image: url("../images/rm-module-close.png")!important;	
+    background-repeat: no-repeat;	
+    border: 0;
+    border-radius: 0; 
+    width: 50px;  
+    height: 50px;  
+	margin-top: 15px;
+}
+
+.rm-module-panel{    
+    border-top: 2px solid #D1D1D1;
+    padding: 15px;
+    background: #F0F0F0;
+}
+
+.rm-module-title{
+    font-weight: bold;
+    font-size: 17px;
+    color: #646464;  
+    padding: 15px;
+    padding-bottom: 0; 
+	margin-top: 9px;
+}
+
+.rm-module-msg{
+    font-weight: normal;
+    font-size: 16px;
+    color: #8C8C8C; 
+    padding: 10px 15px 10px 15px;
+}
+
+.rm-module-topbar-icon{
+    //background-image: theme_image('default', "pictos/base64/reckon-module-icon.png")!important;
+	background-image: url("../images/icons/rm-reckon-icon.png")!important;
+    background-repeat: no-repeat;    
+    height: 34px;
+    width: 121px;
+    margin: 6px 8px 6px 8px;
+}
+
+.rm-module-panel-arrow{
+	
+	background-image: url("../images/rm-popup-arrow.png")!important;
+    background-repeat: no-repeat;	
+    width: 43px;
+	height: 22px;
+	position: absolute;
+	top: -22px;	
+	
+}
+
+//Used for first three items of slide nave menu class
+.rm-slidenav-menuitem{    
+    color: #B4B4B4;
+    background: #686868;
+    //margin-top: -0.7em; 
+    //margin-bottom: -0.65em; 
+    //margin-left: -0.8em;
+    //margin-right: -0.8em;
+    margin: -0.8em;
+    padding: 0.8em;    
+    border-top: 1px solid #818181;
+}
+
+//Used for slidenav menu items with not activated text
+.rm-slidenav-menuitem-msg {
+      
+      //IMPORTANT: Change width whenever there is a change in width of slide nave menu list: width: 275, in MainNavContainer.js class
+      width: 250px;
+      
+      //Main label or menu item text
+      .leftlabel {
+          display: inline;
+       }
+       
+      //Msg label (not activated)
+      .rightlabel {
+          display: inline;
+          font-size: 72%;
+          padding-top: 0.4em;
+          float: right;  
+       }
+      
+}
+
+
+
+.x-list.x-slidenavigation-list{  
+       
+        background : #3D3D3D; 
+	    
+        .x-title{
+            font-weight: normal;
+            position: absolute !important;
+        }
+
+        .x-list-item{		
+            color: #969696;
+			background : #3D3D3D;            	                     
+        }   
+
+        .x-list-item.x-list-item-tpl, 
+        .x-list-item .x-dock-horizontal {
+              border-top: 1px solid #4F4F4F; 
+        }
+        
+        .x-list-item.x-list-item-tpl.x-list-footer-wrap, 
+        .x-list-item.x-list-footer-wrap .x-dock-horizontal {
+              border-bottom: 1px solid #4F4F4F; 
+        }             
+		
+		.x-list-header{
+                background : #131313;
+                padding: 0.5em 1em;
+                line-height: 1.2em !important;
+				border: none;
+                color: #FFFFFF;
+				text-shadow: none;
+                margin-top: -1px;
+                margin-bottom: -1px				
+        }
+        
+        .x-list-item.x-item-selected .x-dock-horizontal, 
+        .x-list-item.x-item-selected.x-list-item-tpl {
+                color: #FFFFFF;	
+    			background : #3E3E3E; 					
+    			font-weight: bold;
+                text-shadow: none;
+                margin-bottom: -1px
+        }
+
+		
+}
+
+// set to white for all button icons, required for keypad x - delete button
+.x-button .x-button-icon.x-icon-mask, 
+.xtoolbar .x-button .x-button-icon.x-icon-mask{
+		background: #FFFFFF;
+}
+
+// Swipebar in swip panel of Invoice screen
+.rm-swipebar{
+    background-image: url("../images/rm-swipebar.png")!important;
+    background-position: center top; 
+    background-repeat: no-repeat;
+    height: 2px;
+	width: 32px;
+    margin: 2px auto;
+}
+
+
+
+//Login button on EnterUsername view
+.rm-loginbtn{
+    background-image: url("../images/icons/rm-btn-arrow.png") !important;
+	background-repeat: no-repeat;	
+	background-position-x: 65%;
+	background-position-y: 50%;
+	background-color: #F0F0F0;
+    color: #646464;	
+	border-radius: 0;
+	border: 0;
+    border-top: 1px solid #DBDBDB;
+    border-bottom: 1px solid #DBDBDB;	
+    height: $global-row-height;
+}
+
+//Login msg on EnterUsername screen
+.rm-intromsg{ 
+    font-size: 86%;   
+    color: #969696;    
+}
+
+.rm-errormsg{
+    font-size: 86%;   
+    color: #FE0000;   
+}
+
+//Msg on EnterPin screen
+.rm-pinmsg{
+    color: #969696;
+    padding: 20px 15px 20px 15px;
+}
+
+//Module Tiles on module screen
+.rm-moduletiles{
+	padding: 0px 10px 10px 0px;
+	text-align: center;
+}
+
+/* Target the tiled view item. Make it float using inline-block. */
+.rm-moduletiles-item {
+	width: 140px;
+	height: 145px;
+	display: inline-block;
+	margin: 10px 0 0 10px;
+}  
+
+//checkbox small text
+.rm-checkbox-smalltext{
+    font-size: 84%;
+    color: #969696;
+    margin-left: 9px;
+    margin-right: 9px;    
+}
+
+//Code to get white background in invoices, timesheet and expenses details screen   
+.x-form .x-scroll-container {
+    background-color: #FFFFFF;
+}
+
+//Text color for invoiceline items heading colour
+.rm-invoicelineitem-text{
+    color: #646464;
+    font-size: 86%;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.rm-invoicelineitem-add {
+    color: #0096D0;
+    font-size: 86%;
+    font-weight: bold;
+    padding: 5px;    
+}
+
+//Added to get font padding right for list paging msg
+/*.x-list-paging-msg{
+    padding: 15px;    
+}*/
+
+.x-list-paging {
+  padding: 15px; 
+}
+.x-list-paging .x-list-paging-msg {
+  color: #646464;
+  text-align: left;
+  font-size: 90%;
+  font-weight: bold;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0; 
+}
+.x-list-paging.x-loading {
+  padding: 15px; 
+}
+
+//Accept Payment Text
+.rm-acceptpaymenttext{
+    color: #505050; 
+    padding: 25px 10px 5px 10px; 
+    font-size: 86%;
+}
+
+//Accept Payment Tap text
+.rm-acceptpaymenttaptext{
+    color: #8C8C8C; 
+    padding: 5px 10px 10px 10px;
+    font-size: 86%;
+}
+
+//To get the color in search field in gray toolbar while typing  
+.x-toolbar .x-form-field:focus {
+    color: #969696;    
+}
+
+//To remove box shadow from search field 
+.x-toolbar .x-field-textarea .x-component-outer, .x-toolbar .x-field-text .x-component-outer, .x-toolbar .x-field-number .x-component-outer, .x-toolbar .x-field-search .x-component-outer {
+    -webkit-box-shadow: none;    
+    box-shadow: none;
+}
+
+//ForgottenPassword screen msg
+.rm-resetpasswordmsg{
+    color: #646464; 
+    font-size: 72%;    
+}
+
+//Budget checkbox title
+.rm-budgetcheckboxtext{
+    color: #969696;
+    font-size: 90%;
+    margin-left: 16px;    
+}
+
+//Enter PIN screen header
+.rm-pinheader{
+    color: #646464;
+}
+
+//Create new item button
+.rm-createitembtn{
+    //background-image: url("../images/icons/rm-plus.png") !important;
+	//background-repeat: no-repeat;	
+	//background-position-x: 15px; 
+    //background-position-y: 50%;
+	background: #FFFFFF;
+    color: #0096D0;	
+	border-radius: 0;
+	border: 0;
+    border-top: 1px solid #DBDBDB;
+    //border-bottom: 1px solid #DBDBDB;	
+    height: $global-row-height;
+	
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: normal;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;		
+        margin-left: 5px;
+	}
+}
+
+//RMToggleField on
+.rm-togglefield-on.x-field{
+    //For Text of togglefield
+    .x-input-el {
+        padding-right: 27px;    
+        color: #646464;                
+    }
+
+    .x-field .x-field-input{
+        padding-right: 10px;
+    }
+
+    //For icon of togglefield
+    .x-input-el{	
+        background-image: url("../images/icons/rm-togglefield-on.png") !important;
+        background-repeat: no-repeat;	
+    	background-position: right;
+        position: absolute;
+        right: 10px;
+        background-position-y: 40% !important;
+    }
+}
+
+//RMToggleField off
+.rm-togglefield-off{
+    //For Text of togglefield
+    .x-input-el {
+        padding-right: 27px;
+        color: #646464;
+    }
+    
+    .x-field .x-field-input{
+        padding-right: 10px;
+    }
+    
+    //For icon of togglefield
+    .x-input-el{		
+        background-image: url("../images/icons/rm-togglefield-off.png") !important;
+        background-repeat: no-repeat;	
+    	background-position: right;
+        position: absolute;
+        right: 10px;
+        background-position-y: 40% !important;       
+    }
+}
+
+//Loading mask style start
+.x-loading-spinner {
+    font-size: 0% !important;
+}
+
+.x-mask .x-mask-inner {
+    position: relative;
+    margin-top: -75px;
+    background: #FFFFFF;
+    color: #787878;
+    text-align: center;
+    padding: .4em;
+    font-size: .95em;
+    border-radius: 0; 
+    width: 100% !important;   
+}
+
+.x-mask .x-loading-spinner-outer {
+    background-image: url("../images/rm-loading-img.gif") !important;
+    background-repeat: no-repeat;
+    background-position: center;   
+}
+
+.x-mask.x-has-message .x-loading-spinner-outer {
+    height: 5em;
+}
+
+.x-mask .x-mask-message {
+    width: 100% !important;
+    text-shadow: none;
+    max-width: none;
+    position: absolute;
+    bottom: 1.4em;
+}
+//Loading mask style end
+
+//To remove black border from toolbars
+.x-toolbar.x-docked-top {
+    border-bottom: none;
+}
+
+
+//MessageBox style start
+
+.x-msgbox {
+    //height: 170px;
+    width: 100%;
+    margin: 0;
+    padding: 0;    
+    border-radius: 0;
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.x-msgbox-buttons .x-button {    
+    //width: 100%;
+    //margin: 0;
+    //margin-bottom: -15px;    
+    border-radius: 0;
+    //padding: 0;
+    color: #646464 !important;
+    background: #efefef !important;  
+    border: 0 !important; 
+    //border-top: 1px solid #B4B4B4 !important;
+}
+
+.x-msgbox-text {   
+    color: #787878 !important;
+    text-shadow: none !important;
+    text-align: center;
+    font-size: 90%;
+}
+
+.x-msgbox .x-title {
+    font-size: .9em;
+    line-height: 1.4em;
+    color: #787878;
+    text-shadow: none;
+}
+
+/*.rm-msgbox-iconcls{
+    background-image: url("../images/rm-msgbox-icon.png") !important;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 45%;
+    right: 45%;
+    top: 20px;
+}*/
+
+//MsgBox Style End
+
+//Mandatory field red color highlighting
+.rm-manfld-notset-lbl span{
+    color: red;
+} 
+
+//style to show border on top of RMCheckbox in form fields 
+.rm-checkbox-rightalign {
+    padding-right: 5px;
+    .x-layout-box.x-pack-start {
+        -webkit-box-pack: end !important;
+        box-pack: end !important;
+    }    
+}
+
+//Ammount field
+.rm-amountfield{
+    .x-input-el:before{
+        display: inline;
+        content: '$';
+    }
+}
+
+//RMPullRefresh style start
+// RM Pull refresh class
+.x-list-pullrefresh {
+  display: -webkit-box;
+  display: box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-align: center;
+  box-align: center;
+  -webkit-box-pack: center;
+  box-pack: center;
+  position: absolute;
+  top: -5em;
+  left: 0;
+  width: 100%;
+  height: 4.5em; }
+
+// RM Pull refresh red arrow class
+.x-list-pullrefresh-arrow {
+    width: 100%;
+    height: 41px;
+    background-image: url("../images/rm-pullarrow.png") !important;
+    background-size: 20px 22px;
+    background-position: center center; 
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 200ms;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+// RM Pull refresh update class
+.x-list-pullrefresh-updated {
+  font-size: 110%;  
+  text-align: center;
+  color: #969696;
+  display: block !important; }
+
+// RM Pull refresh message class
+.x-list-pullrefresh-message {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 0.1em;
+    text-align: center;
+    color: #969696;
+}
+//RMPullRefresh style end
+
+.rm-dropdownmenu-bgcolor{
+    background: #000 !important;
+}
+
+// About screen code start
+.rm-about-product-name{
+    color: #646464;
+    font-size: 100%;
+}
+
+.rm-about-product-version{
+    color: #969696;
+    font-size: 84%;
+}
+
+.rm-about-product-copyright{
+    color: #969696;
+    font-size: 90%;
+}
+
+.rm-about-link{
+    color: #1395D1;
+    font-size: 90%;
+}
+// About screen code end
+
+// Action button like camera or note with right arrow
+.rm-actionbtn {	
+	
+	padding: 5px !important;	
+
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+        font-size: 90%;
+		font-weight: bold !important;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+        padding-left: 0 !important;
+	}
+}
+
+//Photo Preview buttons style start
+.rm-photopreviewbtn {	
+    background-image: url("../images/icons");
+	background-color: #EBEBEB;
+    color: #646464;		
+    border-radius: 0;
+	border:0;
+    height: $global-row-height;
+
+	.x-button-label {    
+        
+		text-overflow: ellipsis;
+		text-align: center !important;
+        font-size: 84%;
+		font-weight: bold !important;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;        
+	}
+}
+
+.rm-btnarrow-next {        
+    background-image: url("../images/icons/rm-btn-arrow.png"); 
+	background-position: 96%;         
+    background-repeat: no-repeat;      
+}
+
+.rm-btnarrow-prev {        
+    background-image: url("../images/icons/rm-btn-back-arrow.png"); 
+	background-position: 4%;            
+    background-repeat: no-repeat;        
+}
+
+//Photo Preview buttons style end
+
+//Invoice approved header
+.rm-approved-hearderbg{
+		background: #D9F4C1;
+        padding: 6px 14px 4px 14px;
+        border: none;
+        color: #74B23D;
+        text-shadow: none;
+        font-weight: bold;
+        font-size: 80%;
+	} 

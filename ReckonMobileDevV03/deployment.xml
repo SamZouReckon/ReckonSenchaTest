@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<import file="git.targets"/>
+	<property file="deployment.props" />
+
+    <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
+    <property name="build.artifacts.dir" value="${app.build.dir}/${args.environment}" />
+
+	<target name="update-deployment-project" if="build.operations.production" depends="-pull-local-repo,-copy-files-over,-commit-and-push">
+		<echo message="${deployment.project.name} Updated, please open Icenium and Pull."/>
+	</target> 
+
+	<target name="-pull-local-repo">
+		<echo message="Updating ${deployment.project.name}"/>
+		<git-pull dir="${deployment.project.dir}" remote="${deployment.project.repo}" failonerror="true"/>
+	</target>
+
+	<target name="-copy-files-over">
+		<echo message="Copying new build output to deployment project at ${deployment.project.dir}"/>
+		<copy todir="${deployment.project.dir}">
+			<fileset dir="${build.artifacts.dir}"/>
+		</copy>
+	</target>
+
+	<target name="-commit-and-push">
+			<git-add file="." failonerror="true" dir="${deployment.project.dir}"/>
+			<git-commit-with-message message="adding deployment build" dir="${deployment.project.dir}"/>
+			<git-push-to-branch remoteRepositoryName="origin" branch="master" dir="${deployment.project.dir}"/>
+			<echo message="${deployment.project.name} deployment build pushed."/>
+	</target>
+
+</project>

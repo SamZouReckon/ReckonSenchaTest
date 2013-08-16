@@ -12,7 +12,7 @@ Ext.define('RM.view.AcceptPayment', {
             items: [{
                 itemId: 'back',
                 ui: 'rm_topbarbuttonleft',
-                iconCls: 'rm-back',
+                icon: 'resources/images/icons/rm-back.png',
                 width: '2.6em',
                 iconMask: 'true'
             }, {

@@ -10,8 +10,7 @@ Ext.define('RM.view.settings.CoreSettings', {
             docked: 'top',            
             items: [{
 				ui: 'rm_maintopbarbuttonleft',
-				iconCls: 'rm-back',
-				iconMask: 'true',
+				icon: 'resources/images/icons/rm-back.png',				
 				itemId: 'back'				
 			},{
                 xtype: 'component',
@@ -21,6 +20,7 @@ Ext.define('RM.view.settings.CoreSettings', {
                 xtype: 'spacer'
             }, {
                 text: 'SAVE',
+                width: '4em',
                 itemId: 'save',
                 ui: 'rm_maintopbarbuttonright'
             }
@@ -71,6 +71,7 @@ Ext.define('RM.view.settings.CoreSettings', {
                 xtype: 'spacer'
             }, {
                 xtype: 'button',
+                width: '7em',
                 text: 'Upload logs',
                 itemId: 'uploadLogs',
                 ui: 'rm_maintopbarbuttonright'

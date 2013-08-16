@@ -141,9 +141,8 @@ Ext.define('Ext.ux.slidenavigation.View', {
          *  Default config values used for creating a slideButton.
          */
         me.slideButtonDefaults = {
-            xtype: 'button',
-            iconMask: true,
-            iconCls: 'rm-menu',							//Raj: menu icon
+            xtype: 'button',            
+            icon: 'resources/images/icons/rm-menu.png',							//Raj: menu icon
 			ui: 'rm_topbarbuttonleft',					//Raj: for flat look button
             width: '2.6em',
             name: 'slidebutton',

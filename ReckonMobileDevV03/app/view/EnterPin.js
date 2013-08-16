@@ -17,9 +17,8 @@ Ext.define('RM.view.EnterPin', {
             },
             {
                 xtype: 'spacer'
-            }, {
-                iconMask: true,
-                iconCls: 'rm-settings',
+            }, {                
+                icon: 'resources/images/icons/rm-settings.png',
                 itemId: 'options',                
                 ui: 'rm_maintopbarbuttonright'
             }

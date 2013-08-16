@@ -10,9 +10,8 @@ Ext.define('RM.view.InvoiceBalanceBreakdown', {
             docked: 'top',
             items: [{
 					ui: 'rm_topbarbuttonleft',
-					iconCls: 'rm-back',
-                    width: '2.6em',
-					iconMask: 'true',
+					icon: 'resources/images/icons/rm-back.png',
+                    width: '2.6em',					
 					itemId: 'back'				
 				},{
 					xtype: 'component',

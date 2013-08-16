@@ -7,13 +7,11 @@ Ext.define('RM.view.InvoiceLineItem', {
         items: [{
             xtype: 'toolbar',
             docked: 'top',
-            items: [{
-					ui: 'back',
+            items: [{					
 					itemId: 'back',
 					ui: 'rm_topbarbuttonleft',
                     width: '2.6em',
-					iconCls: 'rm-back',
-					iconMask: 'true'
+					icon: 'resources/images/icons/rm-back.png'					
 				},{
 					xtype: 'component',
 					html: 'Item details',

@@ -3,10 +3,20 @@
 	<import file="git.targets"/>
 	<property file="deployment.props" />
 
-    <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
-    <property name="build.artifacts.dir" value="${app.build.dir}/${args.environment}" />
+  <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
+  <property name="build.artifacts.dir" value="${app.build.dir}/${args.environment}" />
 
-	<target name="update-deployment-project" if="build.operations.production" depends="-pull-local-repo,-copy-files-over,-commit-and-push">
+	<target name="update-deployment-project">
+		<if>
+		  <equals arg1="${args.environment}" arg2="production"/>
+		  <then>
+		    <antcall target="-update-deployment-project" />
+				<echo message="${deployment.project.name} Updated, please open Icenium and Pull."/>
+		  </then>
+		</if>		
+	</target> 
+
+	<target name="-update-deployment-project" if="build.operations.production" depends="-pull-local-repo,-copy-files-over,-commit-and-push">
 		<echo message="${deployment.project.name} Updated, please open Icenium and Pull."/>
 	</target> 
 

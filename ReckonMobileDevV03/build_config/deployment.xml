@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project>
-	<import file="git.targets"/>
-	<property file="deployment.props" />
+<project name="deployment">
+	<dirname property="deployment.basedir" file="${ant.file.deployment}"/>
+	<property file="${deployment.basedir}/deployment.props" />
+	<import file="git.targets"/>	
 
   <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
   <property name="build.artifacts.dir" value="${app.build.dir}/${args.environment}" />
@@ -11,7 +12,6 @@
 		  <equals arg1="${args.environment}" arg2="production"/>
 		  <then>
 		    <antcall target="-update-deployment-project" />
-				<echo message="${deployment.project.name} Updated, please open Icenium and Pull."/>
 		  </then>
 		</if>		
 	</target> 
@@ -27,16 +27,22 @@
 
 	<target name="-copy-files-over">
 		<echo message="Copying new build output to deployment project at ${deployment.project.dir}"/>
-		<copy todir="${deployment.project.dir}">
+		<copy todir="${deployment.project.dir}" overwrite="true">
 			<fileset dir="${build.artifacts.dir}"/>
 		</copy>
+		<move todir="${deployment.project.dir}" verbose="true">
+			<fileset dir="${deployment.project.dir}" includes="**/*.production*"/>
+			<mapper>
+				 <regexpmapper from="(.*)\.production\.(.*)" to="\1\.\2" />
+			</mapper>
+		</move>
 	</target>
 
 	<target name="-commit-and-push">
-			<git-add file="." failonerror="true" dir="${deployment.project.dir}"/>
-			<git-commit-with-message message="adding deployment build" dir="${deployment.project.dir}"/>
-			<git-push-to-branch remoteRepositoryName="origin" branch="master" dir="${deployment.project.dir}"/>
-			<echo message="${deployment.project.name} deployment build pushed."/>
+		<git-add file="." failonerror="true" dir="${deployment.project.dir}"/>
+		<git-commit-with-message message="adding deployment build" dir="${deployment.project.dir}"/>
+		<git-push-to-branch remoteRepositoryName="origin" branch="master" dir="${deployment.project.dir}"/>
+		<echo message="${deployment.project.name} deployment build pushed."/>
 	</target>
 
 </project>

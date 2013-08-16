@@ -32,7 +32,7 @@ Ext.define('RM.view.ContactDetail', {
 				xtype: 'formpanel',
 				itemId: 'contactForm',
 				padding: 0,
-                defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'Enter', clearIcon: false},
+                defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},
 				items: [
 					{
 						xtype: 'hiddenfield',
@@ -117,7 +117,7 @@ Ext.define('RM.view.ContactDetail', {
                         {
                             xtype: 'numberfield', 
                             cls: 'rm-flatfield', 
-                            placeHolder: 'Enter',
+                            placeHolder: 'enter',
                             name: 'Phone',
                             flex: 3.5,
                             clearIcon: false,

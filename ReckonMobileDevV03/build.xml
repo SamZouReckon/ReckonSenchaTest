@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="ReckonOne Mobile" default=".help">
     <import file="${basedir}/.sencha/app/build-impl.xml"/>
-    <import file="${basedir}/deployment.xml"/>
+    <import file="${basedir}/build_config/deployment.xml"/>
 
     <!-- This wires in the deployment project update that occurs after a production build -->
     <target name="-after-build" depends="update-deployment-project"/>

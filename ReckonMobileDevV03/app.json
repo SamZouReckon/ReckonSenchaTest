@@ -31,7 +31,8 @@
   "resources": [
     "resources/images",
     "resources/icons",
-    "resources/startup"
+    "resources/startup",
+    "index.production.html"
   ],
   "ignore": [
     ".svn$"

@@ -17,8 +17,7 @@ Ext.define('RM.view.EmailInvoice', {
 						items: [
 							{								
 								ui: 'rm_topbarbuttonleft',
-								iconCls: 'rm-back',
-								iconMask: 'true',
+								icon: 'resources/images/icons/rm-back.png',								
 								width: '2.6em',
 								itemId: 'back'				
 							},{

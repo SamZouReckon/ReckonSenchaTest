@@ -18,12 +18,10 @@ Ext.define('RM.view.ForgotPassword', {
 						xtype: 'toolbar',
 						docked: 'top',
                         ui: 'rm-main-topbar',
-						items: [{
-								//ui: 'back',
+						items: [{								
 								ui: 'rm_maintopbarbuttonleft',
-								iconCls: 'rm-back',
-                                width: '2.6em',
-								iconMask: 'true',
+								icon: 'resources/images/icons/rm-back.png',
+                                width: '2.6em',								
 								itemId: 'back'				
 							},{
 								xtype: 'component',

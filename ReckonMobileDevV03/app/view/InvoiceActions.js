@@ -10,9 +10,8 @@ Ext.define('RM.view.InvoiceActions', {
             docked: 'top',
             items: [{
 					ui: 'rm_topbarbuttonleft',
-					iconCls: 'rm-back',
-					iconMask: 'true',
-                    width: '2.6em',
+					icon: 'resources/images/icons/rm-back.png',
+					width: '2.6em',
 					itemId: 'back'				
 				},{
 					xtype: 'component',
@@ -23,8 +22,7 @@ Ext.define('RM.view.InvoiceActions', {
         },{
             xtype: 'component',
             itemId: 'invoiceStatus',
-            cls: 'rm-hearderbg'
-            //style: 'background: #ECECEC; color: #6D6D6D;'
+            cls: 'rm-hearderbg'            
         },{
 			text: 'Approve invoice',
 			itemId: 'approve',

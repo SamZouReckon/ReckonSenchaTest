@@ -13,8 +13,7 @@ Ext.define('RM.view.CreatePin', {
                     itemId: 'back',
                     width: '2.6em',
                     ui: 'rm_maintopbarbuttonleft',
-                    iconCls: 'rm-back',
-                    iconMask: 'true'
+                    icon: 'resources/images/icons/rm-back.png'                    
                 },{
 					xtype: 'component',
                     itemId: 'title',

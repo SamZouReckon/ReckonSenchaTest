@@ -1,6 +1,0 @@
-# Project name must match the Release project folder and project name
-deployment.project.name=ReckonMobileDevV02Deploy
-# Where to find the above folder, relative to the Dev project folder location
-deployment.project.root=${basedir}/../..
-# Release project repo url
-deployment.project.repo=https://woody_za@bitbucket.org/woody_za/reckonmobiledevv02deploy.git

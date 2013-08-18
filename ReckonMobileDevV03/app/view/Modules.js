@@ -18,8 +18,7 @@ Ext.define('RM.view.Modules', {
                     },{
                         xtype: 'spacer'
                     }, {
-                        iconMask: true,
-                        iconCls: 'rm-settings',                        
+                        icon: 'resources/images/icons/rm-settings.png',
                         itemId: 'options',
                         ui: 'rm_maintopbarbuttonright'
                     }

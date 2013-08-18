@@ -10,9 +10,8 @@ Ext.define('RM.view.InvoiceDetail', {
             xtype: 'toolbar',			
             docked: 'top',
             items: [{
-					ui: 'rm_topbarbuttonleft',
-					iconCls: 'rm-back',
-					iconMask: 'true',
+					ui: 'rm_topbarbuttonleft',					
+					icon: 'resources/images/icons/rm-back.png',
 					itemId: 'back'				
 				},{
 					xtype: 'component',
@@ -21,11 +20,9 @@ Ext.define('RM.view.InvoiceDetail', {
                     cls: 'rm-topbartitle'
 				},{
 					xtype: 'spacer'
-				},{
-					//text: 'O',
+				},{					
 					itemId: 'options',	
-					iconCls: 'rm-settings',
-					iconMask: 'true',
+					icon: 'resources/images/icons/rm-settings.png',
 					ui: 'rm_topbarbuttonright',
                     width: '2.6em'
 				},{

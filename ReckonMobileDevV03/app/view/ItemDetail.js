@@ -9,12 +9,10 @@ Ext.define('RM.view.ItemDetail', {
             xtype: 'toolbar',
             docked: 'top',
             items: [{
-					ui: 'back',
 					itemId: 'back',
 					ui: 'rm_topbarbuttonleft',
                     width: '2.6em',
-					iconCls: 'rm-back',
-					iconMask: 'true'
+					icon: 'resources/images/icons/rm-back.png'					
 				},{
 					xtype: 'component',
 					html: 'Item details',

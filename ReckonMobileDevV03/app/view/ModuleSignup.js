@@ -10,9 +10,8 @@ Ext.define('RM.view.ModuleSignup', {
 				items: [
 					{
 						ui: 'rm_maintopbarbuttonleft',
-						iconCls: 'rm-back',
-						width: '2.6em',
-						iconMask: 'true',
+						icon: 'resources/images/icons/rm-back.png',
+						width: '2.6em',						
 						itemId: 'back'
 					},{
 						xtype: 'component',
@@ -23,7 +22,7 @@ Ext.define('RM.view.ModuleSignup', {
 					}, {
 						text: 'SIGN UP',
 						itemId: 'signup',
-                        width: '4.4em',
+                        width: '5em',
 						ui: 'rm_maintopbarbuttonright'
 					}
 				]

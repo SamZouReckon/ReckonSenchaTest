@@ -88,6 +88,7 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },*/{
+            index: 'lock',
             title: 'Lock',
             activated: true,
             handler: function () {
@@ -95,6 +96,7 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },{
+            index: 'logout',
             title: 'Logout',
             activated: true,
             handler: function () {
@@ -102,6 +104,7 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },{
+            index: 'choosebook',
             title: 'Choose book',
             activated: true,
             group: 'RECKON ONE',
@@ -109,6 +112,7 @@ Ext.define('RM.view.MainNavContainer', {
                 RM.AppMgr.selectCashBook();
             }
         },{
+            index: 'dashboard',
             xtype: 'dashboard',
             title: 'Dashboard',
             activated: true,
@@ -125,6 +129,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         },*/ {
             xtype: 'customerinvoices',
+            index: 'invoices',
             title: 'Invoices',
             activated: true,
             group: 'RECKON ONE',
@@ -133,6 +138,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         },/* {
             xtype: 'bills',
+            index: 'bills',
             title: 'Bills',
             activated: true,
             group: 'RECKON ONE',
@@ -141,6 +147,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         },*//* {
             xtype: 'budgets',
+            index: 'budgets',
             title: 'Budgets',
             group: 'RECKON ONE',
             slideButton: {
@@ -148,6 +155,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         },*/ {
             xtype: 'timesheets',
+            index: 'timesheets',
             activated: true,
             title: 'Timesheets',
             group: 'RECKON ONE',
@@ -156,6 +164,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         }, {
             xtype: 'expenses',
+            index: 'expenses',
             title: 'Employee expenses',
             activated: true,
             group: 'RECKON ONE',
@@ -164,6 +173,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         }, {
             xtype: 'contacts',
+            index: 'contacts',
             title: 'Contacts',
             activated: true,
             group: 'RECKON ONE',
@@ -211,5 +221,18 @@ Ext.define('RM.view.MainNavContainer', {
 
             }
         }*/
+    },    
+    setSelectedItem: function (key) {
+      var keyIndex = this.store.data.indexOfKey(key);
+      if(keyIndex > 0)  {
+          this.list.select(keyIndex);
+      }
+    },
+    isItemSelected: function (key) {
+      var keyIndex = this.store.data.indexOfKey(key);
+      if(keyIndex > 0)  {
+          return this.list.isSelected(keyIndex);
+      }  
+      return false;
     }
 });

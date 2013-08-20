@@ -66,7 +66,7 @@ Ext.define('RM.core.ViewMgr', {
           this.mainNavContainer.closeContainer();
         }
         else if(this.appBackStack.length <= 1 && !this.isDashboardShowing()){
-            this.mainNavContainer.list.select(3, false);
+            this.mainNavContainer.setSelectedItem('dashboard');
             this.showPanel2(this.mainNavContainer, { type: 'slide', direction: 'right'});          
         }
         else if (this.appBackStack.length <= 1 ) {
@@ -115,32 +115,31 @@ Ext.define('RM.core.ViewMgr', {
     },
     
     showDashboard: function(anim){
-        this.mainNavContainer.list.select(3, false);
+        this.mainNavContainer.setSelectedItem('dashboard');
         this.showPanel(this.mainNavContainer, anim);
     },
     
     isDashboardShowing: function(){
-        return this.mainNavContainer.list.isSelected(3);
+        return this.mainNavContainer.isItemSelected('dashboard');
     },
     
     showBills: function(anim){
-        this.mainNavContainer.list.select(5, false);
-        //this.clearBackStack();
+        this.mainNavContainer.setSelectedItem('bills');
         this.showPanel(this.mainNavContainer, anim);
     },
 
 	showInvoices: function(anim){
-		this.mainNavContainer.list.select(4, false);
+		this.mainNavContainer.setSelectedItem('invoices');
         this.showPanel2(this.mainNavContainer, anim);
 	},
 
 	showTimeSheets: function(anim){
-		this.mainNavContainer.list.select(5, false);
+		this.mainNavContainer.setSelectedItem('timesheets');
         this.showPanel(this.mainNavContainer, anim);
 	},
 	
 	showExpenses: function(anim){
-		this.mainNavContainer.list.select(6, false);
+		this.mainNavContainer.setSelectedItem('expenses');
         this.showPanel(this.mainNavContainer, anim);
 	},    
     

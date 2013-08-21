@@ -1,7 +1,7 @@
 Ext.define('RM.view.Contacts', {
    extend: 'Ext.Panel',
 	xtype: 'contacts',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
     config: {
 		
 		layout: 'fit',
@@ -15,6 +15,8 @@ Ext.define('RM.view.Contacts', {
 					}, {
 						xtype: 'spacer'
 					}, {
+                        xtype: 'securebutton',
+                        permissionFor: { name:'Contacts', action:'AddEdit' },
 						text: 'ADD',
 						itemId: 'add',                        
 						ui: 'rm_topbarbuttonright'

@@ -326,7 +326,8 @@ Ext.define('Ext.ux.slidenavigation.View', {
                                 group = record.get('group');
                                 return groups[group] || group;
                             }
-                        }
+                        },
+                        'data'
                     ]
                 }
             });

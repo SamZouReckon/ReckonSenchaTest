@@ -2,6 +2,7 @@ Ext.define('RM.core.ViewMgr', {
 
     singleton: true, 
 	requires: ['RM.view.Main', 'RM.view.MainNavContainer', 'RM.view.Modules', 'RM.component.RMMsgPopup'],
+    defaultBackAnimation : { type: 'slide', direction: 'right'},
 	
     init: function (application) {
 		this.app = application;
@@ -27,25 +28,27 @@ Ext.define('RM.core.ViewMgr', {
 			return;
 		}
 		var view = this.appBackStack.pop();
-		//this.showBackStack('back');
-
-		//Ext.Viewport.animateActiveItem(this.appBackStack[this.appBackStack.length - 1], this.slideRightTransition);
-		if (!anim){
-			anim = { type: 'slide', direction: 'right'};		
-        }
+        
+		anim = anim || this.defaultBackAnimation;   
+        // Clean up the popped view after animation completes
+        this.setPostAnimationCallback(anim, function() { view.destroy(); });         
+        
 		this.showPanel2(this.appBackStack[this.appBackStack.length - 1], anim);
-        //this.showBackStack('stack:');
 	},
 
     backTo: function(backToXtype, anim){
-		
+        var view;
+        anim = anim || this.defaultBackAnimation;        
+        // Schedule some cleanup         
+        this.setPostAnimationCallback(anim, function() { view.destroy(); }); 
+        
         while(true){
-            var view = this.appBackStack.pop();
-            //console.log(view.getXTypes().split('/').pop());
+            view = this.appBackStack.pop();            
             if(view.getXTypes().split('/').pop() == backToXtype){
-                this.showPanel(view, anim ? anim : { type: 'slide', direction: 'right'});
+                this.showPanel(view, anim);
                 break;
-            }			
+            }
+            view.destroy();
 		}
 
     },
@@ -66,7 +69,7 @@ Ext.define('RM.core.ViewMgr', {
           this.mainNavContainer.closeContainer();
         }
         else if(this.appBackStack.length <= 1 && !this.isDashboardShowing()){
-            this.mainNavContainer.setSelectedItem('dashboard');
+            this.mainNavContainer.setSelectedItem('Dashboard');
             this.showPanel2(this.mainNavContainer, { type: 'slide', direction: 'right'});          
         }
         else if (this.appBackStack.length <= 1 ) {
@@ -115,31 +118,31 @@ Ext.define('RM.core.ViewMgr', {
     },
     
     showDashboard: function(anim){
-        this.mainNavContainer.setSelectedItem('dashboard');
+        this.mainNavContainer.setSelectedItem('Dashboard');
         this.showPanel(this.mainNavContainer, anim);
     },
     
     isDashboardShowing: function(){
-        return this.mainNavContainer.isItemSelected('dashboard');
+        return this.mainNavContainer.isItemSelected('Dashboard');
     },
     
     showBills: function(anim){
-        this.mainNavContainer.setSelectedItem('bills');
+        this.mainNavContainer.setSelectedItem('Bills');
         this.showPanel(this.mainNavContainer, anim);
     },
 
 	showInvoices: function(anim){
-		this.mainNavContainer.setSelectedItem('invoices');
+		this.mainNavContainer.setSelectedItem('Invoices');
         this.showPanel2(this.mainNavContainer, anim);
 	},
 
 	showTimeSheets: function(anim){
-		this.mainNavContainer.setSelectedItem('timesheets');
+		this.mainNavContainer.setSelectedItem('Timesheets');
         this.showPanel(this.mainNavContainer, anim);
 	},
 	
 	showExpenses: function(anim){
-		this.mainNavContainer.setSelectedItem('expenses');
+		this.mainNavContainer.setSelectedItem('Expenses');
         this.showPanel(this.mainNavContainer, anim);
 	},    
     
@@ -225,6 +228,11 @@ Ext.define('RM.core.ViewMgr', {
 	
     showEmailReminder: function(){
         return false;
+    },
+    
+    setPostAnimationCallback: function(anim, callback) {
+        if(!anim.listeners) { anim.listeners = {}; }
+        anim.listeners.animationend = callback;
     }
     
 	////////////// Old ////////////////////

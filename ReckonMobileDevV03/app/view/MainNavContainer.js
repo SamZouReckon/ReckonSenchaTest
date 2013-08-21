@@ -88,15 +88,13 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },*/{
-            index: 'lock',
             title: 'Lock',
             activated: true,
             handler: function () {
                 RM.AppMgr.lock();
             },
 			group: 'GENERAL'
-        },{
-            index: 'logout',
+        },{           
             title: 'Logout',
             activated: true,
             handler: function () {
@@ -104,15 +102,15 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },{
-            index: 'choosebook',
+            index: 'Cashbooks',
             title: 'Choose book',
-            activated: true,
+            activated: true,            
             group: 'RECKON ONE',
             handler: function () {
                 RM.AppMgr.selectCashBook();
             }
         },{
-            index: 'dashboard',
+            index: 'Dashboard',
             xtype: 'dashboard',
             title: 'Dashboard',
             activated: true,
@@ -129,9 +127,9 @@ Ext.define('RM.view.MainNavContainer', {
             }
         },*/ {
             xtype: 'customerinvoices',
-            index: 'invoices',
+            index: 'Invoices',
             title: 'Invoices',
-            activated: true,
+            activated: true,            
             group: 'RECKON ONE',
             slideButton: {
                 selector: 'toolbar'
@@ -155,8 +153,8 @@ Ext.define('RM.view.MainNavContainer', {
             }
         },*/ {
             xtype: 'timesheets',
-            index: 'timesheets',
-            activated: true,
+            index: 'Timesheets',
+            activated: true,            
             title: 'Timesheets',
             group: 'RECKON ONE',
             slideButton: {
@@ -164,7 +162,7 @@ Ext.define('RM.view.MainNavContainer', {
             }
         }, {
             xtype: 'expenses',
-            index: 'expenses',
+            index: 'Expenses',
             title: 'Employee expenses',
             activated: true,
             group: 'RECKON ONE',
@@ -173,13 +171,14 @@ Ext.define('RM.view.MainNavContainer', {
             }
         }, {
             xtype: 'contacts',
-            index: 'contacts',
+            index: 'Contacts',
             title: 'Contacts',
             activated: true,
             group: 'RECKON ONE',
             slideButton: {
                 selector: 'toolbar'
-            }
+            },
+            data : { permsRequired : true }
         },/* {
             xtype: 'mypreferences',
             title: 'Preferences',
@@ -221,18 +220,37 @@ Ext.define('RM.view.MainNavContainer', {
 
             }
         }*/
-    },    
+    },
+    
     setSelectedItem: function (key) {
-      var keyIndex = this.store.data.indexOfKey(key);
+      var keyIndex = this.store.getData().indexOfKey(key);
       if(keyIndex > 0)  {
           this.list.select(keyIndex);
       }
     },
+    
     isItemSelected: function (key) {
-      var keyIndex = this.store.data.indexOfKey(key);
+      var keyIndex = this.store.getData().indexOfKey(key);
       if(keyIndex > 0)  {
           return this.list.isSelected(keyIndex);
       }  
       return false;
+    },
+    
+    initialize: function() {
+       this.callParent();        
+       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.applyPermissions, scope : this} );
+    },
+    
+    applyPermissions: function() {
+        this.store.filterBy(function(item) { 
+               var data = item.get("data");
+               if(data && data.permsRequired) {
+                 var itemIndex = item.get("index");
+                 return RM.PermissionsMgr.canView(itemIndex);
+               }
+               else { return true; }
+            }
+        );
     }
 });

@@ -4,9 +4,12 @@ Ext.define('RM.component.RMToggleField', {
     
     constructor: function (config) {        
         config.clearIcon = false;                //Raj: Not required for this control
-        config.readOnly = true;                  //Raj: To stop popping up of keypad when field is tapped
-        //this.initConfig(config);
+        config.readOnly = true;                  //Raj: To stop popping up of keypad when field is tapped                
         this.callParent(arguments);
+        
+        // this has to be set after the callParent is issued because the overriding setReadOnly method will
+        // be called as a result, forcing the value to be the same as config.readOnly.
+        this.privateReadOnly = false;
     },
     
     initialize: function () {        
@@ -16,7 +19,8 @@ Ext.define('RM.component.RMToggleField', {
         this.element.on('tap', function () {me.toggleState();}, this);
     },    
     
-    toggleState: function () {        
+    toggleState: function () {    
+        if (this.privateReadOnly) { return; }
         this.val = !this.val;        
         this.setFieldState();        
     },
@@ -43,6 +47,11 @@ Ext.define('RM.component.RMToggleField', {
             this.updateValue(this.config.offText);
             this.setCls('rm-togglefield-off rm-flatfield');
         }
-    }    
+    },
+    
+    setReadOnly: function(value) {
+        this.privateReadOnly = value;
+        this.callParent(arguments);
+    }
     
 });

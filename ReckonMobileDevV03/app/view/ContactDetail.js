@@ -1,9 +1,9 @@
 Ext.define('RM.view.ContactDetail', {
 	extend: 'Ext.Panel',
+    requires: ['RM.component.SecureFormPanel','RM.component.SecureButton'],
 	xtype: 'contactdetail',
     
-	config: {
-		
+	config: {		
 		layout: 'fit',        
 		items: [
 			{
@@ -23,13 +23,16 @@ Ext.define('RM.view.ContactDetail', {
 					},{
 						xtype: 'spacer'
 					},{
+                        xtype: 'securebutton',
 						text: 'SAVE',
 						itemId: 'save',	                        
-						ui: 'rm_topbarbuttonright'	
+						ui: 'rm_topbarbuttonright',
+                        permissionFor: { name:'Contacts', action:'AddEdit' }
 					}
 				]
 			},{
-				xtype: 'formpanel',
+				xtype: 'secureformpanel',
+                permissionFor: 'Contacts',
 				itemId: 'contactForm',
 				padding: 0,
                 defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},

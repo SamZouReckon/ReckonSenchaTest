@@ -4,10 +4,10 @@
 	<property file="${deployment.basedir}/deployment.props" />
 	<import file="git.targets"/>	
 
-  <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
-  <property name="build.artifacts.dir" value="${app.build.dir}/${args.environment}" />
+    <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
+    <property name="build.artifacts.dir" value="${app.build.dir}/${args.environment}" />
 
-	<target name="update-deployment-project">
+	<target name="update-deployment-project" unless="${skip-deployment}">
 		<if>
 		  <equals arg1="${args.environment}" arg2="production"/>
 		  <then>

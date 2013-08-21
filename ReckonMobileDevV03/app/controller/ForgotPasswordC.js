@@ -46,6 +46,12 @@ Ext.define('RM.controller.ForgotPasswordC', {
              this.getEmail().showValidation(false);
              isValid = false;
          }
+        
+        if(!RM.AppMgr.validateEmail(val)){             
+             this.getEmail().showValidation(false);
+             isValid = false;
+             RM.AppMgr.showInvalidEmailMsg();
+         }
          
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();

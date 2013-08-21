@@ -9,16 +9,7 @@ Ext.define('RM.core.ViewMgr', {
 		this.appBackStack = new Array();
 		this.mainView = Ext.create('RM.view.Main');
 		
-		this.mainNavContainer = Ext.create('RM.view.MainNavContainer');
-        //this.mainNavContainer.list.getStore().getAt(7).set('title', 'Timesheets-na');
-        //this.mainNavContainer.list.getStore().getAt(7).set('activated', false);
-        
-		//this.showLogin();
-		//this.showMainNavContainer();
-		//this.showPanel(Ext.create('RM.view.Projects'));
-		//this.showPanel(Ext.create('RM.view.Invoices'));
-		
-		//this.showPanel(Ext.create('RM.view.TabNavContainer'));		
+		this.mainNavContainer = Ext.create('RM.view.MainNavContainer');		
 	},
 	
 	back: function(anim){
@@ -254,28 +245,5 @@ Ext.define('RM.core.ViewMgr', {
         if(!anim.listeners) { anim.listeners = {}; }
         anim.listeners.animationend = callback;
     }
-    
-	////////////// Old ////////////////////
-	/*showLoginOld: function(anim){
-		var hasPin = false;
-		if(hasPin)
-			this.showLoginPin(anim);
-		else
-			this.showLoginUserName(anim);	
-	},	
-	
-	showLoginUserName: function(anim){
-		RM.ViewMgr.showPanel(Ext.create('RM.view.LoginUserName'), anim);	
-	},
-
-	showLoginPin: function(anim){
-		RM.ViewMgr.showPanel(Ext.create('RM.view.LoginPin'), anim);	
-	},	
-	
-	showDashBoardOld: function (anim){
-		RM.ViewMgr.showPanel(this.dashBoardView, anim);	
-	}*/
-    
-
 	
 });

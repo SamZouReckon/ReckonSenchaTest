@@ -22,6 +22,10 @@ Ext.define('RM.core.ViewMgr', {
 	},
 	
 	back: function(anim){
+        //To hide keypad while navigating back in Android
+        if (Ext.os.is('Android')) {
+            document.activeElement.blur();
+        }
         RM.AppMgr.clearLoadingTimer();
         
 		if(this.appBackStack.length <= 1){
@@ -37,6 +41,11 @@ Ext.define('RM.core.ViewMgr', {
 	},
 
     backTo: function(backToXtype, anim){
+		//To hide keypad while navigating back in Android
+		if (Ext.os.is('Android')) {
+            document.activeElement.blur();
+        }
+
         var view;
         anim = anim || this.defaultBackAnimation;        
         // Schedule some cleanup         
@@ -151,7 +160,10 @@ Ext.define('RM.core.ViewMgr', {
     },
 
 	showPanel: function (panel, anim) {
-		
+		 //To hide keypad just before pushing view on stack
+        if (Ext.os.is('Android')) {
+            document.activeElement.blur();
+        }
         var p = this.mainView.add(panel);
 		this.appBackStack.push(p);
 		//this.showBackStack('showPanel');
@@ -162,6 +174,10 @@ Ext.define('RM.core.ViewMgr', {
     },
 	
 	showPanel2: function(panel, anim){
+        //To hide keypad just before pushing view on stack
+        if (Ext.os.is('Android')) {
+            document.activeElement.blur();
+        }
         var p = this.mainView.add(panel);
 		//this.appBackStack.push(p);
 		//this.showBackStack('showPanel');
@@ -185,6 +201,10 @@ Ext.define('RM.core.ViewMgr', {
 	},
 	
 	showLoadingMask: function(msg){
+         //To hide keypad 
+        if (Ext.os.is('Android')) {
+            document.activeElement.blur();
+        }
 		//Ext.Viewport.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});	
         this.mainView.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});
 	},

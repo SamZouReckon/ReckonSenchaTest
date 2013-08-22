@@ -243,6 +243,7 @@ Ext.define('RM.view.MainNavContainer', {
     },
     
     applyPermissions: function() {
+        this.store.clearFilter();
         this.store.filterBy(function(item) { 
                var data = item.get("data");
                if(data && data.permsRequired) {

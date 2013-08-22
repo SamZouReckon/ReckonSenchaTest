@@ -512,6 +512,10 @@ Ext.define('RM.core.AppMgr', {
        
     },
     
+    showInvalidEmailMsg: function(){
+        this.showErrorMsgBox('Please enter a valid email address.');
+    },
+    
     isFormValsEqual: function(formVals1, formVals2){        
         return Ext.encode(formVals1) == Ext.encode(formVals2);
         //see http://www.sencha.com/forum/showthread.php?59240-Compare-javascript-objects
@@ -724,6 +728,16 @@ Ext.define('RM.core.AppMgr', {
         return str.replace(/^([a-z])|\s+([a-z])/g, function ($1) {
             return $1.toUpperCase();
         });        
+    },
+    
+    validateEmail: function(inputVal) {	
+        var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+        if (pattern.test(inputVal)) {         
+            return true;
+        }
+        else {   
+            return false; 
+        }
     },
     
     startUpTest: function(){

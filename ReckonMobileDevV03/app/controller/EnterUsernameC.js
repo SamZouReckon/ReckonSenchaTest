@@ -76,7 +76,8 @@ Ext.define('RM.controller.EnterUsernameC', {
         
         switch(optionId){
             case 'reckonone': case 'reckonpay':
-                RM.ViewMgr.showModuleSignup(optionId);
+                //RM.ViewMgr.showModuleSignup(optionId);
+                window.open('http://www.reckonone.com/coming-soon.aspx', '_blank', 'location=no');
                 break;
             
             case 'forgotlogin':

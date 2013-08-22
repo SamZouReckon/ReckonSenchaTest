@@ -93,6 +93,11 @@ Ext.define('RM.controller.EmailInvoiceC', {
              this.getEmail().showValidation(false);
              isValid = false;
          }
+         if(!RM.AppMgr.validateEmail(vals.Email)){             
+             this.getEmail().showValidation(false);
+             isValid = false;
+             RM.AppMgr.showInvalidEmailMsg();
+         }
          if(vals.Subject == ''){
              this.getSubject().showValidation(false);
              isValid = false;

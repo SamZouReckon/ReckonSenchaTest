@@ -6,8 +6,8 @@ Ext.define('RM.core.PermissionsMgr', {
 		this.app = application;
 	},
 	
-	setPermissions: function(permissions){
-        this.permissions = permissions.map(function(action) { return action.toLowerCase() });
+	setPermissions: function(permissions){        
+        this.permissions = permissions.map(function(action) { return action.toLowerCase ? action.toLowerCase() : action });
         this.triggerUpdateEvent();
     },
     
@@ -59,7 +59,7 @@ Ext.define('RM.core.PermissionsMgr', {
         this.triggerUpdateEvent();
     },
     
-    allowEveryThing: function() {
+    allowEverything: function() {
         this.globalOverride = true;        
         this.triggerUpdateEvent();
     },

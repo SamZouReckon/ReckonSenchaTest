@@ -17,66 +17,27 @@ Ext.define('RM.controller.DashboardC', {
 
     },
     
+    init: function() {
+       this.callParent();        
+       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.showDashboardData, scope : this} );
+    },
+    
     showView: function(dashboardData){
         this.dashboardData = dashboardData;
         this.onShow();
     },    
     
-    onShow: function(){
-        //this.showDashboardData(RM.AppMgr.getDashboardData());
-        //alert('onShow');
-        this.showDashboardData(this.dashboardData);
+    onShow: function(){       
+        this.showDashboardData();
     },
     
-    showDashboardData: function(rec){
-        //this.getDashboardCont().setHidden(false);
-        //window.clearInterval(loadingTimer);
-    	//RM.ViewMgr.hideLoadingMask();
-    	//var rec = Ext.decode(response.responseText).recs[0];
+    showDashboardData: function(){                    
         if(this.getDashboardCont()){
-        	this.getNetPosition().setViewData(rec);
-        	this.getAlerts().setViewData(rec);
-        	this.getTopExpenses().setViewData(rec.TopExpenses);
-            //this.getTopExpenses().setViewData([]); //Test No Top Expenses
-        	this.getBudgetOverview().setViewData(rec.BudgetOverview);
-        }           
-    }/*,
-	
-	loadItems: function(){
-        
-        //RM.ViewMgr.showLoadingMask();
-        
-        //var loadingTimer = window.setInterval(
-        //    function(){ 
-        //        RM.ViewMgr.showLoadingMask();
-        //    }
-        //    ,3000);
-       
-        
-        Ext.Ajax.request({
-            url: RM.AppMgr.getApiUrl('Dashboard'),
-            method: 'GET',
-            timeout: RM.Consts.Api.TIME_OUT,
-			success: function(response){
-                this.getDashboardCont().setHidden(false);
-                //window.clearInterval(loadingTimer);
-				RM.ViewMgr.hideLoadingMask();
-				var rec = Ext.decode(response.responseText).recs[0];				
-				this.getNetPosition().setViewData(rec);
-				this.getAlerts().setViewData(rec);
-				this.getTopExpenses().setViewData(rec.TopExpenses);
-                //this.getTopExpenses().setViewData([]); //Test No Top Expenses
-				this.getBudgetOverview().setViewData(rec.BudgetOverview);                
-                //this.getBudgetOverview().setViewData([]); //Test No Budgets                
-			},
-            failure: function (resp) {
-                //window.clearInterval(loadingTimer);
-                RM.ViewMgr.hideLoadingMask();
-                RM.AppMgr.handleServerCallFailure(resp);
-            },
-            scope: this
-        });
-	
-	}*/   
+        	this.getNetPosition().setViewData(this.dashboardData);
+        	this.getAlerts().setViewData(this.dashboardData);
+        	this.getTopExpenses().setViewData(this.dashboardData.TopExpenses);            
+        	this.getBudgetOverview().setViewData(this.dashboardData.BudgetOverview);
+        }          
+    }   
 
 });

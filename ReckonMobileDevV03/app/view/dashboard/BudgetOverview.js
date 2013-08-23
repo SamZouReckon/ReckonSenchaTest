@@ -16,10 +16,17 @@ Ext.define('RM.view.dashboard.BudgetOverview', {
 		}]);
 	},
 	
-	setViewData: function(data){
+	setViewData: function(data){        
+        this.getComponent(1).removeAll(); 
         
+        if (!RM.PermissionsMgr.canView('Budgets')) {
+            this.getComponent(1).add({
+                xtype: 'component',
+                html: '<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>'
+            });            
+            return;
+        }
         
-        this.getComponent(1).removeAll();     
         if(data==null || data.length<=0 ){  
             this.getComponent(1).add({
                 xtype: 'component',

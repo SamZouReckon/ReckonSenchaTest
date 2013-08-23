@@ -1,4 +1,3 @@
-
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -5522,7 +5521,6 @@ body.x-desktop {
   text-align: right;
   color: #969696;
   font-size: 0.8em;
-  font-weight: bold;
   padding-top: 0.9em;
   padding-right: 0.6em; }
 
@@ -6536,7 +6534,7 @@ rm-emailinvoicebackground {
   background-position: right;
   position: absolute;
   right: 10px;
-  background-position-y: 50% !important; }
+  background-position-y: 40% !important; }
 
 .rm-togglefield-off .x-input-el {
   padding-right: 27px;
@@ -6549,7 +6547,7 @@ rm-emailinvoicebackground {
   background-position: right;
   position: absolute;
   right: 10px;
-  background-position-y: 50% !important; }
+  background-position-y: 40% !important; }
 
 .x-loading-spinner {
   font-size: 0% !important; }

@@ -42,7 +42,8 @@ Ext.define('RM.view.ContactDetail', {
 						name: 'ContactId'			
 					},{
 						name: 'Description',
-						label: 'Display name <span style="color: #F00">*</span>'
+						label: 'Display name',
+                        rmmandatory: true
 					},{
                         xtype: 'extselectfield',
                         name: 'CustomerOrSupplier',

@@ -12,8 +12,7 @@ Ext.define('RM.view.dashboard.Alerts', {
 				},
 				items:[
                     {
-                        itemId: 'msg',
-                        html: '<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>',
+                        itemId: 'msg',                        
                         flex: 1
                     },
                     {
@@ -43,7 +42,9 @@ Ext.define('RM.view.dashboard.Alerts', {
         var alertCont = this.getComponent(1);
         var canViewInvoices = RM.PermissionsMgr.canView('Invoices');
         var canViewBills = RM.PermissionsMgr.canView('Bills');
-        alertCont.getComponent('msg').setHidden(canViewInvoices || canViewBills);
+        var msgCont = alertCont.getComponent('msg');
+        msgCont.setHidden(canViewInvoices || canViewBills);
+        msgCont.setHtml('<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>');
         alertCont.getComponent('invoices').setHidden(!canViewInvoices);
         alertCont.getComponent('bills').setHidden(!canViewBills);
         alertCont.getComponent('blankCont').setHidden(!(canViewInvoices || canViewBills ) || (canViewInvoices && canViewBills));

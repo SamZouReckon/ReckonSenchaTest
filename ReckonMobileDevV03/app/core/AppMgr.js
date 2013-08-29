@@ -1,20 +1,3 @@
-RM.Consts = {
-    App: {VERSION: 0.001, CORDOVA_CONTAINER: 1, WEB_CONTAINER: 2},
-    Api: {TIME_OUT: 12000, STORE_LOAD_TIME_OUT: 7000},
-    Log: {UPLOAD_KEY: 'rmey467rt'},
-    Events: {OP: 5, ERROR_GEN: 1000, ERROR_COMMS: 2000},
-    //ItemTypes: {CHARGEABLE_ITEM: 1, EXPENSE: 3, TIME: 6 },
-    ItemTypes: {CHARGEABLE_ITEM: 1, TIME: 2, EXPENSE: 3 },
-    HistoryTypes: {INVOICE: 1, TIME: 6, EXPENSE: 7},
-    HistoryItemTypes: {NOTE: 5},
-    ItemStatus: {UNKNOWN: 0, ACTIVE: 1, INACTIVE: 2},
-    //HistoryAdded = 1,  HistoryDeleted=2,  HistoryEdited=3, HistoryStatusChanged=4, Note = 5
-    PaymentMethodTypes: { CASH: 0, CHEQUE: 1, CREDIT_CARD: 2 },
-    TaxStatus: {UNKNOWN: 0, NON_TAXED: 1, INCLUSIVE: 2, EXCLUSIVE: 3},
-    InvoiceStatus: {UNKNOWN: 0, DRAFT: 1, APPROVED: 2, PARTIALLY_PAID: 3, PAID: 4},
-    TimeSheetStatus: {UNKNOWN: 0, NON_BILLABLE: 1, UNBILLED: 2, INVOICED: 3, BILLED: 4},
-    DocTemplates: {INVOICE: 1, ESTIMATE: 2, CREDIT_NOTE: 3}
-};
 
 Ext.define('RM.core.AppMgr', {
 
@@ -251,46 +234,26 @@ Ext.define('RM.core.AppMgr', {
         return this.cashBookId;
     },
 
-    getServerRecById: function (serverApiName, recId, cb, cbs, cbFail, msg) {
-
-        this.setLoadingTimer();
-        
-        Ext.Ajax.request({
-            url: this.getApiUrl(serverApiName) + '/' + recId,
-            method: 'Get',
-            timeout: RM.Consts.Api.TIME_OUT,
-            success: function (response) {
-                this.clearLoadingTimer();
-                RM.ViewMgr.hideLoadingMask();
-                var resp = Ext.decode(response.responseText);
-                if (resp.success && cb){
-                    cb.call(cbs, resp.recs[0]);
-                }
-                else if (!resp.success && cbFail){
-                    cbFail.call(cbs, resp.eventMsg);
-                }                
-            },
-            failure: function (resp) {
-                window.clearInterval(this.loadingTimer);
-                RM.ViewMgr.hideLoadingMask();
-                RM.AppMgr.handleServerCallFailure(resp);
-            },
-            scope: this
-        });
+    getServerRecById: function (serverApiName, recId, cb, cbs, cbFail) {
+        apiUrl = this.getApiUrl(serverApiName) + '/' + recId;
+        this.getServerRec(apiUrl, {}, cb, cbs, cbFail);        
     },
 
     
-    getServerRec: function (serverApiName, params, cb, cbs, cbFail, msg) {
-
-        this.setLoadingTimer();
-        
+    getServerRec: function (serverApi, params, cb, cbs, cbFail) {
+        var me = this;
+        if(serverApi.substr(0,4) !== 'http') {
+            // A named api has been supplied, resolve the url
+            serverApi = me.getApiUrl(serverApi);
+        }
+          
         Ext.Ajax.request({
-            url: this.getApiUrl(serverApiName),
+            url: serverApi,
             method: 'Get',
             params: params,
             timeout: RM.Consts.Api.TIME_OUT,
             success: function (response) {
-                this.clearLoadingTimer();
+                me.clearLoadingTimer();
                 RM.ViewMgr.hideLoadingMask();
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && cb){
@@ -300,13 +263,16 @@ Ext.define('RM.core.AppMgr', {
                     cbFail.call(cbs, resp.eventMsg);
                 }                
             },
-            failure: function (resp) {
+            failure: function(response) {
                 window.clearInterval(this.loadingTimer);
                 RM.ViewMgr.hideLoadingMask();
-                RM.AppMgr.handleServerCallFailure(resp);
+                RM.AppMgr.handleServerCallFailure(response);
+                if(cbFail) { cbFail.call(cbs || this, response); }
             },
             scope: this
-        });
+        }); 
+        
+        me.setLoadingTimer();        
     },    
     
     
@@ -362,36 +328,29 @@ Ext.define('RM.core.AppMgr', {
     },
     
     loadStore: function(store, cb, cbs){
-        this.setLoadingTimer();
+        var me = this;
+        me.setLoadingTimer();
+
+        var loadComplete = function(recs, operation, success) {
+            me.clearLoadingTimer();
+            RM.ViewMgr.hideLoadingMask();
+            if(cb){
+                cb.call(cbs, recs, operation, success);
+            }
+        };        
         
         store.loadPage(1, {
             callback: function (recs, operation, success) {
-               if(!success){
-                    store.loadPage(1, {
-                        callback: function (recs, operation, success) {
-                           this.clearLoadingTimer();
-                           RM.ViewMgr.hideLoadingMask();
-                           if(cb){
-                               cb.call(cbs, recs, operation, success);
-                           }
-                        },
-                        scope: this
-                    });
-                    return;
-               }
-               this.clearLoadingTimer();
-               RM.ViewMgr.hideLoadingMask();
-               if(cb){
-                   cb.call(cbs, recs, operation, success);
-               }
+               if(success) { 
+                   loadComplete(recs, operation, success); 
+               }                    
             },
-            scope: this
+            scope: me
         });
         
     },
     
     onDataProxyException: function (proxy, resp, operation, eOpts) {
-        //alert('Data Proxy Exception.  Http Response ' + response.status);
         //is called from RmBaseStore        
         this.handleServerCallFailure(resp);
         if(this.loadingTimer){
@@ -401,11 +360,19 @@ Ext.define('RM.core.AppMgr', {
     },    
     
     handleServerCallFailure: function(resp){
+        if(navigator.connection.type === 'none') {
+            this.showOkMsgBox("It looks like your device has no internet connection, please connect and try again.");    
+            return;
+        }
+        
         if(resp.status == 401){
             this.login();
         }
+        else if(resp.statusText === 'communication failure') {
+            this.showOkMsgBox("The connection failed, please try again or contact support.");    
+        }
         else if(resp.status != 0){
-            alert('Request Failed with Http Response ' + resp.status);    
+            this.showErrorMsgBox('There was an error, please try again or contact support: <br/><br/> (' + resp.status + ' ' + resp.statusText + ')');    
         }
     },
     

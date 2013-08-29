@@ -1,3 +1,4 @@
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -4894,10 +4895,8 @@ body.x-desktop {
   /*font-size: 1.3em;*/
   color: #FFFFFF;
   background-color: #606060;
-  /*@include background-gradient($date-bg-color, 'recessed'); }
+  /*@include background-gradient($date-bg-color, 'recessed');*/ }
 .touch-calendar-view td.today {
-  border: 1px solid #ffffff;
-  @include border-radius(4px);*/
   background-color: #C00000; }
 .touch-calendar-view td.weekend {
   background-color: #606060; }

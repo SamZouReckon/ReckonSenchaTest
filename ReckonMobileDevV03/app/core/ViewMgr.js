@@ -25,8 +25,10 @@ Ext.define('RM.core.ViewMgr', {
 		var view = this.appBackStack.pop();
         
 		anim = anim || this.defaultBackAnimation;   
-        // Clean up the popped view after animation completes
-        this.setPostAnimationCallback(anim, function() { view.destroy(); });         
+        // Clean up the popped view after animation completes        
+        view.onAfter('erased', function() {
+            this.destroy();
+        });
         
 		this.showPanel2(this.appBackStack[this.appBackStack.length - 1], anim);
 	},
@@ -36,21 +38,30 @@ Ext.define('RM.core.ViewMgr', {
 		if (Ext.os.is('Android')) {
             document.activeElement.blur();
         }
-
-        var view;
-        anim = anim || this.defaultBackAnimation;        
-        // Schedule some cleanup         
-        this.setPostAnimationCallback(anim, function() { view.destroy(); }); 
         
-        while(true){
-            view = this.appBackStack.pop();            
-            if(view.getXTypes().split('/').pop() == backToXtype){
+        anim = anim || this.defaultBackAnimation;          
+        
+        // Keep track of all of the views removed, and make sure that they're all destroyed in order after 
+        // the currently visible one animates out        
+        var topView = this.appBackStack.pop();
+        var poppedViews = [ topView ]; 
+        topView.onAfter('erased', function() {
+                    poppedViews.forEach(function(item) {
+                        item.destroy();
+                    });
+                });  
+        
+        // Walk down the view stack, removing each view until we find the one requested
+        while(this.appBackStack.length > 0) {        
+            var view = this.appBackStack.pop();                        
+            // if this is the requested view, then show it and break out
+            if(view.getXTypes().split('/').pop() === backToXtype){
                 this.showPanel(view, anim);
                 break;
             }
-            view.destroy();
-		}
-
+            // otherwise just add it to the list to be removed
+            poppedViews.push(view);                                   
+        }                     
     },
 
     appPause: function(){
@@ -239,11 +250,6 @@ Ext.define('RM.core.ViewMgr', {
 	
     showEmailReminder: function(){
         return false;
-    },
-    
-    setPostAnimationCallback: function(anim, callback) {
-        if(!anim.listeners) { anim.listeners = {}; }
-        anim.listeners.animationend = callback;
     }
 	
 });

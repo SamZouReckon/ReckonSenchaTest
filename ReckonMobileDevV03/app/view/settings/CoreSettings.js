@@ -76,6 +76,15 @@ Ext.define('RM.view.settings.CoreSettings', {
                 itemId: 'uploadLogs',
                 ui: 'rm_maintopbarbuttonright'
             }
+            //<debug>
+            , {
+                xtype: 'button',
+                width: '7em',
+                text: 'I Am The Law',
+                itemId: 'iAmTheLaw',
+                ui: 'rm_maintopbarbuttonright'
+            }
+            //</debug>
             ]
         }
         ]

@@ -21,6 +21,12 @@ Ext.define('RM.controller.CoreSettingsC', {
             'coresettings #uploadLogs': {
                 tap: 'onUploadLogs'
             }
+            //<debug>
+            ,
+            'coresettings #iAmTheLaw': {
+                tap: 'onIAmTheLaw'
+            }
+            //</debug>
         }
 
     },
@@ -56,5 +62,10 @@ Ext.define('RM.controller.CoreSettingsC', {
     onBack: function () {
         RM.ViewMgr.back();
     }
+    //<debug>
+    ,onIAmTheLaw: function() {
+        RM.PermissionsMgr.allowEverything();
+    }
+    //</debug>
 
 });

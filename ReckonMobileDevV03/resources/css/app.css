@@ -4897,8 +4897,6 @@ body.x-desktop {
   background-color: #606060;
   /*@include background-gradient($date-bg-color, 'recessed');*/ }
 .touch-calendar-view td.today {
-  /*border: 1px solid #ffffff;
-  //@include border-radius(4px);*/
   background-color: #C00000; }
 .touch-calendar-view td.weekend {
   background-color: #606060; }
@@ -5522,7 +5520,6 @@ body.x-desktop {
   text-align: right;
   color: #969696;
   font-size: 0.8em;
-  font-weight: bold;
   padding-top: 0.9em;
   padding-right: 0.6em; }
 
@@ -6536,7 +6533,7 @@ rm-emailinvoicebackground {
   background-position: right;
   position: absolute;
   right: 10px;
-  background-position-y: 50% !important; }
+  background-position-y: 40% !important; }
 
 .rm-togglefield-off .x-input-el {
   padding-right: 27px;
@@ -6549,7 +6546,7 @@ rm-emailinvoicebackground {
   background-position: right;
   position: absolute;
   right: 10px;
-  background-position-y: 50% !important; }
+  background-position-y: 40% !important; }
 
 .x-loading-spinner {
   font-size: 0% !important; }

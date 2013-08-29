@@ -234,26 +234,16 @@ Ext.define('RM.core.AppMgr', {
         return this.cashBookId;
     },
 
-    getServerRecById: function (serverApiName, recId, cb, cbs, cbFail) {
-        apiUrl = this.getApiUrl(serverApiName) + '/' + recId;
-        this.getServerRec(apiUrl, {}, cb, cbs, cbFail);        
-    },
+    getServerRecById: function (serverApiName, recId, cb, cbs, cbFail, msg) {
 
-    
-    getServerRec: function (serverApi, params, cb, cbs, cbFail) {
-        var me = this;
-        if(serverApi.substr(0,4) !== 'http') {
-            // A named api has been supplied, resolve the url
-            serverApi = me.getApiUrl(serverApi);
-        }
-          
+        this.setLoadingTimer();
+        
         Ext.Ajax.request({
-            url: serverApi,
+            url: this.getApiUrl(serverApiName) + '/' + recId,
             method: 'Get',
-            params: params,
             timeout: RM.Consts.Api.TIME_OUT,
             success: function (response) {
-                me.clearLoadingTimer();
+                this.clearLoadingTimer();
                 RM.ViewMgr.hideLoadingMask();
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && cb){
@@ -263,16 +253,43 @@ Ext.define('RM.core.AppMgr', {
                     cbFail.call(cbs, resp.eventMsg);
                 }                
             },
-            failure: function(response) {
+            failure: function (resp) {
                 window.clearInterval(this.loadingTimer);
                 RM.ViewMgr.hideLoadingMask();
-                RM.AppMgr.handleServerCallFailure(response);
-                if(cbFail) { cbFail.call(cbs || this, response); }
+                RM.AppMgr.handleServerCallFailure(resp);
             },
             scope: this
-        }); 
+        });
+    },
+
+    
+    getServerRec: function (serverApiName, params, cb, cbs, cbFail, msg) {
+
+        this.setLoadingTimer();
         
-        me.setLoadingTimer();        
+        Ext.Ajax.request({
+            url: this.getApiUrl(serverApiName),
+            method: 'Get',
+            params: params,
+            timeout: RM.Consts.Api.TIME_OUT,
+            success: function (response) {
+                this.clearLoadingTimer();
+                RM.ViewMgr.hideLoadingMask();
+                var resp = Ext.decode(response.responseText);
+                if (resp.success && cb){
+                    cb.call(cbs, resp.recs[0]);
+                }
+                else if (!resp.success && cbFail){
+                    cbFail.call(cbs, resp.eventMsg);
+                }                
+            },
+            failure: function (resp) {
+                window.clearInterval(this.loadingTimer);
+                RM.ViewMgr.hideLoadingMask();
+                RM.AppMgr.handleServerCallFailure(resp);
+            },
+            scope: this
+        });
     },    
     
     
@@ -328,29 +345,36 @@ Ext.define('RM.core.AppMgr', {
     },
     
     loadStore: function(store, cb, cbs){
-        var me = this;
-        me.setLoadingTimer();
-
-        var loadComplete = function(recs, operation, success) {
-            me.clearLoadingTimer();
-            RM.ViewMgr.hideLoadingMask();
-            if(cb){
-                cb.call(cbs, recs, operation, success);
-            }
-        };        
+        this.setLoadingTimer();
         
         store.loadPage(1, {
             callback: function (recs, operation, success) {
-               if(success) { 
-                   loadComplete(recs, operation, success); 
-               }                    
+               if(!success){
+                    store.loadPage(1, {
+                        callback: function (recs, operation, success) {
+                           this.clearLoadingTimer();
+                           RM.ViewMgr.hideLoadingMask();
+                           if(cb){
+                               cb.call(cbs, recs, operation, success);
+                           }
+                        },
+                        scope: this
+                    });
+                    return;
+               }
+               this.clearLoadingTimer();
+               RM.ViewMgr.hideLoadingMask();
+               if(cb){
+                   cb.call(cbs, recs, operation, success);
+               }
             },
-            scope: me
+            scope: this
         });
         
     },
     
     onDataProxyException: function (proxy, resp, operation, eOpts) {
+        //alert('Data Proxy Exception.  Http Response ' + response.status);
         //is called from RmBaseStore        
         this.handleServerCallFailure(resp);
         if(this.loadingTimer){
@@ -360,19 +384,11 @@ Ext.define('RM.core.AppMgr', {
     },    
     
     handleServerCallFailure: function(resp){
-        if(navigator.connection.type === 'none') {
-            this.showOkMsgBox("It looks like your device has no internet connection, please connect and try again.");    
-            return;
-        }
-        
         if(resp.status == 401){
             this.login();
         }
-        else if(resp.statusText === 'communication failure') {
-            this.showOkMsgBox("The connection failed, please try again or contact support.");    
-        }
         else if(resp.status != 0){
-            this.showErrorMsgBox('There was an error, please try again or contact support: <br/><br/> (' + resp.status + ' ' + resp.statusText + ')');    
+            alert('Request Failed with Http Response ' + resp.status);    
         }
     },
     

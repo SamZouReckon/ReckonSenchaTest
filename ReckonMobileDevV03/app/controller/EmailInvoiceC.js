@@ -81,29 +81,31 @@ Ext.define('RM.controller.EmailInvoiceC', {
         
     }, 
     
-     validateForm: function(vals){        
+    validateForm: function(vals) {        
+        var isValid = true; 
         
-         var isValid = true;
-         /*var regExEmail = new RegExp("^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$");
-         if(regExEmail.test(vals.Email)){
-             RM.AppMgr.showErrorMsgBox('Please enter a valid email address');
-             isValid = false;
-         }*/
-         if(vals.Email == ''){
-             this.getEmail().showValidation(false);
-             isValid = false;
-         }
-         if(!RM.AppMgr.validateEmail(vals.Email)){             
-             this.getEmail().showValidation(false);
-             isValid = false;
-             RM.AppMgr.showInvalidEmailMsg();
-         }
-         if(vals.Subject == ''){
-             this.getSubject().showValidation(false);
-             isValid = false;
-         }
+        //To reset label color
+        this.getEmail().showValidation(true);
+        this.getSubject().showValidation(true);
         
-        if(!isValid){            
+        if (vals.Email == '') {
+            this.getEmail().showValidation(false);
+            isValid = false;
+        }
+         
+        if (vals.Subject == '') {
+            this.getSubject().showValidation(false);
+            isValid = false;
+        }
+         
+        if (!RM.AppMgr.validateEmail(vals.Email)) {             
+            this.getEmail().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidEmailMsg();
+            return isValid;
+        }
+        
+        if (!isValid) {            
             RM.AppMgr.showInvalidFormMsg();
         }
          

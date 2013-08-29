@@ -6,6 +6,7 @@ Ext.define('RM.controller.ForgotPasswordC', {
         refs: {
             forgotPassword: 'forgotpassword',
             email: 'forgotpassword #email',
+            userName: 'forgotpassword #username',
             successMsg: 'forgotpassword #successMsg',
             failMsg: 'forgotpassword #failMsg'
         },
@@ -39,18 +40,30 @@ Ext.define('RM.controller.ForgotPasswordC', {
         this.getEmail().reset();
     },
     
-    validateForm: function(val){     
-         var isValid = true;
+    validateForm: function(){     
+        var isValid = true;
+        var emailAddress = this.getEmail().getValue();
+        var userName = this.getUserName().getValue();
         
-        if(val == ''){
+        //To reset label color
+        this.getEmail().showValidation(true);
+        this.getUserName().showValidation(true);
+        
+        if(emailAddress == ''){
              this.getEmail().showValidation(false);
              isValid = false;
-         }
+         }      
         
-        if(!RM.AppMgr.validateEmail(val)){             
-             this.getEmail().showValidation(false);
+        if(userName == ''){
+             this.getUserName().showValidation(false);
              isValid = false;
+         }   
+        
+         if(!RM.AppMgr.validateEmail(emailAddress)){             
+             this.getEmail().showValidation(false);
+             isValid = false;   
              RM.AppMgr.showInvalidEmailMsg();
+             return isValid;
          }
          
         if(!isValid){            
@@ -61,9 +74,9 @@ Ext.define('RM.controller.ForgotPasswordC', {
     },
 
     onSend: function () {
-        var emailAddress = this.getEmail().getValue();
-        if(this.validateForm(emailAddress)){
-            RM.AppMgr.saveServerRec('LoginMessages', true, { MsgType: 'resetpassword', UserName: this.getEmail().getValue() },
+        
+        if(this.validateForm()){
+            RM.AppMgr.saveServerRec('LoginMessages', true, { MsgType: 'resetpassword', UserName: this.getUserName().getValue(), Email: this.getEmail().getValue()},
             function (recs) {
                 this.showSuccess();
             },

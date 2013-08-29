@@ -246,7 +246,8 @@ Ext.define('RM.core.ViewMgr', {
     hideKeyPad: function() {
         if (Ext.os.is('Android')) {
             document.activeElement.blur();
-        },
+        }
+    },
     
     setPostAnimationCallback: function(anim, callback) {
         if(!anim.listeners) { anim.listeners = {}; }

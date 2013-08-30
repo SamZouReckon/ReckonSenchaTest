@@ -166,8 +166,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
 			},
 			this,
-            function(eventMsg){
-                alert(eventMsg);                
+            function(){
+                this.goBack();
             }
 		);
     },

@@ -23,8 +23,10 @@ Ext.define('RM.core.ViewMgr', {
 		var view = this.appBackStack.pop();
         
 		anim = anim || this.defaultBackAnimation;   
-        // Clean up the popped view after animation completes
-        this.setPostAnimationCallback(anim, function() { view.destroy(); });         
+        // Clean up the popped view after animation completes        
+        view.onAfter('erased', function() {
+            this.destroy();
+        });        
         
 		this.showPanel2(this.appBackStack[this.appBackStack.length - 1], anim);
 	},
@@ -32,19 +34,30 @@ Ext.define('RM.core.ViewMgr', {
     backTo: function(backToXtype, anim){
 		//To hide keypad while navigating back in Android
 		this.hideKeyPad();
-        var view;
-        anim = anim || this.defaultBackAnimation;        
-        // Schedule some cleanup         
-        this.setPostAnimationCallback(anim, function() { view.destroy(); }); 
+
+        anim = anim || this.defaultBackAnimation;          
         
-        while(true){
-            view = this.appBackStack.pop();            
-            if(view.getXTypes().split('/').pop() == backToXtype){
+        // Keep track of all of the views removed, and make sure that they're all destroyed in order after 
+        // the currently visible one animates out        
+        var topView = this.appBackStack.pop();
+        var poppedViews = [ topView ]; 
+        topView.onAfter('erased', function() {
+                    poppedViews.forEach(function(item) {
+                        item.destroy();
+                    });
+                });  
+        
+        // Walk down the view stack, removing each view until we find the one requested
+        while(this.appBackStack.length > 0) {        
+            var view = this.appBackStack.pop();                        
+            // if this is the requested view, then show it and break out
+            if(view.getXTypes().split('/').pop() === backToXtype){
                 this.showPanel(view, anim);
                 break;
             }
-            view.destroy();
-		}
+            // otherwise just add it to the list to be removed
+            poppedViews.push(view);                                   
+        }         
 
     },
 
@@ -146,9 +159,8 @@ Ext.define('RM.core.ViewMgr', {
     },
 
 	showPanel: function (panel, anim) {
-		//To hide keypad just before pushing view on stack
+		 //To hide keypad just before pushing view on stack
         this.hideKeyPad();
-        
         var p = this.mainView.add(panel);
 		this.appBackStack.push(p);
 		//this.showBackStack('showPanel');
@@ -161,7 +173,6 @@ Ext.define('RM.core.ViewMgr', {
 	showPanel2: function(panel, anim){
         //To hide keypad just before pushing view on stack
         this.hideKeyPad();
-        
         var p = this.mainView.add(panel);
 		//this.appBackStack.push(p);
 		//this.showBackStack('showPanel');
@@ -185,9 +196,8 @@ Ext.define('RM.core.ViewMgr', {
 	},
 	
 	showLoadingMask: function(msg){
-        //To hide keypad 
+         //To hide keypad 
         this.hideKeyPad();
-        
 		//Ext.Viewport.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});	
         this.mainView.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});
 	},
@@ -233,15 +243,15 @@ Ext.define('RM.core.ViewMgr', {
         return false;
     },
     
-    setPostAnimationCallback: function(anim, callback) {
-        if(!anim.listeners) { anim.listeners = {}; }
-        anim.listeners.animationend = callback;
-    },
-    
     hideKeyPad: function() {
         if (Ext.os.is('Android')) {
             document.activeElement.blur();
         }
+    },
+    
+    setPostAnimationCallback: function(anim, callback) {
+        if(!anim.listeners) { anim.listeners = {}; }
+        anim.listeners.animationend = callback;
     }
 	
 });

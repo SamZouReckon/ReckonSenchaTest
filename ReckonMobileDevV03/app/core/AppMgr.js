@@ -360,7 +360,7 @@ Ext.define('RM.core.AppMgr', {
     },    
     
     handleServerCallFailure: function(resp){
-        if(navigator.connection.type === 'none') {
+        if(navigator.connection && navigator.connection.type === 'none') {
             this.showOkMsgBox("It looks like your device has no internet connection, please connect and try again.");    
             return;
         }

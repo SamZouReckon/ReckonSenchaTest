@@ -395,6 +395,9 @@ Ext.define('RM.core.AppMgr', {
         else if(apiLocation == 'devserver'){
             this.baseApiUrl = 'http://r1mobiledev.reckon.com.au/api';            
         }
+        else if(apiLocation == 'qaserver'){
+            this.baseApiUrl = 'http://r1mobileqa.reckon.com.au/api';            
+        }
         else if(apiLocation == 'devlocal'){
             this.baseApiUrl = 'http://localhost:53122/api';
         }

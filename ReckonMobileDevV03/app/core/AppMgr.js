@@ -3,11 +3,10 @@ Ext.define('RM.core.AppMgr', {
 
     singleton: true,  //or could create a globally shared instance the way that Ext.MessageBox does
 
-    requires: ['RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
+    requires: ['RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
 
     init: function (application) {
-        this.application = application;
-        this.cashBookId = null;
+        this.application = application;        
         this.isUserLoggedIn = false;
         
         RM.EventMgr = RM.core.EventMgr;
@@ -42,9 +41,6 @@ Ext.define('RM.core.AppMgr', {
         RM.InvoicesMgr.init(application);
 
         this.addDeviceListeners();
-        
-        //this.startUpTest(); return;
-                
         this.login();        
 
     },
@@ -88,17 +84,11 @@ Ext.define('RM.core.AppMgr', {
                     this.userId = userId;
                     this.isUserLoggedIn = true;
                     RM.EventMgr.setUserLogLevel(logLevel);
-                    if(this.cashBookId){
-                        this.setCashbook(this.cashBookId, this.cashbookName,
-                            function(){
-                                RM.ViewMgr.back();
-                            },
-                            this
-                        );
-                    }
-                    else{
-                        //this.selectModule();
-                        this.selectCashBook();
+                    if (RM.CashbookMgr.loadLastCashbook()) {
+                        RM.ViewMgr.back();
+                    }                    
+                    else {
+                        RM.CashbookMgr.selectCashBook();
                     }
 				},
 				this,
@@ -116,61 +106,13 @@ Ext.define('RM.core.AppMgr', {
         RM.ViewMgr.showModules(
             function(moduleData){
                 if(moduleData.ModuleCode == 'reckonone'){                    
-                    this.selectCashBook();                    
+                    RM.CashbookMgr.selectCashBook();                    
                 }
             },
             this
         
         );     
     },    
-
-    selectCashBook: function () {
-
-        RM.Selectors.showCashBooks(
-			function (data) {
-                this.cashBookId = data.CashBookId;
-			    //RM.ViewMgr.setAppTitle(data.BookName);
-                RM.EventMgr.logEvent(RM.Consts.Events.OP, 2, 'am.sc.1', 'CashBook=' + data.CashBookId);
-                this.setCashbook(data.CashBookId, data.BookName,
-                    function(){
-                        RM.ViewMgr.showMainNavContainer(localStorage.getItem('RmDisplayName'), data.BookName);
-                        var dashboardC = RM.AppMgr.getAppControllerInstance('RM.controller.DashboardC');
-                        dashboardC.showView(this.dashboardData);
-        	            RM.ViewMgr.showDashboard();                        
-                    },
-                    this
-                );
-			},
-			this
-		);
-        
-    },    
-    
-    setCashbook: function(cashbookId, bookName, cb, cbs){
-	    this.saveServerRec('CashBookSelect', false, { CashBookId: cashbookId },
-	        function (recs) {
-	            Ext.data.StoreManager.lookup('GSTCodes').setData(recs[0].GSTCodes);
-                Ext.data.StoreManager.lookup('AccountingCategories').setData(recs[0].AccountingCategories);
-                Ext.data.StoreManager.lookup('ItemTypes').setData(recs[0].ItemTypes);
-                
-                RM.PermissionsMgr.setPermissions(recs[0].Permissions);
-                
-                this.dashboardData = recs[0].Dashboard;
-                this.cashBookId = cashbookId;
-                this.cashbookName = bookName;
-                if(cb){
-                    cb.call(cbs);
-                }
-	        },
-            this,
-            null,
-            'Loading book...'
-	    );        
-    },
-    
-    /*getDashboardData: function(){
-        return this.dashboardData;
-    },*/
 
     loginUserName: function () {
         RM.ViewMgr.showEnterUsername(
@@ -180,8 +122,7 @@ Ext.define('RM.core.AppMgr', {
                 RM.EventMgr.setUserLogLevel(logLevel);
 			    RM.ViewMgr.showCreatePin(
                     function () {                           
-                        //this.selectModule();
-                        this.selectCashBook();
+                        RM.CashbookMgr.selectCashBook();
                     },
                     this
                 );
@@ -204,14 +145,6 @@ Ext.define('RM.core.AppMgr', {
     },
 
     logoutFromServer: function(){
-        /*RM.AppMgr.saveServerRec('Login', false, { ReqCode: 'LO' },
-            function (recs) {
-
-            },
-            this
-        );*/
-        
-        //RM.ViewMgr.showLoadingMask(msg ? msg : 'Saving...');
         Ext.Ajax.request({
             url: this.getApiUrl('Login'),
             method: 'Put',

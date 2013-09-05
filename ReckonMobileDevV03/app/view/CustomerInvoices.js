@@ -1,9 +1,9 @@
 Ext.define('RM.view.CustomerInvoices', {
-	extend: 'Ext.Panel',
+	extend: 'RM.component.SecurePanel',
 	xtype: 'customerinvoices',
     requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
     config: {
-		
+		permissionFor: 'Invoices',
 		layout: 'fit',
 		items:[{
                 xtype: 'toolbar',                

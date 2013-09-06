@@ -9,20 +9,17 @@ Ext.define('RM.core.CashbookMgr', {
     },
     
     getTaxPreferences: function() {
-        return this.currentCashbook.TaxPreference;
+        return this.getCurrentCashbook().TaxPreference;
     },
     
     getSalesPreferences: function() {
-        return this.currentCashbook.SalesPreferences;
+        return this.getCurrentCashbook().SalesPreferences;
     },
     
-    loadLastCashbook: function() {
-        if(this.cashBookId){
-            this.setCashbook(this.cashBookId, this.cashbookName);
-            return true;
-        }
-        else {                    
-            return false;
+    loadLastCashbook: function(callback) {
+        if(this.getCashbookId()){
+            this.setCashbook(this.getCashbookId());
+            if (callback) { callback(); }            
         }
     },
         
@@ -30,13 +27,13 @@ Ext.define('RM.core.CashbookMgr', {
 
         RM.Selectors.showCashBooks(
 			function (data) {
-                this.cashBookId = data.CashBookId;			    
+                this.setCashbookId(data.CashBookId);			    
                 RM.EventMgr.logEvent(RM.Consts.Events.OP, 2, 'am.sc.1', 'CashBook=' + data.CashBookId);
                 this.setCashbook(data.CashBookId,
                     function(){
                         RM.ViewMgr.showMainNavContainer(localStorage.getItem('RmDisplayName'), data.BookName);
                         var dashboardC = RM.AppMgr.getAppControllerInstance('RM.controller.DashboardC');
-                        dashboardC.showView(this.currentCashbook.Dashboard);
+                        dashboardC.showView(this._currentCashbook.Dashboard);
         	            RM.ViewMgr.showDashboard();                        
                     },
                     this
@@ -50,15 +47,15 @@ Ext.define('RM.core.CashbookMgr', {
     setCashbook: function(cashbookId, cb, cbs){
 	    RM.AppMgr.saveServerRec('CashBookSelect', false, { CashBookId: cashbookId },
 	        function (recs) {
-                this.currentCashbook = recs[0];
+                this.setCashbookId(cashbookId);  
+                this.setCurrentCashbook(recs[0]);
                 
 	            Ext.data.StoreManager.lookup('GSTCodes').setData(recs[0].GSTCodes);
                 Ext.data.StoreManager.lookup('AccountingCategories').setData(recs[0].AccountingCategories);
                 Ext.data.StoreManager.lookup('ItemTypes').setData(recs[0].ItemTypes);
                 
-                RM.PermissionsMgr.setPermissions(this.currentCashbook.Permissions);
-                
-                this.cashBookId = cashbookId;                
+                RM.PermissionsMgr.setPermissions(this.getCurrentCashbook().Permissions);                
+                              
                 if(cb){
                     cb.call(cbs);
                 }

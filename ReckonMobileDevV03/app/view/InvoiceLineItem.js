@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceLineItem', {
     extend: 'Ext.Panel',
     xtype: 'invoicelineitem',
-    requires: ['RM.component.ExtNumberField', 'Ext.field.Select'],
+    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'Ext.field.Select'],
     config: {
         layout: 'fit',
         items: [{
@@ -26,7 +26,8 @@ Ext.define('RM.view.InvoiceLineItem', {
 				}
                 ]
         },{
-			xtype: 'formpanel',
+			xtype: 'secureformpanel',
+            permissionFor: 'Invoices',
 			itemId: 'itemForm',
 			padding: 0,
             defaults: {readOnly: true, clearIcon: false},
@@ -37,8 +38,7 @@ Ext.define('RM.view.InvoiceLineItem', {
 					xtype: 'exttextfield',
 					name: 'ProjectName',
 					label: 'Project',
-					cls: 'rm-flatfield',
-					placeHolder: 'select',
+					cls: 'rm-flatfield',					
                     placeHolder: 'select (optional)'
 				},{	
                     xtype: 'hiddenfield',

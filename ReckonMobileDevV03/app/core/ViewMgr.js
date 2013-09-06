@@ -18,6 +18,8 @@ Ext.define('RM.core.ViewMgr', {
         RM.AppMgr.clearLoadingTimer();
         
 		if(this.appBackStack.length <= 1){
+            this.appBackStack.pop();
+            this.showDashboard(anim);
 			return;
 		}
 		var view = this.appBackStack.pop();
@@ -28,7 +30,7 @@ Ext.define('RM.core.ViewMgr', {
             this.destroy();
         });        
         
-		this.showPanel2(this.appBackStack[this.appBackStack.length - 1], anim);
+        this.showPanel2(this.appBackStack[this.appBackStack.length - 1], anim);		
 	},
 
     backTo: function(backToXtype, anim){

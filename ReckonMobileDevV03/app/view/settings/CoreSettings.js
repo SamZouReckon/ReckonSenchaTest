@@ -45,6 +45,7 @@ Ext.define('RM.view.settings.CoreSettings', {
                         //{text: 'Demo Laptop',  value: 'demolaptop'},
                         //{text: 'Demo Laptop IP',  value: 'demolaptopip'},
                         {text: 'Dev Server', value: 'devserver'},
+                        {text: 'QA Server', value: 'qaserver'},
                         {text: 'Dev Local',  value: 'devlocal'},
                         {text: 'Dev Local IIS',  value: 'devlocaliis'},
                         {text: 'Dev MB',  value: 'devmb'},

@@ -1,9 +1,9 @@
 Ext.define('RM.view.Contacts', {
-   extend: 'Ext.Panel',
+   extend: 'RM.component.SecurePanel',
 	xtype: 'contacts',
     requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
     config: {
-		
+		permissionFor: 'Contacts',
 		layout: 'fit',
 		items:[{
                 xtype: 'toolbar',                

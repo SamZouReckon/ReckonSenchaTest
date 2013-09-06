@@ -1,9 +1,9 @@
 Ext.define('RM.view.CustomerInvoices', {
-	extend: 'Ext.Panel',
+	extend: 'RM.component.SecurePanel',
 	xtype: 'customerinvoices',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
     config: {
-		
+		permissionFor: 'Invoices',
 		layout: 'fit',
 		items:[{
                 xtype: 'toolbar',                
@@ -16,7 +16,9 @@ Ext.define('RM.view.CustomerInvoices', {
 						xtype: 'spacer'					
 					},{
 						text: 'ADD',
-						itemId: 'add',                        
+						itemId: 'add',
+                        xtype: 'securebutton',
+                        permissionFor: 'Invoices',
 						ui: 'rm_topbarbuttonright'
 					}
                 ]

@@ -107,7 +107,7 @@ Ext.define('RM.view.MainNavContainer', {
             activated: true,            
             group: 'RECKON ONE',
             handler: function () {
-                RM.AppMgr.selectCashBook();
+                RM.CashbookMgr.selectCashBook();
             }
         },{
             index: 'Dashboard',

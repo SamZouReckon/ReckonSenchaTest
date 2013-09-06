@@ -65,6 +65,7 @@ Ext.define('RM.controller.CoreSettingsC', {
     //<debug>
     ,onIAmTheLaw: function() {
         RM.PermissionsMgr.allowEverything();
+        RM.AppMgr.showSuccessMsgBox('All access granted.');
     }
     //</debug>
 

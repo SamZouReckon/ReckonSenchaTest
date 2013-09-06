@@ -30,6 +30,10 @@ Ext.define('RM.core.PermissionsMgr', {
     canDo: function(permissionName, action){
        return this.getPermission(permissionName + '_' + action);
     },
+
+    canApprove: function(permissionName){
+        return this.canDo(permissionName, 'Approve');
+    },
     
     canAddEdit: function(permissionName){
         return this.canDo(permissionName, 'AddEdit');

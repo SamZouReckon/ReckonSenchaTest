@@ -1,9 +1,9 @@
 Ext.define('RM.view.Invoices', {
-	extend: 'Ext.Panel',
+	extend: 'RM.component.SecurePanel',
 	xtype: 'invoices',
-	requires: ['RM.component.SortSearchBar','RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+	requires: ['RM.component.SortSearchBar','RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
 	config: {
-		
+		permissionFor: 'Invoices',
 		layout: 'fit',
 		items: [
 			{
@@ -24,6 +24,8 @@ Ext.define('RM.view.Invoices', {
 						xtype: 'spacer'
 					}, {
 						text: 'ADD',
+                        xtype: 'securebutton',
+                        permissionFor: 'Invoices',
 						itemId: 'add',                        
 						ui: 'rm_topbarbuttonright'
 					}

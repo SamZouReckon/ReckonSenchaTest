@@ -1,9 +1,10 @@
 Ext.define('RM.view.ContactDetail', {
-	extend: 'Ext.Panel',
+	extend: 'RM.component.SecurePanel',
     requires: ['RM.component.SecureFormPanel','RM.component.SecureButton'],
 	xtype: 'contactdetail',
     
 	config: {		
+        permissionFor: 'Contacts',
 		layout: 'fit',        
 		items: [
 			{

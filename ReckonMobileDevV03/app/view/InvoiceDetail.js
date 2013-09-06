@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceDetail', {
     extend: 'RM.component.SecurePanel',
     xtype: 'invoicedetail',
-	requires: ['RM.component.InvoiceLineItems', 'RM.component.ExtTextField', 'RM.component.ExtSelectField', 'Ext.field.Hidden', 'RM.component.ExtDatePickerField'],
+	requires: ['RM.component.InvoiceLineItems', 'RM.component.ExtTextField', 'RM.component.ExtSelectField', 'Ext.field.Hidden', 'RM.component.ExtDatePickerField', 'RM.component.SecureFormPanel'],
     config: {
         permissionFor: 'Invoices',
         layout: 'fit',
@@ -32,7 +32,8 @@ Ext.define('RM.view.InvoiceDetail', {
 				}
                 ]
         },{
-            xtype: 'formpanel',
+			xtype: 'secureformpanel',
+            permissionFor: 'Invoices',
 			itemId: 'invoiceForm',
 			padding: 0,             
 			items: [{

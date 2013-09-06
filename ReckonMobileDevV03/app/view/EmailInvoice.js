@@ -52,7 +52,7 @@ Ext.define('RM.view.EmailInvoice', {
 								clearIcon: false,
 								placeHolder: 'enter',
                                 rmmandatory: true   
-							},{
+                            },{
 								xtype: 'selectfield',
 								label: '<img src="resources/images/icons/rm-attach.png" style="margin-right: 10px">Invoice Template',
                                 labelWidth: '10em',
@@ -64,18 +64,24 @@ Ext.define('RM.view.EmailInvoice', {
 								placeHolder: 'select',
 								cls: 'rm-flatfield',
 								ui: 'plain'
-							}, {
-								xtype: 'textareafield',
+                            }, {
+                                xtype: 'textareafield',
                                 maxRows: 8,
-								name: 'Body',
-								label: 'Custom message',								
-								labelAlign: 'top',
-								cls: 'rm-flatfield rm-inputel-alignl',
-								clearIcon: false,
-								placeHolder: 'enter',
+                                name: 'Body',
+                                label: 'Custom message',								
+                                labelAlign: 'top',
+                                cls: 'rm-flatfield rm-inputel-alignl',
+                                clearIcon: false,
+                                placeHolder: 'enter',
                                 border: '1 0 1 0',
-                                style: 'border-color: #DBDBDB; border-style: solid;'								
-							}
+                                style: 'border-color: #DBDBDB; border-style: solid;',
+                                listeners: {
+                                    keyup: function(field) {
+                                        var numOfRows = field.getValue().split("\n").length;                                     
+                                        field.setMaxRows(numOfRows);
+                                    }
+                                }
+                            }
 						]
 					}
 				]

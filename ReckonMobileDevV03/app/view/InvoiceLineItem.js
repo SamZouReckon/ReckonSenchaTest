@@ -39,7 +39,8 @@ Ext.define('RM.view.InvoiceLineItem', {
 					name: 'ProjectName',
 					label: 'Project',
 					cls: 'rm-flatfield',					
-                    placeHolder: 'select (optional)'
+                    placeHolder: 'select (optional)',
+                    permissionFor: {action:'Select',name:'Projects'},
 				},{	
                     xtype: 'hiddenfield',
 					name: 'ItemId'			

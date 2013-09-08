@@ -26,8 +26,25 @@ Ext.define('RM.component.SecureFormPanel', {
             // Iterate over all form fields and make them ReadOnly, and remove any placeholder text
             this.getFieldsArray().forEach(function(field) {
                 if(field.setReadOnly) { field.setReadOnly(true); }
-                if(field.setPlaceHolder) { field.setPlaceHolder(''); }
+                if(field.setPlaceHolder) { field.setPlaceHolder(''); }        
             });
         }
+        
+        // If any field has its own permissions, apply those too
+        this.getFieldsArray().forEach(function(field) {                       
+            var fieldPermission = field.config.permissionFor;
+            if(fieldPermission) {
+                var granted = RM.PermissionsMgr.canDo(fieldPermission.name, fieldPermission.action);
+                if(fieldPermission.invoke) {
+                    field[fieldPermission.invoke].apply(field, [granted]);    
+                }
+                else if(fieldPermission.invokeWithInverse) {
+                    field[fieldPermission.invoke].apply(field, [!granted]);    
+                }
+                else {
+                    field.setHidden(!granted);
+                }                
+            }
+        });
     }
 });

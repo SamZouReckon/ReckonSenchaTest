@@ -160,6 +160,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
             amounts.setHidden(!showAmounts);
         }
         
+        this.getLineItems().setShowItemTax((amounts.getValue() == RM.Consts.TaxStatus.INCLUSIVE) || (amounts.getValue() == RM.Consts.TaxStatus.EXCLUSIVE));
     },
 
     loadFormData: function () {
@@ -183,8 +184,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
                 
                 var lineItemsPanel = this.getLineItems();
-			    lineItemsPanel.addLineItems(data.LineItems);
-                lineItemsPanel.setShowItemTax((data.AmountTaxStatus == RM.Consts.TaxStatus.INCLUSIVE) || (data.AmountTaxStatus == RM.Consts.TaxStatus.EXCLUSIVE));
+			    lineItemsPanel.addLineItems(data.LineItems);                
                 lineItemsPanel.setCustomerId(data.CustomerId);
                 
 			    this.displayBalanceDue();

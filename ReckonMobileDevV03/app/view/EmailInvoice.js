@@ -1,7 +1,7 @@
 Ext.define('RM.view.EmailInvoice', {
 	extend: 'Ext.Panel',
 	xtype: 'emailinvoice',
-	requires: ['RM.component.ExtEmailField'],
+	requires: ['RM.component.ExtEmailField','RM.component.SecureFormPanel'],
 	config: {
 		
 		layout: 'card',
@@ -33,7 +33,7 @@ Ext.define('RM.view.EmailInvoice', {
 							}
 						]						
 					},{
-						xtype: 'formpanel',
+						xtype: 'secureformpanel',
 						padding: 0,
 						items: [
 							{
@@ -63,7 +63,8 @@ Ext.define('RM.view.EmailInvoice', {
 								valueField: 'TemplateID',
 								placeHolder: 'select',
 								cls: 'rm-flatfield',
-								ui: 'plain'
+								ui: 'plain',
+                                permissionFor: { name:'SalesPreferences', action:'View' }
 							}, {
 								xtype: 'textareafield',
                                 maxRows: 8,

@@ -70,7 +70,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
             this.detailsData = Ext.applyIf(this.detailsData, { Status: RM.Consts.InvoiceStatus.DRAFT, AmountTaxStatus: RM.Consts.TaxStatus.INCLUSIVE });
         }
 
-        this.isEditable = RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status);
+        this.isEditable = RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && RM.PermissionsMgr.canAddEdit('Invoices');
         
         var view = this.getInvoiceDetail();
         if (!view){
@@ -88,7 +88,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         
         this.setEditable(this.isEditable);
         
-        this.getInvoiceDetail().setActionsHidden(this.isCreate);
+        this.getInvoiceDetail().setActionsHidden(this.isCreate);        
         this.getDueDateFld().resetPicker();
         this.getDateFld().resetPicker();
         
@@ -100,7 +100,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.loadNewInvCode();
                 var invoiceForm =  this.getInvoiceForm();
                 
-                var data = { Date: new Date(), Discount: 'None', Status: RM.Consts.InvoiceStatus.DRAFT, AmountTaxStatus: RM.Consts.TaxStatus.INCLUSIVE };
+                var data = { Date: new Date(), Discount: 'None', Status: RM.Consts.InvoiceStatus.DRAFT };
                 if (this.detailsData && this.detailsData.CustomerId) {
                     data.CustomerId = this.detailsData.CustomerId;
                     data.CustomerName = this.detailsData.CustomerName;
@@ -108,6 +108,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 }
                 invoiceForm.reset();
                 invoiceForm.setValues(data);
+                this.applyTaxRules();
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
                 this.getBalanceDue().setHtml('');
                 this.initialFormValues = invoiceForm.getValues();
@@ -131,11 +132,36 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
         this.getDueDateFld().setReadOnly(!editable);
         this.getDateFld().setReadOnly(!editable);        
-        this.getRefNrFld().setReadOnly(!editable);
-        this.getAmountsFld().setReadOnly(!editable);
+        this.getRefNrFld().setReadOnly(!editable);        
         
         this.getLineItems().setIsEditable(editable);
     },    
+    
+    applyTaxRules: function() {
+        var amounts = this.getAmountsFld();
+        var taxPrefs = RM.CashbookMgr.getTaxPreferences();
+        amounts.setReadOnly(!this.isEditable || !taxPrefs.AllowTaxEdit);
+        
+        if(this.isCreate) {
+            // New invoice behaviour
+            if (taxPrefs.IsTaxTracking) {
+                amounts.setHidden(false);
+                amounts.setValue(taxPrefs.SalesFigures);
+            }
+            else
+            {
+                amounts.setHidden(true);
+                amounts.setValue(RM.Consts.TaxStatus.NON_TAXED);
+            }
+        }
+        else {
+            // Existing invoice behaviour
+            var showAmounts = taxPrefs.IsTaxTracking || amounts.getValue() !== RM.Consts.TaxStatus.NON_TAXED;
+            amounts.setHidden(!showAmounts);
+        }
+        
+        this.getLineItems().setShowItemTax((amounts.getValue() == RM.Consts.TaxStatus.INCLUSIVE) || (amounts.getValue() == RM.Consts.TaxStatus.EXCLUSIVE));
+    },
 
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Invoices', this.detailsData.InvoiceId,
@@ -154,11 +180,11 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 
                 //data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
                 invoiceForm.setValues(data);
+                this.applyTaxRules();
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
                 
                 var lineItemsPanel = this.getLineItems();
-			    lineItemsPanel.addLineItems(data.LineItems);
-                lineItemsPanel.setShowItemTax((data.AmountTaxStatus == RM.Consts.TaxStatus.INCLUSIVE) || (data.AmountTaxStatus == RM.Consts.TaxStatus.EXCLUSIVE));
+			    lineItemsPanel.addLineItems(data.LineItems);                
                 lineItemsPanel.setCustomerId(data.CustomerId);
                 
 			    this.displayBalanceDue();

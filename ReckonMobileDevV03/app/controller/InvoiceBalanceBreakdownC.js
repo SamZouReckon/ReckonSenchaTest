@@ -39,9 +39,11 @@ Ext.define('RM.controller.InvoiceBalanceBreakdownC', {
                     '<tr>' +
                    '<div class="rm-balance-breakdown-row"><span>Discount</span><span class="rm-balance-breakdown-amount">${1}</span></div>' +
                    '</tr>' +
+                    (data.AmountTaxStatus !== RM.Consts.TaxStatus.NON_TAXED ? 
                     '<tr>' +
                    '<div class="rm-balance-breakdown-row"><span>Tax</span><span class="rm-balance-breakdown-amount">${2}</span></div>' +
-                   '</tr>' +
+                   '</tr>' 
+                    : '') +
                     '<tr>' +
                    '<div class="rm-balance-breakdown-row"><span>Subtotal</span><span class="rm-balance-breakdown-amount">${3}</span></div>' +
                    '</tr>' +

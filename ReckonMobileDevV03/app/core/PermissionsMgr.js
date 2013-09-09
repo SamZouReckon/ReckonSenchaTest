@@ -51,6 +51,10 @@ Ext.define('RM.core.PermissionsMgr', {
         return this.canDo(permissionName, 'Report');
     },
     
+    canSelect: function(permissionName){
+        return this.canDo(permissionName, 'Select');
+    },
+    
     triggerUpdateEvent: function() {
         this.app.fireEvent('rm-permissionsupdated');
     }

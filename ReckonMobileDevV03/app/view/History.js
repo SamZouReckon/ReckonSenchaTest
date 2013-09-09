@@ -1,7 +1,7 @@
 Ext.define('RM.view.History', {
     extend: 'Ext.Panel',
     xtype: 'history',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
     config: {
         
         layout: {
@@ -25,12 +25,13 @@ Ext.define('RM.view.History', {
             }
                 ]
         }, {
-            xtype: 'button',
+            xtype: 'securebutton',
             text: 'Add a note',
             itemId: 'addnote',
             cls: 'rm-actionbtn rm-arrowimgbtn',
             icon: 'resources/images/icons/rm-addnote.png',
-            iconAlign: 'left'
+            iconAlign: 'left',
+            permissionFor: 'Invoices'
 
         }, {
             xtype: 'list',

@@ -307,13 +307,14 @@ Ext.define('RM.controller.InvoiceDetailC', {
         }
       
         for (var i = 0; i < lineItems.length; i++) {
-            var lineItemVals = {ItemType: lineItems[i].ItemType, ItemID: lineItems[i].ItemId, Quantity: lineItems[i].Quantity, UnitPriceExTax: lineItems[i].UnitPriceExTax, TaxGroupID: lineItems[i].TaxGroupId};
+            var item = lineItems[i];
+            var lineItemVals = {ItemType: item.ItemType, ItemID: item.ItemId, Quantity: item.Quantity, UnitPriceExTax: item.UnitPriceExTax, TaxGroupID: item.TaxGroupId, Tax: item.Tax, TaxIsModified: item.TaxIsModified};
             
-            if(lineItems[i].DiscountPerc){
-                lineItemVals.DiscountPercentage = lineItems[i].DiscountPerc;
+            if(item.DiscountPerc){
+                lineItemVals.DiscountPercentage = item.DiscountPerc;
             }
-            if(lineItems[i].DiscountAmount){
-                lineItemVals.DiscountAmount = lineItems[i].DiscountAmount;
+            if(item.DiscountAmount){
+                lineItemVals.DiscountAmount = item.DiscountAmount;
             }            
 
             vals.LineItems.push(lineItemVals);

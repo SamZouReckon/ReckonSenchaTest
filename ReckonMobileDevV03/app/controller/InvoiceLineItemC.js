@@ -6,12 +6,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             itemDetail: 'invoicelineitem',
             addBtn: 'invoicelineitem #add',
 			itemForm: 'invoicelineitem #itemForm',
-            description: 'invoicelineitem exttextfield[name=Description]',
-            unitPriceExTax: 'invoicelineitem extnumberfield[name=UnitPriceExTax]',
-            quantity: 'invoicelineitem extnumberfield[name=Quantity]',
-			taxCode: 'invoicelineitem selectfield[name=TaxGroupId]',
-            itemNameFld: 'invoicelineitem exttextfield[name=ItemName]',
-            projectId: 'invoicelineitem hiddenfield[name=ProjectID]'
+            description: 'invoicelineitem field[name=Description]',
+            unitPriceExTax: 'invoicelineitem field[name=UnitPriceExTax]',
+            quantity: 'invoicelineitem field[name=Quantity]',
+			taxCode: 'invoicelineitem field[name=TaxGroupId]',
+            tax: 'invoicelineitem field[name=Tax]',
+            itemNameFld: 'invoicelineitem field[name=ItemName]',
+            projectId: 'invoicelineitem field[name=ProjectID]'
         },
         control: {
             'invoicelineitem': {
@@ -44,7 +45,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             this.detailsData = detailsData;
         }
         else{
-            this.detailsData = {Quantity: 1};
+            this.detailsData = {Quantity: 1, TaxIsModified: false};
         }        
         
         var view = this.getItemDetail();
@@ -65,18 +66,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         if(!this.initShow){
             itemForm.reset();
-            //var data = this.detailsData;
-            //data.Discount = 'None';            
-    		//itemForm.setValues(Ext.applyIf(this.detailsData, {Quantity: 2}));
+
 		    this.detailsData.Discount = (this.detailsData.DiscountPerc && this.detailsData.DiscountPerc != 0) ? this.detailsData.DiscountPerc + '%' : 'None';
 		    this.detailsData.Discount = (this.detailsData.DiscountAmount && this.detailsData.DiscountAmount != 0) ? '$' + Ext.Number.toFixed(this.detailsData.DiscountAmount, 2) : this.detailsData.Discount;            
-            //this.detailsData.SaleTaxCodeID = this.detailsData.TaxGroupId;
             itemForm.setValues(this.detailsData);
-            /*if(!this.detailsData.SaleTaxCodeID){
-                this.getTaxCode().setValue(null);   
-            }*/
             this.getTaxCode().setHidden(!this.showTaxCode);
-    		//itemForm.getComponent(3).setValue(this.detailsData.SaleTaxCodeID);
             
             this.initShow = true;
         }           
@@ -87,6 +81,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getUnitPriceExTax().setReadOnly(!editable);
         this.getQuantity().setReadOnly(!editable);
         this.getTaxCode().setReadOnly(!editable);
+        this.getTax().setReadOnly(!editable);
     },
 
     onFieldTap: function (tf) {
@@ -118,9 +113,6 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                     false,
     				function (data) {
                         var rec = data[0];
-                        //alert(Ext.encode(rec));
-    				    //this.detailsData.TaxTypeID = rec.SaleTaxCodeID;//data[0].TaxCodeId;
-    				    //this.getTimeSheetForm().setValues({ ItemId: data[0].ItemId, ItemName: data[0].Name, SaleTaxCodeID: data[0].SaleTaxCodeID });
                         this.detailsData.ItemName = rec.Name;
                         
                         this.getItemForm().setValues({ ItemId: rec.ItemId, ItemName:rec.ItemPath, TaxGroupId:rec.SaleTaxCodeID, UnitPriceExTax:rec.UnitPriceExTax, Description: rec.SalesDescription});
@@ -167,10 +159,6 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
 		
 		var formVals = this.getItemForm().getValues();
-		//alert(Ext.encode(formVals));
-		//formVals.SaleTaxCodeID = '7654913F-9486-419C-9752-8C0C2EC91E85';
-		//var taxRec = this.getTaxCode().getRecord();
-		//var amount = formVals.Quantity * this.detailsData.SalePrice;
 
 		var item = { //fields corresponding to InvoiceLineItemDto
 		    //InvoiceItemId: null, //is assigned at server
@@ -182,21 +170,18 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ProjectID: formVals.ProjectID,
             ProjectName: formVals.ProjectName,
 		    Quantity: formVals.Quantity,
-		    //Amount: amount,
-		    //TaxGroupId: taxRec ? taxRec.get('GSTCodeID') : null, //formVals.SaleTaxCodeID,
             TaxGroupId: formVals.TaxGroupId,
-			//TaxRate: taxRec.get('Rate') / 100 * amount,
+			Tax: formVals.Tax,
+            TaxIsModified: this.detailsData.TaxIsModified,
             UnitPriceExTax: formVals.UnitPriceExTax,
             Description: formVals.Description
         };
 
         if (formVals.Discount.indexOf('%') > -1) {
-            //item.DiscountAmount = 0;
-            item.DiscountPerc = parseFloat(formVals.Discount.replace('%', '')); //formVals.Discount.replace('%', '');
+            item.DiscountPerc = parseFloat(formVals.Discount.replace('%', ''));
         }
         else if (formVals.Discount.indexOf('$') > -1) {
-            item.DiscountAmount = parseFloat(formVals.Discount.replace('$', '')); //formVals.Discount.replace('$', '');
-            //item.DiscountPerc = 0;
+            item.DiscountAmount = parseFloat(formVals.Discount.replace('$', ''));
         }
 
         //alert(Ext.encode(item));

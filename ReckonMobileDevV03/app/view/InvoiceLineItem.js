@@ -88,6 +88,11 @@ Ext.define('RM.view.InvoiceLineItem', {
 					cls: 'rm-flatfield',
                     ui:'plain'
                 },{
+					xtype: 'extnumberfield',
+					name: 'Tax',
+					label: 'Tax',
+					cls: 'rm-flatfield'
+				},{
                     xtype: 'exttextfield',
 					name: 'Discount',
 					label: 'Discount',

@@ -66,7 +66,7 @@ Ext.define('RM.view.EmailInvoice', {
 								ui: 'plain'
                             }, {
                                 xtype: 'textareafield',
-                                maxRows: 8,
+                                //maxRows: 8,
                                 name: 'Body',
                                 label: 'Custom message',								
                                 labelAlign: 'top',
@@ -75,10 +75,14 @@ Ext.define('RM.view.EmailInvoice', {
                                 placeHolder: 'enter',
                                 border: '1 0 1 0',
                                 style: 'border-color: #DBDBDB; border-style: solid;',
-                                listeners: {
+                                listeners: {    
+                                    focus: function(field) {                                        
+                                        var numOfRows = field.getValue().split("\n").length;                                       
+                                        field.setMaxRows(numOfRows+2);
+                                    },
                                     keyup: function(field) {
-                                        var numOfRows = field.getValue().split("\n").length;                                     
-                                        field.setMaxRows(numOfRows);
+                                        var numOfRows = field.getValue().split("\n").length;                                          
+                                        field.setMaxRows(numOfRows+2);
                                     }
                                 }
                             }

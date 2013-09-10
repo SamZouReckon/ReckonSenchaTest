@@ -11,7 +11,7 @@ Ext.define('RM.component.ChooseInvoiceItem', {
 			},{
 				text: 'Time',
 				itemId: 'time',
-                permissionFor: 'TimeSheets_BillEntry'                            
+                permissionFor: 'Timesheets_BillEntry'                            
 			},{
 				text: 'Expenses',
 				itemId: 'expenses',

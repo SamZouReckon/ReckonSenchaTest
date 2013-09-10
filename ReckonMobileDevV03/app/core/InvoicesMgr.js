@@ -14,7 +14,7 @@ Ext.define('RM.core.InvoicesMgr', {
             case RM.Consts.InvoiceStatus.DRAFT:
                 return 'DRAFT';
             case RM.Consts.InvoiceStatus.APPROVED:
-                return 'INVOICED';
+                return RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled ? 'INVOICED' : 'UNPAID';
             case RM.Consts.InvoiceStatus.PARTIALLY_PAID:
                 return 'PARTIALLY PAID';
             case RM.Consts.InvoiceStatus.PAID:
@@ -22,6 +22,15 @@ Ext.define('RM.core.InvoicesMgr', {
         }
         
         return 'UNKNOWN';        
+    },
+    
+    getInitialInvoiceStatus: function() {
+        if(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
+            return RM.Consts.InvoiceStatus.DRAFT;
+        }   
+        else {
+            return RM.Consts.InvoiceStatus.APPROVED;
+        }
     },
     
     isInvoiceApprovable: function(status){
@@ -33,7 +42,7 @@ Ext.define('RM.core.InvoicesMgr', {
     },
     
     isInvoiceEditable: function(status){
-        return (status == RM.Consts.InvoiceStatus.DRAFT);
+        return (status == this.getInitialInvoiceStatus());
     },    
     
     isInvoiceEmailable: function(status){        

@@ -1,5 +1,6 @@
 Ext.define('RM.controller.InvoiceDetailC', {
     extend: 'Ext.app.Controller',
+    requires: ['RM.util.FormUtils'],
 
     config: {
         refs: {
@@ -131,11 +132,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     
     setEditable: function(editable){
         this.getSaveBtn().setHidden(!editable);
-
-        this.getDueDateFld().setReadOnly(!editable);
-        this.getDateFld().setReadOnly(!editable);        
-        this.getRefNrFld().setReadOnly(!editable);        
-        
+        if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getInvoiceForm()); }        
         this.getLineItems().setIsEditable(editable);
     },    
     

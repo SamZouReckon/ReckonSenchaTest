@@ -64,6 +64,7 @@ Ext.define('RM.core.ViewMgr', {
     },
 
     appPause: function(){
+        document.activeElement.blur();  // Fix for above issue in iOS
         if(this.backHandler){
            this.backHandler.call(this.backHandlerScope);
         }                

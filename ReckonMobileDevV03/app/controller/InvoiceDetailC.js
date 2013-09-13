@@ -1,5 +1,6 @@
 Ext.define('RM.controller.InvoiceDetailC', {
     extend: 'Ext.app.Controller',
+    requires: ['RM.util.FormUtils'],
 
     config: {
         refs: {
@@ -67,7 +68,11 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.noteText = '';
         
         if (isCreate) {
-            this.detailsData = Ext.applyIf(this.detailsData, { Status: RM.Consts.InvoiceStatus.DRAFT, AmountTaxStatus: RM.Consts.TaxStatus.INCLUSIVE });
+            this.detailsData = Ext.applyIf(this.detailsData, { 
+                Status: RM.InvoicesMgr.getInitialInvoiceStatus(), 
+                AmountTaxStatus: RM.Consts.TaxStatus.INCLUSIVE, 
+                Date: new Date(), 
+                Discount: 'None' });
         }
 
         this.isEditable = RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && RM.PermissionsMgr.canAddEdit('Invoices');
@@ -82,8 +87,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     onShow: function () {        
         
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
-        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
-        this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.detailsData.Status));
+        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');        
         this.lineItemsDirty = false;
         
         this.setEditable(this.isEditable);
@@ -93,17 +97,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.getDateFld().resetPicker();
         
         if (!this.dataLoaded) {
-            if (!this.isCreate) {
+            if (!this.isCreate) {                
                 this.loadFormData();
             }
             else {
                 this.loadNewInvCode();
                 var invoiceForm =  this.getInvoiceForm();
                 
-                var data = { Date: new Date(), Discount: 'None', Status: RM.Consts.InvoiceStatus.DRAFT };
-                if (this.detailsData && this.detailsData.CustomerId) {
-                    data.CustomerId = this.detailsData.CustomerId;
-                    data.CustomerName = this.detailsData.CustomerName;
+                var data = this.detailsData;
+                if (data.CustomerId) {                    
                     this.getLineItems().setCustomerId(data.CustomerId);
                 }
                 invoiceForm.reset();
@@ -113,6 +115,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.getBalanceDue().setHtml('');
                 this.initialFormValues = invoiceForm.getValues();
                 this.getLineItems().setCustomerId(null);
+                this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));
             }
 
             this.dataLoaded = true;
@@ -129,11 +132,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     
     setEditable: function(editable){
         this.getSaveBtn().setHidden(!editable);
-
-        this.getDueDateFld().setReadOnly(!editable);
-        this.getDateFld().setReadOnly(!editable);        
-        this.getRefNrFld().setReadOnly(!editable);        
-        
+        if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getInvoiceForm()); }        
         this.getLineItems().setIsEditable(editable);
     },    
     
@@ -167,6 +166,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         RM.AppMgr.getServerRecById('Invoices', this.detailsData.InvoiceId,
 			function (data) {
 			    //{"InvoiceId":"cedb2be2-07a6-422a-8fc5-a1b613ed5014","CustomerId":"09cb09ce-2e06-48b9-a9de-72790de0befe","CustomerName":"Applie","InvCode":"INV0000000068","Date":"2013-03-05T00:00:00","DueDate":"2013-03-10T00:00:00","SentDt":"2013-03-05T00:00:00","DueDays":-2,"DiscountPerc":null,"DiscountAmount":null,"Amount":47.8400,"Ref":null,"AmountTaxStatus":1,"Status":1,"LineItems":[{"InvoiceItemId":"bd15d832-7416-44e9-a020-0f1eea58659c","InvoiceId":"cedb2be2-07a6-422a-8fc5-a1b613ed5014","Quantity":16.0000,"Name":"Granny Smith Apples","Amount":47.8400,"ItemType":1,"ItemId":"71ed70da-63f3-4409-8ceb-52d5197a23a4","Description":"Granny Smith Apples","DiscountAmount":null,"DiscountPerc":null,"TaxRate":0.0000,"TaxCodeId":"7654913f-9486-419c-9752-8c0c2ec91e85","UnitPrice":2.9900}],"TemplateID":"cc09848f-db2a-4471-99d9-3c682c34efdb","Tax":0.0000,"SubTotal":47.8400,"Paid":0.0,"BalanceDue":47.8400}
+                this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));
                 var invoiceForm =  this.getInvoiceForm();
 			    this.getLineItems().removeAllItems();
 			    this.detailsData = data;

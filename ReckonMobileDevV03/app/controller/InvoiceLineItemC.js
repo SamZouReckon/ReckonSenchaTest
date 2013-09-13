@@ -1,6 +1,6 @@
 Ext.define('RM.controller.InvoiceLineItemC', {
     extend: 'Ext.app.Controller',
-    requires: ['RM.view.InvoiceLineItem'],
+    requires: ['RM.view.InvoiceLineItem','RM.util.FormUtils'],
     config: {
         refs: {
             itemDetail: 'invoicelineitem',
@@ -77,11 +77,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },
     
     setEditable: function(editable){
-        this.getDescription().setReadOnly(!editable);
-        this.getUnitPriceExTax().setReadOnly(!editable);
-        this.getQuantity().setReadOnly(!editable);
-        this.getTaxCode().setReadOnly(!editable);
-        this.getTax().setReadOnly(!editable);
+        if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getItemForm()); }    
     },
 
     onFieldTap: function (tf) {

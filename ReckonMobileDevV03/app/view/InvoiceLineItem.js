@@ -30,7 +30,7 @@ Ext.define('RM.view.InvoiceLineItem', {
             permissionFor: 'Invoices',
 			itemId: 'itemForm',
 			padding: 0,
-            defaults: {readOnly: true, clearIcon: false},
+            defaults: {clearIcon: false},
 			items: [{
 					xtype: 'hiddenfield',
 					name: 'ProjectID'			

@@ -48,10 +48,10 @@ Ext.define('RM.controller.InvoiceActionsC', {
     onShow: function(){
         this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.invoiceData.Status));
         
-        var hideApprove = !(RM.InvoicesMgr.isInvoiceApprovable(this.invoiceData.Status) || RM.PermissionsMgr.canApprove('Invoices'));
+        var hideApprove = !(RM.InvoicesMgr.isInvoiceApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
         this.getInvAproveBtn().setHidden(hideApprove);        
         
-        var hideEmail = !( RM.InvoicesMgr.isInvoiceEmailable(this.invoiceData.Status) || RM.PermissionsMgr.canApprove('Invoices'));
+        var hideEmail = !( RM.InvoicesMgr.isInvoiceEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
         this.getInvEmailBtn().setHidden(hideEmail);
         
         this.getInvPayBtn().setHidden(!RM.InvoicesMgr.isInvoicePayable(this.invoiceData.Status));        

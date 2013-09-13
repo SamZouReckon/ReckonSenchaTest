@@ -63,8 +63,9 @@ Ext.define('RM.component.DataEntryKeypad', {
 		}]		
     },
 
-	onKeyTap: function(btn){
-		this.fireEvent('keytap', btn.getText().toLowerCase());    
+	onKeyTap: function(btn,e){
+		this.fireEvent('keytap', btn.getText().toLowerCase());   
+        e.stopPropagation();            //To stop tap event propagating to root container
 	}
 	
 

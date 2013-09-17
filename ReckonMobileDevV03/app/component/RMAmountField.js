@@ -103,14 +103,17 @@ Ext.define('RM.component.RMAmountField', {
         return valStr;
     },    
     
-    applyValue: function(newVal,oldVal){    
-        //console.log(oldVal);
+    
+    applyValue: function(newVal,oldVal){         
         var valStr = newVal.toString();  
-               
-        if(valStr.indexOf(this.config.prefix) == -1 && valStr !== '')
-            valStr = this.config.prefix + valStr;
+        if (!oldVal && oldVal !== '') {
+            if (this.config.decimalPlaces && valStr !== '')
+                valStr = Ext.Number.toFixed(parseFloat(valStr), this.config.decimalPlaces);
+        }
+        if (valStr.indexOf(this.config.prefix) == -1 && valStr !== '')
+            valStr = this.config.prefix + valStr;        
         return valStr;
-    }, 
+    },     
     
     handleTapInEntireScreen: function(e) {        
         if (this.fieldUniqueId !== e.target.id) {           

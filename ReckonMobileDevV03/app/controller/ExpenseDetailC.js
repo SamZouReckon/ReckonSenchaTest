@@ -80,7 +80,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
 					    data.Date = new Date(data.Date);
 					    //delete data.Notes;
                         //data.SaleTaxCodeID = data.TaxTypeID;
-					    expenseForm.setValues(data);
+					    //expenseForm.setValues(data);
                         this.noteText = data.Notes; //Enables preserving of new lines when going from textfield to textarea
                         data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
                         expenseForm.setValues(data);

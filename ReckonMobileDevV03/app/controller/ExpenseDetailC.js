@@ -15,7 +15,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
             historyFld: 'expensedetail #history',
             photoBtn: 'expensedetail #photo',
             dateFld: 'expensedetail extdatepickerfield[name=Date]',
-            amountFld:  'expensedetail extnumberfield[name=Amount]',
+            amountFld:  'expensedetail exttextfield[name=Amount]',
             itemFld:  'expensedetail exttextfield[name=ItemName]',
             supplierFld:  'expensedetail exttextfield[name=SupplierName]'
         },

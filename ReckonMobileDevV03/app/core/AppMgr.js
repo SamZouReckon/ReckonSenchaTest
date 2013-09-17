@@ -314,8 +314,7 @@ Ext.define('RM.core.AppMgr', {
     setupBaseApi: function(){
         var apiLocation = localStorage.getItem('RmApiLocation'), apiType = localStorage.getItem('RmApiType');
         if(!apiLocation){
-            apiLocation = 'demoserver';
-            //apiLocation = 'devserver';
+            apiLocation = 'qaserver';            
         }
         
         this.apiLocation = apiLocation;

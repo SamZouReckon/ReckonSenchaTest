@@ -5525,6 +5525,8 @@ body.x-desktop {
 .rm-flatfield {
   background: white;
   border-top: 1px solid #DBDBDB; }
+.rm-flatfield-last {  
+  border-bottom: 1px solid #DBDBDB !important; }
 .rm-flatfield .x-form-label {
   color: #646464;
   background: #FFFFFF; }

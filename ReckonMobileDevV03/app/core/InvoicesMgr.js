@@ -60,14 +60,14 @@ Ext.define('RM.core.InvoicesMgr', {
         invoiceDetailC.showView(isCreate, data, cb, cbs);
     },
 
-    showChooseItemPopup: function (customerId, showItemTax, cb, cbs) {
+    showChooseItemPopup: function (customerId, options, cb, cbs) {
         var itemPopup = Ext.create('RM.component.ChooseInvoiceItem');
         itemPopup.show(
 			function (itemId) {
 			    switch (itemId) {
 			        case 'item':
 			            //RM.Selectors.showItems(showItemTax, null, true, cb, cbs);
-                        this.showInvoiceLineItem(true, customerId, showItemTax, null, cb, cbs);
+                        this.showInvoiceLineItem(true, customerId, options, null, cb, cbs);
 			            break;
 			        case 'time':
 			            this.showInvoiceTimeSelect(customerId, cb, cbs);

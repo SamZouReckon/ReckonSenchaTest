@@ -1,7 +1,7 @@
 Ext.define('RM.view.ExpenseDetail', {
 	extend: 'Ext.Panel',
 	xtype: 'expensedetail',
-    
+    requires: ['RM.component.DataEntryKeypad','RM.component.RMAmountField'],
 	config: {
 		
 		layout: 'fit',
@@ -85,18 +85,17 @@ Ext.define('RM.view.ExpenseDetail', {
 								placeHolder: 'select'
                                 
 							},{
-                                xtype: 'extnumberfield',                                   
+                                xtype: 'rmamountfield',                                   
 								name: 'Amount',
 								label: 'Amount',
                                 rmmandatory: true,
+                                cursorSimulate: true,
+                                readOnly: true,
 								cls: 'rm-flatfield',                                 
 								placeHolder: 'enter',
-								clearIcon: false,                                
-                                listeners:{
-                                    blur: function(){        
-                                        this.setValue(RM.AppMgr.numberPrecision(this.getValue()));
-                                    }
-                                } 
+								clearIcon: false,   
+                                decimalPlaces: 2,
+                                prefix: '$'
 							},{
 								xtype: 'hiddenfield',
 								name: 'ItemId'			

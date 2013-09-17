@@ -108,7 +108,7 @@ Ext.define('RM.component.InvoiceLineItems', {
 									xtype: 'component',
 									cls:'rm-invoiceitemtext',                
 									//html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + (item.ItemPath ? item.ItemPath : item.ItemName),
-                                    html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + item.Description,
+                                    html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + item.LineText,
 									listeners: {
 										tap: {
 											element: 'element',                    

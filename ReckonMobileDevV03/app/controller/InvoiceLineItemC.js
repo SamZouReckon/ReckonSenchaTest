@@ -88,7 +88,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             
             itemForm.setValues(this.detailsData);            
             if(!this.isTaxInclusive()) {
-                this.getUnitPrice.setValue(this.detailsData.UnitPriceExTax);
+                this.getUnitPrice().setValue(this.detailsData.UnitPriceExTax);
             }
             
             this.getTaxCode().setHidden(this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED);
@@ -240,6 +240,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         }
         else
         {
+            this.detailsData.UnitPriceExTax = newValue;
             this.getServerCalculatedValues();
         }
    },

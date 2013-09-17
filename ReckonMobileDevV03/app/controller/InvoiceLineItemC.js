@@ -221,7 +221,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ItemName:newItem.ItemPath, 
             TaxGroupId:newItem.SaleTaxCodeID,         
             Description: newItem.SalesDescription,
-            UnitPrice: newItem.UnitPriceExTax
+            UnitPrice: this.isTaxInclusive() ? null : newItem.UnitPriceExTax
         });
         this.ignoreEvents = false;
         this.getServerCalculatedValues();
@@ -236,13 +236,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         {
             //editing a tax incl price overrides any previously set tax amount
             this.detailsData.TaxIsModified = false;
-            this.getServerCalculatedValues(newValue);
         }
         else
         {
-            this.detailsData.UnitPriceExTax = newValue;
-            this.getServerCalculatedValues();
+            // Update the tax exclusive unit price shadowing the unit price field
+            this.detailsData.UnitPriceExTax = newValue;            
         }
+        this.getServerCalculatedValues();
    },
     
     taxAmountChanged: function(field, newValue, oldValue) {
@@ -259,12 +259,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
     quantityChanged: function() {
         // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;
-        
+        if(!this.initShow || this.ignoreEvents) return;        
         this.getServerCalculatedValues();
     },
     
-    getServerCalculatedValues: function(newUnitPrice) {
+    getServerCalculatedValues: function() {
         // build a dummy invoice
         var invoice = { 
             AmountTaxStatus: this.taxStatusCode, 
@@ -277,14 +276,19 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // set a single line item using current details
         var formVals = this.getItemForm().getValues();
         var lineItem = {
+            // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
+            ChangeStatus : 2, 
             ItemId: formVals.ItemId,
             Quantity: formVals.Quantity,
             TaxGroupID: formVals.TaxGroupId,
-            Tax: formVals.Tax,
-            Amount: formVals.Amount,
             TaxIsModified: this.detailsData.TaxIsModified,
             UnitPriceExTax: this.detailsData.UnitPriceExTax
         };
+        
+        // Only set the tax figure if the user has set it explicitly
+        if(lineItem.TaxIsModified) {
+            lineItem.Tax = formVals.Tax;
+        }
         
         if (formVals.Discount.indexOf('%') > -1) {
             lineItem.DiscountPerc = parseFloat(formVals.Discount.replace('%', ''));
@@ -292,10 +296,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         else if (formVals.Discount.indexOf('$') > -1) {
             lineItem.DiscountAmount = parseFloat(formVals.Discount.replace('$', ''));
         }
-                
-        if(newUnitPrice) {            
-            lineItem.UnitPrice = newUnitPrice;
-        }
+
+        if(this.isTaxInclusive() && !this.detailsData.TaxIsModified) {
+            lineItem.UnitPrice = this.getUnitPrice().getValue();
+        }        
         
         invoice.LineItems.push(lineItem);
         

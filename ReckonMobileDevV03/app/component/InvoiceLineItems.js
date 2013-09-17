@@ -43,12 +43,16 @@ Ext.define('RM.component.InvoiceLineItems', {
 
     },
     
-    setShowItemTax: function(showItemTax){
-        this.showItemTax = showItemTax;
+    setTaxStatus: function(taxStatus){
+        this.taxStatus = taxStatus;
     },
     
     setCustomerId: function(customerId){
         this.customerId = customerId;
+    },
+
+    setInvoiceDate: function(invoiceDate){
+        this.invoiceDate = invoiceDate;
     },
     
     setIsEditable: function(editable){
@@ -57,7 +61,7 @@ Ext.define('RM.component.InvoiceLineItems', {
     },
 
     onAddItem: function () {
-        RM.InvoicesMgr.showChooseItemPopup(this.customerId, this.showItemTax, this.addNewLineItems, this);
+        RM.InvoicesMgr.showChooseItemPopup(this.customerId, { taxStatus: this.taxStatus, invoiceDate: this.invoiceDate }, this.addNewLineItems, this);
     },
 
     addNewLineItems: function(items){
@@ -152,7 +156,7 @@ Ext.define('RM.component.InvoiceLineItems', {
         		},
         		this
         	);*/
-        	RM.InvoicesMgr.showInvoiceLineItem(this.isEditable, this.customerId, this.showItemTax, item,
+        	RM.InvoicesMgr.showInvoiceLineItem(this.isEditable, this.customerId, { taxStatus: this.taxStatus, invoiceDate: this.invoiceDate } , item,
         		function(data){
                     this.updateLineItem(compId, data[0]);
                     this.fireEvent('editlineitem');

@@ -51,6 +51,9 @@ Ext.define('RM.controller.InvoiceDetailC', {
             },
             'invoicedetail #invActions': {
                 tap: 'onInvoiceActions'
+            },
+            dateFld : {
+                change: 'onInvoiceDateChanged'
             }
         }
     },
@@ -115,11 +118,11 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.getBalanceDue().setHtml('');
                 this.initialFormValues = invoiceForm.getValues();
                 this.getLineItems().setCustomerId(null);
+                this.getLineItems().setInvoiceDate(this.getDateFld().getValue());
+                this.getLineItems().setTaxStatus(data.AmountTaxStatus);
                 this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));
-            }
-
-            this.dataLoaded = true;
-
+                this.dataLoaded = true;
+            }           
         }
 
     },
@@ -157,9 +160,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
             // Existing invoice behaviour
             var showAmounts = taxPrefs.IsTaxTracking || amounts.getValue() !== RM.Consts.TaxStatus.NON_TAXED;
             amounts.setHidden(!showAmounts);
-        }
-        
-        this.getLineItems().setShowItemTax((amounts.getValue() == RM.Consts.TaxStatus.INCLUSIVE) || (amounts.getValue() == RM.Consts.TaxStatus.EXCLUSIVE));
+        }        
     },
 
     loadFormData: function () {
@@ -186,10 +187,17 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 var lineItemsPanel = this.getLineItems();
 			    lineItemsPanel.addLineItems(data.LineItems);                
                 lineItemsPanel.setCustomerId(data.CustomerId);
+                lineItemsPanel.setTaxStatus(data.AmountTaxStatus);
+                lineItemsPanel.setInvoiceDate(data.Date);
                 
 			    this.displayBalanceDue();
                 this.initialFormValues = invoiceForm.getValues();
-
+                
+                if(this.detailsData.Paid > 0) {
+                    this.isEditable = false;
+                    this.setEditable(false);
+                }
+                this.dataLoaded = true;
 			},
 			this,
             function(){
@@ -256,11 +264,20 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
     },
     
-    onAmountTaxStatusSelected: function(amountTaxStatusFld){
+    onAmountTaxStatusSelected: function(amountTaxStatusFld, oldValue, newValue){
+        //  Recalculate the invoice line item unit price amounts, to display incl or excl
         this.calculateBreakdown();
         this.previousAmountTaxStatus = amountTaxStatusFld.getValue();
+        this.getLineItems().setTaxStatus(newValue);
     },
 
+    onInvoiceDateChanged: function(dateField, oldValue, newValue) {
+        if(!this.dataLoaded) return;
+        //  Recalculate the invoice tax amounts, since tax rates are date dependent
+        this.calculateBreakdown();
+        this.getLineItems().setInvoiceDate(newValue);
+    },
+    
     showNotes: function(){
         
         RM.Selectors.showNoteText(
@@ -347,7 +364,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                     }
                 }
                 
-                lineItemsPanel.setShowItemTax((vals.AmountTaxStatus == RM.Consts.TaxStatus.INCLUSIVE) || (vals.AmountTaxStatus == RM.Consts.TaxStatus.EXCLUSIVE));
+                lineItemsPanel.setTaxStatus(vals.AmountTaxStatus);
                 lineItemsPanel.addLineItems(lineItems);
                 
                 this.displayBalanceDue();

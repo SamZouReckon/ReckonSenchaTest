@@ -7,10 +7,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             addBtn: 'invoicelineitem #add',
 			itemForm: 'invoicelineitem #itemForm',
             description: 'invoicelineitem field[name=Description]',
-            unitPriceExTax: 'invoicelineitem field[name=UnitPriceExTax]',
+            unitPrice: 'invoicelineitem field[name=UnitPrice]',
             quantity: 'invoicelineitem field[name=Quantity]',
 			taxCode: 'invoicelineitem field[name=TaxGroupId]',
             tax: 'invoicelineitem field[name=Tax]',
+            amount: 'invoicelineitem field[name=Amount]',
             itemNameFld: 'invoicelineitem field[name=ItemName]',
             projectId: 'invoicelineitem field[name=ProjectID]'
         },
@@ -26,23 +27,37 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             },		
             'invoicelineitem #add': {
                 tap: 'add'
+            },
+            unitPrice: {
+                change: 'unitPriceChanged'
+            },
+            tax: {
+                change: 'taxAmountChanged'
+            },
+            quantity: {
+                change: 'quantityChanged'
             }
 		}
     },
 	
-    showView: function (editable, customerId, showTaxCode, detailsData, cb, cbs) {
+    isTaxInclusive: function() {
+        return this.taxStatusCode === RM.Consts.TaxStatus.INCLUSIVE;
+    },
+    
+    showView: function (editable, customerId, options, detailsData, cb, cbs) {
         
        console.log(Ext.encode(detailsData));
         this.isEditable = editable;
         this.customerId = customerId;
-        this.showTaxCode = showTaxCode;        
+        this.taxStatusCode = options.taxStatus; 
+        this.invoiceDate = options.invoiceDate;
         this.detailsCb = cb;
         this.detailsCbs = cbs;
 
         if(detailsData){
     	    detailsData.Discount = (detailsData.DiscountPerc && detailsData.DiscountPerc != 0) ? detailsData.DiscountPerc + '%' : 'None';
     	    detailsData.Discount = (detailsData.DiscountAmount && detailsData.DiscountAmount != 0) ? '$' + Ext.Number.toFixed(detailsData.DiscountAmount, 2) : detailsData.Discount;
-            this.detailsData = detailsData;
+            this.detailsData = detailsData;        
         }
         else{
             this.detailsData = {Quantity: 1, TaxIsModified: false};
@@ -55,6 +70,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         if (!view){
             view = { xtype: 'invoicelineitem' };
         }
+                     
         RM.ViewMgr.showPanel(view);
     },
 	
@@ -69,8 +85,15 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
 		    this.detailsData.Discount = (this.detailsData.DiscountPerc && this.detailsData.DiscountPerc != 0) ? this.detailsData.DiscountPerc + '%' : 'None';
 		    this.detailsData.Discount = (this.detailsData.DiscountAmount && this.detailsData.DiscountAmount != 0) ? '$' + Ext.Number.toFixed(this.detailsData.DiscountAmount, 2) : this.detailsData.Discount;            
-            itemForm.setValues(this.detailsData);
-            this.getTaxCode().setHidden(!this.showTaxCode);
+            
+            itemForm.setValues(this.detailsData);            
+            if(!this.isTaxInclusive()) {
+                this.getUnitPrice.setValue(this.detailsData.UnitPriceExTax);
+            }
+            
+            this.getTaxCode().setHidden(this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED);
+            
+            if(this.detailsData.ItemId) { this.getItemDetail().showDetailsFields(); }
             
             this.initShow = true;
         }           
@@ -107,11 +130,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                     true,
     				this.getProjectId().getValue(),
                     false,
-    				function (data) {
-                        var rec = data[0];
-                        this.detailsData.ItemName = rec.Name;
-                        
-                        this.getItemForm().setValues({ ItemId: rec.ItemId, ItemName:rec.ItemPath, TaxGroupId:rec.SaleTaxCodeID, UnitPriceExTax:rec.UnitPriceExTax, Description: rec.SalesDescription});
+    				function (data) {                        
+                        this.itemChanged(data[0])                        
     				},
     				this
     			);
@@ -139,8 +159,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             isValid = false;
         }
         
-        if(vals.UnitPriceExTax == null || vals.UnitPriceExTax == ''){
-            this.getUnitPriceExTax().showValidation(false);
+        if(!vals.UnitPriceExTax){
+            this.getUnitPrice().showValidation(false);
             isValid = false;
         }        
         
@@ -169,7 +189,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             TaxGroupId: formVals.TaxGroupId,
 			Tax: formVals.Tax,
             TaxIsModified: this.detailsData.TaxIsModified,
-            UnitPriceExTax: formVals.UnitPriceExTax,
+            UnitPriceExTax: this.detailsData.UnitPriceExTax,
             Description: formVals.Description
         };
 
@@ -186,6 +206,122 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             RM.ViewMgr.back();
         }
         
-	}
+	},
+    
+    itemChanged: function(newItem) {
+        // An item has been selected from the list:
+        // Reset item fields
+        this.detailsData.ItemName = newItem.Name;
+        this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
+        this.detailsData.TaxIsModified = false;
+        
+        this.ignoreEvents = true;
+        this.getItemForm().setValues({ 
+            ItemId: newItem.ItemId, 
+            ItemName:newItem.ItemPath, 
+            TaxGroupId:newItem.SaleTaxCodeID,         
+            Description: newItem.SalesDescription,
+            UnitPrice: newItem.UnitPriceExTax
+        });
+        this.ignoreEvents = false;
+        this.getServerCalculatedValues();
+    },
+    
+    unitPriceChanged: function(field, newValue, oldValue) {
+        // Only respond to changes triggered by the user, not events triggered during page loading
+        if(!this.initShow || this.ignoreEvents) return;
+        if(newValue === oldValue) return;
+        
+        if (this.isTaxInclusive())
+        {
+            //editing a tax incl price overrides any previously set tax amount
+            this.detailsData.TaxIsModified = false;
+            this.getServerCalculatedValues(newValue);
+        }
+        else
+        {
+            this.getServerCalculatedValues();
+        }
+   },
+    
+    taxAmountChanged: function(field, newValue, oldValue) {
+        // Only respond to changes triggered by the user, not events triggered during page loading
+        if(!this.initShow || this.ignoreEvents) return;
+        
+        this.detailsData.TaxIsModified = true;        
+        this.getServerCalculatedValues();
+    },
+    
+    projectChanged: function() {
+        //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)
+    },
+
+    quantityChanged: function() {
+        // Only respond to changes triggered by the user, not events triggered during page loading
+        if(!this.initShow || this.ignoreEvents) return;
+        
+        this.getServerCalculatedValues();
+    },
+    
+    getServerCalculatedValues: function(newUnitPrice) {
+        // build a dummy invoice
+        var invoice = { 
+            AmountTaxStatus: this.taxStatusCode, 
+            PreviousAmountTaxStatus: this.taxStatusCode, 
+            CustomerId: this.customerId,
+            InvoiceDate : this.invoiceDate,
+            LineItems:[]
+        };
+        
+        // set a single line item using current details
+        var formVals = this.getItemForm().getValues();
+        var lineItem = {
+            ItemId: formVals.ItemId,
+            Quantity: formVals.Quantity,
+            TaxGroupID: formVals.TaxGroupId,
+            Tax: formVals.Tax,
+            Amount: formVals.Amount,
+            TaxIsModified: this.detailsData.TaxIsModified,
+            UnitPriceExTax: this.detailsData.UnitPriceExTax
+        };
+        
+        if (formVals.Discount.indexOf('%') > -1) {
+            lineItem.DiscountPerc = parseFloat(formVals.Discount.replace('%', ''));
+        }
+        else if (formVals.Discount.indexOf('$') > -1) {
+            lineItem.DiscountAmount = parseFloat(formVals.Discount.replace('$', ''));
+        }
+                
+        if(newUnitPrice) {            
+            lineItem.UnitPrice = newUnitPrice;
+        }
+        
+        invoice.LineItems.push(lineItem);
+        
+        // call the invoice calculation method
+        RM.AppMgr.saveServerRec('InvoiceCalc', true, invoice,
+			function response(responseRecords) {
+                var calculated = responseRecords[0].Items[0];
+                
+                // record the calculated values as necessary
+                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                
+                // update the form with the results
+                this.ignoreEvents = true;                                
+                this.getItemForm().setValues({
+                    UnitPrice: this.isTaxInclusive() ? calculated.UnitPrice : calculated.UnitPriceExTax,
+                    Amount: calculated.Amount,
+                    Tax: calculated.Tax                
+                });
+                this.getItemDetail().showDetailsFields();
+                this.ignoreEvents = false;
+			},
+			this,
+            function(eventMsg){
+                alert(eventMsg);                
+            },
+            'Working...'
+		);  
+    }
 	
 });

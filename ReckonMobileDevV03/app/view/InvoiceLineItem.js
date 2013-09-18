@@ -69,7 +69,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                     hidden:true,
                     items: [
                     {                        
-    					xtype: 'rmamountfield',
+    					xtype: 'extnumberfield',
     					name: 'UnitPrice',
     					label: 'Item Price',
                         rmmandatory: true,
@@ -80,7 +80,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         prefix: '$'
 
     				},{
-    					xtype: 'rmamountfield',
+    					xtype: 'extnumberfield',
     					name: 'Quantity',
     					label: 'Quantity',
     					value: 1,
@@ -94,7 +94,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					value: 0,
     					cls: ['rm-flatfield']                   
     				},{
-    					xtype: 'rmamountfield',
+    					xtype: 'extnumberfield',
     					name: 'Amount',
     					label: 'Amount',
     					value: 0,
@@ -108,20 +108,22 @@ Ext.define('RM.view.InvoiceLineItem', {
                         rmmandatory: true,
                         labelWidth: '6em',
     					usePicker: true,
-    					name: 'TaxGroupId',
+    					name: 'TaxGroupId',                        
     					store: 'GSTCodes',
     					displayField: 'GSTCode',
     					valueField: 'GSTCodeID',
     					cls: 'rm-flatfield',
                         ui:'plain'
                     },{
-    					xtype: 'rmamountfield',
+    					xtype: 'extnumberfield',
     					name: 'Tax',
+                        itemId: 'Tax',
     					label: 'Tax',
-                        clearIcon: true,
+                        labelWidth: '7em',
     					cls: ['rm-flatfield', 'rm-flatfield-last'],
                         decimalPlaces: 2,
-                        prefix: '$'
+                        prefix: '$',
+                        clearIcon: true
     				}]
                 }            
 			]
@@ -130,12 +132,26 @@ Ext.define('RM.view.InvoiceLineItem', {
     },
     
     showDetailsFields: function() {
-        this.down('#descriptionField').removeCls(['rm-flatfield-last'])
+        this.down('#descriptionField').removeCls(['rm-flatfield-last']);        
         this.down('#detailsFields').setHidden(false);        
     },
     
-    hideDetailsFields: function() {
-        this.down('#descriptionField').addCls('rm-flatfield-last')
+    hideDetailsFields: function() {    
+        this.down('#descriptionField').addCls(['rm-flatfield-last']);
         this.down('#detailsFields').setHidden(true);        
+    },
+    
+    setTaxModified: function(isModified) {
+        var taxField = this.down('#Tax');
+        if(isModified) {
+            taxField.addCls(['rm-field-warning']);
+            taxField.setLabel('Tax (modified)');
+            taxField.removeCls('clear-icon-hidden');
+        }
+        else {
+            taxField.removeCls(['rm-field-warning']);
+            taxField.setLabel('Tax');
+            taxField.addCls('clear-icon-hidden');
+        }        
     }
 });

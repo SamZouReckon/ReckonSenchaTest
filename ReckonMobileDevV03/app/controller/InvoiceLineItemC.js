@@ -45,8 +45,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },
     
     showView: function (editable, customerId, options, detailsData, cb, cbs) {
-        
-       console.log(Ext.encode(detailsData));
+        this.ignoreEvents = false;
         this.isEditable = editable;
         this.customerId = customerId;
         this.taxStatusCode = options.taxStatus; 
@@ -92,6 +91,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             }
             
             this.getTaxCode().setHidden(this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED);
+            this.setTaxModified(this.detailsData.TaxIsModified);
             
             if(this.detailsData.ItemId) { this.getItemDetail().showDetailsFields(); }
             
@@ -101,6 +101,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     setEditable: function(editable){
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getItemForm()); }    
+    },
+    
+    setTaxModified: function(isModified) {
+        this.detailsData.TaxIsModified = isModified;
+        this.getItemDetail().setTaxModified(isModified);
     },
 
     onFieldTap: function (tf) {
@@ -213,7 +218,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // Reset item fields
         this.detailsData.ItemName = newItem.Name;
         this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
-        this.detailsData.TaxIsModified = false;
+        this.setTaxModified(false);
         
         this.ignoreEvents = true;
         this.getItemForm().setValues({ 
@@ -239,7 +244,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         if (this.isTaxInclusive())
         {
             //editing a tax incl price overrides any previously set tax amount
-            this.detailsData.TaxIsModified = false;
+            this.setTaxModified(false);
         }
         else
         {
@@ -254,9 +259,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         if(!this.initShow || this.ignoreEvents) return;
         
         if(!newValue) {
-            // Clearing the tax value resets it to the default calculated tax amount
-            // TODO: reset the modified display properties at this point
-            this.detailsData.TaxIsModified = false;  
+            // Clearing the tax value resets it to the default calculated tax amount            
+            this.setTaxModified(false);  
             
             // If we're tax inclusive, and the tax amount is reset, then clear the (tax incl) unit price so that it's recalculated using the default tax rate
             if(this.isTaxInclusive()) {
@@ -264,8 +268,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             }            
         }
         else {
-            this.detailsData.TaxIsModified = true;        
-        }
+            this.setTaxModified(true);        
+        }        
         
         this.getServerCalculatedValues();
     },    

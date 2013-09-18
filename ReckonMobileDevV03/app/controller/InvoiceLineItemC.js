@@ -221,12 +221,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ItemName:newItem.ItemPath, 
             TaxGroupId:newItem.SaleTaxCodeID,         
             Description: newItem.SalesDescription,
-            UnitPrice: this.isTaxInclusive() ? null : newItem.UnitPriceExTax
+            UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
         this.ignoreEvents = false;
+        var $this = this;
         this.getServerCalculatedValues(function() {
             // Make sure the details fields are visible after an item is selected
-            this.getItemDetail().showDetailsFields();
+            $this.getItemDetail().showDetailsFields();
         });
     },
     
@@ -259,7 +260,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             
             // If we're tax inclusive, and the tax amount is reset, then clear the (tax incl) unit price so that it's recalculated using the default tax rate
             if(this.isTaxInclusive()) {
-                this.getUnitPrice().setValue(null);
+                this.getUnitPrice().setValue('');
             }            
         }
         else {

@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceLineItem', {
     extend: 'Ext.Panel',
     xtype: 'invoicelineitem',
-    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'Ext.field.Select'],
+    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'Ext.field.Select', 'RM.component.RMAmountField'],
     config: {
         layout: 'fit',
         items: [{
@@ -63,25 +63,30 @@ Ext.define('RM.view.InvoiceLineItem', {
 					cls: ['rm-flatfield', 'rm-flatfield-last'],
 					placeHolder: 'enter'
 				},{
-                    xtype: 'panel',
+                    xtype: 'container',
                     itemId: 'detailsFields',
                     defaults: {clearIcon: false},
                     hidden:true,
                     items: [
                     {                        
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'UnitPrice',
     					label: 'Item Price',
                         rmmandatory: true,
                         labelWidth: 135,
     					cls: 'rm-flatfield',
-    					placeHolder: 'enter'
+    					placeHolder: 'enter',
+                        decimalPlaces: 2,
+                        prefix: '$'
+
     				},{
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'Quantity',
     					label: 'Quantity',
     					value: 1,
-    					cls: 'rm-flatfield'
+    					cls: 'rm-flatfield',
+                        decimalPlaces: 4,
+                        prefix: ''
     				},{
                         xtype: 'exttextfield',
     					name: 'Discount',
@@ -89,12 +94,14 @@ Ext.define('RM.view.InvoiceLineItem', {
     					value: 0,
     					cls: ['rm-flatfield']                   
     				},{
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'Amount',
     					label: 'Amount',
     					value: 0,
                         readOnly: true,
-    					cls: 'rm-flatfield'
+    					cls: 'rm-flatfield',
+                        decimalPlaces: 2,
+                        prefix: '$'
     				},{
                         xtype: 'extselectfield',
                         label: 'Tax code',
@@ -108,11 +115,13 @@ Ext.define('RM.view.InvoiceLineItem', {
     					cls: 'rm-flatfield',
                         ui:'plain'
                     },{
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'Tax',
     					label: 'Tax',
                         clearIcon: true,
-    					cls: ['rm-flatfield', 'rm-flatfield-last']
+    					cls: ['rm-flatfield', 'rm-flatfield-last'],
+                        decimalPlaces: 2,
+                        prefix: '$'
     				}]
                 }            
 			]

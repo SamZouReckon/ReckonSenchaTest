@@ -224,7 +224,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             UnitPrice: this.isTaxInclusive() ? null : newItem.UnitPriceExTax
         });
         this.ignoreEvents = false;
-        this.getServerCalculatedValues();
+        this.getServerCalculatedValues(function() {
+            // Make sure the details fields are visible after an item is selected
+            this.getItemDetail().showDetailsFields();
+        });
     },
     
     unitPriceChanged: function(field, newValue, oldValue) {
@@ -249,9 +252,22 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(!this.initShow || this.ignoreEvents) return;
         
-        this.detailsData.TaxIsModified = true;        
+        if(!newValue) {
+            // Clearing the tax value resets it to the default calculated tax amount
+            // TODO: reset the modified display properties at this point
+            this.detailsData.TaxIsModified = false;  
+            
+            // If we're tax inclusive, and the tax amount is reset, then clear the (tax incl) unit price so that it's recalculated using the default tax rate
+            if(this.isTaxInclusive()) {
+                this.getUnitPrice().setValue(null);
+            }            
+        }
+        else {
+            this.detailsData.TaxIsModified = true;        
+        }
+        
         this.getServerCalculatedValues();
-    },
+    },    
     
     projectChanged: function() {
         //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)
@@ -263,7 +279,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getServerCalculatedValues();
     },
     
-    getServerCalculatedValues: function() {
+    getServerCalculatedValues: function(completeCallback) {
         // build a dummy invoice
         var invoice = { 
             AmountTaxStatus: this.taxStatusCode, 
@@ -307,22 +323,26 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         RM.AppMgr.saveServerRec('InvoiceCalc', true, invoice,
 			function response(responseRecords) {
                 var calculated = responseRecords[0].Items[0];
+                this.ignoreEvents = true;     
                 
-                // record the calculated values as necessary
-                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                // if tax inclusive then the unit price incl and excl tax can be altered by the calculation
+                if(this.isTaxInclusive()) 
+                {
+                    this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                    this.getUnitPrice().setValue(calculated.UnitPrice);
+                }
                 
-                // update the form with the results
-                this.ignoreEvents = true;                                
-                this.getItemForm().setValues({
-                    UnitPrice: this.isTaxInclusive() ? calculated.UnitPrice : calculated.UnitPriceExTax,
+                this.getItemForm().setValues({                
                     Amount: calculated.Amount,
                     Tax: calculated.Tax                
                 });
-                this.getItemDetail().showDetailsFields();
+                                
                 this.ignoreEvents = false;
+                if(completeCallback) completeCallback();                
 			},
 			this,
             function(eventMsg){
+                //TODO: what to do if the calc call fails, hmmm
                 alert(eventMsg);                
             },
             'Working...'

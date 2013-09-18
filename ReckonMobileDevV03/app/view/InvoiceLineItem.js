@@ -111,6 +111,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					xtype: 'extnumberfield',
     					name: 'Tax',
     					label: 'Tax',
+                        clearIcon: true,
     					cls: ['rm-flatfield', 'rm-flatfield-last']
     				}]
                 }            

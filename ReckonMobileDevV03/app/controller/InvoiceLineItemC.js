@@ -230,7 +230,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         });
         this.ignoreEvents = false;
         var $this = this;
-        this.getServerCalculatedValues(function() {
+        this.getServerCalculatedValues('item', function() {
             // Make sure the details fields are visible after an item is selected
             $this.getItemDetail().showDetailsFields();
         });
@@ -240,38 +240,27 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(!this.initShow || this.ignoreEvents) return;
         if(newValue === oldValue) return;
-        
-        if (this.isTaxInclusive())
-        {
-            //editing a tax incl price overrides any previously set tax amount
-            this.setTaxModified(false);
-        }
-        else
-        {
+                      
+        if (!this.isTaxInclusive())
+        {         
             // Update the tax exclusive unit price shadowing the unit price field
             this.detailsData.UnitPriceExTax = newValue;            
         }
-        this.getServerCalculatedValues();
+        this.getServerCalculatedValues('UnitPrice');
    },
     
     taxAmountChanged: function(field, newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;
+        if(!this.initShow || this.ignoreEvents) return;  
         
         if(!newValue) {
-            // Clearing the tax value resets it to the default calculated tax amount            
-            this.setTaxModified(false);  
-            
-            // If we're tax inclusive, and the tax amount is reset, then clear the (tax incl) unit price so that it's recalculated using the default tax rate
-            if(this.isTaxInclusive()) {
-                this.getUnitPrice().setValue('');
-            }            
+            this.detailsData.TaxIsModified = false;
         }
         else {
-            this.setTaxModified(true);        
-        }        
+            this.detailsData.TaxIsModified = true;
+        }
         
-        this.getServerCalculatedValues();
+        this.getServerCalculatedValues('Tax');
     },    
     
     projectChanged: function() {
@@ -280,11 +269,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
     quantityChanged: function() {
         // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;        
-        this.getServerCalculatedValues();
+        if(!this.initShow || this.ignoreEvents) return;                    
+        this.getServerCalculatedValues('Quantity');
     },
     
-    getServerCalculatedValues: function(completeCallback) {
+    getServerCalculatedValues: function(triggerField, completeCallback) {
         // build a dummy invoice
         var invoice = { 
             AmountTaxStatus: this.taxStatusCode, 
@@ -305,23 +294,34 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             TaxIsModified: this.detailsData.TaxIsModified,
             UnitPriceExTax: this.detailsData.UnitPriceExTax
         };
-        
-        // Only set the tax figure if the user has set it explicitly
-        if(lineItem.TaxIsModified) {
-            lineItem.Tax = formVals.Tax;
-        }
-        
+
         if (formVals.Discount.indexOf('%') > -1) {
             lineItem.DiscountPerc = parseFloat(formVals.Discount.replace('%', ''));
         }
         else if (formVals.Discount.indexOf('$') > -1) {
             lineItem.DiscountAmount = parseFloat(formVals.Discount.replace('$', ''));
         }
-
-        if(this.isTaxInclusive() && !this.detailsData.TaxIsModified) {
-            lineItem.UnitPrice = this.getUnitPrice().getValue();
-        }        
         
+        switch(triggerField) {
+        case 'UnitPrice':
+            lineItem.UnitPrice = this.getUnitPrice().getValue();
+            lineItem.UnitPriceIsModified = true;
+            break;            
+         case 'Tax':
+            lineItem.Tax = formVals.Tax;
+            if(this.detailsData.TaxIsModified) 
+            {                
+                lineItem.TaxIsModified = true;
+            }
+            break;
+        case 'Quantity':
+            lineItem.QuantityIsModified = true;
+            break;
+        case 'Discount':
+            lineItem.DiscountIsModified = true;
+            break;
+        }
+                
         invoice.LineItems.push(lineItem);
         
         // call the invoice calculation method
@@ -329,18 +329,17 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 			function response(responseRecords) {
                 var calculated = responseRecords[0].Items[0];
                 this.ignoreEvents = true;     
-                
-                // if tax inclusive then the unit price incl and excl tax can be altered by the calculation
-                if(this.isTaxInclusive()) 
-                {
-                    this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
-                    this.getUnitPrice().setValue(calculated.UnitPrice);
-                }
+                                
+                if(triggerField === 'UnitPrice') this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                this.setTaxModified(calculated.TaxIsModified);                                
                 
                 this.getItemForm().setValues({                
+                    UnitPrice: this.isTaxInclusive() ? calculated.UnitPrice : this.detailsData.UnitPriceExTax,
                     Amount: calculated.Amount,
                     Tax: calculated.Tax                
                 });
+                
+                //TODO: set discount amount and Excl amount to calc values
                                 
                 this.ignoreEvents = false;
                 if(completeCallback) completeCallback();                

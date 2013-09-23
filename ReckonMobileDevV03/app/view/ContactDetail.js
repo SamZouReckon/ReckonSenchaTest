@@ -50,6 +50,7 @@ Ext.define('RM.view.ContactDetail', {
                         name: 'CustomerOrSupplier',
 						itemId: 'customerOrSupplier',
 						label: 'Customer or supplier',
+                        labelWidth: '10em',
                         options: [
                             {text: 'Customer and Supplier',  value: 'CustomerSuppliers'},
                             {text: 'Customer', value: 'Customers'},

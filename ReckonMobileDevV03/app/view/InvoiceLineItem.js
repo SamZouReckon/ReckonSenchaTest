@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceLineItem', {
     extend: 'Ext.Panel',
     xtype: 'invoicelineitem',
-    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'Ext.field.Select'],
+    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'Ext.field.Select', 'RM.component.RMAmountField'],
     config: {
         layout: 'fit',
         items: [{
@@ -63,7 +63,7 @@ Ext.define('RM.view.InvoiceLineItem', {
 					cls: ['rm-flatfield', 'rm-flatfield-last'],
 					placeHolder: 'enter'
 				},{
-                    xtype: 'panel',
+                    xtype: 'container',
                     itemId: 'detailsFields',
                     defaults: {clearIcon: false},
                     hidden:true,
@@ -75,13 +75,18 @@ Ext.define('RM.view.InvoiceLineItem', {
                         rmmandatory: true,
                         labelWidth: 135,
     					cls: 'rm-flatfield',
-    					placeHolder: 'enter'
+    					placeHolder: 'enter',
+                        decimalPlaces: 2,
+                        prefix: '$'
+
     				},{
     					xtype: 'extnumberfield',
     					name: 'Quantity',
     					label: 'Quantity',
     					value: 1,
-    					cls: 'rm-flatfield'
+    					cls: 'rm-flatfield',
+                        decimalPlaces: 4,
+                        prefix: ''
     				},{
                         xtype: 'exttextfield',
     					name: 'Discount',
@@ -94,14 +99,16 @@ Ext.define('RM.view.InvoiceLineItem', {
     					label: 'Amount',
     					value: 0,
                         readOnly: true,
-    					cls: 'rm-flatfield'
+    					cls: 'rm-flatfield',
+                        decimalPlaces: 2,
+                        prefix: '$'
     				},{
                         xtype: 'extselectfield',
                         label: 'Tax code',
                         rmmandatory: true,
                         labelWidth: '6em',
     					usePicker: true,
-    					name: 'TaxGroupId',
+    					name: 'TaxGroupId',                        
     					store: 'GSTCodes',
     					displayField: 'GSTCode',
     					valueField: 'GSTCodeID',
@@ -110,8 +117,13 @@ Ext.define('RM.view.InvoiceLineItem', {
                     },{
     					xtype: 'extnumberfield',
     					name: 'Tax',
+                        itemId: 'Tax',
     					label: 'Tax',
-    					cls: ['rm-flatfield', 'rm-flatfield-last']
+                        labelWidth: '7em',
+    					cls: ['rm-flatfield', 'rm-flatfield-last'],
+                        decimalPlaces: 2,
+                        prefix: '$',
+                        clearIcon: true
     				}]
                 }            
 			]
@@ -120,12 +132,26 @@ Ext.define('RM.view.InvoiceLineItem', {
     },
     
     showDetailsFields: function() {
-        this.down('#descriptionField').removeCls(['rm-flatfield-last'])
+        this.down('#descriptionField').removeCls(['rm-flatfield-last']);        
         this.down('#detailsFields').setHidden(false);        
     },
     
-    hideDetailsFields: function() {
-        this.down('#descriptionField').addCls('rm-flatfield-last')
+    hideDetailsFields: function() {    
+        this.down('#descriptionField').addCls(['rm-flatfield-last']);
         this.down('#detailsFields').setHidden(true);        
+    },
+    
+    setTaxModified: function(isModified) {
+        var taxField = this.down('#Tax');
+        if(isModified) {
+            taxField.addCls(['rm-field-warning']);
+            taxField.setLabel('Tax (modified)');
+            taxField.removeCls('clear-icon-hidden');
+        }
+        else {
+            taxField.removeCls(['rm-field-warning']);
+            taxField.setLabel('Tax');
+            taxField.addCls('clear-icon-hidden');
+        }        
     }
 });

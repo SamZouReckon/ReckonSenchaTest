@@ -45,8 +45,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },
     
     showView: function (editable, customerId, options, detailsData, cb, cbs) {
-        
-       console.log(Ext.encode(detailsData));
+        this.ignoreEvents = false;
         this.isEditable = editable;
         this.customerId = customerId;
         this.taxStatusCode = options.taxStatus; 
@@ -92,6 +91,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             }
             
             this.getTaxCode().setHidden(this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED);
+            this.setTaxModified(this.detailsData.TaxIsModified);
             
             if(this.detailsData.ItemId) { this.getItemDetail().showDetailsFields(); }
             
@@ -101,6 +101,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     setEditable: function(editable){
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getItemForm()); }    
+    },
+    
+    setTaxModified: function(isModified) {
+        this.detailsData.TaxIsModified = isModified;
+        this.getItemDetail().setTaxModified(isModified);
     },
 
     onFieldTap: function (tf) {
@@ -213,7 +218,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // Reset item fields
         this.detailsData.ItemName = newItem.Name;
         this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
-        this.detailsData.TaxIsModified = false;
+        this.setTaxModified(false);
         
         this.ignoreEvents = true;
         this.getItemForm().setValues({ 
@@ -221,37 +226,42 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ItemName:newItem.ItemPath, 
             TaxGroupId:newItem.SaleTaxCodeID,         
             Description: newItem.SalesDescription,
-            UnitPrice: newItem.UnitPriceExTax
+            UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
         this.ignoreEvents = false;
-        this.getServerCalculatedValues();
+        var $this = this;
+        this.getServerCalculatedValues('item', function() {
+            // Make sure the details fields are visible after an item is selected
+            $this.getItemDetail().showDetailsFields();
+        });
     },
     
     unitPriceChanged: function(field, newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(!this.initShow || this.ignoreEvents) return;
         if(newValue === oldValue) return;
-        
-        if (this.isTaxInclusive())
-        {
-            //editing a tax incl price overrides any previously set tax amount
-            this.detailsData.TaxIsModified = false;
-            this.getServerCalculatedValues(newValue);
+                      
+        if (!this.isTaxInclusive())
+        {         
+            // Update the tax exclusive unit price shadowing the unit price field
+            this.detailsData.UnitPriceExTax = newValue;            
         }
-        else
-        {
-            this.detailsData.UnitPriceExTax = newValue;
-            this.getServerCalculatedValues();
-        }
+        this.getServerCalculatedValues('UnitPrice');
    },
     
     taxAmountChanged: function(field, newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;
+        if(!this.initShow || this.ignoreEvents) return;  
         
-        this.detailsData.TaxIsModified = true;        
-        this.getServerCalculatedValues();
-    },
+        if(!newValue) {
+            this.detailsData.TaxIsModified = false;
+        }
+        else {
+            this.detailsData.TaxIsModified = true;
+        }
+        
+        this.getServerCalculatedValues('Tax');
+    },    
     
     projectChanged: function() {
         //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)
@@ -259,12 +269,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
     quantityChanged: function() {
         // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;
-        
-        this.getServerCalculatedValues();
+        if(!this.initShow || this.ignoreEvents) return;                    
+        this.getServerCalculatedValues('Quantity');
     },
     
-    getServerCalculatedValues: function(newUnitPrice) {
+    getServerCalculatedValues: function(triggerField, completeCallback) {
         // build a dummy invoice
         var invoice = { 
             AmountTaxStatus: this.taxStatusCode, 
@@ -277,48 +286,67 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // set a single line item using current details
         var formVals = this.getItemForm().getValues();
         var lineItem = {
+            // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
+            ChangeStatus : 2, 
             ItemId: formVals.ItemId,
             Quantity: formVals.Quantity,
             TaxGroupID: formVals.TaxGroupId,
-            Tax: formVals.Tax,
-            Amount: formVals.Amount,
             TaxIsModified: this.detailsData.TaxIsModified,
             UnitPriceExTax: this.detailsData.UnitPriceExTax
         };
-        
+
         if (formVals.Discount.indexOf('%') > -1) {
             lineItem.DiscountPerc = parseFloat(formVals.Discount.replace('%', ''));
         }
         else if (formVals.Discount.indexOf('$') > -1) {
             lineItem.DiscountAmount = parseFloat(formVals.Discount.replace('$', ''));
         }
-                
-        if(newUnitPrice) {            
-            lineItem.UnitPrice = newUnitPrice;
-        }
         
+        switch(triggerField) {
+        case 'UnitPrice':
+            lineItem.UnitPrice = this.getUnitPrice().getValue();
+            lineItem.UnitPriceIsModified = true;
+            break;            
+         case 'Tax':
+            lineItem.Tax = formVals.Tax;
+            if(this.detailsData.TaxIsModified) 
+            {                
+                lineItem.TaxIsModified = true;
+            }
+            break;
+        case 'Quantity':
+            lineItem.QuantityIsModified = true;
+            break;
+        case 'Discount':
+            lineItem.DiscountIsModified = true;
+            break;
+        }
+                
         invoice.LineItems.push(lineItem);
         
         // call the invoice calculation method
         RM.AppMgr.saveServerRec('InvoiceCalc', true, invoice,
 			function response(responseRecords) {
                 var calculated = responseRecords[0].Items[0];
+                this.ignoreEvents = true;     
+                                
+                if(triggerField === 'UnitPrice') this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                this.setTaxModified(calculated.TaxIsModified);                                
                 
-                // record the calculated values as necessary
-                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
-                
-                // update the form with the results
-                this.ignoreEvents = true;                                
-                this.getItemForm().setValues({
-                    UnitPrice: this.isTaxInclusive() ? calculated.UnitPrice : calculated.UnitPriceExTax,
+                this.getItemForm().setValues({                
+                    UnitPrice: this.isTaxInclusive() ? calculated.UnitPrice : this.detailsData.UnitPriceExTax,
                     Amount: calculated.Amount,
                     Tax: calculated.Tax                
                 });
-                this.getItemDetail().showDetailsFields();
+                
+                //TODO: set discount amount and Excl amount to calc values
+                                
                 this.ignoreEvents = false;
+                if(completeCallback) completeCallback();                
 			},
 			this,
             function(eventMsg){
+                //TODO: what to do if the calc call fails, hmmm
                 alert(eventMsg);                
             },
             'Working...'

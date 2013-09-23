@@ -69,11 +69,14 @@ Ext.define('RM.view.CreateItem', {
 						xtype: 'component',						
 						html: '<h3 class="rm-m-1 rm-hearderbg">ITEM WILL BE SOLD FOR</h3>'                        
 					},{
-                        xtype: 'numberfield',
+                        xtype: 'rmamountfield',
 						label: 'Price',
                         name: 'SalePrice',
-                        placeHolder: 'enter',
-                        value: '',
+                        cls: 'rm-flatfield rm-cursor-blinkbg',  
+                        placeHolder: 'enter',  
+                        clearIcon: false,   
+                        decimalPlaces: 2,
+                        prefix: '$',
                         border: '0 0 0 0'                        
 					},{
 						xtype: 'selectfield',

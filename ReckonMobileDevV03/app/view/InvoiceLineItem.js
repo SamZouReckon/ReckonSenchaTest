@@ -91,6 +91,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         xtype: 'exttextfield',
     					name: 'Discount',
     					label: 'Discount',
+                        placeHolder: 'none',
     					value: 0,
     					cls: ['rm-flatfield']                   
     				},{

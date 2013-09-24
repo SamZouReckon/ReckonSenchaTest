@@ -87,15 +87,13 @@ Ext.define('RM.view.ExpenseDetail', {
 							},{
                                 xtype: 'rmamountfield',                                   
 								name: 'Amount',
-								label: 'Amount',
-                                rmmandatory: true,
-                                cursorSimulate: true,
-                                readOnly: true,
-								cls: 'rm-flatfield',                                 
+								label: 'Amount',                                
+                                rmmandatory: true,                                                                
+								cls: 'rm-flatfield rm-cursor-blinkbg',                                    
 								placeHolder: 'enter',
 								clearIcon: false,   
                                 decimalPlaces: 2,
-                                prefix: '$'
+                                prefix: '$'                                
 							},{
 								xtype: 'hiddenfield',
 								name: 'ItemId'			

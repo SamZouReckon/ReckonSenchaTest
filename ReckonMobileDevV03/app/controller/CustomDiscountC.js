@@ -80,7 +80,7 @@ Ext.define('RM.controller.CustomDiscountC', {
     onCalcKeyTap: function (key) {
         
         var valStr = this.currentField.getValue();
-        if (key == 'back') {
+        if (key == 'backspace') {
             if (valStr.length > 0) {
                 valStr = valStr.slice(0, -1)
             }

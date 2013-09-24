@@ -6,7 +6,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
         refs: {
             acceptPayment: 'acceptpayment',
             acceptPaymentForm: 'acceptpayment formpanel',
-            amountPaid: 'acceptpayment numberfield[name=AmountPaid]',
+            amountPaid: 'acceptpayment exttextfield[name=AmountPaid]',
             acceptPaymentMsg: 'acceptpaymentmsg',
             msgCont: 'acceptpaymentmsg #msgcont'
         },
@@ -48,7 +48,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     
     onShow: function(){
         var form = this.getAcceptPaymentForm();
-        form.reset();        
+        //form.reset();        
         form.setValues({AmountPaid: this.fullAmount});
     },
     

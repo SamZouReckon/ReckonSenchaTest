@@ -30,12 +30,14 @@ Ext.define('RM.view.AcceptPayment', {
 			padding: 0,
 			items: [
                 {
-					xtype: 'extnumberfield',
+					xtype: 'rmamountfield',
 					name: 'AmountPaid',
 					label: 'Amount',
-					cls: 'rm-flatfield',				                
+					cls: 'rm-flatfield rm-cursor-blinkbg',				                
 					clearIcon: false,
-					placeHolder: 'Enter'
+					placeHolder: 'Enter',
+                    decimalPlaces: 2,
+                    prefix: '$' 
 				},{
 					xtype: 'selectfield',
 					label: 'Bank Account',

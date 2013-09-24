@@ -1872,3 +1872,17 @@ rm-emailinvoicebackground{
         .x-clear-icon { display: none; }
     }
 }
+
+//To simulate cursor in rmamountfield using field mask
+.rm-cursor-blinkbg .x-field-mask{ 
+        display: block !important;
+        background: #787878;
+        width: 2px;
+        height: 1em;
+        position: absolute;
+        top: 13px;
+        right: 7px;
+        bottom: 0;
+        padding-right: 2px;
+        left: initial !important;    
+}

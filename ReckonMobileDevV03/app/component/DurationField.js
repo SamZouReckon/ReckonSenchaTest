@@ -22,8 +22,7 @@ Ext.define('RM.component.DurationField', {
 
             listeners: {
                 change: function (picker, values) {
-                    that.setValue(picker.getValue());  //uncomment once value from server comes in minutes (picker's getValue function returns minute value)
-                    //that.setValue(picker.getValue() / 60);    //remove this line once value from server comes in minutes
+                    that.setValue(picker.getValue());  //uncomment once value from server comes in minutes (picker's getValue function returns minute value)                    
                 },
                 show: function(picker){
                     RM.ViewMgr.regBackHandler(picker.hide, picker);
@@ -36,34 +35,23 @@ Ext.define('RM.component.DurationField', {
 
         Ext.Viewport.add(this.picker);
 
-        this.on("focus", function (field, e) {
-            that.picker.setValue(that.getValue());  //uncomment once value from server comes in minutes (picker's getValue function returns minute value)
-            //that.picker.setValue(that.getValue() * 60); //remove this line once value from server comes in minutes
+        this.on("focus", function (field, e) {           
             that.picker.show();
+            that.picker.setValue(that.getValue());
             field.blur();
         });
 
         this.callParent(arguments);
     },
 
-    setValue: function (duration) {
-        //code when duration coming in minutes from server
-        //alert(duration);
-        this.duration = duration;
-        //var valueInField = RM.AppMgr.hoursToTime(this.duration / 60);
-        //code when duration is in hours 
-        //this.duration = duration * 60;
-        //var valueInField = RM.AppMgr.hoursToTime(duration);
-        valueInField =  RM.AppMgr.minsToTime(duration);
-        //console.log('valueInField '+valueInField);		
-        this.updateValue(valueInField);
-              
+    setValue: function (duration) {        
+        this.duration = duration;        
+        valueInField =  RM.AppMgr.minsToTime(duration);        	
+        this.callParent([valueInField]);              
     },
 
-    getValue: function () {
-        //console.log('getValue '+this.duration);
-        return this.duration; //uncomment once value from server comes in minutes
-        //return this.duration / 60; //remove this line once value from server comes in minutes
+    getValue: function () {       
+        return this.duration;   
     },
     
     reset: function(){

@@ -109,7 +109,7 @@ Ext.define('RM.controller.ContactDetailC', {
 		);
     },
 
-    validateForm: function(vals){        
+    validateForm: function(vals){       
         var isValid = true;
         
         if(vals.IsCustomer == null || vals.IsSupplier == null){
@@ -137,7 +137,14 @@ Ext.define('RM.controller.ContactDetailC', {
         if(vals.SurnameBusinessName == ''){
             this.getNameFld().showValidation(false);
             isValid = false;
-        }        
+        }  
+        
+        if (vals.Email !== '' && !RM.AppMgr.validateEmail(vals.Email)) {             
+            this.getEmail().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidEmailMsg();
+            return isValid;
+        }
         
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
@@ -152,6 +159,7 @@ Ext.define('RM.controller.ContactDetailC', {
         vals.IsPerson = this.detailsData.IsPerson;
         vals.IsCustomer = this.detailsData.IsCustomer;
         vals.IsSupplier = this.detailsData.IsSupplier;  
+        vals.IsActive = true;                             //Set this to field value when contact state field is added back to contact detail form
         
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;
@@ -237,13 +245,15 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS DETAILS</h3>');
             this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
             this.getBranchName().setLabel('Branch name');
+            this.getBranchName().showValidation(true);
             this.getBusinessName().setLabel('Business name <span style="color: #F00">*</span>');
         }
-        else{
+        else{            
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
             this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL ADDRESS</h3>');
-            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>');
+            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>');            
+            this.getBranchName().showValidation(this.getBranchName().getValue()); 
             this.getBusinessName().setLabel('Surname <span style="color: #F00">*</span>');
         }
     },

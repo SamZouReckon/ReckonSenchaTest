@@ -2,14 +2,24 @@ Ext.define('RM.component.ExtSelectField', {
     extend:'Ext.field.Select',
     xtype: 'extselectfield',
     
-    initialize: function () {
-        
-        this.callParent(arguments);
-        
+    initialize: function () {         
+        this.callParent(arguments);        
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
-        }
-
+        } 
+        var fieldPicker = this.getPhonePicker();
+        if(fieldPicker){
+            fieldPicker.setListeners(
+            {                
+                show: function(picker){
+                    RM.ViewMgr.regBackHandler(picker.hide, picker);
+                },
+                hide: function(){
+                    RM.ViewMgr.deRegBackHandler();    
+                },
+                scope: this           
+            });
+        }        
     },
     
     onPickerChange : function() {
@@ -30,7 +40,5 @@ Ext.define('RM.component.ExtSelectField', {
     reset: function(){
         this.callParent(arguments);
         this.setLabelCls('');
-    }   
-    
-
+    } 
 })

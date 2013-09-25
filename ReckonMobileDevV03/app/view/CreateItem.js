@@ -50,14 +50,16 @@ Ext.define('RM.view.CreateItem', {
                         name: 'Name',
                         placeHolder: 'enter',
                         value: ''
-					},{
+					},/* Set this field's value in controller class whenever its added back to form
+                        {
                         xtype: 'rmtogglefield',                        
                         onText: 'Active',
                         offText: 'Inactive',
 						label: 'Item state',
                         name: 'ActiveStatus',
                         toggleState: true                     
-					},{
+					},*/
+                      {
                         xtype: 'rmtogglefield',
                         onText: 'Include',
                         offText: 'Exclude',

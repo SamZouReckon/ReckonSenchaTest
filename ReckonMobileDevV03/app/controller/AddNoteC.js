@@ -50,7 +50,11 @@ Ext.define('RM.controller.AddNoteC', {
     },
 
     onAdd: function () {
-        this.noteCb.call(this.noteCbs, this.getNoteText().getValue());
+        var noteText = this.getNoteText().getValue();
+        if(noteText)
+            this.noteCb.call(this.noteCbs, noteText);
+        else
+          RM.AppMgr.showOkMsgBox('Please enter some text for the note');     
     },
 
     back: function () {

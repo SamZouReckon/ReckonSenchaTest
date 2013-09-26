@@ -88,6 +88,14 @@ Ext.define('RM.controller.EmailInvoiceC', {
         this.getEmail().showValidation(true);
         this.getSubject().showValidation(true);
         
+        if(vals.Email == '' && vals.Subject == ''){
+             this.getEmail().showValidation(false);
+            this.getSubject().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidFormMsg();
+            return isValid;
+        }
+        
         if (vals.Email == '') {
             this.getEmail().showValidation(false);
             isValid = false;
@@ -96,6 +104,8 @@ Ext.define('RM.controller.EmailInvoiceC', {
         if (vals.Subject == '') {
             this.getSubject().showValidation(false);
             isValid = false;
+            RM.AppMgr.showInvalidFormMsg();
+            return isValid;
         }
          
         if (!RM.AppMgr.validateEmail(vals.Email)) {             

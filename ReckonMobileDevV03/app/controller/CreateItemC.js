@@ -37,7 +37,8 @@ Ext.define('RM.controller.CreateItemC', {
     
     onSave: function(){
         var vals = this.getCreateItemForm().getValues();
-        vals.ActiveStatus = vals.ActiveStatus ? RM.Consts.ItemStatus.ACTIVE : RM.Consts.ItemStatus.INACTIVE;
+        vals.ActiveStatus = RM.Consts.ItemStatus.ACTIVE;  //Remove this hardcoded value when state field is added back to form
+        //vals.ActiveStatus = vals.ActiveStatus ? RM.Consts.ItemStatus.ACTIVE : RM.Consts.ItemStatus.INACTIVE; //Uncomment this line when state field is added back to form
         
         RM.AppMgr.saveServerRec('Items', true, vals,
 			function () {

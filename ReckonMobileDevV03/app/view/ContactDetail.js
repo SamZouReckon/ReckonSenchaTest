@@ -61,7 +61,8 @@ Ext.define('RM.view.ContactDetail', {
                         autoSelect: false,                                        
 						ui:'plain',
                         placeHolder: 'choose'
-					},{
+					},/* Set this field's value in controller class whenever its added back to form
+                        {
                         xtype: 'rmtogglefield',
                         onText: 'Active',
                         offText: 'Inactive',
@@ -69,7 +70,8 @@ Ext.define('RM.view.ContactDetail', {
                         name: 'IsActive',                        
                         placeHolder: '',
                         toggleState: true
-					},{
+					},*/
+                    {
 						xtype: 'extselectfield',
                         name: 'BusinessOrIndividual',
                         itemId: 'businessOrIndividual',
@@ -161,10 +163,11 @@ Ext.define('RM.view.ContactDetail', {
                         }]
 						
 					},{
-                        xtype: 'emailfield',
+                        xtype: 'extemailfield',
 						name: 'Email',  
                         hidden: true,
-						label: 'Email'
+						label: 'Email',
+                        labelWidth: '4em'
 					},{
                         xtype: 'component',                                        
                         itemId: 'addressHeader',

@@ -56,7 +56,9 @@ Ext.define('RM.component.DurationPicker', {
      * @param animated
      */
     setValue:function (value, animated) {  
-	
+        
+        if(!value) return;
+        
 		var hoursVal=0;
 		var minutesVal=0;		
 		hoursVal = parseInt(value/60);

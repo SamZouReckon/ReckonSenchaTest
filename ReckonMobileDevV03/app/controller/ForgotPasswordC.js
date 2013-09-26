@@ -49,6 +49,14 @@ Ext.define('RM.controller.ForgotPasswordC', {
         this.getEmail().showValidation(true);
         this.getUserName().showValidation(true);
         
+        if(emailAddress == '' && userName == ''){
+            this.getEmail().showValidation(false);
+            this.getUserName().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidFormMsg();
+            return isValid;
+        }
+        
         if(emailAddress == ''){
              this.getEmail().showValidation(false);
              isValid = false;
@@ -57,6 +65,8 @@ Ext.define('RM.controller.ForgotPasswordC', {
         if(userName == ''){
              this.getUserName().showValidation(false);
              isValid = false;
+             RM.AppMgr.showInvalidFormMsg();
+             return isValid;
          }   
         
          if(!RM.AppMgr.validateEmail(emailAddress)){             

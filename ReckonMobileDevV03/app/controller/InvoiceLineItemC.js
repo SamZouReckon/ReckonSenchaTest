@@ -207,8 +207,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 		var formVals = this.getItemForm().getValues();
 
 		var item = { //fields corresponding to InvoiceLineItemDto
-		    //InvoiceItemId: null, //is assigned at server
-            //InvoiceId: null, //can be determined at server as line item is already inside the InvoiceDto
+            Amount: formVals.Amount,
+		    AmountExTax: this.detailsData.AmountExTax,
+            DiscountedTaxAmount: this.detailsData.DiscountedTaxAmount,
+            DiscountedTaxExclAmount: this.detailsData.DiscountedTaxExclAmount,
 		    ItemType: ITEM_TYPE_CHARGEABLE_ITEM,
 		    ItemId: formVals.ItemId,
 		    ItemName: formVals.ItemName,
@@ -355,6 +357,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 var calculated = responseRecords[0].Items[0];
                 this.ignoreEvents = true;     
                                 
+                this.detailsData.AmountExTax = calculated.AmountExTax;
+                this.detailsData.DiscountedTaxAmount = calculated.DiscountedTaxAmount;
+                this.detailsData.DiscountedTaxExclAmount = calculated.DiscountedTaxExclAmount;
+                
                 if(triggerField === 'UnitPrice') this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
                 this.setTaxModified(calculated.TaxIsModified);                                
                 

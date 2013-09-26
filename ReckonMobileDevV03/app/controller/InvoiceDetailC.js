@@ -325,7 +325,17 @@ Ext.define('RM.controller.InvoiceDetailC', {
       
         for (var i = 0; i < lineItems.length; i++) {
             var item = lineItems[i];
-            var lineItemVals = {ItemType: item.ItemType, ItemID: item.ItemId, Quantity: item.Quantity, UnitPriceExTax: item.UnitPriceExTax, TaxGroupID: item.TaxGroupId, Tax: item.Tax, TaxIsModified: item.TaxIsModified};
+            var lineItemVals = {
+                ItemType: item.ItemType, 
+                ItemID: item.ItemId, 
+                Quantity: item.Quantity, 
+                UnitPriceExTax: item.UnitPriceExTax, 
+                DiscountAmount: item.DiscountAmount,
+                DiscountPercentage: item.DiscountPercentage,
+                TaxGroupID: item.TaxGroupId, 
+                Tax: item.Tax, 
+                TaxIsModified: item.TaxIsModified
+            };
             
             if(item.DiscountPerc){
                 lineItemVals.DiscountPercentage = item.DiscountPerc;
@@ -348,6 +358,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 
                 var data = this.detailsData;
                 data.Amount = respRec.InvoiceAmount;
+                data.AmountExTax = respRec.TotalExcludingTax;
                 data.Tax = respRec.InvoiceTax ? respRec.InvoiceTax : 0;
                 data.Subtotal = respRec.Subtotal;
                 data.DiscountTotal = respRec.Discount ? respRec.Discount : 0;

@@ -18,7 +18,7 @@ Ext.define('RM.core.AppMgr', {
         this.setupBaseApi();
         
         Ext.data.StoreManager.lookup('ItemTypes').setData([{ItemTypeID: '1', Name:'Product'}, {ItemTypeID: '2', Name:'Service'}]);
-        Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusID: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxed'}, {TaxStatusID: RM.Consts.TaxStatus.INCLUSIVE, Name:'Inclusive'}, {TaxStatusID: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclusive'}]);
+        Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusID: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxable'}, {TaxStatusID: RM.Consts.TaxStatus.INCLUSIVE, Name:'Include tax'}, {TaxStatusID: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclude tax'}]);
         
         RM.PermissionsMgr = RM.core.PermissionsMgr;
         RM.PermissionsMgr.init(application);        

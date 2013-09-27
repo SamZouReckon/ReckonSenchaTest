@@ -456,14 +456,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
     
     save: function () {
-        //this.validateForm();
-        
-        //alert(this.getLineItems());
-        var formVals = this.getInvoiceForm().getValues();
-        //var lineItemData = this.getLineItems().getViewData();
-        //alert(Ext.encode(lineItemData));
-        //alert(Ext.encode(this.detailsData));
+        var formVals = this.getInvoiceForm().getValues();        
         formVals.LineItems = this.getLineItems().getViewData();
+        
+        // Set the line numbers, to handle new or deleted items
+        var lineNumber = 1;
+        formVals.LineItems.forEach(function(item) {
+            item.lineNo = lineNumber;
+            lineNumber += 1;
+        });        
         
         var vals = Ext.applyIf(formVals, this.detailsData);
         delete vals.DiscountPerc;

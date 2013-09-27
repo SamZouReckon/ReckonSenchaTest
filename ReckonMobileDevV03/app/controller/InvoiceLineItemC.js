@@ -217,7 +217,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ItemPath: formVals.ItemPath,
             ProjectID: formVals.ProjectID,
             ProjectName: formVals.ProjectName,
-		    Quantity: formVals.Quantity,
+		    Quantity: formVals.Quantity || 1,
             TaxGroupId: formVals.TaxGroupId,
 			Tax: formVals.Tax,
             TaxIsModified: this.detailsData.TaxIsModified,
@@ -319,7 +319,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
             ChangeStatus : 2, 
             ItemId: formVals.ItemId,
-            Quantity: formVals.Quantity,
+            Quantity: formVals.Quantity || 1,
             TaxGroupID: formVals.TaxGroupId,
             TaxIsModified: this.detailsData.TaxIsModified,
             Tax: this.detailsData.TaxIsModified ? formVals.Tax : null,

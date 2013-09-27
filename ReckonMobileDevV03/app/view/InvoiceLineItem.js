@@ -69,7 +69,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                     hidden:true,
                     items: [
                     {                        
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'UnitPrice',
     					label: 'Item Price',
                         rmmandatory: true,
@@ -80,7 +80,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         prefix: '$'
 
     				},{
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'Quantity',
     					label: 'Quantity',
     					value: 1,
@@ -95,7 +95,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					value: 0,
     					cls: ['rm-flatfield']                   
     				},{
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'Amount',
     					label: 'Amount',
     					value: 0,
@@ -116,7 +116,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					cls: 'rm-flatfield',
                         ui:'plain'
                     },{
-    					xtype: 'extnumberfield',
+    					xtype: 'rmamountfield',
     					name: 'Tax',
                         itemId: 'Tax',
     					label: 'Tax',

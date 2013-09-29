@@ -21,7 +21,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
         },
         control: {
             'invoicedetail': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },
             'invoicedetail #back': {
                 tap: 'back'
@@ -89,6 +90,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
     onShow: function () {        
         
+        RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');        
         this.lineItemsDirty = false;
@@ -127,6 +129,10 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
     },
 
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler();
+    },
+    
     onItemUpdated: function (itemType) {
         if (itemType == 'invoice' && !this.isCreate) {
             this.loadFormData();
@@ -179,7 +185,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
 			    data.Discount = (data.DiscountAmount && data.DiscountAmount != 0) ? '$' + Ext.Number.toFixed(data.DiscountAmount, 2) : data.Discount;			    
                 this.noteText = data.Notes; //Enables preserving of new lines when going from textfield to textarea
                 
-                //data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
+                data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : ''; //ensures new lines will be shown as spaces as Notes on form is previewed in one line. newlines entered in mobile seem to use \n where as entered in web app seem to use \r
                 invoiceForm.setValues(data);
                 this.applyTaxRules();
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
@@ -325,7 +331,17 @@ Ext.define('RM.controller.InvoiceDetailC', {
       
         for (var i = 0; i < lineItems.length; i++) {
             var item = lineItems[i];
-            var lineItemVals = {ItemType: item.ItemType, ItemID: item.ItemId, Quantity: item.Quantity, UnitPriceExTax: item.UnitPriceExTax, TaxGroupID: item.TaxGroupId, Tax: item.Tax, TaxIsModified: item.TaxIsModified};
+            var lineItemVals = {
+                ItemType: item.ItemType, 
+                ItemID: item.ItemId, 
+                Quantity: item.Quantity, 
+                UnitPriceExTax: item.UnitPriceExTax, 
+                DiscountAmount: item.DiscountAmount,
+                DiscountPercentage: item.DiscountPercentage,
+                TaxGroupID: item.TaxGroupId, 
+                Tax: item.Tax, 
+                TaxIsModified: item.TaxIsModified
+            };
             
             if(item.DiscountPerc){
                 lineItemVals.DiscountPercentage = item.DiscountPerc;
@@ -348,6 +364,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 
                 var data = this.detailsData;
                 data.Amount = respRec.InvoiceAmount;
+                data.AmountExTax = respRec.TotalExcludingTax;
                 data.Tax = respRec.InvoiceTax ? respRec.InvoiceTax : 0;
                 data.Subtotal = respRec.Subtotal;
                 data.DiscountTotal = respRec.Discount ? respRec.Discount : 0;
@@ -405,7 +422,6 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
     
     back: function () {
-        
         if(this.isFormDirty()){
             RM.AppMgr.showUnsavedChangesMsgBox(
                 function(btn){
@@ -445,14 +461,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
     
     save: function () {
-        //this.validateForm();
-        
-        //alert(this.getLineItems());
-        var formVals = this.getInvoiceForm().getValues();
-        //var lineItemData = this.getLineItems().getViewData();
-        //alert(Ext.encode(lineItemData));
-        //alert(Ext.encode(this.detailsData));
+        var formVals = this.getInvoiceForm().getValues();        
         formVals.LineItems = this.getLineItems().getViewData();
+        
+        // Set the line numbers, to handle new or deleted items
+        var lineNumber = 1;
+        formVals.LineItems.forEach(function(item) {
+            item.lineNo = lineNumber;
+            lineNumber += 1;
+        });        
         
         var vals = Ext.applyIf(formVals, this.detailsData);
         delete vals.DiscountPerc;

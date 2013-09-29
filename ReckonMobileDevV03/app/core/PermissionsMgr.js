@@ -1,5 +1,5 @@
 Ext.define('RM.core.PermissionsMgr', {
-
+    alternateClassName: 'RM.PermissionsMgr',
     singleton: true, 
 	
     init: function (application) {

@@ -54,7 +54,7 @@ Ext.define('RM.controller.HistoryC', {
     },
 
     loadList: function () {
-        Ext.data.StoreManager.lookup('Histories').load();
+        RM.AppMgr.loadStore(this.getHistoryList().getStore());
     },
 
     back: function () {

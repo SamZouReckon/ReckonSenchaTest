@@ -19,7 +19,8 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         },
         control: {
             'timesheetdetail': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },
             'timesheetdetail #back': {
                 tap: 'back'
@@ -57,6 +58,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     },
 
     onShow: function () {
+        RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getTimeSheetTitle().setHtml(this.isCreate ? 'Add Timesheet' : 'View Timesheet');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
@@ -94,6 +96,10 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         //this.getTimeSheetForm().setValues(this.detailsData);
         
     },
+    
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler();
+    },    
     
     isFormDirty: function(){        
         return !RM.AppMgr.isFormValsEqual(this.getTimeSheetForm().getValues(), this.initialFormValues);        

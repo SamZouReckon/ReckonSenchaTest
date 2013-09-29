@@ -1,5 +1,5 @@
 Ext.define('RM.core.ExpensesMgr', {
-
+    alternateClassName: 'RM.ExpensesMgr',
     singleton: true,
 	
 	requires: ['RM.view.ExpenseDetail'],

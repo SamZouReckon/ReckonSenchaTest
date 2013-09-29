@@ -39,13 +39,14 @@ Ext.define('RM.controller.EnterPinC', {
 			view = { xtype: 'enterpin' };
 		}
 
-		RM.ViewMgr.showPanel(view);
+		RM.ViewMgr.showPanel2(view);
 	},
 
 	onShow: function () {
 		this.getMsg().setHtml('Signed in as ' + this.displayName);
         this.getMsg().setCls('rm-intromsg');
 		this.getPinKeypad().clearPin();
+        RM.ViewMgr.clearBackStack();
 	},
 
 	onPinEntered: function (pin) {

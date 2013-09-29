@@ -30,12 +30,13 @@ Ext.define('RM.controller.EnterUsernameC', {
         var view = this.getEnterUserName();
         if (!view)
             view = { xtype: 'enterusername' };
-        RM.ViewMgr.showPanel(view);
+        RM.ViewMgr.showPanel2(view);
     },
 
     onShow: function () {
         this.getUserName().setValue(RM.AppMgr.getUserName());
         this.getPassword().setValue('');
+        RM.ViewMgr.clearBackStack();
     },
 
     onOptions: function () {
@@ -77,7 +78,8 @@ Ext.define('RM.controller.EnterUsernameC', {
         switch(optionId){
             case 'reckonone': case 'reckonpay':
                 //RM.ViewMgr.showModuleSignup(optionId);
-                window.open('http://www.reckonone.com/coming-soon.aspx', '_blank', 'location=no');
+            
+                window.open(RM.HomeSettingsMgr.getSetting('SignupUrl'), '_blank', 'location=no');
                 break;
             
             case 'forgotlogin':

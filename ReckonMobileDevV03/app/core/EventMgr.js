@@ -1,5 +1,5 @@
 Ext.define('RM.core.EventMgr', {
-
+    alternateClassName: 'RM.EventMgr',
 	singleton: true,
     
 	logEvent: function(typeId, subTypeId, location, msg, data) {

@@ -101,7 +101,8 @@ Ext.define('RM.controller.InvoiceTimeSelectC', {
                     groupName = Ext.Date.format(groupName, 'D M j, Y');
 
                 //return '<div><input type="checkbox" class="select_checkbox" style="margin:4px;"><span>' + groupName + '</span></div>';
-                return '<div class="rm-checkbox rm-checkbox-off" style="float:left;"></div><div style="float:left;margin-left:6px;">' + groupName + '</div>';   //Changed for checkbox icon
+                return '<div class="rm-checkbox rm-checkbox-off" style="float:left;"></div><div style="display:inline;margin-left:6px;">' + groupName + '</div>';
+                //return '<div class="rm-checkbox rm-checkbox-off" style="float:left;"></div><div style="float:left;margin-left:6px;">' + groupName + '</div>';   //Changed for checkbox icon
             }
         });
     },

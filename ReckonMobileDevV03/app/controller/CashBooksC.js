@@ -36,7 +36,7 @@ Ext.define('RM.controller.CashBooksC', {
             view = { xtype: 'cashbooks' };
         }
         
-        RM.ViewMgr.clearBackStack();
+        //RM.ViewMgr.clearBackStack(); //don't clear it as may have come from select cashbook in slide nav
         RM.ViewMgr.showPanel(view);
 
         var store = this.getCashBooksList().getStore();

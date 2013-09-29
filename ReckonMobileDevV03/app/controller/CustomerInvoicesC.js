@@ -1,32 +1,23 @@
 Ext.define('RM.controller.CustomerInvoicesC', {
     extend: 'Ext.app.Controller',
+    requires: ['RM.view.CustomerInvoices', 'RM.component.InvoicesList'],
     config: {
         refs: {
-            customerInvoices: 'customerinvoices',
-            invoicesList: 'customerinvoices list',
-            sortSearchBar: 'customerinvoices sortsearchbar'
+            CustomerInvoices: 'customerinvoices',
+            invoicesTitle: 'customerinvoices #title',
+            sortSearchBar: 'customerinvoices sortsearchbar'            
         },
-        control: {
+        control: {            
+            'customerinvoices #back': {
+                tap: 'back'
+            },            
             'customerinvoices': {
                 show: 'onShow'
             },
             'customerinvoices sortsearchbar': {
                 sort: 'onSort',
-
-                search: function (val) {
-                    var store = this.getInvoicesList().getStore();
-                    store.clearFilter();
-                    store.filter('search', val);
-                    this.setLoadTimer();
-                },
-
-                searchclear: function () {
-                    this.getInvoicesList().getStore().clearFilter();
-                    this.loadList();
-                }
-            },
-            'customerinvoices list': {
-                select: 'onItemSelect'
+                search: 'onSearch',
+                searchclear: 'onSearchClear'
             },
             'customerinvoices #add': {
                 tap: 'add'
@@ -36,43 +27,51 @@ Ext.define('RM.controller.CustomerInvoicesC', {
     },
 
     init: function () {
-        this.getApplication().addListener('itemupdated', 'onItemUpdated', this);
+        this.getApplication().addListener('itemupdated', 'onItemUpdated', this);        
     },
 
-    showView: function () {
-        var view = this.getCustomerInvoices();
-        if (!view)
-            view = { xtype: 'customerinvoices' };
+    showView: function (invoicesTitle, customerId, customerName, sortVal) {
+        this.invoicesTitle = invoicesTitle;
+        this.customerId = customerId;
+        this.customerName = customerName;        
+        
+        var view = this.getCustomerInvoices();        
+        if (!view){
+            view = { xtype: 'customerinvoices' };   
+        }            
+        
         RM.ViewMgr.showPanel(view);
+        this.getSortSearchBar().setSearch(sortVal);        
     },
-
-
+    
     onShow: function () {
-        this.getInvoicesList().getStore().getProxy().setUrl(RM.AppMgr.getApiUrl('CustomerInvoices'));
-        this.loadList();
+        //This next inline style should be moved to the sass
+        this.getInvoicesTitle().setTitle('<span style="text-shadow:none; font-weight:normal;">' + this.invoicesTitle + '</span>');        
     },
 
     onItemUpdated: function (itemType) {
-        if (itemType == 'invoice' && this.getCustomerInvoices()) {
-            this.loadList();
+        if (itemType == 'invoice') {            
+            this.activeList.reload();
         }
     },
 
-    onSort: function (sortVal) {
-        if (sortVal != 'customer') {
-            RM.InvoicesMgr.showCustInvoices('Invoices', null, null, sortVal);
-            this.getSortSearchBar().setSearch('customer');
-        }
+    onSort: function (sortVal) {        
+        var view = this.getCustomerInvoices();
+        view.removeAt(2);
+        this.activeList = view.add({xtype:'invoiceslist', sortVal:sortVal, isShowCustomer: false});
     },
 
-    onItemSelect: function (list, rec) {
-        // Delay the selection clear so get a flash of the selection
-        setTimeout(function () { list.deselect(rec); }, 500);
-        RM.InvoicesMgr.showCustInvoices(rec.data.CustomerName,  rec.data.CustomerId, rec.data.CustomerName, 'duedate');
+    onSearch: function(val){
+        this.activeList.setSearch(val);
     },
-
+    
+    onSearchClear: function(){
+        this.activeList.clearSearch();
+    },
+    
     add: function () {
-        RM.InvoicesMgr.showInvoiceDetail(true, null,
+        var data = this.customerId ? { CustomerId: this.customerId, CustomerName: this.customerName} : null;
+        RM.InvoicesMgr.showInvoiceDetail(true, data,
 			function (closeType, data) {
 			    return null;
 			},
@@ -80,17 +79,7 @@ Ext.define('RM.controller.CustomerInvoicesC', {
 		);
     },
 
-    loadList: function () {
-        RM.AppMgr.loadStore(this.getInvoicesList().getStore());
-    },
-
-    setLoadTimer: function () {
-        if (this.loadTimer) {
-            clearTimeout(this.loadTimer);
-            this.loadTimer = null;
-        }
-        this.loadTimer = Ext.defer(this.loadList, 1000, this);
+    back: function () {
+        RM.ViewMgr.back();
     }
-
-
 });

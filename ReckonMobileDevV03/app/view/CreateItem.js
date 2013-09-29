@@ -31,11 +31,12 @@ Ext.define('RM.view.CreateItem', {
 				xtype: 'formpanel',			
 				flex: 1,
 				padding: 0,
-				defaults: {xtype: 'textfield', cls: 'rm-flatfield', clearIcon: false},
+				defaults: {xtype: 'exttextfield', cls: 'rm-flatfield', clearIcon: false},
 				items: [
 					{
-						xtype: 'selectfield',
+						xtype: 'extselectfield',
 						label: 'Item type',
+                        itemId:'itemType',
 						usePicker: true,
 						name: 'ItemType',
 						store: 'ItemTypes',
@@ -46,6 +47,8 @@ Ext.define('RM.view.CreateItem', {
                         placeHolder: 'select'
 					},{
 						label: 'Item name',
+                        itemId:'itemName',
+                        labelWidth: '7em',
                         rmmandatory: true,
                         name: 'Name',
                         placeHolder: 'enter',
@@ -79,10 +82,11 @@ Ext.define('RM.view.CreateItem', {
                         clearIcon: false,   
                         decimalPlaces: 2,
                         prefix: '$',
-                        border: '0 0 0 0'                        
+                        border: '0'                        
 					},{
-						xtype: 'selectfield',
-						label: 'Accounting category',
+						xtype: 'extselectfield',
+						label: 'Account',
+                        itemId: 'account',
                         labelWidth: '10em',
 						usePicker: true,
 						name: 'SaleCategoryID',
@@ -95,7 +99,7 @@ Ext.define('RM.view.CreateItem', {
 						ui:'plain',
                         placeHolder: 'select'
 					},{
-						xtype: 'selectfield',
+						xtype: 'extselectfield',
 						label: 'Tax code',
 						usePicker: true,
 						name: 'SaleTaxCodeID',
@@ -103,7 +107,7 @@ Ext.define('RM.view.CreateItem', {
 						displayField: 'GSTCode',
 						valueField: 'GSTCodeID',
                         autoSelect: false,
-                        rmmandatory: true,
+                        //rmmandatory: true,
                         value: null,                         
 						ui:'plain',
                         placeHolder: 'select',

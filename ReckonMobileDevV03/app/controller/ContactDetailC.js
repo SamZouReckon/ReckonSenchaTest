@@ -109,9 +109,8 @@ Ext.define('RM.controller.ContactDetailC', {
 		);
     },
 
-    validateForm: function(vals){       
-        var isValid = true;
-        
+    validateForm: function(vals){        
+        var isValid = true;        
         if(vals.IsCustomer == null || vals.IsSupplier == null){
             //this.getCustomerOrSupplier().setLabelCls('rm-manfld-notset-lbl');
             this.getCustomerOrSupplier().showValidation(false);
@@ -129,7 +128,7 @@ Ext.define('RM.controller.ContactDetailC', {
             isValid = false;
         }
         
-        if(vals.Description == ''){
+        if(!vals.Description){
             this.getDescriptionFld().showValidation(false);
             isValid = false;
         }         

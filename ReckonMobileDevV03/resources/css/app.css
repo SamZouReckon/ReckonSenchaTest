@@ -1,3 +1,4 @@
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -6757,3 +6758,15 @@ rm-emailinvoicebackground {
   bottom: 0;
   padding-right: 2px;
   left: initial !important; }
+
+.rm-keypad-topbar {
+  border-radius: 0;
+  border: 1px solid #989898;
+  margin: 0;
+  background: #3E3E3E;
+  color: #FBFBFB;
+  font-size: 0.8em;
+  padding-left: 0px;
+  padding-right: 0px; }
+.rm-keypad-topbar .x-button-label, .rm-keypad-topbar .x-badge {
+  font-weight: normal; }

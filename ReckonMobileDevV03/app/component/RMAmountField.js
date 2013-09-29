@@ -38,6 +38,7 @@ Ext.define('RM.component.RMAmountField', {
         };
         
         this.keypad = this.owningPanel.add(keypad);
+        this.revertBackVal = this.getValue();
         //this.clearScrollTimer();
         var scroller = this.owningPanel.getScrollable().getScroller();        
         this.scrollTimer = window.setTimeout(function() {             
@@ -80,11 +81,17 @@ Ext.define('RM.component.RMAmountField', {
         }        
     },
     
-    onKeyTap: function (key) {        
+    onKeyTap: function (key) {  
+        if(key === 'bar') return;
         if(key === 'done'){            
             this.removeKeypad();
             return;
-        }        
+        }
+        if(key === 'cancel'){
+            this.setValue(this.revertBackVal);
+            this.removeKeypad();            
+            return;
+        }
         var val = this.getValue();
         var valStr = this.getPrefix() + val.toString();
         var valStrLen = valStr.length;  
@@ -126,7 +133,7 @@ Ext.define('RM.component.RMAmountField', {
     
     //To format value when loading the form
     applyValue: function(newVal,oldVal){         
-        var valStr = newVal.toString();  
+        var valStr = newVal ? newVal.toString() : '';  
         if (!oldVal && oldVal !== '') {
             this.valBeforeChange = valStr;        //store original value of the field for valueChange Event
             if (this.config.decimalPlaces && valStr !== '')

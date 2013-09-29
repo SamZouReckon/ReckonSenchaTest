@@ -4,6 +4,8 @@ Ext.define('RM.controller.CreateItemC', {
         refs: {
             createItem: 'createitem',
             createItemForm: 'createitem formpanel',
+            itemTypeFld: 'createitem #itemType',
+            itemNameFld: 'createitem #itemName',            
             acctCatFld: 'createitem selectfield[name=SaleCategoryID]',
             taxCodeFld: 'createitem selectfield[name=SaleTaxCodeID]'
         },
@@ -40,18 +42,45 @@ Ext.define('RM.controller.CreateItemC', {
         vals.ActiveStatus = RM.Consts.ItemStatus.ACTIVE;  //Remove this hardcoded value when state field is added back to form
         //vals.ActiveStatus = vals.ActiveStatus ? RM.Consts.ItemStatus.ACTIVE : RM.Consts.ItemStatus.INACTIVE; //Uncomment this line when state field is added back to form
         
-        RM.AppMgr.saveServerRec('Items', true, vals,
-			function () {
-                RM.AppMgr.itemUpdated('item');
-                RM.ViewMgr.back();
-			},
-			this,
-            function(recs, eventMsg){
-                alert(eventMsg);                
-            }
-		);        
-        
+        if (this.validateForm(vals)) { 
+            RM.AppMgr.saveServerRec('Items', true, vals,
+                                    function () {
+                                        RM.AppMgr.itemUpdated('item');
+                                        RM.ViewMgr.back();
+                                    },
+                                    this,
+                                    function(recs, eventMsg) {
+                                        alert(eventMsg);                
+                                    }
+            );        
+        }
     },
+    
+    validateForm: function(vals){  
+        var isValid = true;       
+        
+        if(!vals.ItemType){
+            this.getItemTypeFld().showValidation(false);
+            isValid = false;
+        }  
+        
+        if(!vals.Name){
+            this.getItemNameFld().showValidation(false);
+            isValid = false;
+        }
+        
+        if(!vals.SaleCategoryID){
+            this.getAcctCatFld().showValidation(false);
+            isValid = false;
+        }
+        
+        if(!isValid){            
+            RM.AppMgr.showInvalidFormMsg();
+        }
+        
+        return isValid;
+    },  
+    
 
     back: function () {
         RM.ViewMgr.back();

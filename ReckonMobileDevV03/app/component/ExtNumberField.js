@@ -54,6 +54,11 @@ Ext.define('RM.component.ExtNumberField', {
         if (Ext.isNumber(value) && Ext.isNumber(this.config.decimalPlaces)) {
             this.setValue(value.toFixed(this.config.decimalPlaces));
         }
-    }
+    },
+    
+    getValue: function(){        
+        this.showValidation(true);
+        return this.callParent(arguments);      
+    } 
 
 });

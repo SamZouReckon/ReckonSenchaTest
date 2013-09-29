@@ -15,21 +15,27 @@ Ext.define('RM.component.DataEntryKeypad', {
 			xtype: 'container',
 			layout: 'hbox',
             itemId: 'doneContainer',
-			defaults: {xtype: 'button',  height: 50, cls: 'rm-flatkeypadbutton'},
+			defaults: {xtype: 'button', flex: 1, height: 40, cls: 'rm-keypad-topbar'},
 			items:[{
-                    xtype: 'component',
-                    flex: 2
+                    text: 'CANCEL',
+                    itemId: 'cancel',
+                    
+                    //style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
+                },{                    
+                    itemId: 'bar',                    
+                    
+                    //style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
                 },{
 					text: 'DONE',
                     itemId: 'done',
-                    flex: 1,
-                    style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
+                    
+                    //style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
 				}
 			]
 		},{
 			xtype: 'container',
 			layout: 'hbox',
-			defaults: {xtype: 'button', flex: 1, height: 50, cls: 'rm-flatkeypadbutton'},
+			defaults: {xtype: 'button', flex: 1, height: 60, cls: 'rm-flatkeypadbutton'},
 			items:[{
 					text: '1'                      
 				},{
@@ -41,7 +47,7 @@ Ext.define('RM.component.DataEntryKeypad', {
 		},{
 			xtype: 'container',
 			layout: 'hbox',
-			defaults: {xtype: 'button', flex: 1, height: 50, cls: 'rm-flatkeypadbutton'},
+			defaults: {xtype: 'button', flex: 1, height: 60, cls: 'rm-flatkeypadbutton'},
 			items:[{
 					text: '4'
 				},{
@@ -53,7 +59,7 @@ Ext.define('RM.component.DataEntryKeypad', {
 		},{
 			xtype: 'container',
 			layout: 'hbox',
-			defaults: {xtype: 'button', flex: 1, height: 50, cls: 'rm-flatkeypadbutton'},
+			defaults: {xtype: 'button', flex: 1, height: 60, cls: 'rm-flatkeypadbutton'},
 			items:[{
 					text: '7'
 				},{
@@ -65,7 +71,7 @@ Ext.define('RM.component.DataEntryKeypad', {
 		},{
 			xtype: 'container',
 			layout: 'hbox',
-			defaults: {xtype: 'button', flex: 1, height: 50, cls: 'rm-flatkeypadbutton'},
+			defaults: {xtype: 'button', flex: 1, height: 60, cls: 'rm-flatkeypadbutton'},
 			items:[{
 					text: '.',
                     itemId: 'dotBtn'
@@ -74,9 +80,7 @@ Ext.define('RM.component.DataEntryKeypad', {
                     itemId: '0'
 				},{
                     cls: 'rm-flatkeypadbutton rm-flatkeypad-crossbtn',
-                    itemId: 'backspace'
-					//text: 'BACK',
-                    //style: 'font-size: 0.8em; padding-left: 1.05em; padding-right: 1.05em; '
+                    itemId: 'backspace'					
 				}
 			]
 		}]		

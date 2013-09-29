@@ -14,7 +14,7 @@ Ext.define('RM.component.DurationField', {
 
             //Get config values if present else asign default
             useTitles: config.useTitles || true,
-            increment: config.increment || 5,
+            increment: config.increment || 1,
             minHours: config.minHours || 0,
             maxHours: config.maxHours || 1000,
             hoursTitle: config.hoursTitle || 'Hours',

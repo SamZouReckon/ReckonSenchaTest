@@ -1,5 +1,5 @@
 Ext.define('RM.core.InvoicesMgr', {
-
+    alternateClassName: 'RM.InvoicesMgr',
     singleton: true,
 
     requires: ['RM.view.InvoiceDetail', 'RM.view.History', 'RM.component.ChooseInvoiceItem', 'RM.component.ChooseInvoiceDiscount', 'RM.view.CreateItem', 'RM.view.InvoiceTimeSelectDetail'],
@@ -50,9 +50,8 @@ Ext.define('RM.core.InvoicesMgr', {
     },    
     
     showCustInvoices: function (invoicesTitle, customerId, customerName, sortVal) {
-
-        var invoicesC = RM.AppMgr.getAppControllerInstance('RM.controller.InvoicesC');
-        invoicesC.showView(invoicesTitle, customerId, customerName, sortVal);
+        var customerInvoicesC = RM.AppMgr.getAppControllerInstance('RM.controller.CustomerInvoicesC');
+        customerInvoicesC.showView(invoicesTitle, customerId, customerName, sortVal);        
     },
 
     showInvoiceDetail: function (isCreate, data, cb, cbs) {

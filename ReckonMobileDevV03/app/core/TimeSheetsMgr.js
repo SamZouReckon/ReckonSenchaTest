@@ -1,5 +1,5 @@
 Ext.define('RM.core.TimeSheetsMgr', {
-
+    alternateClassName: 'RM.TimeSheetsMgr',
     singleton: true,
 	
 	requires: ['RM.view.TimeSheetDetail', 'RM.component.PopupNotes'],

@@ -28,7 +28,8 @@ Ext.define('RM.controller.ContactDetailC', {
         },
         control: {
             'contactdetail': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },            
             'contactdetail #back': {
                 tap: 'back'
@@ -67,6 +68,7 @@ Ext.define('RM.controller.ContactDetailC', {
     },  
     
     onShow: function(){
+        RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getContactTitle().setHtml(this.isCreate ? 'Add Contact' : 'View Contact');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
@@ -93,6 +95,10 @@ Ext.define('RM.controller.ContactDetailC', {
         }        
         
     },
+    
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler();
+    },        
     
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,

@@ -42,7 +42,7 @@ Ext.define('RM.view.About', {
 							tap: {
 								element: 'element',                    
 								fn: function () { 
-									window.open('http://www.reckonone.com', '_blank', 'location=no');
+									window.open(RM.HomeSettingsMgr.getSetting('PrivacyPolicyUrl'), '_blank', 'location=no');                                    
 								}
 							}
 						}
@@ -55,7 +55,7 @@ Ext.define('RM.view.About', {
 							tap: {
 								element: 'element',                    
 								fn: function () { 
-									window.open('http://www.reckonone.com', '_blank', 'location=no');
+									window.open(RM.HomeSettingsMgr.getSetting('TermsUrl'), '_blank', 'location=no');
 								}
 							}
 						}
@@ -68,7 +68,7 @@ Ext.define('RM.view.About', {
 							tap: {
 								element: 'element',                    
 								fn: function () { 
-									window.open('http://www.reckonone.com', '_blank', 'location=no');
+									window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');
 								}
 							}
 						}

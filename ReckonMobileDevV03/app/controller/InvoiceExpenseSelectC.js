@@ -96,7 +96,8 @@ Ext.define('RM.controller.InvoiceExpenseSelectC', {
                     groupName = Ext.Date.format(groupName, 'D M j, Y');
 
                 //return '<div><input type="checkbox" class="select_checkbox" style="margin:4px;"><span>' + groupName + '</span></div>';
-                return '<div class="rm-checkbox rm-checkbox-off" style="float:left;"></div><div style="float:left;margin-left:6px;">' + groupName + '</div>';  //Changed for checkbox icon
+                return '<div class="rm-checkbox rm-checkbox-off" style="float:left;"></div><div style="display:inline;margin-left:6px;">' + groupName + '</div>';
+                //return '<div class="rm-checkbox rm-checkbox-off" style="float:left;"></div><div style="float:left;margin-left:6px;">' + groupName + '</div>';  //Changed for checkbox icon
                 //Another way to get checkbox in header could be using techniques as shown in:
                 //http://kubahulewicz.net/2012/07/sencha-touch-2-searchable-grouped-list-with-expandcollapse-functionality/
 

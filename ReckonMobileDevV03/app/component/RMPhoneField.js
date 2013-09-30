@@ -1,6 +1,6 @@
-Ext.define('RM.component.RMAmountField', {
+Ext.define('RM.component.RMPhoneField', {
     extend: 'RM.component.ExtTextField',
-    xtype: 'rmamountfield',
+    xtype: 'rmphonefield',
     requires: ['RM.component.DataEntryKeypad'],
     
     constructor: function(config){          
@@ -16,7 +16,7 @@ Ext.define('RM.component.RMAmountField', {
         this.isInitializing = false;
     },
 
-    onFieldFocus: function(field, e) {    
+    onFieldFocus: function(field, e) {         
         if (this.keypadOnTop)
             return;
         if(this.readOnlyField) return;        
@@ -25,25 +25,24 @@ Ext.define('RM.component.RMAmountField', {
         this.fieldUniqueId = e.target.id;       
         
         //get field's owner panel
-        this.owningPanel = field.up('panel');         
+        this.owningPanel = field.up('panel');  
         
         var keypad = {
             xtype:'dataentrykeypad',        
             docked: 'bottom',
-            keypadType: 'amount',
+            keypadType: 'phone',
             listeners: {
                 keytap: this.onKeyTap,
                 scope: this
             }
-        };
-        
+        };        
         this.keypad = this.owningPanel.add(keypad);
         this.revertBackVal = this.getValue();
         this.clearScrollTimer();
         var scroller = this.owningPanel.getScrollable().getScroller();        
-        this.scrollTimer = window.setTimeout(function() {             
+        this.scrollTimer = window.setTimeout(function() {              
             scroller.scrollTo(0, field.element.dom.offsetTop, true);                                            
-        }, 600); 
+        }, 650); 
         this.keypadOnTop = true; 
         RM.ViewMgr.regBackHandler(this.removeKeypad, this);
         
@@ -75,14 +74,14 @@ Ext.define('RM.component.RMAmountField', {
             this.clearScrollTimer();            
             var scroller = this.owningPanel.getScrollable().getScroller();        
             this.scrollTimer = window.setTimeout(function() {                                            
-                 scroller.scrollTo(0, 0, true);                                            
+                 scroller.scrollTo(0, 0, false);                                            
             }, 300); 
             this.fireValueChangeEvent(val);           
         }        
     },
     
     onKeyTap: function (key) {  
-        if(key === 'bar') return;
+        if(key === 'bar' || key === 'blankbtn') return;
         if(key === 'done'){            
             this.removeKeypad();
             return;
@@ -93,9 +92,9 @@ Ext.define('RM.component.RMAmountField', {
             return;
         }
         var val = this.getValue();
-        var valStr = this.getPrefix() + val.toString();
+        var valStr = val.toString();
         var valStrLen = valStr.length;  
-        var pointIndex = valStr.indexOf('.');        
+        //var pointIndex = valStr.indexOf('.');        
                
         if (key === 'backspace') {
             if (valStrLen > 0) {
@@ -103,46 +102,19 @@ Ext.define('RM.component.RMAmountField', {
                 this.setValue(valStr);                
             }            
         } 
-        else {
-            if (this.config.decimalPlaces) {
-                if ((key != '.' && valStrLen - 1 < pointIndex + this.config.decimalPlaces) || pointIndex < 0) {
-                    if (valStr == this.getPrefix() + '0' && key != '.')
-                        valStr = this.getPrefix();                
-                    this.setValue(valStr + key);
-                }
-            }
-            else {                
-                if (pointIndex != -1 && key == '.')
-                    return;
-                if (valStr == this.getPrefix() + '0')
-                    valStr = this.getPrefix(); 
-                this.setValue(valStr + key);
-            } 
+        else{
+            this.setValue(valStr + key); 
         }
+               
     },   
     
-    //Overridden getValue to remove prefix
-    getValue: function() {
-        var val = this.callParent();
-        var valStr = val.toString();        
-        if (this.config.prefix && valStr.indexOf(this.config.prefix) != -1) {
-            valStr = valStr.slice(this.getPrefix().length);            
-        }        
+    applyValue: function(newVal,oldVal){        
+        var valStr = newVal ? newVal.toString() : '';  
+        if (!oldVal && oldVal !== '') {            
+            this.valBeforeChange = valStr;        //store original value of the field for valueChange Event           
+        }            
         return valStr;
     },    
-    
-    //To format value when loading the form
-    applyValue: function(newVal,oldVal){         
-        var valStr = newVal ? newVal.toString() : '';  
-        if (!oldVal && oldVal !== '') {
-            this.valBeforeChange = valStr;        //store original value of the field for valueChange Event
-            if (this.config.decimalPlaces && valStr !== '')
-                valStr = Ext.Number.toFixed(parseFloat(valStr), this.config.decimalPlaces);
-        }
-        if (valStr.indexOf(this.getPrefix()) == -1 && valStr !== '')
-            valStr = this.getPrefix() + valStr;        
-        return valStr;
-    },     
     
     handleTapInEntireScreen: function(e) {        
         if (this.fieldUniqueId !== e.target.id) {           
@@ -157,9 +129,7 @@ Ext.define('RM.component.RMAmountField', {
         return owningPanel;
     },
     
-    getPrefix: function() {
-        return (this.config.prefix ? this.config.prefix : '');
-    },    
+       
     
     showCursor: function(fieldMask) {        
         var me = this;         

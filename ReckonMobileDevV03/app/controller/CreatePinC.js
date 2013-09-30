@@ -79,8 +79,7 @@ Ext.define('RM.controller.CreatePinC', {
     onBack: function () {
         
         if (this.pinStep == 1) {
-            //RM.ViewMgr.back();
-            RM.AppMgr.logout();
+            RM.ViewMgr.back();
         }
         else {
             this.gotoStep1();

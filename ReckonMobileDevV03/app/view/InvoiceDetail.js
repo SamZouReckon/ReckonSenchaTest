@@ -192,7 +192,17 @@ Ext.define('RM.view.InvoiceDetail', {
 					xtype : 'component',					
 					//cls : 'tipBG',
 					//id: 'swipeTip',
-					html: '<div style="margin: 8px;"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div>'
+					html: '<div style="margin: 8px;"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div>',
+                     listeners:[
+                                 {
+                                    element: 'element',
+                                    event: 'tap',
+                                    fn: function() {
+                                        this.toggleOptions();
+                                    },
+                                     scope: this
+                                }
+                            ]             
 					
 				},
 				{

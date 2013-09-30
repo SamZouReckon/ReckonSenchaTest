@@ -17,7 +17,7 @@ Ext.define('RM.core.ViewMgr', {
         this.hideKeyPad();
         RM.AppMgr.clearLoadingTimer();
                
-		if(this.appBackStack.length <= 1){
+		if(this.appBackStack.length <= 1 && RM.AppMgr.isLoggedIn() && this.dashboardShown && !this.isDashboardShowing()){
             this.appBackStack.pop();
             this.showDashboard(anim);
 			return;
@@ -71,6 +71,8 @@ Ext.define('RM.core.ViewMgr', {
     },    
     
     onDeviceBack: function(){
+        
+        this.showBackStack('onDeviceBack');
         
         if(this.backHandler){
            this.backHandler.call(this.backHandlerScope);
@@ -216,6 +218,7 @@ Ext.define('RM.core.ViewMgr', {
 	showBackStack: function(msg){
 
         console.log(msg);
+        console.log('stack length = ' + this.appBackStack.length);
 		for(var i = 0; i < this.appBackStack.length; i++){
 			console.log('  ' + this.appBackStack[i].getXTypes().split('/').pop());
 		}

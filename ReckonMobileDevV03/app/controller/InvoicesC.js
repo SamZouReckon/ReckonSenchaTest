@@ -30,15 +30,19 @@ Ext.define('RM.controller.InvoicesC', {
     },
 
     showView: function () {
+        
         var view = this.getInvoices();
         if (!view){
-            view = { xtype: 'invoices' };    
+            view = { xtype: 'invoices' };            
         }            
         RM.ViewMgr.showPanel(view);
     },
     
     onShow: function () {
-        this.onSort('customer');
+        if(!this.dataLoaded){
+            this.onSort('duedate');
+            this.dataLoaded = true;
+        }        
     },
 
     onItemUpdated: function (itemType) {

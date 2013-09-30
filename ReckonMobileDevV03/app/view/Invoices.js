@@ -25,10 +25,11 @@ Ext.define('RM.view.Invoices', {
             },{
 				xtype: 'sortsearchbar',				
 				docked: 'top',
-				sortfields: [
-					{text: 'Customer',  value: 'customer'},
+				sortfields: [					
+                    {text: 'Due date',  value: 'duedate'},
 					{text: 'Amount', value: 'amount'},
-					{text: 'Due date',  value: 'duedate'}
+                    {text: 'Customer',  value: 'customer'}
+					
 				]
                 
 			}

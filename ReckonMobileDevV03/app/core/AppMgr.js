@@ -31,7 +31,9 @@ Ext.define('RM.core.AppMgr', {
         
         RM.HomeSettingsMgr.load();
         
-        this.login();        
+        //Following login() commented as login() gets called from lock() which is called from MainNavContainer which seems to get called at start of app - this caused 2 copies of EnterUserName 
+        //or EnterPin to be put on to stack
+        //this.login();        
         
     },
     
@@ -124,8 +126,10 @@ Ext.define('RM.core.AppMgr', {
 		);
     },
 
-    lock: function(){        
-        this.logoutFromServer();       
+    lock: function(){
+        RM.ViewMgr.clearBackStack();
+        this.logoutFromServer();
+        this.login();
     },
     
     logout: function () {
@@ -135,6 +139,7 @@ Ext.define('RM.core.AppMgr', {
         localStorage.removeItem('RmUserName');
         
         this.logoutFromServer();
+        this.login();
     },
 
     logoutFromServer: function(){
@@ -147,7 +152,7 @@ Ext.define('RM.core.AppMgr', {
             });        
             this.isUserLoggedIn = false;
         }
-        this.login();      
+              
     },
     
     getUserName: function () {

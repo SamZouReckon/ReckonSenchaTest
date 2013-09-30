@@ -25,8 +25,7 @@ Ext.define('RM.component.ChooseInvoiceItem', {
 		this.popup=null;
 	},
 	
-	show: function(cb,cbs){
-        RM.ViewMgr.regBackHandler(this.hide, this);
+	show: function(cb,cbs){        
 
         var popup = Ext.create('RM.component.Popup', {
             defaults: {
@@ -52,7 +51,8 @@ Ext.define('RM.component.ChooseInvoiceItem', {
         // Only show the popup if more than one selectable option is available
         if (selectableItemCount > 1) {
             this.popup = popup;
-		    popup.show();	
+		    popup.show();
+            RM.ViewMgr.regBackHandler(this.hide, this);
         }
         // Otherwise just callback as if the only available item has been selected
         else {            

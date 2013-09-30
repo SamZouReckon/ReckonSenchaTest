@@ -24,6 +24,7 @@ Ext.define('RM.controller.EnterPinC', {
 	},
 
 	showView: function (userName, displayName, cb, cbs, cbFail) {
+        console.log('EnterPin onShow');
         this.incorrectPinCount = 0;
 		this.userName = userName;
 		this.displayName = displayName;
@@ -39,14 +40,15 @@ Ext.define('RM.controller.EnterPinC', {
 			view = { xtype: 'enterpin' };
 		}
 
-		RM.ViewMgr.showPanel2(view);
+		RM.ViewMgr.showPanel(view);
 	},
 
 	onShow: function () {
 		this.getMsg().setHtml('Signed in as ' + this.displayName);
         this.getMsg().setCls('rm-intromsg');
 		this.getPinKeypad().clearPin();
-        RM.ViewMgr.clearBackStack();
+        //RM.ViewMgr.clearBackStack();
+        RM.AppMgr.logoutFromServer();
 	},
 
 	onPinEntered: function (pin) {

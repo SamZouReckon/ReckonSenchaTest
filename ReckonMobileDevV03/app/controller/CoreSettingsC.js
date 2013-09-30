@@ -46,17 +46,17 @@ Ext.define('RM.controller.CoreSettingsC', {
     },
 
     onBack: function(){
-        RM.AppMgr.login();
+        RM.ViewMgr.back();
     },
     
     onSave: function () {
         RM.AppMgr.setBaseApi(this.getSettingsForm().getValues());
-        RM.AppMgr.login();
+        RM.ViewMgr.back();
     },
 
     onUploadLogs: function () {
         RM.EventMgr.uploadLogs();
-        RM.AppMgr.login();
+        RM.ViewMgr.back();
     }
 
     //<debug>

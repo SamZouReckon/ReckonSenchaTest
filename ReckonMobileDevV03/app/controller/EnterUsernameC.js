@@ -30,13 +30,14 @@ Ext.define('RM.controller.EnterUsernameC', {
         var view = this.getEnterUserName();
         if (!view)
             view = { xtype: 'enterusername' };
-        RM.ViewMgr.showPanel2(view);
+        RM.ViewMgr.showPanel(view);
     },
 
     onShow: function () {
         this.getUserName().setValue(RM.AppMgr.getUserName());
         this.getPassword().setValue('');
-        RM.ViewMgr.clearBackStack();
+        //RM.ViewMgr.clearBackStack();
+        RM.AppMgr.logoutFromServer();
     },
 
     onOptions: function () {

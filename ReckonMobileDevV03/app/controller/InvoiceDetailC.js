@@ -76,8 +76,17 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 Status: RM.InvoicesMgr.getInitialInvoiceStatus(), 
                 AmountTaxStatus: RM.Consts.TaxStatus.INCLUSIVE, 
                 Date: new Date(), 
-                Discount: 'None' });
+                Discount: 'None',
+                Amount: 0,
+                DiscountTotal: 0,
+                Tax: 0,
+                Subtotal: 0, 
+                Paid: 0,
+                BalanceDue: 0
+            });
         }
+        
+        //Amount, DiscountTotal, Tax, Subtotal, Paid, BalanceDue
 
         this.isEditable = RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && RM.PermissionsMgr.canAddEdit('Invoices');
         

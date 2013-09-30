@@ -14,7 +14,7 @@ Ext.define('RM.core.InvoicesMgr', {
             case RM.Consts.InvoiceStatus.DRAFT:
                 return 'DRAFT';
             case RM.Consts.InvoiceStatus.APPROVED:
-                return RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled ? 'INVOICED' : 'UNPAID';
+                return RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled ? 'APPROVED' : 'UNPAID';
             case RM.Consts.InvoiceStatus.PARTIALLY_PAID:
                 return 'PARTIALLY PAID';
             case RM.Consts.InvoiceStatus.PAID:

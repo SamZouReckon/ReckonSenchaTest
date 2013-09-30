@@ -18,17 +18,14 @@ Ext.define('RM.component.DataEntryKeypad', {
 			defaults: {xtype: 'button', flex: 1, height: 40, cls: 'rm-keypad-topbar'},
 			items:[{
                     text: 'CANCEL',
-                    itemId: 'cancel',
-                    
+                    itemId: 'cancel',                    
                     //style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
                 },{                    
-                    itemId: 'bar',                    
-                    
+                    itemId: 'bar',                   
                     //style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
                 },{
 					text: 'DONE',
-                    itemId: 'done',
-                    
+                    itemId: 'done',                    
                     //style: 'font-size: 0.8em; padding-left: 0px; padding-right: 0px;'
 				}
 			]
@@ -71,11 +68,16 @@ Ext.define('RM.component.DataEntryKeypad', {
 		},{
 			xtype: 'container',
 			layout: 'hbox',
+            itemId: 'dotContainer',
 			defaults: {xtype: 'button', flex: 1, height: 60, cls: 'rm-flatkeypadbutton'},
 			items:[{
 					text: '.',
                     itemId: 'dotBtn'
 				},{
+                    text: '',
+                    itemId: 'blankBtn',
+                    hidden: true
+                },{
 					text: '0',
                     itemId: '0'
 				},{
@@ -86,11 +88,18 @@ Ext.define('RM.component.DataEntryKeypad', {
 		}]		
     },
     
-    initialize: function() {
+    initialize: function() {        
         if(!this.config.keypadType){
-            var done = this.getComponent('doneContainer');           
-            done.setHidden(true);
-        }        
+            var doneContainer = this.getComponent('doneContainer');           
+            doneContainer.setHidden(true);
+        }
+        if(this.config.keypadType === 'phone')  {
+            var dotContainer = this.getComponent('dotContainer');
+            var dot = dotContainer.getComponent('dotBtn');
+            var blank = dotContainer.getComponent('blankBtn');
+            blank.setHidden(false);
+            dot.setHidden(true);
+        }     
         this.callParent(arguments);
     },
 

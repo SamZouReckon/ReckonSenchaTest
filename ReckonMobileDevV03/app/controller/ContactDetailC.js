@@ -74,7 +74,7 @@ Ext.define('RM.controller.ContactDetailC', {
         
         if (!this.dataLoaded) {
             var contactForm =  this.getContactForm(); 
-            contactForm.reset();   
+            //contactForm.reset();   
             if (!this.isCreate) {
                 this.loadFormData();
             }
@@ -257,7 +257,8 @@ Ext.define('RM.controller.ContactDetailC', {
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
             this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL ADDRESS</h3>');
-            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>');            
+            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>'); 
+            console.log(this.getBranchName().getValue());
             this.getBranchName().showValidation(this.getBranchName().getValue()); 
             this.getBusinessName().setLabel('Surname <span style="color: #F00">*</span>');
         }

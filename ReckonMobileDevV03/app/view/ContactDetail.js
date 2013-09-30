@@ -1,6 +1,6 @@
 Ext.define('RM.view.ContactDetail', {
 	extend: 'RM.component.SecurePanel',
-    requires: ['RM.component.SecureFormPanel','RM.component.SecureButton'],
+    requires: ['RM.component.SecureFormPanel','RM.component.SecureButton','RM.component.RMPhoneField'],
 	xtype: 'contactdetail',
     
 	config: {		
@@ -113,18 +113,18 @@ Ext.define('RM.view.ContactDetail', {
                             cls: 'x-form-label',
                             style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
                         },{
-                            xtype: 'numberfield',                             
-                            cls: 'rm-flatfield',                             
+                            xtype: 'rmphonefield',                             
+                            cls: 'rm-flatfield rm-cursor-blinkbg',                             
                             name: 'PhoneAreaCode',						    
-                            placeHolder: 'area code',
+                            placeHolder: 'area code',                            
                             flex: 2.2,
                             clearIcon: false,
                             border: '0 1 0 1 ',
                             style: 'border-color: #DBDBDB; border-style: solid;'
                         },
                         {
-                            xtype: 'numberfield', 
-                            cls: 'rm-flatfield', 
+                            xtype: 'rmphonefield', 
+                            cls: 'rm-flatfield rm-cursor-blinkbg', 
                             placeHolder: 'enter',
                             name: 'Phone',
                             flex: 3.5,
@@ -143,8 +143,8 @@ Ext.define('RM.view.ContactDetail', {
                             cls: 'x-form-label',  
                             style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
                         },{
-                            xtype: 'numberfield',                             
-                            cls: 'rm-flatfield',                             
+                            xtype: 'rmphonefield',                             
+                            cls: 'rm-flatfield rm-cursor-blinkbg',                             
                             name: 'FaxAreaCode',						    
                             placeHolder: 'area code',
                             flex: 2.2,
@@ -153,8 +153,8 @@ Ext.define('RM.view.ContactDetail', {
                             style: 'border-color: #DBDBDB; border-style: solid;'
                         },
                         {
-                            xtype: 'numberfield', 
-                            cls: 'rm-flatfield', 
+                            xtype: 'rmphonefield', 
+                            cls: 'rm-flatfield rm-cursor-blinkbg', 
                             placeHolder: 'enter',
                             name: 'Fax',
                             flex: 3.5,

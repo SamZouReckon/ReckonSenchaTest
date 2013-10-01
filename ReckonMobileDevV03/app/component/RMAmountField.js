@@ -5,7 +5,8 @@ Ext.define('RM.component.RMAmountField', {
     
     constructor: function(config){          
         this.isInitializing = true;
-        this.readOnlyField = config.readOnly || false;        
+        this.readOnlyField = config.readOnly || false;     
+        config.trailingZerosUpTo = config.trailingZerosUpTo || 2;
         this.callParent(arguments);        
     },
     
@@ -66,7 +67,8 @@ Ext.define('RM.component.RMAmountField', {
                 val = '0.0';
         
             if (this.config.decimalPlaces && val != '')
-                this.setValue(this.getPrefix() + Ext.Number.toFixed(parseFloat(val), this.config.decimalPlaces));      
+                //this.setValue(this.getPrefix() + Ext.Number.toFixed(parseFloat(val), this.config.decimalPlaces));   
+                this.setValue(this.getPrefix() + this.formatVal(val));
            
             this.owningPanel.remove(this.keypad);          
             this.keypadOnTop = false;
@@ -136,8 +138,9 @@ Ext.define('RM.component.RMAmountField', {
         var valStr = newVal ? newVal.toString() : '';  
         if (!oldVal && oldVal !== '') {
             this.valBeforeChange = valStr;        //store original value of the field for valueChange Event
-            if (this.config.decimalPlaces && valStr !== '')
-                valStr = Ext.Number.toFixed(parseFloat(valStr), this.config.decimalPlaces);
+            if (this.config.decimalPlaces && valStr !== '')            
+                //valStr = Ext.Number.toFixed(parseFloat(valStr), this.config.decimalPlaces);
+                valStr = this.formatVal(valStr);
         }
         if (valStr.indexOf(this.getPrefix()) == -1 && valStr !== '')
             valStr = this.getPrefix() + valStr;        
@@ -161,7 +164,7 @@ Ext.define('RM.component.RMAmountField', {
         return (this.config.prefix ? this.config.prefix : '');
     },    
     
-    showCursor: function(fieldMask) {        
+    showCursor: function() {        
         var me = this;         
         this.cursorBlinkTimer = window.setInterval(
             function() {                     
@@ -207,6 +210,19 @@ Ext.define('RM.component.RMAmountField', {
         var oldVal = parseFloat(this.valBeforeChange) || '';        
         if(newVal != oldVal)
         this.fireEvent('valueChange', newVal, oldVal);
-    }
+    },
+    
+    formatVal: function(val){        
+        var formattedValStr  = parseFloat(val).toString();
+        var pointPosition = formattedValStr.indexOf('.');
+        var digitsAfterPoint = formattedValStr.length - pointPosition - 1;
+        var diff = this.config.trailingZerosUpTo-digitsAfterPoint;
+        if(diff > 0){
+            for(i = 0; i < diff; i++){
+                formattedValStr = formattedValStr + '0';
+            }
+        }
+        return formattedValStr;
+    }   
     
 });

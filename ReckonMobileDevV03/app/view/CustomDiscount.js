@@ -1,7 +1,7 @@
 Ext.define('RM.view.CustomDiscount', {
     extend: 'Ext.Panel',
     xtype: 'customdiscount',
-	requires: ['RM.component.DataEntryKeypad'],
+	requires: ['RM.component.DataEntryKeypad','RM.component.RMAmountField'],
     config: {
         
         layout: 'fit',
@@ -27,33 +27,42 @@ Ext.define('RM.view.CustomDiscount', {
             ]
         },{
             xtype: 'formpanel',
-			padding: 0,
+			//padding: 0,
 			defaults: {labelWidth: 160},
 			items: [{
-					xtype: 'exttextfield',
+                    xtype: 'component',
+                    height: 1
+                },{
+					xtype: 'rmamountfield',
 					itemId: 'percentDiscount',
 					label: '% discount',
-                    cursorSimulate: true,
-                    readOnly: true,
-                    cls: 'rm-flatfield',
+                    decimalPlaces: 4,
+                    prefix: '',
+                    clearIcon: false,   
+                    //cursorSimulate: true,
+                    //readOnly: true,
+                    cls: 'rm-flatfield rm-cursor-blinkbg',
 					placeHolder: 'enter'
 				},{
-					xtype: 'exttextfield',
+					xtype: 'rmamountfield',
 					itemId: 'absoluteDiscount',
 					label: 'Absolute amount',
-                    cursorSimulate: true,
-                    readOnly: true,
-                    cls: 'rm-flatfield',
+                    decimalPlaces: 2,
+                    prefix: '$', 
+                    clearIcon: false,   
+                    //cursorSimulate: true,
+                    //readOnly: true,
+                    cls: 'rm-flatfield rm-cursor-blinkbg',
 					placeHolder: 'enter',
                     border: '1 0 1 0',
                     style: 'border-color: #DBDBDB; border-style: solid;'
 				}
 			]
-        },{
+        } /*,{
 			xtype:'dataentrykeypad',
 			maskPin: true,
 			docked: 'bottom'
-		}
+		}*/
         ]
     }
 });

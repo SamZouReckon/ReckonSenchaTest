@@ -14,11 +14,12 @@ Ext.define('RM.controller.CustomDiscountC', {
             },
             'customdiscount exttextfield': {
                 tap: 'onFieldTap',
-                blur: 'onFieldBlur'
+                //blur: 'onFieldBlur'
             },
+            /*
             'customdiscount dataentrykeypad': {
                 keytap: 'onCalcKeyTap'
-            },
+            },*/
             'customdiscount #back': {
                 tap: 'back'
             },
@@ -76,7 +77,7 @@ Ext.define('RM.controller.CustomDiscountC', {
         this.getPercentDiscount().setValue('');
         this.getAbsoluteDiscount().setValue('');
     },
-
+    /*
     onCalcKeyTap: function (key) {
         
         var valStr = this.currentField.getValue();
@@ -91,9 +92,10 @@ Ext.define('RM.controller.CustomDiscountC', {
         }
         this.currentField.setValue(valStr);
 
-    },
+    },*/
     
      validateForm: function(){  
+         console.log('validateForm')
          var isValid = true;         
          var val1 = this.getPercentDiscount().getValue();
          var val2 = this.getAbsoluteDiscount().getValue();         
@@ -102,8 +104,7 @@ Ext.define('RM.controller.CustomDiscountC', {
          }         
          if(!isValid){            
             RM.AppMgr.showErrorMsgBox('Please enter percent or absolute discount value');
-         }
-         
+         }         
          return isValid;
      },
 

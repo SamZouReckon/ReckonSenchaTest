@@ -209,8 +209,10 @@ Ext.define('RM.component.RMAmountField', {
     fireValueChangeEvent: function(val){        
         var newVal = parseFloat(val) || '';
         var oldVal = parseFloat(this.valBeforeChange) || '';        
-        if(newVal != oldVal)
-        this.fireEvent('valueChange', newVal, oldVal);
+        if(newVal != oldVal) {
+            this.valBeforeChange = newVal;
+            this.fireEvent('valueChange', newVal, oldVal);
+        }
     },
     
     formatVal: function(val){          

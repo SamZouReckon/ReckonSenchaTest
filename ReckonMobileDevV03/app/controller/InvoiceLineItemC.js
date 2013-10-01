@@ -90,7 +90,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 this.getUnitPrice().setValue(this.detailsData.UnitPriceExTax);
             }
             
-            this.getTaxCode().setHidden(this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED);
+            var hideTaxFields = this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED;
+            this.getTaxCode().setHidden(hideTaxFields);
+            this.getTax().setHidden(hideTaxFields);
+            
             this.setTaxModified(this.detailsData.TaxIsModified);
             
             if(this.detailsData.ItemId) { this.getItemDetail().showDetailsFields(); }
@@ -206,24 +209,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 		
 		var formVals = this.getItemForm().getValues();
 
-		var item = { //fields corresponding to InvoiceLineItemDto
-            Amount: formVals.Amount,
-		    AmountExTax: this.detailsData.AmountExTax,
-            DiscountedTaxAmount: this.detailsData.DiscountedTaxAmount,
-            DiscountedTaxExclAmount: this.detailsData.DiscountedTaxExclAmount,
-		    ItemType: ITEM_TYPE_CHARGEABLE_ITEM,
-		    ItemId: formVals.ItemId,
-		    ItemName: formVals.ItemName,
-            ItemPath: formVals.ItemPath,
-            ProjectID: formVals.ProjectID,
-            ProjectName: formVals.ProjectName,
-		    Quantity: formVals.Quantity || 1,
-            TaxGroupId: formVals.TaxGroupId,
-			Tax: formVals.Tax,
-            TaxIsModified: this.detailsData.TaxIsModified,
-            UnitPriceExTax: this.detailsData.UnitPriceExTax,
-            Description: formVals.Description
-        };
+        var item = Ext.apply(this.detailsData, formVals);
+        item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
+        item.Quantity = item.Quantity || 1;
 
         var discount = this.getDiscountValue();
         item.DiscountPercentage = discount.DiscountPercentage;

@@ -36,7 +36,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 tap: 'onFieldTap'
             },
             'invoicedetail extselectfield[name=AmountTaxStatus]':{
-                itemselected: 'onAmountTaxStatusSelected'
+                change: 'onAmountTaxStatusSelected'
             },
             'invoicedetail #addItem': {
                 tap: 'onAddItem'
@@ -63,6 +63,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     showView: function (isCreate, data, cb, cbs) {
+        this.lineItemsDirty = false;
         this.isCreate = isCreate;
         this.detailsData = data ? data : {};
         this.detailsCb = cb;
@@ -90,12 +91,11 @@ Ext.define('RM.controller.InvoiceDetailC', {
     onShow: function () {        
         
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
-        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');        
-        this.lineItemsDirty = false;
+        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');                
         
         this.setEditable(this.isEditable);
         
-        this.getInvoiceDetail().setActionsHidden(this.isCreate);        
+        this.getInvoiceDetail().setActionsHidden(this.isCreate);                 
         this.getDueDateFld().resetPicker();
         this.getDateFld().resetPicker();
         
@@ -192,6 +192,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 
 			    this.displayBalanceDue();
                 this.initialFormValues = invoiceForm.getValues();
+                this.getInvoiceDetail().setActionsHidden(false);                         
                 
                 if(this.detailsData.Paid > 0) {
                     this.isEditable = false;
@@ -264,14 +265,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
     },
     
-    onAmountTaxStatusSelected: function(amountTaxStatusFld, oldValue, newValue){
-        //  Recalculate the invoice line item unit price amounts, to display incl or excl
-        this.calculateBreakdown();
-        this.previousAmountTaxStatus = amountTaxStatusFld.getValue();
+    onAmountTaxStatusSelected: function(amountTaxStatusFld, newValue, oldValue){ 
+        if(!this.dataLoaded) return;
+        this.detailsData.AmountTaxStatus = newValue;
+        this.previousAmountTaxStatus = oldValue;
+        this.calculateBreakdown();          
         this.getLineItems().setTaxStatus(newValue);
     },
 
-    onInvoiceDateChanged: function(dateField, oldValue, newValue) {
+    onInvoiceDateChanged: function(dateField, newValue, oldValue) {
         if(!this.dataLoaded) return;
         //  Recalculate the invoice tax amounts, since tax rates are date dependent
         this.calculateBreakdown();
@@ -297,7 +299,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     
     onAddLineItem: function () {
         this.lineItemsDirty = true;
-        this.calculateBreakdown();        
+        this.calculateBreakdown();     
     },
 
     onDeleteLineItem: function () {
@@ -312,8 +314,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
     
     calculateBreakdown: function () {
         
-        var formVals = this.getInvoiceForm().getValues(), lineItems = this.getLineItems().getViewData()
-        var vals = {InvoiceDate: formVals.Date, AmountTaxStatus: formVals.AmountTaxStatus, PreviousAmountTaxStatus: this.previousAmountTaxStatus, LineItems:[]};
+        var formVals = this.getInvoiceForm().getValues();
+        var lineItems = this.getLineItems().getViewData();
+        var vals = {
+            InvoiceDate: formVals.Date, 
+            AmountTaxStatus: formVals.AmountTaxStatus, 
+            PreviousAmountTaxStatus: 
+            this.previousAmountTaxStatus, 
+            LineItems:[]
+        };
         
 
         if (formVals.Discount.indexOf('%') > -1) {
@@ -326,6 +335,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         for (var i = 0; i < lineItems.length; i++) {
             var item = lineItems[i];
             var lineItemVals = {
+                InvoiceLineItemId: item.InvoiceLineItemId,
                 ItemType: item.ItemType, 
                 ItemID: item.ItemId, 
                 Quantity: item.Quantity, 
@@ -336,14 +346,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 Tax: item.Tax, 
                 TaxIsModified: item.TaxIsModified
             };
-            
-            if(item.DiscountPerc){
-                lineItemVals.DiscountPercentage = item.DiscountPerc;
-            }
-            if(item.DiscountAmount){
-                lineItemVals.DiscountAmount = item.DiscountAmount;
-            }            
-
+ 
             vals.LineItems.push(lineItemVals);
         }        
         
@@ -352,9 +355,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         
         RM.AppMgr.saveServerRec('InvoiceCalc', true, vals,
 			function response(respRecs) {
-                var respRec = respRecs[0];
-                //{"Items":[{"InvoiceLineItemID":"00000000-0000-0000-0000-000000000000","Tax":null,"TaxExclusiveAmount":null,"DiscountedTaxExclusiveAmount":null,"DiscountedTaxAmount":null,"Amount":5.50,"LineText":"4 x Line Desc"},{"InvoiceLineItemID":"00000000-0000-0000-0000-000000000000","Tax":null,"TaxExclusiveAmount":null,"DiscountedTaxExclusiveAmount":null,"DiscountedTaxAmount":null,"Amount":5.50,"LineText":"2 x Line Desc"},{"InvoiceLineItemID":"00000000-0000-0000-0000-000000000000","Tax":null,"TaxExclusiveAmount":null,"DiscountedTaxExclusiveAmount":null,"DiscountedTaxAmount":null,"Amount":5.50,"LineText":"1 x Line Desc"},{"InvoiceLineItemID":"00000000-0000-0000-0000-000000000000","Tax":null,"TaxExclusiveAmount":null,"DiscountedTaxExclusiveAmount":null,"DiscountedTaxAmount":null,"Amount":5.50,"LineText":"1 x Line Desc"}],"InvoiceAmount":65.60,"InvoiceDiscount":6.60,"InvoiceTax":7.25,"Subtotal":59.50,"AlreadyPaid":10.50,"BalanceDue":55.10}
-                //InvoiceAmount":65.60,"InvoiceDiscount":6.60,"InvoiceTax":7.25,"Subtotal":59.50,"AlreadyPaid":10.50,"BalanceDue":55.10
+                var respRec = respRecs[0];                
                 
                 var data = this.detailsData;
                 data.Amount = respRec.InvoiceAmount;

@@ -212,8 +212,7 @@ Ext.define('RM.component.RMAmountField', {
         this.fireEvent('valueChange', newVal, oldVal);
     },
     
-    formatVal: function(val){  
-        console.log('formatVal');
+    formatVal: function(val){          
         var formattedValStr = parseFloat(val).toString();
         var pointPosition = formattedValStr.indexOf('.');
         if (pointPosition !== -1) {

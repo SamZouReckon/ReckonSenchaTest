@@ -30,13 +30,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 tap: 'add'
             },
             unitPrice: {
-                valuechange: 'unitPriceChanged'
+                valueChange: 'unitPriceChanged'
             },
             tax: {
-                valuechange: 'taxAmountChanged'
+                valueChange: 'taxAmountChanged'
             },
             quantity: {
-                valuechange: 'quantityChanged'
+                valueChange: 'quantityChanged'
             },
             discount: {
                 change: 'discountChanged'

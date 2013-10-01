@@ -74,7 +74,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					label: 'Item Price',
                         rmmandatory: true,
                         labelWidth: 135,
-    					cls: 'rm-flatfield',
+    					cls: 'rm-flatfield rm-cursor-blinkbg',
     					placeHolder: 'enter',
                         decimalPlaces: 2,
                         prefix: '$'
@@ -84,8 +84,9 @@ Ext.define('RM.view.InvoiceLineItem', {
     					name: 'Quantity',
     					label: 'Quantity',
     					value: 1,
-    					cls: 'rm-flatfield',
+    					cls: 'rm-flatfield rm-cursor-blinkbg',
                         decimalPlaces: 4,
+                        trailingZerosUpTo: 0,
                         prefix: ''
     				},{
                         xtype: 'exttextfield',
@@ -121,7 +122,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         itemId: 'Tax',
     					label: 'Tax',
                         labelWidth: '7em',
-    					cls: ['rm-flatfield', 'rm-flatfield-last'],
+    					cls: ['rm-flatfield', 'rm-cursor-blinkbg', 'rm-flatfield-last'],
                         decimalPlaces: 2,
                         prefix: '$',
                         clearIcon: true

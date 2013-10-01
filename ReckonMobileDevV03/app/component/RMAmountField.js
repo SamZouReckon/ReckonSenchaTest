@@ -6,7 +6,7 @@ Ext.define('RM.component.RMAmountField', {
     constructor: function(config){          
         this.isInitializing = true;
         this.readOnlyField = config.readOnly || false;     
-        config.trailingZerosUpTo = config.trailingZerosUpTo || 2;
+        config.trailingZerosUpTo = config.trailingZerosUpTo == 0 || config.trailingZerosUpTo ? config.trailingZerosUpTo : 2;
         this.callParent(arguments);        
     },
     
@@ -142,8 +142,9 @@ Ext.define('RM.component.RMAmountField', {
                 //valStr = Ext.Number.toFixed(parseFloat(valStr), this.config.decimalPlaces);
                 valStr = this.formatVal(valStr);
         }
-        if (valStr.indexOf(this.getPrefix()) == -1 && valStr !== '')
-            valStr = this.getPrefix() + valStr;        
+        if (valStr.indexOf(this.getPrefix()) == -1 && valStr !== '') {
+            valStr = this.getPrefix() + this.formatVal(valStr);       
+        }
         return valStr;
     },     
     
@@ -224,7 +225,7 @@ Ext.define('RM.component.RMAmountField', {
                 }
             }
         }
-        else {
+        else if(this.config.trailingZerosUpTo > 0) {
             formattedValStr = formattedValStr + '.';
             for (i = 0; i < this.config.trailingZerosUpTo; i++) {
                 formattedValStr = formattedValStr + '0';

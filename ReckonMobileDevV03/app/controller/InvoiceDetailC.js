@@ -332,6 +332,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var formVals = this.getInvoiceForm().getValues();
         var lineItems = this.getLineItems().getViewData();
         var vals = {
+            CustomerId: formVals.CustomerId,
             InvoiceDate: formVals.Date, 
             AmountTaxStatus: formVals.AmountTaxStatus, 
             PreviousAmountTaxStatus: 
@@ -339,7 +340,6 @@ Ext.define('RM.controller.InvoiceDetailC', {
             LineItems:[]
         };
         
-
         if (formVals.Discount.indexOf('%') > -1) {
             vals.DiscountPercentage = formVals.Discount.replace('%', '');
         }
@@ -347,12 +347,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
             vals.DiscountAmount = formVals.Discount.replace('$', '');
         }
       
-        for (var i = 0; i < lineItems.length; i++) {
-            var item = lineItems[i];
-            var lineItemVals = {
+        vals.LineItems = lineItems.map(function(item) {
+            return {
                 InvoiceLineItemId: item.InvoiceLineItemId,
                 ItemType: item.ItemType, 
                 ItemID: item.ItemId, 
+                ProjectID: item.ProjectID,
                 Quantity: item.Quantity, 
                 UnitPriceExTax: item.UnitPriceExTax, 
                 DiscountAmount: item.DiscountAmount,
@@ -361,23 +361,18 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 Tax: item.Tax, 
                 TaxIsModified: item.TaxIsModified
             };
- 
-            vals.LineItems.push(lineItemVals);
-        }        
-        
-        //console.log(Ext.encode(vals));
-        //return;
-        
+        });         
+                
         RM.AppMgr.saveServerRec('InvoiceCalc', true, vals,
 			function response(respRecs) {
                 var respRec = respRecs[0];                
                 
                 var data = this.detailsData;
-                data.Amount = respRec.InvoiceAmount;
+                data.Amount = respRec.TotalIncludingTax;
                 data.AmountExTax = respRec.TotalExcludingTax;
-                data.Tax = respRec.InvoiceTax ? respRec.InvoiceTax : 0;
+                data.Tax = respRec.Tax || 0;
                 data.Subtotal = respRec.Subtotal;
-                data.DiscountTotal = respRec.Discount ? respRec.Discount : 0;
+                data.DiscountTotal = respRec.Discount || 0;
                 data.Paid = respRec.AmountPaid;
                 data.BalanceDue = respRec.BalanceDue;
                 
@@ -385,11 +380,29 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 lineItemsPanel.removeAllItems();
                 
                 for (var i = 0; i < lineItems.length; i++) {
-                    lineItems[i].Amount = respRec.Items[i].Amount;
-                    if(respRec.Items[i].DiscountAmount){
-                        lineItems[i].DiscountAmount = respRec.Items[i].DiscountAmount;
+                    var currentLine = lineItems[i];
+                    
+                    // find the result for the line
+                    var resultLine = null;                    
+                    Ext.Array.some(respRec.Items, function(item) {
+                        if(item.InvoiceLineItemId === currentLine.InvoiceLineItemId) {
+                            resultLine = item;
+                            return true;
+                        }
+                    });
+                    
+                    // If the item isn't in the response, it must be removed (project/customer filtering is applied server-side)
+                    if(!resultLine) {
+                        lineItems[i] = null;
                     }
+                    else {
+                        // Map the calculated values across
+                        Ext.apply(currentLine, resultLine);
+                    }                    
                 }
+                
+                // Clean out any deleted items
+                lineItems = Ext.Array.clean(lineItems);
                 
                 lineItemsPanel.setTaxStatus(vals.AmountTaxStatus);
                 lineItemsPanel.addLineItems(lineItems);

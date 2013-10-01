@@ -212,16 +212,25 @@ Ext.define('RM.component.RMAmountField', {
         this.fireEvent('valueChange', newVal, oldVal);
     },
     
-    formatVal: function(val){        
-        var formattedValStr  = parseFloat(val).toString();
+    formatVal: function(val){  
+        console.log('formatVal');
+        var formattedValStr = parseFloat(val).toString();
         var pointPosition = formattedValStr.indexOf('.');
-        var digitsAfterPoint = formattedValStr.length - pointPosition - 1;
-        var diff = this.config.trailingZerosUpTo-digitsAfterPoint;
-        if(diff > 0){
-            for(i = 0; i < diff; i++){
-                formattedValStr = formattedValStr + '0';
+        if (pointPosition !== -1) {
+            var digitsAfterPoint = formattedValStr.length - pointPosition - 1;
+            var diff = this.config.trailingZerosUpTo - digitsAfterPoint;
+            if (diff > 0) {
+                for (i = 0; i < diff; i++) {
+                    formattedValStr = formattedValStr + '0';
+                }
             }
         }
+        else {
+            formattedValStr = formattedValStr + '.';
+            for (i = 0; i < this.config.trailingZerosUpTo; i++) {
+                formattedValStr = formattedValStr + '0';
+            }
+        }        
         return formattedValStr;
     }   
     

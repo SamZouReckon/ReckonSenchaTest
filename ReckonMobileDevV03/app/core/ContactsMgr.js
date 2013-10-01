@@ -1,5 +1,5 @@
 Ext.define('RM.core.ContactsMgr', {
-
+    alternateClassName: 'RM.ContactsMgr',
     singleton: true,
 	
 	requires: ['RM.view.ContactDetail'],

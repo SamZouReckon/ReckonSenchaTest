@@ -21,7 +21,8 @@ Ext.define('RM.controller.ExpenseDetailC', {
         },
         control: {
             'expensedetail': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },
             'expensedetail #back': {
                 tap: 'back'
@@ -63,6 +64,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
     },
 
     onShow: function () {
+        RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getExpenseTitle().setHtml(this.isCreate ? 'Add Expense' : 'View Expense');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
@@ -103,6 +105,10 @@ Ext.define('RM.controller.ExpenseDetailC', {
 
         //this.getExpenseForm().setValues(this.detailsData);
     },
+    
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler();
+    },    
 
     isFormDirty: function(){        
         return !RM.AppMgr.isFormValsEqual(this.getExpenseForm().getValues(), this.initialFormValues);        
@@ -381,11 +387,16 @@ Ext.define('RM.controller.ExpenseDetailC', {
             rawData: postData,
             url: RM.AppMgr.getApiUrl('Expenses'),
             success: function (resp) {
-                //alert(resp.responseText);
-                this.goBack();
+                if(!resp.success){
+                    alert(resp.responseText);    
+                }
+                else{
+                    this.goBack();    
+                }
+                
             },
             failure: function (resp) {
-
+                alert(resp.responseText);
             },
             scope: this
         });

@@ -126,7 +126,8 @@ Ext.define('RM.controller.EmailInvoiceC', {
         var vals = this.getEmailInvoiceForm().getValues();
         vals.InvoiceId = this.invoiceData.InvoiceId;
         vals.MsgType = this.msgType;
-        if(this.validateForm(vals)){ 
+        
+        if(this.validateForm(vals)){            
              RM.AppMgr.saveServerRec('InvoiceMessages', true, vals,
                 function (recs) {
                     this.showEmailSent(vals.Email);
@@ -134,7 +135,7 @@ Ext.define('RM.controller.EmailInvoiceC', {
                 this,
                 function (recs) {
                     this.showEmailFail();
-                }
+                },'Sending...'
             );
         }
     },

@@ -48,6 +48,15 @@ Ext.define('RM.component.ExtDatePickerField', {
                 scope: this
             }
 		});
-    }
+    },
+    
+    showValidation: function(valid){        
+         this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');
+    },    
+    
+    getValue: function(){        
+        this.showValidation(true);
+        return this.callParent(arguments);      
+    } 
 
 });

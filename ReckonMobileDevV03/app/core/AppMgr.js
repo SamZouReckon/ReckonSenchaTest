@@ -1,48 +1,40 @@
-
 Ext.define('RM.core.AppMgr', {
 
     singleton: true,  //or could create a globally shared instance the way that Ext.MessageBox does
-
-    requires: ['RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
+    requires: ['RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
 
     init: function (application) {
         this.application = application;        
         this.isUserLoggedIn = false;
         
-        RM.EventMgr = RM.core.EventMgr;
+        Ext.Ajax.setDefaultHeaders({'X-APIV': RM.Consts.Api.VERSION});        
         
-        this.appTypeId = (Ext.typeOf(navigator.connection) != 'undefined') ? RM.Consts.App.CORDOVA_CONTAINER : RM.Consts.App.WEB_CONTAINER;
-        
+        RM.EventMgr = RM.core.EventMgr;        
+        this.appTypeId = (Ext.typeOf(navigator.connection) != 'undefined') ? RM.Consts.App.CORDOVA_CONTAINER : RM.Consts.App.WEB_CONTAINER;        
         RM.EventMgr.logEvent(RM.Consts.Events.OP, 1, 'am.i.1', 'Test', {MyVar:'My Data'});
         
         this.setupBaseApi();
         
-        Ext.data.StoreManager.lookup('ItemTypes').setData([{ItemTypeID: '1', Name:'Product'}, {ItemTypeID: '2', Name:'Service'}]);
-        Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusID: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxed'}, {TaxStatusID: RM.Consts.TaxStatus.INCLUSIVE, Name:'Inclusive'}, {TaxStatusID: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclusive'}]);
+        //Moved following to CashbookMgr using data loaded from server
+        //Ext.data.StoreManager.lookup('ItemTypes').setData([{ItemTypeID: '1', Name:'Product'}, {ItemTypeID: '2', Name:'Service'}]);
+        //Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusID: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxable'}, {TaxStatusID: RM.Consts.TaxStatus.INCLUSIVE, Name:'Include tax'}, {TaxStatusID: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclude tax'}]);
         
-        RM.PermissionsMgr = RM.core.PermissionsMgr;
         RM.PermissionsMgr.init(application);        
-        
-        RM.ViewMgr = RM.core.ViewMgr;
         RM.ViewMgr.init(application);
-        RM.Selectors = RM.core.Selectors;
         RM.Selectors.init(application);
-
-        RM.ContactsMgr = RM.core.ContactsMgr;
         RM.ContactsMgr.init(application);        
-        
-        RM.TimeSheetsMgr = RM.core.TimeSheetsMgr;
         RM.TimeSheetsMgr.init(application);
-
-        RM.ExpensesMgr = RM.core.ExpensesMgr;
         RM.ExpensesMgr.init(application);
-
-        RM.InvoicesMgr = RM.core.InvoicesMgr;
         RM.InvoicesMgr.init(application);
-
+        
         this.addDeviceListeners();
-        this.login();        
-
+        
+        RM.HomeSettingsMgr.load();
+        
+        //Following login() commented as login() gets called from lock() which is called from MainNavContainer which seems to get called at start of app - this caused 2 copies of EnterUserName 
+        //or EnterPin to be put on to stack
+        //this.login();        
+        
     },
     
     addDeviceListeners: function(){
@@ -74,6 +66,7 @@ Ext.define('RM.core.AppMgr', {
     },
     
     login: function () {
+        
         var hasMobilePin = (localStorage.getItem('RmHasMobilePin') == 'true');
 
         if (hasMobilePin) {
@@ -133,8 +126,10 @@ Ext.define('RM.core.AppMgr', {
 		);
     },
 
-    lock: function(){        
-        this.logoutFromServer();       
+    lock: function(){
+        RM.ViewMgr.clearBackStack();
+        this.logoutFromServer();
+        this.login();
     },
     
     logout: function () {
@@ -144,17 +139,20 @@ Ext.define('RM.core.AppMgr', {
         localStorage.removeItem('RmUserName');
         
         this.logoutFromServer();
+        this.login();
     },
 
     logoutFromServer: function(){
-        Ext.Ajax.request({
-            url: this.getApiUrl('Login'),
-            method: 'Put',
-            timeout: RM.Consts.Api.TIME_OUT,
-            jsonData: { ReqCode: 'LO' }
-        });        
-        
-        this.login();      
+        if(this.isUserLoggedIn){
+            Ext.Ajax.request({
+                url: this.getApiUrl('Login'),
+                method: 'Put',
+                timeout: RM.Consts.Api.TIME_OUT,
+                jsonData: { ReqCode: 'LO' }
+            });        
+            this.isUserLoggedIn = false;
+        }
+              
     },
     
     getUserName: function () {
@@ -175,7 +173,7 @@ Ext.define('RM.core.AppMgr', {
     },
 
     
-    getServerRec: function (serverApi, params, cb, cbs, cbFail) {
+    getServerRecs: function (serverApi, params, cb, cbs, cbFail) {
         var me = this;
         if(serverApi.substr(0,4) !== 'http') {
             // A named api has been supplied, resolve the url
@@ -192,7 +190,7 @@ Ext.define('RM.core.AppMgr', {
                 RM.ViewMgr.hideLoadingMask();
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && cb){
-                    cb.call(cbs, resp.recs[0]);
+                    cb.call(cbs, resp.recs);
                 }
                 else if (!resp.success && cbFail){
                     cbFail.call(cbs, resp.eventMsg);
@@ -208,7 +206,21 @@ Ext.define('RM.core.AppMgr', {
         }); 
         
         me.setLoadingTimer();        
-    },    
+    },
+    
+    getServerRec:  function (serverApi, params, cb, cbs, cbFail) {
+        
+        return this.getServerRecs(serverApi, params, 
+            function(recs){ 
+                if(cb){
+                    cb.call(cbs, recs[0]);
+                }
+            }, 
+            cbs, 
+            cbFail
+        );
+        
+    },
     
     
     saveServerRec: function (serverApiName, isCreate, dataDto, cb, cbs, cbFail, msg, cbNetFail) {
@@ -302,9 +314,14 @@ Ext.define('RM.core.AppMgr', {
         
         if(resp.status == 401){
             this.login();
-        }
+        }        
         else if(resp.statusText === 'communication failure') {
             this.showOkMsgBox("The connection failed, please try again or contact support.");    
+        }
+        else if(resp.status == 412){
+            var respErr = Ext.decode(resp.statusText);
+            //this.showErrorMsgBox(respErr.ErrDesc);
+            this.showAppStop(respErr.ErrCode, respErr.ErrDesc);
         }
         else if(resp.status != 0){
             this.showErrorMsgBox('There was an error, please try again or contact support: <br/><br/> (' + resp.status + ' ' + resp.statusText + ')');    
@@ -424,6 +441,12 @@ Ext.define('RM.core.AppMgr', {
         return Ext.encode(formVals1) == Ext.encode(formVals2);
         //see http://www.sencha.com/forum/showthread.php?59240-Compare-javascript-objects
         //http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
+    },
+    
+    
+    showAppStop: function(errCode, errMsg){
+        var appStopC = RM.AppMgr.getAppControllerInstance('RM.controller.AppStopC');
+        appStopC.showView(errCode, errMsg);  
     },
     
     showRMProgressPopup: function(titleText, msgText, icon, btnArray, cb, cbs){

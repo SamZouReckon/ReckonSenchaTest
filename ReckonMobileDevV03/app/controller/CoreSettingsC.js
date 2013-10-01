@@ -46,7 +46,7 @@ Ext.define('RM.controller.CoreSettingsC', {
     },
 
     onBack: function(){
-        RM.ViewMgr.back();  
+        RM.ViewMgr.back();
     },
     
     onSave: function () {
@@ -57,11 +57,8 @@ Ext.define('RM.controller.CoreSettingsC', {
     onUploadLogs: function () {
         RM.EventMgr.uploadLogs();
         RM.ViewMgr.back();
-    },
-
-    onBack: function () {
-        RM.ViewMgr.back();
     }
+
     //<debug>
     ,onIAmTheLaw: function() {
         RM.PermissionsMgr.allowEverything();

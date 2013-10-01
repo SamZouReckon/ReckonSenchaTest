@@ -9,7 +9,7 @@ Ext.define('RM.view.MainNavContainer', {
         'Ext.event.publisher.Dom',
 		//'RM.view.bankaccounts.BankAccounts',
 		'RM.view.dashboard.Dashboard',
-		'RM.view.CustomerInvoices',
+		'RM.view.Invoices',
 		'RM.view.bills.Bills',
 		'RM.view.budgets.Budgets',
 		'RM.view.TimeSheets',
@@ -126,14 +126,15 @@ Ext.define('RM.view.MainNavContainer', {
                 selector: 'toolbar'
             }
         },*/ {
-            xtype: 'customerinvoices',
+            xtype: 'invoices',
             index: 'Invoices',
             title: 'Invoices',
             activated: true,            
             group: 'RECKON ONE',
             slideButton: {
                 selector: 'toolbar'
-            }
+            },
+            data : { permsRequired : true }
         },/* {
             xtype: 'bills',
             index: 'bills',
@@ -159,16 +160,18 @@ Ext.define('RM.view.MainNavContainer', {
             group: 'RECKON ONE',
             slideButton: {
                 selector: 'toolbar'
-            }
+            },
+            data : { permsRequired : true }
         }, {
             xtype: 'expenses',
-            index: 'Expenses',
+            index: 'ExpenseClaims',
             title: 'Employee expenses',
             activated: true,
             group: 'RECKON ONE',
             slideButton: {
                 selector: 'toolbar'
-            }
+            },
+            data : { permsRequired : true }
         }, {
             xtype: 'contacts',
             index: 'Contacts',

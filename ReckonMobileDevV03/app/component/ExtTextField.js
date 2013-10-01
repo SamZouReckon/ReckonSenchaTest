@@ -54,7 +54,7 @@ Ext.define('RM.component.ExtTextField', {
             this.addCls(iconCls);
         }*/
     },
-    
+    /*
     setValue: function(){
         this.callParent(arguments);
         this.showValidation(true);
@@ -64,11 +64,15 @@ Ext.define('RM.component.ExtTextField', {
         this.callParent(arguments);
         this.setLabelCls('');
     },
+    */
     
     showValidation: function(valid){        
          this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');
-    }
+    },    
     
-    
+    getValue: function(){        
+        this.showValidation(true);
+        return this.callParent(arguments);      
+    }    
 
 });

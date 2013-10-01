@@ -14,7 +14,7 @@ Ext.define('RM.component.DurationField', {
 
             //Get config values if present else asign default
             useTitles: config.useTitles || true,
-            increment: config.increment || 5,
+            increment: config.increment || 1,
             minHours: config.minHours || 0,
             maxHours: config.maxHours || 1000,
             hoursTitle: config.hoursTitle || 'Hours',
@@ -44,20 +44,22 @@ Ext.define('RM.component.DurationField', {
         this.callParent(arguments);
     },
 
-    setValue: function (duration) {        
+    setValue: function (duration) { 
+        duration ? this.showValidation(true) : this.showValidation(false);        
         this.duration = duration;        
         valueInField =  RM.AppMgr.minsToTime(duration);        	
         this.callParent([valueInField]);              
     },
 
-    getValue: function () {       
+    getValue: function () {        
         return this.duration;   
     },
     
+    /*
     reset: function(){
         this.callParent(arguments);
         this.setLabelCls('');
-    },
+    },*/
     
     showValidation: function(valid){        
          this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');

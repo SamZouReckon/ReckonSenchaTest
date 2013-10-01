@@ -28,7 +28,7 @@ Ext.define('RM.core.CashbookMgr', {
         RM.Selectors.showCashBooks(
 			function (data) {
                 this.setCashbookId(data.CashBookId);			    
-                RM.EventMgr.logEvent(RM.Consts.Events.OP, 2, 'am.sc.1', 'CashBook=' + data.CashBookId);
+                RM.EventMgr.logEvent(RM.Consts.Events.OP, 2, 'cm.sc.1', 'CashBook=' + data.CashBookId);
                 this.setCashbook(data.CashBookId,
                     function(){
                         RM.ViewMgr.showMainNavContainer(localStorage.getItem('RmDisplayName'), data.BookName);
@@ -52,6 +52,12 @@ Ext.define('RM.core.CashbookMgr', {
                 
 	            Ext.data.StoreManager.lookup('GSTCodes').setData(recs[0].GSTCodes);
                 Ext.data.StoreManager.lookup('AccountingCategories').setData(recs[0].AccountingCategories);
+                
+                //MB 28/09: Remove the following if condition after serverside has been updated
+                if(recs[0].AmountTaxStatuses)
+                    Ext.data.StoreManager.lookup('TaxStatuses').setData(recs[0].AmountTaxStatuses);
+                else
+                    Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusID: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxable'}, {TaxStatusID: RM.Consts.TaxStatus.INCLUSIVE, Name:'Include tax'}, {TaxStatusID: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclude tax'}])
                 Ext.data.StoreManager.lookup('ItemTypes').setData(recs[0].ItemTypes);
                 
                 RM.PermissionsMgr.setPermissions(this.getCurrentCashbook().Permissions);                

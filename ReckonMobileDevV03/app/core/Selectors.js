@@ -1,5 +1,5 @@
 Ext.define('RM.core.Selectors', {
-
+    alternateClassName: 'RM.Selectors',
     singleton: true,
 
 	requires: ['RM.view.CashBooks', 'RM.view.Projects', 'RM.view.Suppliers', 'RM.view.ItemsAmounts', 'RM.view.ItemDetail'],

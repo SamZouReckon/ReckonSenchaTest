@@ -1,5 +1,5 @@
 Ext.define('RM.core.ViewMgr', {
-
+    alternateClassName: 'RM.ViewMgr',
     singleton: true, 
 	requires: ['RM.view.Main', 'RM.view.MainNavContainer', 'RM.view.Modules', 'RM.component.RMMsgPopup'],
     defaultBackAnimation : { type: 'slide', direction: 'right'},
@@ -16,8 +16,8 @@ Ext.define('RM.core.ViewMgr', {
         //To hide keypad while navigating back in Android
         this.hideKeyPad();
         RM.AppMgr.clearLoadingTimer();
-        
-		if(this.appBackStack.length <= 1){
+               
+		if(this.appBackStack.length <= 1 && RM.AppMgr.isLoggedIn() && this.dashboardShown && !this.isDashboardShowing()){
             this.appBackStack.pop();
             this.showDashboard(anim);
 			return;
@@ -72,30 +72,42 @@ Ext.define('RM.core.ViewMgr', {
     
     onDeviceBack: function(){
         
+        this.showBackStack('onDeviceBack');
         
         if(this.backHandler){
            this.backHandler.call(this.backHandlerScope);
         }
+        else if(this.formBackHandler){
+           this.formBackHandler.call(this.formBackHandlerScope);
+        }        
         else if(!this.mainNavContainer.isClosed()){
           this.mainNavContainer.closeContainer();
         }
-        else if(this.appBackStack.length <= 1 && !this.isDashboardShowing()){
+        else if(this.mainNavContainer.isItemSelected('Cashbooks')){
+            this.confirmExitApp();
+        }
+        else if(this.appBackStack.length <= 1 && RM.AppMgr.isLoggedIn() && this.dashboardShown && !this.isDashboardShowing()){            
+            this.showPanel2(this.mainNavContainer, { type: 'slide', direction: 'right'});
             this.mainNavContainer.setSelectedItem('Dashboard');
-            this.showPanel2(this.mainNavContainer, { type: 'slide', direction: 'right'});          
         }
         else if (this.appBackStack.length <= 1 ) {
-            RM.AppMgr.showYesNoMsgBox("Are you sure you want to exit?",
-              function(btn){
-                  if(btn == 'yes'){
-                      navigator.app.exitApp();
-                  }
-              },
-              this
-            );
-        } else {
+            this.confirmExitApp();
+        } 
+        else {
           this.back();
         }
        
+    },
+    
+    confirmExitApp: function(){
+        RM.AppMgr.showYesNoMsgBox("Are you sure you want to exit?",
+          function(btn){
+              if(btn == 'yes'){
+                  navigator.app.exitApp();
+              }
+          },
+          this
+        );
     },
 
     regBackHandler: function(handler, scope){
@@ -107,7 +119,19 @@ Ext.define('RM.core.ViewMgr', {
         this.backHandler = null;
         this.backHandlerScope = null;
     },
+    
+    //form back handler was added to handle case when device back is tapped when on a form allowing that form to have a back method called so it can check with user in case form data needs to be saved
+    //however there really needs to be a back handler stack as select fields or popup selectors (in case of invoice details) will need to reg a back handler as well - at the momen they call regBackHandler
+    regFormBackHandler: function(handler, scope){
+        this.formBackHandler = handler;
+        this.formBackHandlerScope = scope;        
+    },
 
+    deRegFormBackHandler: function(){
+        this.formBackHandler = null;
+        this.formBackHandlerScope = null;
+    },        
+    
     showCoreSettings: function(){
 		var coreSettingsC = RM.AppMgr.getAppControllerInstance('RM.controller.CoreSettingsC');
 		coreSettingsC.showView();	        
@@ -129,6 +153,7 @@ Ext.define('RM.core.ViewMgr', {
     },
     
     showDashboard: function(anim){
+        this.dashboardShown = true;
         this.mainNavContainer.setSelectedItem('Dashboard');
         this.showPanel(this.mainNavContainer, anim);
     },
@@ -187,12 +212,13 @@ Ext.define('RM.core.ViewMgr', {
 	},
 	
     clearBackStack: function(){
-        this.appBackStack = new Array();
+        this.appBackStack = new Array();        
     },
     
 	showBackStack: function(msg){
 
         console.log(msg);
+        console.log('stack length = ' + this.appBackStack.length);
 		for(var i = 0; i < this.appBackStack.length; i++){
 			console.log('  ' + this.appBackStack[i].getXTypes().split('/').pop());
 		}

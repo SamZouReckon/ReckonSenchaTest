@@ -40,5 +40,10 @@ Ext.define('RM.component.ExtSelectField', {
     reset: function(){
         this.callParent(arguments);
         this.setLabelCls('');
+    },
+    
+    getValue: function(){        
+        this.showValidation(true);
+        return this.callParent(arguments);      
     } 
 })

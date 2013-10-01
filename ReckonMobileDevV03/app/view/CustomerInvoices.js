@@ -1,55 +1,63 @@
 Ext.define('RM.view.CustomerInvoices', {
 	extend: 'RM.component.SecurePanel',
 	xtype: 'customerinvoices',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
+    requires: ['RM.component.SortSearchBar', 'RM.component.SecureButton'],
     config: {
 		permissionFor: 'Invoices',
 		layout: 'fit',
 		items:[{
-                xtype: 'toolbar',                
-                docked: 'top',
-                items: [{
-						xtype: 'component',
-						html: 'Invoices',
-                        cls: 'rm-topbartitle',
-					},{
-						xtype: 'spacer'					
-					},{
-						text: 'ADD',
-						itemId: 'add',
-                        xtype: 'securebutton',
-                        permissionFor: 'Invoices',
-						ui: 'rm_topbarbuttonright'
-					}
-                ]
-            },{
+                    xtype: 'titlebar',
+                    docked: 'top',
+                    title: 'A Title',
+                    itemId: 'title',
+                    items: [{
+        						itemId: 'back',
+        						ui: 'rm_topbarbuttonleft',
+        						width: '2.6em',
+        						icon: 'resources/images/icons/rm-back.png',
+                                align: 'left'
+                            },{
+        						text: 'ADD',
+        						itemId: 'add',
+                                    align: 'right',
+                                xtype: 'securebutton',
+                                permissionFor: 'Invoices',
+        						ui: 'rm_topbarbuttonright'
+    					    }
+                    ]
+                },    
+        
+        /*  
+        {
+            xtype: 'toolbar',                
+            docked: 'top',
+            title: {
+                title: 'A Title that is very long now ok',
+                style: {
+                    'text-align':'left'
+                }
+            },            
+            items: [{
+                    itemId: 'back',
+                    ui: 'rm_topbarbuttonleft',
+                    width: '2.6em',
+                    docked: 'left',
+                    icon: 'resources/images/icons/rm-back.png'			
+                },{
+                    text: 'ADD',
+                    itemId: 'add',
+                    xtype: 'securebutton',
+                    permissionFor: 'Invoices',
+                    ui: 'rm_topbarbuttonright',
+                    docked: 'right'
+                }
+            ]
+        },*/{
 				xtype: 'sortsearchbar',				
 				docked: 'top',
 				sortfields: [
-					{text: 'Customer',  value: 'customer'},
-					{text: 'Amount', value: 'amount'},
-					{text: 'Due date',  value: 'duedate'}
-				]
-			},{
-				xtype: 'list',
-				store: 'CustomerInvoices',
-                loadingText: null,
-				grouped: true,
-				itemTpl: '<div class="rm-nextgrayarrow rm-ml5 rm-mr5">{CustomerName}' + '<span class="rm-customerinvoices-invoicecount">' + ' ({InvoiceCount}) ' + '</span>' +
-                                '<tpl if=" 0< InvoiceOverdueCount">' +                                
-                                "<span class='rm-reddot'></span>" +
-                                '</tpl>'+
-                         '</div>',                         
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
+                    {text: 'Due date',  value: 'duedate'},
+					{text: 'Amount', value: 'amount'}					
 				]
 			}
         ] 

@@ -28,7 +28,8 @@ Ext.define('RM.controller.ContactDetailC', {
         },
         control: {
             'contactdetail': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },            
             'contactdetail #back': {
                 tap: 'back'
@@ -67,12 +68,13 @@ Ext.define('RM.controller.ContactDetailC', {
     },  
     
     onShow: function(){
+        RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getContactTitle().setHtml(this.isCreate ? 'Add Contact' : 'View Contact');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
         if (!this.dataLoaded) {
             var contactForm =  this.getContactForm(); 
-            contactForm.reset();   
+            //contactForm.reset();   
             if (!this.isCreate) {
                 this.loadFormData();
             }
@@ -94,6 +96,10 @@ Ext.define('RM.controller.ContactDetailC', {
         
     },
     
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler();
+    },        
+    
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
 			function (data) {
@@ -109,9 +115,8 @@ Ext.define('RM.controller.ContactDetailC', {
 		);
     },
 
-    validateForm: function(vals){       
-        var isValid = true;
-        
+    validateForm: function(vals){        
+        var isValid = true;        
         if(vals.IsCustomer == null || vals.IsSupplier == null){
             //this.getCustomerOrSupplier().setLabelCls('rm-manfld-notset-lbl');
             this.getCustomerOrSupplier().showValidation(false);
@@ -129,7 +134,7 @@ Ext.define('RM.controller.ContactDetailC', {
             isValid = false;
         }
         
-        if(vals.Description == ''){
+        if(!vals.Description){
             this.getDescriptionFld().showValidation(false);
             isValid = false;
         }         
@@ -252,7 +257,8 @@ Ext.define('RM.controller.ContactDetailC', {
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
             this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL ADDRESS</h3>');
-            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>');            
+            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>'); 
+            console.log(this.getBranchName().getValue());
             this.getBranchName().showValidation(this.getBranchName().getValue()); 
             this.getBusinessName().setLabel('Surname <span style="color: #F00">*</span>');
         }

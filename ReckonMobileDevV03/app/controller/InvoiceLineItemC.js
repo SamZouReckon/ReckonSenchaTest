@@ -30,13 +30,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 tap: 'add'
             },
             unitPrice: {
-                change: 'unitPriceChanged'
+                valuechange: 'unitPriceChanged'
             },
             tax: {
-                change: 'taxAmountChanged'
+                valuechange: 'taxAmountChanged'
             },
             quantity: {
-                change: 'quantityChanged'
+                valuechange: 'quantityChanged'
             },
             discount: {
                 change: 'discountChanged'
@@ -247,7 +247,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         });
     },
     
-    unitPriceChanged: function(field, newValue, oldValue) {
+    unitPriceChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(!this.initShow || this.ignoreEvents) return;        
                       
@@ -259,7 +259,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getServerCalculatedValues('UnitPrice');
    },
     
-    discountChanged: function(field, oldValue, newValue) {
+    discountChanged: function(field, newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(!this.initShow || this.ignoreEvents) return;        
                 
@@ -267,7 +267,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getServerCalculatedValues('Discount');
    },
     
-    taxAmountChanged: function(field, newValue, oldValue) {
+    taxAmountChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(!this.initShow || this.ignoreEvents) return;  
         

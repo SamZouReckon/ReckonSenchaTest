@@ -25,19 +25,18 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
                     labelCls: 'rm-picker',
                     listeners: {
                         check: function (checkBox) {
-                            var disc = checkBox.getItemId();
-                            if (disc == 5 || disc == 10 || disc == 20)
-                                disc = disc + '%';
-                            cb.call(cbs, disc);
-                            setTimeout(function () { me.popup.hide(); }, 200);
+
                         },
                         tap: { //allow tapping anywhere including label to fire check event, including when already checked
                             element: 'element', //"label",
                             fn: function () {
-                                if (!this.isChecked())
-                                    this.setChecked(true);
-                                else
-                                    this.fireEvent('check', this);
+                                
+                                var disc = this.getItemId();
+                                if (disc == 5 || disc == 10 || disc == 20)
+                                    disc = disc + '%';
+                                cb.call(cbs, disc);
+                                setTimeout(function () { me.popup.hide(); }, 200);
+
                             }
                         },
                         scope: this

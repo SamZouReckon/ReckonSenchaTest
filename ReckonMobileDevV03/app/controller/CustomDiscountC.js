@@ -35,6 +35,7 @@ Ext.define('RM.controller.CustomDiscountC', {
         this.selectCb = cb;
         this.selectCbs = cbs;
         
+        console.log('CustomDiscount showView');
         var view = this.getCustomDiscount();
         if (!view)
             view = { xtype: 'customdiscount' };

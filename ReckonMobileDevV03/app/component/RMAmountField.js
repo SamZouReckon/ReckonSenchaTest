@@ -3,10 +3,11 @@ Ext.define('RM.component.RMAmountField', {
     xtype: 'rmamountfield',
     requires: ['RM.component.DataEntryKeypad'],
     
-    constructor: function(config){          
+    constructor: function(config) {          
         this.isInitializing = true;
         this.readOnlyField = config.readOnly || false;     
         config.trailingZerosUpTo = config.trailingZerosUpTo == 0 || config.trailingZerosUpTo ? config.trailingZerosUpTo : 2;
+        config.prefix = config.prefix || '';
         this.callParent(arguments);        
     },
     
@@ -18,9 +19,12 @@ Ext.define('RM.component.RMAmountField', {
     },
 
     onFieldFocus: function(field, e) {    
-        if (this.keypadOnTop)
+        if (this.keypadOnTop) {
             return;
-        if(this.readOnlyField) return;        
+        }            
+        if (this.readOnlyField) {
+            return;     
+        }               
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
         this.fieldUniqueId = e.target.id;       
@@ -59,43 +63,44 @@ Ext.define('RM.component.RMAmountField', {
     },
     
     removeKeypad: function() { 
-        
         if (this.keypadOnTop) {   
             var val = this.getValue();
             
             if (val == '.')
-                val = '0.0';
-        
-            if (this.config.decimalPlaces && val != '')
-                //this.setValue(this.getPrefix() + Ext.Number.toFixed(parseFloat(val), this.config.decimalPlaces));   
-                this.setValue(this.getPrefix() + this.formatVal(val));
-           
+                val = '0.0';           
             this.owningPanel.remove(this.keypad);          
             this.keypadOnTop = false;
+            if (this.config.decimalPlaces && val != '') {
+                //this.setValue(this.config.prefix + Ext.Number.toFixed(parseFloat(val), this.config.decimalPlaces));   
+                this.setValue(this.config.prefix + this.formatVal(val));
+            }                
             RM.ViewMgr.deRegBackHandler();
             this.clearCursorBlinkTimer();
             this.clearScrollTimer();            
             var scroller = this.owningPanel.getScrollable().getScroller();        
             this.scrollTimer = window.setTimeout(function() {                                            
-                 scroller.scrollTo(0, 0, true);                                            
+                scroller.scrollTo(0, 0, true);                                            
             }, 300); 
-            this.fireValueChangeEvent(val);           
+            this.fireValueChangeEvent(val);           //additional call to fire event method - when value is erased from field
         }        
     },
     
     onKeyTap: function (key) {  
-        if(key === 'bar') return;
-        if(key === 'done'){            
+        if (key === 'bar') {
+            return;
+        } 
+        if (key === 'done') {            
             this.removeKeypad();
             return;
         }
-        if(key === 'cancel'){
+        if (key === 'cancel') {
             this.setValue(this.revertBackVal);
             this.removeKeypad();            
             return;
         }
+        
         var val = this.getValue();
-        var valStr = this.getPrefix() + val.toString();
+        var valStr = this.config.prefix + val.toString();
         var valStrLen = valStr.length;  
         var pointIndex = valStr.indexOf('.');        
                
@@ -108,16 +113,19 @@ Ext.define('RM.component.RMAmountField', {
         else {
             if (this.config.decimalPlaces) {
                 if ((key != '.' && valStrLen - 1 < pointIndex + this.config.decimalPlaces) || pointIndex < 0) {
-                    if (valStr == this.getPrefix() + '0' && key != '.')
-                        valStr = this.getPrefix();                
+                    if (valStr == this.config.prefix + '0' && key != '.') {
+                        valStr = this.config.prefix;  
+                    }                                      
                     this.setValue(valStr + key);
                 }
             }
             else {                
-                if (pointIndex != -1 && key == '.')
+                if (pointIndex != -1 && key == '.') {
                     return;
-                if (valStr == this.getPrefix() + '0')
-                    valStr = this.getPrefix(); 
+                }                    
+                if (valStr == this.config.prefix + '0') {
+                    valStr = this.config.prefix;
+                }                     
                 this.setValue(valStr + key);
             } 
         }
@@ -127,23 +135,30 @@ Ext.define('RM.component.RMAmountField', {
     getValue: function() {
         var val = this.callParent();
         var valStr = val.toString();        
+        if(this.config.prefix){
+            valStr = valStr.replace(/,/g,'');
+        }
         if (this.config.prefix && valStr.indexOf(this.config.prefix) != -1) {
-            valStr = valStr.slice(this.getPrefix().length);            
-        }        
+            valStr = valStr.slice(this.config.prefix.length);            
+        }         
         return valStr;
     },    
     
     //To format value when loading the form
-    applyValue: function(newVal,oldVal){         
+    applyValue: function(newVal, oldVal) {          
         var valStr = newVal ? newVal.toString() : '';  
         if (!oldVal && oldVal !== '') {
             this.valBeforeChange = valStr;        //store original value of the field for valueChange Event
-            if (this.config.decimalPlaces && valStr !== '')            
+            if (this.config.decimalPlaces && valStr !== '') {
                 //valStr = Ext.Number.toFixed(parseFloat(valStr), this.config.decimalPlaces);
                 valStr = this.formatVal(valStr);
+            }                
         }
-        if (valStr.indexOf(this.getPrefix()) == -1 && valStr !== '') {
-            valStr = this.getPrefix() + this.formatVal(valStr);       
+        if (valStr.indexOf(this.config.prefix) == -1 && valStr !== '') {
+            valStr = this.config.prefix + this.formatVal(valStr);       
+        }
+        if (!this.keypadOnTop) {            
+            this.fireValueChangeEvent(newVal);
         }
         return valStr;
     },     
@@ -161,9 +176,9 @@ Ext.define('RM.component.RMAmountField', {
         return owningPanel;
     },
     
-    getPrefix: function() {
-        return (this.config.prefix ? this.config.prefix : '');
-    },    
+    //getPrefix: function() {
+    //    return (this.config.prefix ? this.config.prefix : '');
+    //},    
     
     showCursor: function() {        
         var me = this;         
@@ -181,41 +196,48 @@ Ext.define('RM.component.RMAmountField', {
     },
     
     //clear scroll timer used for form scrolling
-    clearScrollTimer: function(){
-        if(this.scrollTimer){
+    clearScrollTimer: function() {
+        if (this.scrollTimer) {
             window.clearTimeout(this.scrollTimer)
         }        
     },
     
     //clear cursor blink timer
-    clearCursorBlinkTimer: function(){
-        if(this.cursorBlinkTimer){
+    clearCursorBlinkTimer: function() {
+        if (this.cursorBlinkTimer) {
             window.clearTimeout(this.cursorBlinkTimer)
         }
         this.fieldMaskEl.style.cssText = 'display: none !important;'
     },
     
-    setReadOnly: function(value){        
+    setReadOnly: function(value) {        
         this.callParent([true]); 
-        if(this.isInitializing) return;
+        if (this.isInitializing) {
+            return; 
+        }
         this.readOnlyField = value;
     },
     
-    getReadOnly: function(){
+    getReadOnly: function() {
         return this.readOnlyField;
     },
     
     //check for value change and fire valueChange Event
-    fireValueChangeEvent: function(val){        
+    fireValueChangeEvent: function(val) {         
+        var valStr = val.toString();
+        valStr = valStr.replace(/,/g,'');
+        if (valStr.indexOf(this.config.prefix) != -1) {
+            val = valStr.slice(this.config.prefix.length)
+        }
         var newVal = parseFloat(val) || '';
         var oldVal = parseFloat(this.valBeforeChange) || '';        
-        if(newVal != oldVal) {
-            this.valBeforeChange = newVal;
+        if (newVal != oldVal) {
+            this.valBeforeChange = newVal;            
             this.fireEvent('valueChange', newVal, oldVal);
         }
     },
     
-    formatVal: function(val){          
+    formatVal: function(val) {          
         var formattedValStr = parseFloat(val).toString();
         var pointPosition = formattedValStr.indexOf('.');
         if (pointPosition !== -1) {
@@ -227,13 +249,28 @@ Ext.define('RM.component.RMAmountField', {
                 }
             }
         }
-        else if(this.config.trailingZerosUpTo > 0) {
+        else if (this.config.trailingZerosUpTo > 0) {
             formattedValStr = formattedValStr + '.';
             for (i = 0; i < this.config.trailingZerosUpTo; i++) {
                 formattedValStr = formattedValStr + '0';
             }
-        }        
-        return formattedValStr;
-    }   
-    
+        } 
+        
+        //put commas for price field else return without commas
+        if(this.config.prefix){
+            if(formattedValStr.indexOf('.') != -1){
+                var strArray = formattedValStr.split('.');
+                strArray[0] = strArray[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                formattedValStr = strArray[0] + '.' + strArray[1];
+                return formattedValStr;
+            }
+            else{
+                return formattedValStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }            
+        }
+        else{
+            return formattedValStr;
+        }
+        
+    }     
 });

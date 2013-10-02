@@ -90,9 +90,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 this.getUnitPrice().setValue(this.detailsData.UnitPriceExTax);
             }
             
-            var hideTaxFields = this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED;
-            this.getTaxCode().setHidden(hideTaxFields);
-            this.getTax().setHidden(hideTaxFields);
+            if (this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED) {
+                this.getItemDetail().hideTaxFields();            
+            }            
             
             this.setTaxModified(this.detailsData.TaxIsModified);
             

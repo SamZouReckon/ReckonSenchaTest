@@ -98,6 +98,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     				},{
     					xtype: 'rmamountfield',
     					name: 'Amount',
+                        itemId: 'Amount',
     					label: 'Amount',
     					value: 0,
                         readOnly: true,
@@ -110,7 +111,8 @@ Ext.define('RM.view.InvoiceLineItem', {
                         rmmandatory: true,
                         labelWidth: '6em',
     					usePicker: true,
-    					name: 'TaxGroupId',                        
+    					name: 'TaxGroupId',  
+                        itemId: 'TaxGroupId',
     					store: 'GSTCodes',
     					displayField: 'GSTCode',
     					valueField: 'GSTCodeID',
@@ -141,6 +143,12 @@ Ext.define('RM.view.InvoiceLineItem', {
     hideDetailsFields: function() {    
         this.down('#descriptionField').addCls(['rm-flatfield-last']);
         this.down('#detailsFields').setHidden(true);        
+    },
+    
+    hideTaxFields: function() {
+        this.down('#TaxGroupId').setHidden(true);
+        this.down('#Tax').setHidden(true);        
+        this.down('#Amount').addCls(['rm-flatfield-last']);
     },
     
     setTaxModified: function(isModified) {

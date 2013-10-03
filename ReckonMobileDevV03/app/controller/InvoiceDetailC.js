@@ -493,6 +493,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var lineNumber = 1;
         formVals.LineItems.forEach(function(item) {
             item.lineNo = lineNumber;
+            
+            // Remove the temporary Id for any new items, since the server is way too trusting
+            if(item.IsNew) {
+                delete item.InvoiceLineItemId;                
+            }
+            
             lineNumber += 1;
         });        
         

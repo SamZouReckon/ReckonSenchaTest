@@ -382,6 +382,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 for (var i = 0; i < lineItems.length; i++) {
                     var currentLine = lineItems[i];
                     
+                    // TODO: this will not work when new items are added, since they don't have id's
+                    
                     // find the result for the line
                     var resultLine = null;                    
                     Ext.Array.some(respRec.Items, function(item) {

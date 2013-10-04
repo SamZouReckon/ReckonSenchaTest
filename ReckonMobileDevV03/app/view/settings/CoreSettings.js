@@ -39,17 +39,11 @@ Ext.define('RM.view.settings.CoreSettings', {
                     name: 'ApiLocation',
                     label: 'Api Location',
                     usePicker: true,
-                    options: [
-                        //{text: 'Roadshow Server', value: 'roadshowserver'},
-                        {text: 'Demo Server', value: 'demoserver'},                        
-                        //{text: 'Demo Laptop',  value: 'demolaptop'},
-                        //{text: 'Demo Laptop IP',  value: 'demolaptopip'},
+                    options: [                        
+                        {text: 'Staging', value: 'staging'},                                                
                         {text: 'Dev Server', value: 'devserver'},
-                        {text: 'QA Server', value: 'qaserver'},
-                        {text: 'Dev Local',  value: 'devlocal'},
-                        {text: 'Dev Local IIS',  value: 'devlocaliis'},
-                        {text: 'Dev MB',  value: 'devmb'},
-                        //{text: 'Demo Laptop AS',  value: 'demolaptopas'},
+                        {text: 'QA Server', value: 'qaserver'},                        
+                        {text: 'Dev Local IIS',  value: 'devlocaliis'},                                                
                         {text: 'None',  value: 'none'}
                     ]
                 },{

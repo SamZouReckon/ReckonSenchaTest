@@ -1,6 +1,6 @@
 Ext.define('RM.controller.InvoiceLineItemC', {
     extend: 'Ext.app.Controller',
-    requires: ['RM.view.InvoiceLineItem','RM.util.FormUtils'],
+    requires: ['RM.view.InvoiceLineItem','RM.util.FormUtils','RM.util.PseudoGuid'],
     config: {
         refs: {
             itemDetail: 'invoicelineitem',
@@ -61,7 +61,12 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             this.detailsData = detailsData;                    
         }
         else{
-            this.detailsData = {Quantity: 1, TaxIsModified: false};
+            this.detailsData = {
+                IsNew:true,
+                InvoiceLineItemId: RM.util.PseudoGuid.next(),
+                Quantity: 1, 
+                TaxIsModified: false
+            };
         }        
         
         var view = this.getItemDetail();

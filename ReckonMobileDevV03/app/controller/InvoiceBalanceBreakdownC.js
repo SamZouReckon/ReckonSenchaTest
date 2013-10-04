@@ -27,9 +27,7 @@ Ext.define('RM.controller.InvoiceBalanceBreakdownC', {
     },
 
     onShow: function () {
-        var data = this.invoiceData;
-        
-        console.log(Ext.encode(data));
+        var data = this.invoiceData;        
         
         this.getBreakdownCont().setHtml(Ext.util.Format.format(
             '<table width="90%" class="rm-tablelayout">' +        

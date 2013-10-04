@@ -382,6 +382,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 for (var i = 0; i < lineItems.length; i++) {
                     var currentLine = lineItems[i];
                     
+                    // TODO: this will not work when new items are added, since they don't have id's
+                    
                     // find the result for the line
                     var resultLine = null;                    
                     Ext.Array.some(respRec.Items, function(item) {
@@ -491,6 +493,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var lineNumber = 1;
         formVals.LineItems.forEach(function(item) {
             item.lineNo = lineNumber;
+            
+            // Remove the temporary Id for any new items, since the server is way too trusting
+            if(item.IsNew) {
+                delete item.InvoiceLineItemId;                
+            }
+            
             lineNumber += 1;
         });        
         

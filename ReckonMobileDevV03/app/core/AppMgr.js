@@ -330,18 +330,14 @@ Ext.define('RM.core.AppMgr', {
     
     setupBaseApi: function(){
         var apiLocation = localStorage.getItem('RmApiLocation'), apiType = localStorage.getItem('RmApiType');
-        if(!apiLocation){
-            apiLocation = 'qaserver';            
-        }
+        if(!apiLocation && this.appTypeId !== RM.Consts.App.WEB_CONTAINER){
+            apiLocation = 'staging';            
+        }        
         
         this.apiLocation = apiLocation;
         
-        if(apiLocation == 'roadshowserver'){            
-            this.baseApiUrl = 'http://mobilers.reckonone.com/api';
-        }
-        else
-        if(apiLocation == 'demoserver'){            
-            this.baseApiUrl = 'http://r1mobiledemo.reckon.com.au/api';
+        if(apiLocation == 'staging'){            
+            this.baseApiUrl = 'http://mobile.reckoncloud.com.au/api';
         }
         else if(apiLocation == 'devserver'){
             this.baseApiUrl = 'http://r1mobiledev.reckon.com.au/api';            
@@ -349,24 +345,12 @@ Ext.define('RM.core.AppMgr', {
         else if(apiLocation == 'qaserver'){
             this.baseApiUrl = 'http://r1mobileqa.reckon.com.au/api';            
         }
-        else if(apiLocation == 'devlocal'){
-            this.baseApiUrl = 'http://localhost:53122/api';
-        }
         else if(apiLocation == 'devlocaliis'){
             this.baseApiUrl = 'http://localhost:/Reckon.Host.ReckonOneMobile/api';
         }        
-        else if(apiLocation == 'devmb'){
-            this.baseApiUrl = 'http://10.64.1.151/Reckon.Host.ReckonOneMobile/api';
+        else {
+            this.baseApiUrl = '/api';
         }
-        else if(apiLocation == 'demolaptop'){
-            this.baseApiUrl = 'http://dlm.reckonone.com/api';
-        }           
-        else if(apiLocation == 'demolaptopip'){
-            this.baseApiUrl = 'http://192.168.62.10/api';
-        }           
-        else if(apiLocation == 'demolaptopas'){
-            this.baseApiUrl = 'http://r1m1.aliveserve.com/api';
-        }           
         
         if(apiType == 'test'){
            this.apiType = 'test';

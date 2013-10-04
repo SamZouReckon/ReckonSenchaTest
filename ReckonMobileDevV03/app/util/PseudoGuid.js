@@ -1,3 +1,9 @@
+/*
+* A simple service to generate a unique Id that fits the form of a guid
+*
+* Id's generated will be unique within a running instance of the app, no more, and should never ever be used outside of the client context
+*
+*/
 Ext.define('RM.util.PseudoGuid', {
     singleton: true,
     currentIndex: 1,

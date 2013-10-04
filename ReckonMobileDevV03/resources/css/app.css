@@ -6770,3 +6770,25 @@ rm-emailinvoicebackground {
   padding-right: 0px; }
 .rm-keypad-topbar .x-button-label, .rm-keypad-topbar .x-badge {
   font-weight: normal; }
+
+.rm-update-title {
+  color: #505050;
+  font-size: 84%;
+  text-align: center;
+  font-weight: bold; }
+
+.rm-update-msg {
+  color: #969696;
+  font-size: 72%;
+  text-align: center; }
+
+.rm-update-title {
+  color: #505050;
+  font-size: 80%;
+  text-align: center;
+  font-weight: bold; }
+
+.rm-update-msg {
+  color: #969696;
+  font-size: 76%;
+  text-align: center; }

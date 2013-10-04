@@ -6,7 +6,8 @@ Ext.define('RM.controller.DashboardC', {
 			alerts: 'dashboard dbalerts',
 			topExpenses: 'dashboard dbtopexpenses',
 			budgetOverview: 'dashboard dbbudgetoverview',
-            dashboardCont: 'dashboard #cont'			
+            dashboardCont: 'dashboard #cont',
+            noaccessCont: 'dashboard #noaccesscont'
         },
         control: {
 			'dashboard': {
@@ -31,13 +32,34 @@ Ext.define('RM.controller.DashboardC', {
         this.showDashboardData();
     },
     
-    showDashboardData: function(){                    
+    showDashboardData: function(){ 
+        var canViewNetPosition = RM.PermissionsMgr.canView('PAndLReport');
+        var canViewAlertsInvoices = RM.PermissionsMgr.canView('Invoices');
+        var canViewAlertsBills =  RM.PermissionsMgr.canView('Bills');
+        var canViewTopExpenses = RM.PermissionsMgr.canView('AccountEnquiryReport');
+        var canViewBudgets = RM.PermissionsMgr.canView('Budgets');
+        
+        //For no access to all components
+        if(this.getNoaccessCont()) this.getNoaccessCont().setHidden(canViewNetPosition || canViewAlertsInvoices || canViewAlertsBills || canViewTopExpenses || canViewBudgets);
+        
         if(this.getDashboardCont()){
-        	this.getNetPosition().setViewData(this.dashboardData);
-        	this.getAlerts().setViewData(this.dashboardData);
-        	this.getTopExpenses().setViewData(this.dashboardData.TopExpenses);            
-        	this.getBudgetOverview().setViewData(this.dashboardData.BudgetOverview);
-        }          
+            if(canViewNetPosition){
+                this.getNetPosition().setViewData(this.dashboardData);
+            } 
+            if(canViewAlertsInvoices || canViewAlertsBills){
+                this.getAlerts().setViewData(this.dashboardData);
+            }
+            if(canViewTopExpenses){
+                this.getTopExpenses().setViewData(this.dashboardData.TopExpenses);  
+            }        	
+        	if(canViewBudgets){
+               this.getBudgetOverview().setViewData(this.dashboardData.BudgetOverview); 
+            } 
+            this.getNetPosition().setHidden(!canViewNetPosition);
+            this.getAlerts().setHidden(!(canViewAlertsInvoices || canViewAlertsBills));
+            this.getTopExpenses().setHidden(!canViewTopExpenses);  
+            this.getBudgetOverview().setHidden(!canViewBudgets);        	
+        }         
     }   
 
 });

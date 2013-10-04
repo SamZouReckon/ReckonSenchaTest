@@ -4,12 +4,10 @@ Ext.define('RM.component.ExtDatePickerField', {
     
     initialize: function () {
         
-        this.callParent(arguments);
-        
+        this.callParent(arguments);        
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
-        }
-
+        }        
     },    
 
     applyValue: function(){
@@ -28,6 +26,7 @@ Ext.define('RM.component.ExtDatePickerField', {
     },
     
     resetPicker: function(){
+        var that = this;
         this.setPicker({
 			slotOrder: ['day', 'month',  'year'],
 			//useTitles: true,            //Removed titles as per requirement of UX designer
@@ -39,7 +38,12 @@ Ext.define('RM.component.ExtDatePickerField', {
             yearFrom: new Date().getFullYear() - 2,
             yearTo: (new Date().getFullYear()) + 10,
             listeners: {
-                show: function(picker){
+                show: function(picker){                    
+                    if(!this.config.rmmandatory){
+                        //add clear button in toolbar
+                        this.addClearButton(picker);
+                        this.clearButton.setHidden(!that.getValue());
+                    }                    
                     RM.ViewMgr.regBackHandler(picker.hide, picker);
                 },
                 hide: function(){
@@ -47,7 +51,7 @@ Ext.define('RM.component.ExtDatePickerField', {
                 },
                 scope: this
             }
-		});
+		});        
     },
     
     showValidation: function(valid){        
@@ -57,6 +61,24 @@ Ext.define('RM.component.ExtDatePickerField', {
     getValue: function(){        
         this.showValidation(true);
         return this.callParent(arguments);      
-    } 
+    },
+    
+    addClearButton: function(picker) {
+        if (this.clearButtonAdded) {
+            return;
+        }
+        var toolbar = picker.getToolbar();        
+        var clearButton = {
+            xtype: 'button',
+            handler: function(button, event) {
+                var picker = button.up('datepicker');
+                picker.fireEvent('change', picker, null);
+                picker.hide();
+            },            
+            text: 'Clear'
+        };        
+        this.clearButton = toolbar.add(clearButton);
+        this.clearButtonAdded = true;
+    }
 
 });

@@ -1887,6 +1887,7 @@ rm-emailinvoicebackground{
         left: initial !important;    
 }
 
+//custom numberfield keypad toolbar 
 .rm-keypad-topbar{   
 	border-radius: 0;
 	border: 1px solid #989898;	
@@ -1900,4 +1901,34 @@ rm-emailinvoicebackground{
     .x-button-label{
         font-weight: normal;
     } 
+}
+
+// AppStop update screen title
+.rm-update-title{
+    color: #505050;
+    font-size: 84%;
+    text-align: center;
+    font-weight: bold;
+}
+
+// AppStop update screen msg
+.rm-update-msg{
+    color: #969696;
+    font-size: 72%;
+    text-align: center;
+}
+
+//Dashboard no-access screen title
+.rm-update-title{
+    color: #505050;
+    font-size: 80%;
+    text-align: center;
+    font-weight: bold;
+}
+
+//Dashboard no-access screen msg
+.rm-update-msg{
+    color: #969696;
+    font-size: 76%;
+    text-align: center;
 }

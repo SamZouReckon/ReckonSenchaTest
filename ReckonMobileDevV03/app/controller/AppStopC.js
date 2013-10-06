@@ -14,19 +14,17 @@ Ext.define('RM.controller.AppStopC', {
         }
     },
 
-    showView: function (errCode, errMsg) {
-        this.errMsg = errMsg;
+    showView: function (stopErr) {
+        this.stopErr = stopErr;
         RM.ViewMgr.showPanel2({xtype:'appstop'});
     },    
     
-    onUpdate: function() {         
+    onUpdate: function() {
         if (Ext.os.is.Android) {
-            //window.open("market://details?id=com.google.android.apps.maps","_system");
-            window.open(RM.HomeSettingsMgr.getSetting('AndroidUpgradeUrl'),'_system');
+            window.open(this.stopErr.AndroidUpgradeUrl,'_system');
         }
         if(Ext.os.is.iOS){
-            //window.open("itms://itunes.apple.com/app/google-maps/id585027354");
-            window.open(RM.HomeSettingsMgr.getSetting('iOSUpgradeUrl'));            
+            window.open(this.stopErr.IosUpgradeUrl);            
         }
     }
 });

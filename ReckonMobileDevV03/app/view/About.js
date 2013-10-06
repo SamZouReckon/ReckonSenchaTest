@@ -25,7 +25,7 @@ Ext.define('RM.view.About', {
 						padding: '35 20 5 20'
 					},{
 						xtype: 'component',
-						html: 'Version 1.0',
+						html: 'Version 0.1',
 						cls: 'rm-about-product-version',
 						padding: '5 20 5 20'
 					},{

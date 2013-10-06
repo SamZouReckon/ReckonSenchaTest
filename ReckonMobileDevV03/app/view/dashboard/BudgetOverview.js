@@ -16,30 +16,36 @@ Ext.define('RM.view.dashboard.BudgetOverview', {
 		}]);
 	},
 	
-	setViewData: function(data){        
-        this.getComponent(1).removeAll(); 
-        
-        if (!RM.PermissionsMgr.canView('Budgets')) {
-            this.getComponent(1).add({
-                xtype: 'component',
-                html: '<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>'
-            });            
-            return;
-        }
-        
-        if(data==null || data.length<=0 ){  
-            this.getComponent(1).add({
-                xtype: 'component',
-                html: '<div class="rm-dashboard-nodata">No data found</div>'
-            });            
-            return;
-        }
-               
-		for(var i = 0; i< data.length; i++){
+	setViewData: function(data){
+        //Added try catch as were getting some unexpected values in data such as -ve actual amounts and it was causing whole app to not run
+        try{
+            this.getComponent(1).removeAll(); 
             
-			this.addBudget(data[i],i);
-		}
-        this.paintChart(data);
+            if (!RM.PermissionsMgr.canView('Budgets')) {
+                this.getComponent(1).add({
+                    xtype: 'component',
+                    html: '<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>'
+                });            
+                return;
+            }
+            
+            if(data==null || data.length<=0 ){  
+                this.getComponent(1).add({
+                    xtype: 'component',
+                    html: '<div class="rm-dashboard-nodata">No data found</div>'
+                });            
+                return;
+            }
+                   
+    		for(var i = 0; i< data.length; i++){
+                
+    			this.addBudget(data[i],i);
+    		}
+            this.paintChart(data);
+        }
+        catch(err){
+            console.log('**** Exception in BudgetOverview setViewData ' + err.message);
+        }
 	},
 	
 	addBudget: function(budgetData,xindex){

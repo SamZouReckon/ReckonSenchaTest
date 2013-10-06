@@ -56,7 +56,16 @@ Ext.define('RM.controller.CashBooksC', {
     },
 
     loadList: function () {
-        RM.AppMgr.loadStore(this.getCashBooksList().getStore());
+        RM.AppMgr.loadStore(
+            this.getCashBooksList().getStore(),
+            function(recs){
+                if(recs.length == 0){
+                    RM.AppMgr.showOkMsgBox('You do not have any books to select.', RM.AppMgr.lock, RM.AppMgr);
+                }
+            },
+            this
+        
+        );
     },
 
     setLoadTimer: function () {

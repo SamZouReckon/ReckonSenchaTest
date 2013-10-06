@@ -72,7 +72,7 @@ Ext.define('RM.controller.EnterPinC', {
 			},
 			this,
             function(recs, eventMsg){
-                alert(eventMsg);
+                RM.AppMgr.showOkMsgBox(eventMsg);
             },
             'Logging in...',
             function(){ //callback if network error

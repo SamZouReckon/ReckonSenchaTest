@@ -118,7 +118,7 @@ Ext.define('RM.controller.EnterUsernameC', {
                 },
                 this,
                 function(recs, eventMsg){
-                    alert(eventMsg);
+                    RM.AppMgr.showOkMsgBox(eventMsg);
                 },
                 'Logging in...'
             );            

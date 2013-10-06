@@ -100,6 +100,11 @@ Ext.define('RM.controller.ContactDetailC', {
         RM.ViewMgr.deRegFormBackHandler();
     },        
     
+    setEditable: function(editable){
+        this.getSaveBtn().setHidden(!editable);
+        if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getContactForm()); }        
+    },      
+    
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
 			function (data) {
@@ -107,10 +112,17 @@ Ext.define('RM.controller.ContactDetailC', {
                 contactForm.setValues(data);
                 this.loadFieldsData(data);
                 this.initialFormValues = contactForm.getValues();
+                if(Ext.isDefined(data.SaveSupport) && !data.SaveSupport){
+                    this.setEditable(false);
+                }
+                if(data.ViewNotice){
+                    RM.AppMgr.showOkMsgBox(data.ViewNotice);
+                }                
 			},
 			this,
             function(eventMsg){
-                alert(eventMsg);                
+                RM.AppMgr.showOkMsgBox(eventMsg);
+                this.goBack();
             }
 		);
     },
@@ -169,19 +181,6 @@ Ext.define('RM.controller.ContactDetailC', {
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;
             delete vals.BusinessOrIndividual;
-            
-            /*if(vals.IsActive == null){
-                vals.IsActive = false;
-            }            
-            if(vals.IsCustomer == null){
-                vals.IsCustomer = false;
-            }        
-            if(vals.IsSupplier == null){
-                vals.IsSupplier = false;
-            }
-            if(vals.IsPerson == null){
-                vals.IsPerson = false;
-            }*/        
                           
             RM.AppMgr.saveServerRec('Contacts', this.isCreate, vals,
     			function () {
@@ -190,7 +189,7 @@ Ext.define('RM.controller.ContactDetailC', {
     			},
     			this,
                 function(recs, eventMsg){
-                    alert(eventMsg);                
+                    RM.AppMgr.showOkMsgBox(eventMsg);
                 }
     		); 
         }           

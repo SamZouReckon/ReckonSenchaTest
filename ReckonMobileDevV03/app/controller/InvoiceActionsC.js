@@ -65,7 +65,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
 			},
 			this,
             function(recs, eventMsg){
-                alert(eventMsg);                
+                RM.AppMgr.showOkMsgBox(eventMsg);
             }
 		);  
     },    

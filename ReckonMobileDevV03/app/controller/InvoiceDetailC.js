@@ -75,7 +75,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         if (isCreate) {
             this.detailsData = Ext.applyIf(this.detailsData, { 
                 Status: RM.InvoicesMgr.getInitialInvoiceStatus(), 
-                AmountTaxStatus: RM.Consts.TaxStatus.INCLUSIVE, 
+                AmountTaxStatus: RM.CashbookMgr.getTaxPreferences().SalesFigures, 
                 Date: new Date(), 
                 Discount: 'None',
                 Amount: 0,
@@ -198,6 +198,11 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 invoiceForm.setValues(data);
                 this.applyTaxRules();
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
+
+                if((Ext.isDefined(data.SaveSupport) && !data.SaveSupport) || this.detailsData.Paid > 0) {
+                    this.isEditable = false;
+                    this.setEditable(false); //needs to be called before adding line items below so that line items can have delete x hidden if necessary
+                }                
                 
                 var lineItemsPanel = this.getLineItems();
 			    lineItemsPanel.addLineItems(data.LineItems);                
@@ -208,15 +213,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
 			    this.displayBalanceDue();
                 this.initialFormValues = invoiceForm.getValues();
                 this.getInvoiceDetail().setActionsHidden(false);                         
-                
-                if(this.detailsData.Paid > 0) {
-                    this.isEditable = false;
-                    this.setEditable(false);
-                }
+
                 this.dataLoaded = true;
+                if(data.ViewNotice){
+                    RM.AppMgr.showOkMsgBox(data.ViewNotice);
+                }
 			},
 			this,
-            function(){
+            function(eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
                 this.goBack();
             }
 		);
@@ -230,7 +235,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
 			},
 			this,
             function(recs, eventMsg){
-                alert(eventMsg);                
+                this.goBack();
+                RM.AppMgr.showOkMsgBox(eventMsg);
             },
             'Loading...'
 		);
@@ -414,7 +420,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
 			},
 			this,
             function(eventMsg){
-                alert(eventMsg);                
+                RM.AppMgr.showOkMsgBox(eventMsg);
+                this.goBack();
             },
             'Loading...'
 		);         
@@ -531,7 +538,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         			},
         			this,
                     function(recs, eventMsg){
-                        alert(eventMsg);                
+                        RM.AppMgr.showOkMsgBox(eventMsg);                
                     }
         		);            
             }

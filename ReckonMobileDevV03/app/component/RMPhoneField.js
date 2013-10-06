@@ -11,84 +11,42 @@ Ext.define('RM.component.RMPhoneField', {
     
     initialize: function () {        
         this.callParent(arguments);      
-        this.on('focus', this.onFieldFocus, this);         
+        this.on('focus', this.onFieldFocus, this);
+        //this.on('blur', this.onFieldBlur, this);
         this.setReadOnly(true);
         this.isInitializing = false;
     },
 
-    onFieldFocus: function(field, e) {         
-        if (this.keypadOnTop)
-            return;
-        if(this.readOnlyField) return;        
+    onFieldFocus: function(field, e) {
+        console.log(this.getId() + ' onFieldFocus');
+        if(this.readOnlyField) return;
+        
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
-        this.fieldUniqueId = e.target.id;       
         
-        //get field's owner panel
         this.owningPanel = field.up('panel');  
-        
-        var keypad = {
-            xtype:'dataentrykeypad',        
-            docked: 'bottom',
-            keypadType: 'phone',
-            listeners: {
-                keytap: this.onKeyTap,
-                scope: this
-            }
-        };        
-        this.keypad = this.owningPanel.add(keypad);
+
         this.revertBackVal = this.getValue();
-        this.clearScrollTimer();
-        var scroller = this.owningPanel.getScrollable().getScroller();        
-        this.scrollTimer = window.setTimeout(function() {              
-            scroller.scrollTo(0, field.element.dom.offsetTop, true);                                            
-        }, 650); 
-        this.keypadOnTop = true; 
-        RM.ViewMgr.regBackHandler(this.removeKeypad, this);
-        
-        //get root container
-        this.rootContainer = this.getRootContainer(this.owningPanel);
-        
-        //set tap Listener on root container
-        this.rootContainer.element.on({
-            tap: this.handleTapInEntireScreen,
-            scope: this
-        });
+        this.owningPanel.scrollShowField(field, e.target.id, 'phone', this);
+
     },
     
-    removeKeypad: function() { 
+    onFieldLostFocus: function(){
+        console.log(this.getId() + ' onFieldLostFocus');
+        this.clearCursorBlinkTimer();
         
-        if (this.keypadOnTop) {   
-            var val = this.getValue();
-            
-            if (val == '.')
-                val = '0.0';
-        
-            if (this.config.decimalPlaces && val != '')
-                this.setValue(this.getPrefix() + Ext.Number.toFixed(parseFloat(val), this.config.decimalPlaces));      
-           
-            this.owningPanel.remove(this.keypad);          
-            this.keypadOnTop = false;
-            RM.ViewMgr.deRegBackHandler();
-            this.clearCursorBlinkTimer();
-            this.clearScrollTimer();            
-            var scroller = this.owningPanel.getScrollable().getScroller();        
-            this.scrollTimer = window.setTimeout(function() {                                            
-                 scroller.scrollTo(0, 0, false);                                            
-            }, 300); 
-            this.fireValueChangeEvent(val);           
-        }        
+        this.fireValueChangeEvent(this.getValue());
     },
     
     onKeyTap: function (key) {  
         if(key === 'bar' || key === 'blankbtn') return;
         if(key === 'done'){            
-            this.removeKeypad();
+            //this.removeKeypad();
             return;
         }
         if(key === 'cancel'){
             this.setValue(this.revertBackVal);
-            this.removeKeypad();            
+            //this.removeKeypad();            
             return;
         }
         var val = this.getValue();
@@ -116,45 +74,24 @@ Ext.define('RM.component.RMPhoneField', {
         return valStr;
     },    
     
-    handleTapInEntireScreen: function(e) {        
-        if (this.fieldUniqueId !== e.target.id) {           
-            this.removeKeypad();
-        }        
-    },    
-    
-    getRootContainer: function(owningPanel) {
-        while (owningPanel.getParent()) {  
-            owningPanel = owningPanel.getParent();
-        }
-        return owningPanel;
-    },
-    
-       
-    
     showCursor: function(fieldMask) {        
         var me = this;         
-        this.cursorBlinkTimer = window.setInterval(
+        me.cursorBlinkTimer = window.setInterval(
             function() {                     
-                if (this.myCursorOff) {
+                if (me.myCursorOff) {
                     me.fieldMaskEl.style.cssText = 'display: none !important;' 
                 }
                 else { 
                     me.fieldMaskEl.style.cssText = '' 
                 }
-                this.myCursorOff = !this.myCursorOff 
+                me.myCursorOff = !me.myCursorOff 
             }
             , 500);            
     },
     
-    //clear scroll timer used for form scrolling
-    clearScrollTimer: function(){
-        if(this.scrollTimer){
-            window.clearTimeout(this.scrollTimer)
-        }        
-    },
-    
     //clear cursor blink timer
     clearCursorBlinkTimer: function(){
+        console.log(this.getId() +' clearCursorBlinkTimer');
         if(this.cursorBlinkTimer){
             window.clearTimeout(this.cursorBlinkTimer)
         }

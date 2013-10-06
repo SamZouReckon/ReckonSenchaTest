@@ -321,10 +321,11 @@ Ext.define('RM.core.AppMgr', {
         else if(resp.status == 412){
             var respErr = Ext.decode(resp.statusText);
             //this.showErrorMsgBox(respErr.ErrDesc);
-            this.showAppStop(respErr.ErrCode, respErr.ErrDesc);
+            this.showAppStop(respErr);
         }
-        else if(resp.status != 0){
-            this.showErrorMsgBox('There was an error, please try again or contact support: <br/><br/> (' + resp.status + ' ' + resp.statusText + ')');    
+        else {
+            var statusText = resp.statusText ? ' ' + resp.statusText : '';
+            this.showErrorMsgBox('There was an error, please try again or contact support: <br/><br/> (' + resp.status + statusText + ')');    
         }
     },
     

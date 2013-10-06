@@ -122,7 +122,7 @@ Ext.define('RM.controller.ForgotPasswordC', {
     },
 
     showSuccess: function () {
-        this.getSuccessMsg().setHtml('An email has been sent to your inbox with details on how to reset your password.');
+        this.getSuccessMsg().setHtml('An email has been sent to your inbox with your password reset details.');
         this.getForgotPassword().setActiveItem(1);
     },
 

@@ -26,39 +26,44 @@ Ext.define('RM.view.AcceptPayment', {
             }
             ]
         },{
-			xtype: 'formpanel',
+			xtype: 'secureformpanel',
 			padding: 0,
 			items: [
                 {
 					xtype: 'rmamountfield',
 					name: 'AmountPaid',
 					label: 'Amount',
+                    rmmandatory: true,
 					cls: 'rm-flatfield rm-cursor-blinkbg',				                
 					clearIcon: false,
 					placeHolder: 'Enter',
                     decimalPlaces: 2,
-                    prefix: '$' 
+                    prefix: '$'
 				},{
-					xtype: 'selectfield',
+					xtype: 'extselectfield',
 					label: 'Bank Account',
+                    rmmandatory: true,
                     labelWidth: 150,
 					usePicker: true,
 					name: 'BankAccountID',
 					store: 'BankAccounts',
 					displayField: 'Description',
 					valueField: 'BankAccountID',
+                    autoSelect: false,
 					placeHolder: 'Select',
 					cls: 'rm-flatfield',
 					ui: 'plain'
 				},{
-					xtype: 'selectfield',
+					xtype: 'extselectfield',
 					label: 'Payment Method',
+                    rmmandatory: true,
                     labelWidth: 150,
 					usePicker: true,
 					name: 'PaymentMethodID',
 					store: 'PaymentMethods',
 					displayField: 'Description',
 					valueField: 'PaymentMethodID',
+                    autoSelect: false,
 					placeHolder: 'Select',
 					cls: 'rm-flatfield',
 					ui: 'plain',

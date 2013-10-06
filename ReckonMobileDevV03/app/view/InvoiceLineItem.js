@@ -44,7 +44,8 @@ Ext.define('RM.view.InvoiceLineItem', {
 					xtype: 'exttextfield',
 					name: 'ProjectName',
 					label: 'Project',
-					cls: 'rm-flatfield',					
+					cls: 'rm-flatfield',
+                    clearIcon: true,
                     placeHolder: 'select (optional)',
                     permissionFor: {action:'Select',name:'Projects'},
 				},{
@@ -108,7 +109,6 @@ Ext.define('RM.view.InvoiceLineItem', {
     				},{
                         xtype: 'extselectfield',
                         label: 'Tax code',
-                        rmmandatory: true,
                         labelWidth: '6em',
     					usePicker: true,
     					name: 'TaxGroupId',  
@@ -116,6 +116,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					store: 'GSTCodes',
     					displayField: 'GSTCode',
     					valueField: 'GSTCodeID',
+                        autoSelect: false,
     					cls: 'rm-flatfield',
                         ui:'plain'
                     },{

@@ -52,7 +52,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					label: 'Customer',
                     placeHolder: 'select',
 					cls: 'rm-flatfield',
-                    readOnly: true,
+                    //readOnly: true,
                     clearIcon: false,
                     labelWidth: '6em',
                     rmmandatory: true
@@ -64,6 +64,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					label : 'Due Date',
                     cls: 'rm-flatfield ',
                     labelWidth: '5em',
+                    clearIcon: true,
                     ui : 'plain'
                     
 				},{

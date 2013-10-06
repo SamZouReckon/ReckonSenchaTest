@@ -50,7 +50,7 @@ Ext.define('RM.controller.CustomerInvoicesC', {
     },
 
     onItemUpdated: function (itemType) {
-        if (itemType == 'invoice') {            
+        if (itemType == 'invoice' && this.getCustomerInvoices()) {            
             this.activeList.reload();
         }
     },

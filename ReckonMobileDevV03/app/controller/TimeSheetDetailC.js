@@ -208,7 +208,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     			},
     			this,
                 function(recs, eventMsg){
-                    alert(eventMsg);                
+                    RM.AppMgr.showOkMsgBox(eventMsg);              
                 }
 		    );
         }        

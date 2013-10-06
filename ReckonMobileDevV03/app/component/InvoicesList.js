@@ -116,7 +116,7 @@ Ext.define('RM.component.InvoicesList', {
 			},
 			this,
             function(eventMsg){
-                alert(eventMsg);                
+                RM.AppMgr.showOkMsgBox(eventMsg);                
             }
 		);
     },    

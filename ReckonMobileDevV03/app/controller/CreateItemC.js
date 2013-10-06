@@ -44,14 +44,14 @@ Ext.define('RM.controller.CreateItemC', {
         
         if (this.validateForm(vals)) { 
             RM.AppMgr.saveServerRec('Items', true, vals,
-                                    function () {
-                                        RM.AppMgr.itemUpdated('item');
-                                        RM.ViewMgr.back();
-                                    },
-                                    this,
-                                    function(recs, eventMsg) {
-                                        alert(eventMsg);                
-                                    }
+                function () {
+                    RM.AppMgr.itemUpdated('item');
+                    RM.ViewMgr.back();
+                },
+                this,
+                function(recs, eventMsg) {
+                   RM.AppMgr.showOkMsgBox(eventMsg);             
+                }
             );        
         }
     },

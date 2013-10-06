@@ -7,6 +7,16 @@ Ext.define('RM.component.ExtSelectField', {
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
         } 
+        
+        this.element.on('tap', 
+            function (e) { 
+                if(Ext.fly(e.target).hasCls('x-clear-icon')){
+                    this.setValue(null);
+                }
+            }, 
+            this
+        );
+        
         var fieldPicker = this.getPhonePicker();
         if(fieldPicker){
             fieldPicker.setListeners(

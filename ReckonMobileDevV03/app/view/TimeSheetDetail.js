@@ -1,5 +1,5 @@
 Ext.define('RM.view.TimeSheetDetail', {
-	extend: 'Ext.Panel',
+	extend: 'RM.component.SecurePanel',
 	xtype: 'timesheetdetail',
 	requires: ['RM.component.RMCheckbox','RM.component.DurationField', 'RM.component.ExtDatePickerField'],
 	config: {
@@ -30,7 +30,7 @@ Ext.define('RM.view.TimeSheetDetail', {
 					}
 				]
 			}, {
-				xtype: 'formpanel',
+				xtype: 'secureformpanel',
 				itemId: 'timeSheetForm',
                 style: 'background: #FFF',
 				padding: 0,

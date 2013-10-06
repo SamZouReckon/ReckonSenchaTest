@@ -35,6 +35,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             tax: {
                 valueChange: 'taxAmountChanged'
             },
+            'taxCode':{
+                change: 'taxCodeChanged'
+            },            
             quantity: {
                 valueChange: 'quantityChanged'
             },
@@ -61,10 +64,12 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             this.detailsData = detailsData;                    
         }
         else{
+            this.isCreate = true;
             this.detailsData = {
                 IsNew:true,
                 InvoiceLineItemId: RM.util.PseudoGuid.next(),
-                Quantity: 1, 
+                Quantity: 1,
+                TaxGroupId: null,
                 TaxIsModified: false
             };
         }        
@@ -82,13 +87,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 	
     onShow: function () {
         var itemForm = this.getItemForm();
-        
+
         this.getAddBtn().setHidden(!this.isEditable);
+        this.getAddBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         this.setEditable(this.isEditable);
+        this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);
         
         if(!this.initShow){
             itemForm.reset();
-            
             itemForm.setValues(this.detailsData);     
             this.setDiscountValue(this.detailsData.DiscountPercentage, this.detailsData.DiscountAmount);
             if(!this.isTaxInclusive()) {
@@ -103,9 +109,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             
             if(this.detailsData.ItemId) { this.getItemDetail().showDetailsFields(); }
             
+            this.initialFormValues = itemForm.getValues();
             this.initShow = true;
         }           
     },
+    
+    isFormDirty: function(){        
+        return !RM.AppMgr.isFormValsEqual( this.getItemForm().getValues(), this.initialFormValues);        
+    },        
     
     setEditable: function(editable){
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getItemForm()); }    
@@ -179,10 +190,29 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },	
 	
     
-    back: function () {
+    goBack: function () {
         RM.ViewMgr.back();
     },
 
+    back: function () {
+        if(this.isFormDirty()){
+            RM.AppMgr.showUnsavedChangesMsgBox(
+                function(btn){
+                    if(btn == 'yes'){
+                        this.add();
+                    }
+                    else{
+                        this.goBack();
+                    }
+                },
+                this
+            );
+        }
+        else{
+            this.goBack();
+        }
+    },    
+    
     
     validateForm: function(vals){        
         var isValid = true;
@@ -192,10 +222,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             isValid = false;
         }        
 
-        if(!vals.TaxGroupId){
+        /*if(!vals.TaxGroupId){
             this.getTaxCode().showValidation(false);
             isValid = false;
-        }
+        }*/
         
         if(!vals.UnitPriceExTax){
             this.getUnitPrice().showValidation(false);
@@ -285,6 +315,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         this.getServerCalculatedValues('Tax');
     },    
+    
+    taxCodeChanged: function(){
+        this.getServerCalculatedValues('Tax');        
+    },
     
     projectChanged: function() {
         //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)

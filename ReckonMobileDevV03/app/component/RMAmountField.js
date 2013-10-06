@@ -19,83 +19,45 @@ Ext.define('RM.component.RMAmountField', {
     },
 
     onFieldFocus: function(field, e) {    
-        if (this.keypadOnTop) {
-            return;
-        }            
+        
         if (this.readOnlyField) {
             return;     
         }               
+        console.log(this.getId() + ' onFieldFocus');
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
-        this.fieldUniqueId = e.target.id;       
+        //this.fieldUniqueId = e.target.id;       
         
         //get field's owner panel
         this.owningPanel = field.up('panel');         
-        
-        var keypad = {
-            xtype:'dataentrykeypad',        
-            docked: 'bottom',
-            keypadType: 'amount',
-            listeners: {
-                keytap: this.onKeyTap,
-                scope: this
-            }
-        };
-        
-        this.keypad = this.owningPanel.add(keypad);
+
         this.revertBackVal = this.getValue();
-        this.clearScrollTimer();
-        var scroller = this.owningPanel.getScrollable().getScroller();        
-        this.scrollTimer = window.setTimeout(function() {             
-            scroller.scrollTo(0, field.element.dom.offsetTop, true);                                            
-        }, 600); 
-        this.keypadOnTop = true; 
-        RM.ViewMgr.regBackHandler(this.removeKeypad, this);
-        
-        //get root container
-        this.rootContainer = this.getRootContainer(this.owningPanel);
-        
-        //set tap Listener on root container
-        this.rootContainer.element.on({
-            tap: this.handleTapInEntireScreen,
-            scope: this
-        });
+        this.owningPanel.scrollShowField(field, e.target.id, 'amount', this);
     },
     
-    removeKeypad: function() { 
-        if (this.keypadOnTop) {   
-            var val = this.getValue();
-            
-            if (val == '.')
-                val = '0.0';           
-            this.owningPanel.remove(this.keypad);          
-            this.keypadOnTop = false;
-            if (this.config.decimalPlaces && val != '') {
-                //this.setValue(this.config.prefix + Ext.Number.toFixed(parseFloat(val), this.config.decimalPlaces));   
-                this.setValue(this.config.prefix + this.formatVal(val));
-            }                
-            RM.ViewMgr.deRegBackHandler();
-            this.clearCursorBlinkTimer();
-            this.clearScrollTimer();            
-            var scroller = this.owningPanel.getScrollable().getScroller();        
-            this.scrollTimer = window.setTimeout(function() {                                            
-                scroller.scrollTo(0, 0, true);                                            
-            }, 300); 
-            this.fireValueChangeEvent(val);           //additional call to fire event method - when value is erased from field
-        }        
-    },
+    onFieldLostFocus: function(){
+        console.log(this.getId() + ' onFieldLostFocus');
+        this.clearCursorBlinkTimer();
+        
+        var val = this.getValue();
+        
+        if (val == '.')
+            val = '0.0';           
+        
+        this.fireValueChangeEvent(val);
+    },    
     
     onKeyTap: function (key) {  
         if (key === 'bar') {
             return;
         } 
         if (key === 'done') {            
-            this.removeKeypad();
+            //this.removeKeypad();
             return;
         }
         if (key === 'cancel') {
             this.setValue(this.revertBackVal);
-            this.removeKeypad();            
+            //this.removeKeypad();            
             return;
         }
         
@@ -157,24 +119,11 @@ Ext.define('RM.component.RMAmountField', {
         if (valStr.indexOf(this.config.prefix) == -1 && valStr !== '') {
             valStr = this.config.prefix + this.formatVal(valStr);       
         }
-        if (!this.keypadOnTop) {            
+        /*if (!this.keypadOnTop) {            
             this.fireValueChangeEvent(newVal);
-        }
+        }*/
         return valStr;
     },     
-    
-    handleTapInEntireScreen: function(e) {        
-        if (this.fieldUniqueId !== e.target.id) {           
-            this.removeKeypad();
-        }        
-    },    
-    
-    getRootContainer: function(owningPanel) {
-        while (owningPanel.getParent()) {  
-            owningPanel = owningPanel.getParent();
-        }
-        return owningPanel;
-    },
     
     //getPrefix: function() {
     //    return (this.config.prefix ? this.config.prefix : '');
@@ -182,24 +131,17 @@ Ext.define('RM.component.RMAmountField', {
     
     showCursor: function() {        
         var me = this;         
-        this.cursorBlinkTimer = window.setInterval(
-            function() {                     
-                if (this.myCursorOff) {
+        me.cursorBlinkTimer = window.setInterval(
+            function() {  
+                if (me.myCursorOff) {
                     me.fieldMaskEl.style.cssText = 'display: none !important;' 
                 }
                 else { 
                     me.fieldMaskEl.style.cssText = '' 
                 }
-                this.myCursorOff = !this.myCursorOff 
+                me.myCursorOff = !me.myCursorOff 
             }
             , 500);            
-    },
-    
-    //clear scroll timer used for form scrolling
-    clearScrollTimer: function() {
-        if (this.scrollTimer) {
-            window.clearTimeout(this.scrollTimer)
-        }        
     },
     
     //clear cursor blink timer
@@ -224,7 +166,7 @@ Ext.define('RM.component.RMAmountField', {
     
     //check for value change and fire valueChange Event
     fireValueChangeEvent: function(val) {         
-        var valStr = val.toString();
+        var valStr = val ? val.toString() : '';
         valStr = valStr.replace(/,/g,'');
         if (valStr.indexOf(this.config.prefix) != -1) {
             val = valStr.slice(this.config.prefix.length)

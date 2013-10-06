@@ -10,7 +10,14 @@ Ext.define('RM.component.ExtTextField', {
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
         }
         
-        this.element.on('tap', function () { this.fireEvent('tap', this); }, this);
+        this.element.on('tap', 
+            function (e) { 
+                if(!Ext.fly(e.target).hasCls('x-clear-icon')){
+                    this.fireEvent('tap', this);    
+                }
+            }, 
+            this
+        );
         if(this.config.cursorSimulate){
             this.on('focus', this.onMyFocus, this);
             this.on('blur', this.onMyBlur, this);

@@ -108,6 +108,7 @@ Ext.define('RM.view.CreateItem', {
 						valueField: 'GSTCodeID',
                         autoSelect: false,
                         //rmmandatory: true,
+                        clearIcon: true,
                         value: null,                         
 						ui:'plain',
                         placeHolder: 'select',

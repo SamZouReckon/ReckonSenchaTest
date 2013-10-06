@@ -11,7 +11,6 @@ Ext.define('RM.component.ExtDatePickerField', {
     },    
 
     applyValue: function(){
-        //console.log(this.getName() + ' ' + value);
         var value = this.callParent(arguments);
         var iconCls = (this.getName() + '-icon').toLowerCase();
         
@@ -22,8 +21,21 @@ Ext.define('RM.component.ExtDatePickerField', {
             this.addCls(iconCls);
         }
         
+        //Ext.field.DatePicker updateValue() method does not have calls to show clear icon, so took code from Ext.field.Text updateValue() method
+        this[value ? 'showClearIcon' : 'hideClearIcon']();
+        
         return value;
     },
+    
+    //showClearIcon() in  Ext.field.Text will not show clear icon if value is null so added here and allowed null to showClearIcon
+    showClearIcon: function() {
+        var me = this;
+        if (me.getClearIcon() && !me.getDisabled() && !me.getReadOnly() ) {
+            me.element.addCls(Ext.baseCSSPrefix + 'field-clearable');
+        }
+
+        return me;
+    },    
     
     resetPicker: function(){
         var that = this;
@@ -53,6 +65,15 @@ Ext.define('RM.component.ExtDatePickerField', {
             }
 		});        
     },
+    
+    updateValue: function(newValue) {
+        this.callParent(arguments);
+
+        //this[valueValid && this.isDirty() ? 'showClearIcon' : 'hideClearIcon']();
+        //this.syncEmptyCls();
+        //this[this.isDirty() ? 'showClearIcon' : 'hideClearIcon']();
+    },    
+    
     
     showValidation: function(valid){        
          this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');

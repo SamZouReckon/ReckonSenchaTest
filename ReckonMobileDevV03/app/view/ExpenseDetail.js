@@ -1,5 +1,5 @@
 Ext.define('RM.view.ExpenseDetail', {
-	extend: 'Ext.Panel',
+	extend: 'RM.component.SecurePanel',
 	xtype: 'expensedetail',
     requires: ['RM.component.DataEntryKeypad','RM.component.RMAmountField'],
 	config: {
@@ -44,7 +44,7 @@ Ext.define('RM.view.ExpenseDetail', {
 						iconAlign: 'left',
 						itemId: 'photo'
 					},{
-						xtype: 'formpanel',
+						xtype: 'secureformpanel',
 						itemId: 'expenseForm',
 						flex: 1,
 						padding: 0,

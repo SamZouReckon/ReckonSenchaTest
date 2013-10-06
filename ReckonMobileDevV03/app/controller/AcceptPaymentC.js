@@ -7,6 +7,8 @@ Ext.define('RM.controller.AcceptPaymentC', {
             acceptPayment: 'acceptpayment',
             acceptPaymentForm: 'acceptpayment formpanel',
             amountPaid: 'acceptpayment exttextfield[name=AmountPaid]',
+            bankAccount: 'acceptpayment extselectfield[name=BankAccountID]',
+            paymentMethod: 'acceptpayment extselectfield[name=PaymentMethodID]',
             acceptPaymentMsg: 'acceptpaymentmsg',
             msgCont: 'acceptpaymentmsg #msgcont'
         },
@@ -88,25 +90,49 @@ Ext.define('RM.controller.AcceptPaymentC', {
     },
 
     onContinue: function () {
-        RM.ViewMgr.backTo('invoicedetail');
+        RM.ViewMgr.backTo('slidenavigationview');
     },    
     
      validateForm: function(vals){        
-        
         var isValid = true;
+        
+        if(!vals.AmountPaid){
+            this.getAmountPaid().showValidation(false);
+            isValid = false;
+        } 
+        
+        if(!vals.BankAccountID){
+            this.getBankAccount().showValidation(false);
+            isValid = false;
+        } 
+         
+        if(!vals.PaymentMethodID){
+            this.getPaymentMethod().showValidation(false);
+            isValid = false;
+        }
+         
+        if(!isValid){            
+            RM.AppMgr.showInvalidFormMsg();
+            return false;
+        }
+         
+        if(vals.AmountPaid > this.fullAmount){
+            this.getAmountPaid().showValidation(false);
+            RM.AppMgr.showErrorMsgBox('Payment Amount cannot be more than the balance due amount of $' + RM.AppMgr.numberWithCommas(this.fullAmount));            
+            isValid = false;
+        }        
+         
         return isValid;
     },     
     
     
     onPay: function(){
         var vals = this.getAcceptPaymentForm().getValues();
-        vals.InvoiceId = this.invoiceId;
+        vals.InvoiceID = this.invoiceId;
         vals.AccountsReceivableCategoryID = this.accountsReceivableCategoryID;
         vals.CustomerSupplierID = this.customerId;
 
         if(this.validateForm(vals)){ 
-            //alert(Ext.encode(vals)); return;
-            //this.showMsg(); return;
             RM.AppMgr.saveServerRec('AcceptPayment', true, vals,
     		    function () {                    
     		        this.showMsg();
@@ -114,7 +140,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     		    },
     		    this,
                 function(recs, eventMsg){
-                    alert('Accept Payment Failed ' + eventMsg);
+                    RM.AppMgr.showOkMsgBox(eventMsg);
                 }
     	    );
         }            

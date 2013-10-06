@@ -22,18 +22,24 @@ Ext.define('RM.view.ItemsAmounts', {
             },{
 				xtype: 'sortsearchbar',				
 				docked: 'top'
-			},{
-                xtype: 'button',
-                text: 'Add a new item',
-                itemId: 'createItem',
-                cls: 'rm-createitembtn'
-            }
+			}
         ] 
     },
     
     initialize: function(){        
 
         this.callParent(arguments);
+        
+        if(RM.PermissionsMgr.canAddEdit('Items')){
+            this.add({
+                xtype: 'button',
+                text: 'Add a new item',
+                itemId: 'createItem',
+                cls: 'rm-createitembtn'
+            });
+            
+            
+        }
         
         var tplStr =
                     '<table width="100%" class="rm-tablelayout">'+

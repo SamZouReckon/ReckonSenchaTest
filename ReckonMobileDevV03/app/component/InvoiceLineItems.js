@@ -185,7 +185,7 @@ Ext.define('RM.component.InvoiceLineItems', {
     onDeleteItem: function (btn) {
         var itemContainer = btn.getParent().getParent(), item = this.lineItems[itemContainer.getId()];
         
-        RM.AppMgr.showYesNoMsgBox('Are you sure you want to delete ' + ((item.Quantity > 0) ? item.Quantity  + ' x ' : '') + item.Description + '?',
+        RM.AppMgr.showYesNoMsgBox('Are you sure you want to delete ' + ((item.Quantity > 0) ? item.Quantity  + ' x ' : '') + (item.LineText || item.Description || item.ItemName) + '?',
             function(msgBoxBtn){
                 if(msgBoxBtn == 'yes'){                    
                     delete this.lineItems[itemContainer.getId()];

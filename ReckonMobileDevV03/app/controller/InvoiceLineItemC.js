@@ -221,11 +221,6 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             this.getItemNameFld().showValidation(false);
             isValid = false;
         }        
-
-        /*if(!vals.TaxGroupId){
-            this.getTaxCode().showValidation(false);
-            isValid = false;
-        }*/
         
         if(!vals.UnitPriceExTax){
             this.getUnitPrice().showValidation(false);

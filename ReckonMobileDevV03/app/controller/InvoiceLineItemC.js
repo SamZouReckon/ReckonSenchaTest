@@ -312,6 +312,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },    
     
     taxCodeChanged: function(){
+        // Only respond to changes triggered by the user, not events triggered during page loading
+        if(!this.initShow || this.ignoreEvents) return;        
+        
         this.getServerCalculatedValues('Tax');        
     },
     

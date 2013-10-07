@@ -21,13 +21,13 @@ Ext.define('RM.view.dashboard.BudgetOverview', {
         try{
             this.getComponent(1).removeAll(); 
             
-            if (!RM.PermissionsMgr.canView('Budgets')) {
+            /*if (!RM.PermissionsMgr.canView('Budgets')) {
                 this.getComponent(1).add({
                     xtype: 'component',
                     html: '<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>'
                 });            
                 return;
-            }
+            }*/
             
             if(data==null || data.length<=0 ){  
                 this.getComponent(1).add({

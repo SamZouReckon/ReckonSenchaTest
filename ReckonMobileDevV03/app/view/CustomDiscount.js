@@ -26,7 +26,7 @@ Ext.define('RM.view.CustomDiscount', {
 				}
             ]
         },{
-            xtype: 'formpanel',
+            xtype: 'secureformpanel',
 			//padding: 0,
 			defaults: {labelWidth: 160},
 			items: [{

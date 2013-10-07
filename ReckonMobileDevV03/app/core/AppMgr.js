@@ -200,7 +200,7 @@ Ext.define('RM.core.AppMgr', {
                 window.clearInterval(this.loadingTimer);
                 RM.ViewMgr.hideLoadingMask();
                 RM.AppMgr.handleServerCallFailure(response);
-                if(cbFail) { cbFail.call(cbs || this, response); }
+                if(cbFail) { cbFail.call(cbs || this, response.statusText); }
             },
             scope: this
         }); 

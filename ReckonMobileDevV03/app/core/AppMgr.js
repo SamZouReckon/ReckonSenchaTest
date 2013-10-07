@@ -274,7 +274,7 @@ Ext.define('RM.core.AppMgr', {
         }
     },
     
-    loadStore: function(store, cb, cbs){
+    loadStore: function(store, cb, cbs, cbFail, msg, cbNetFail){
         var me = this;
         me.setLoadingTimer();
 
@@ -290,7 +290,10 @@ Ext.define('RM.core.AppMgr', {
             callback: function (recs, operation, success) {
                if(success) { 
                    loadComplete(recs, operation, success); 
-               }                    
+               } 
+               else if(cbNetFail){
+                    cbNetFail.call(cbs);
+                }
             },
             scope: me
         });
@@ -340,6 +343,9 @@ Ext.define('RM.core.AppMgr', {
         if(apiLocation == 'staging'){            
             this.baseApiUrl = 'http://mobile.reckoncloud.com.au/api';
         }
+        else if(apiLocation == 'production'){
+            this.baseApiUrl = 'http://mobile.reckonone.com/api';            
+        }        
         else if(apiLocation == 'devserver'){
             this.baseApiUrl = 'http://r1mobiledev.reckon.com.au/api';            
         }

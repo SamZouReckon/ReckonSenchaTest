@@ -43,7 +43,8 @@ Ext.define('RM.view.EmailInvoice', {
 								cls: 'rm-flatfield',
 								clearIcon: false,
 								placeHolder: 'enter',
-                                rmmandatory: true                                
+                                rmmandatory: true,
+                                labelWidth: '4em'                                
 							},{
 								xtype: 'exttextfield',
 								name: 'Subject',
@@ -51,7 +52,7 @@ Ext.define('RM.view.EmailInvoice', {
 								cls: 'rm-flatfield',				                
 								clearIcon: false,
 								placeHolder: 'enter',
-                                rmmandatory: true   
+                                rmmandatory: true
 							},{
 								xtype: 'selectfield',
 								label: '<img src="resources/images/icons/rm-attach.png" style="margin-right: 10px">Invoice Template',

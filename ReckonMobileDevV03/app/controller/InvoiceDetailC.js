@@ -71,6 +71,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.detailsCbs = cbs;
 
         this.noteText = '';
+        this.dataLoaded = false;
         
         if (isCreate) {
             this.detailsData = Ext.applyIf(this.detailsData, { 

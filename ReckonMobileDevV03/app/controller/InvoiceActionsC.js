@@ -57,11 +57,12 @@ Ext.define('RM.controller.InvoiceActionsC', {
         this.getInvPayBtn().setHidden(!RM.InvoicesMgr.isInvoicePayable(this.invoiceData.Status));        
     },
     
-    onApprove: function () {
+    onApprove: function () {        
         RM.AppMgr.saveServerRec('InvoiceApprove', true, {InvoiceID: this.invoiceData.InvoiceId},
 			function () {
                 RM.AppMgr.itemUpdated('invoice');
-                RM.ViewMgr.backTo('invoices');
+                RM.ViewMgr.backTo('slidenavigationview');
+                RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode +' was Approved.');                
 			},
 			this,
             function(recs, eventMsg){

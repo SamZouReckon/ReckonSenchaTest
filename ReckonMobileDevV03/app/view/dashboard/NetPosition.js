@@ -18,10 +18,10 @@ Ext.define('RM.view.dashboard.NetPosition', {
 	
 	setViewData: function(data){
         
-        if (!RM.PermissionsMgr.canView('PAndLReport')) {
+        /*if (!RM.PermissionsMgr.canView('PAndLReport')) {
             this.getComponent('cont').setHtml('<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>');            
             return;
-        }
+        }*/
         
 		this.getComponent('cont').setHtml( 
         

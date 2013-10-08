@@ -40,7 +40,8 @@ Ext.define('RM.view.settings.CoreSettings', {
                     label: 'Api Location',
                     usePicker: true,
                     options: [                        
-                        {text: 'Staging', value: 'staging'},                                                
+                        {text: 'Staging', value: 'staging'},
+                        {text: 'Production', value: 'production'},
                         {text: 'Dev Server', value: 'devserver'},
                         {text: 'QA Server', value: 'qaserver'},                        
                         {text: 'Dev Local IIS',  value: 'devlocaliis'},                                                

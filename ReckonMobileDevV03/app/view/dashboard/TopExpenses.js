@@ -18,10 +18,10 @@ Ext.define('RM.view.dashboard.TopExpenses', {
 	
 	setViewData: function(data){
         
-        if (!RM.PermissionsMgr.canView('AccountEnquiryReport')) {
+        /*if (!RM.PermissionsMgr.canView('AccountEnquiryReport')) {
             this.getComponent(1).setHtml('<div class="rm-dashboard-nodata">' + RM.Consts.NoAccessMsg + '</div>');           
             return;
-        }		
+        }*/		
         if(data==null || data.length<=0 ){
             this.getComponent(1).setHtml('<div class="rm-dashboard-nodata">No data found</div>');
             return;

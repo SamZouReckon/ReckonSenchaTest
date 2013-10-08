@@ -13,13 +13,8 @@ Ext.define('RM.controller.CustomDiscountC', {
                 show: 'onShow'
             },
             'customdiscount exttextfield': {
-                tap: 'onFieldTap',
-                //blur: 'onFieldBlur'
+                tap: 'onFieldTap'
             },
-            /*
-            'customdiscount dataentrykeypad': {
-                keytap: 'onCalcKeyTap'
-            },*/
             'customdiscount #back': {
                 tap: 'back'
             },
@@ -64,14 +59,6 @@ Ext.define('RM.controller.CustomDiscountC', {
     onFieldTap: function (tf) {        
         this.currentField = tf;
         this.clearFields();        
-    },
-    
-    onFieldBlur: function(tf){ 
-        var task = Ext.create('Ext.util.DelayedTask', function() {
-             tf.setPlaceHolder('enter');
-        });
-        
-        task.delay(500);       
     },
     
     clearFields: function(){

@@ -35,7 +35,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 valueChange: 'unitPriceChanged'
             },
             tax: {
-                valueChange: 'taxAmountChanged'
+                valueChange: 'taxAmountChanged',
+                clearicontap: function() { this.taxAmountChanged(null,null); }
             },
             'taxCode':{
                 change: 'taxCodeChanged'

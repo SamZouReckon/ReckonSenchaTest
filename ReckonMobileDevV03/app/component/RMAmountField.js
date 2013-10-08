@@ -23,7 +23,7 @@ Ext.define('RM.component.RMAmountField', {
         if (this.readOnlyField) {
             return;     
         }               
-        console.log(this.getId() + ' onFieldFocus');
+        //console.log(this.getId() + ' onFieldFocus');
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
         //this.fieldUniqueId = e.target.id;       
@@ -36,7 +36,7 @@ Ext.define('RM.component.RMAmountField', {
     },
     
     onFieldLostFocus: function(){
-        console.log(this.getId() + ' onFieldLostFocus');
+        //console.log(this.getId() + ' onFieldLostFocus');
         this.clearCursorBlinkTimer();
         
         var val = this.getValue();

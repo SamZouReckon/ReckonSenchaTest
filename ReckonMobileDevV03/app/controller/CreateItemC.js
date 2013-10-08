@@ -10,11 +10,14 @@ Ext.define('RM.controller.CreateItemC', {
             taxCodeFld: 'createitem selectfield[name=SaleTaxCodeID]'
         },
         control: {
+            'createitem': {
+                show: 'onShow'
+            },              
             'createitem #back': {
                 tap: 'back'
             },            
             'createitem #save': {
-                tap: 'onSave'
+                tap: 'save'
             }
         }
 
@@ -37,7 +40,11 @@ Ext.define('RM.controller.CreateItemC', {
 		
 	},
     
-    onSave: function(){
+    onShow: function(){
+        this.initialFormValues = this.getCreateItemForm().getValues();
+    },
+    
+    save: function(){
         var vals = this.getCreateItemForm().getValues();
         vals.ActiveStatus = RM.Consts.ItemStatus.ACTIVE;  //Remove this hardcoded value when state field is added back to form
         //vals.ActiveStatus = vals.ActiveStatus ? RM.Consts.ItemStatus.ACTIVE : RM.Consts.ItemStatus.INACTIVE; //Uncomment this line when state field is added back to form
@@ -55,6 +62,10 @@ Ext.define('RM.controller.CreateItemC', {
             );        
         }
     },
+    
+    isFormDirty: function(){        
+        return !RM.AppMgr.isFormValsEqual( this.getCreateItemForm().getValues(), this.initialFormValues);        
+    },      
     
     validateForm: function(vals){  
         var isValid = true;       
@@ -82,9 +93,29 @@ Ext.define('RM.controller.CreateItemC', {
     },  
     
 
-    back: function () {
+    goBack: function () {
         RM.ViewMgr.back();
-    }
+    },
 
+    back: function () {
+        
+         if(this.isFormDirty()){
+            RM.AppMgr.showUnsavedChangesMsgBox(
+                function(btn){
+                    if(btn == 'yes'){
+                        this.save();
+                    }
+                    else{
+                        this.goBack();
+                    }
+                },
+                this
+            );
+        }
+        else{
+            this.goBack();
+        }    
+    },    
+    
 
 });

@@ -55,10 +55,12 @@ Ext.define('RM.component.SecureFormPanel', {
     
     */
     scrollShowField: function(field, eleId, keypadType, cb){
-        this.keyFldEleId = eleId;
-        if(this.keyCb){
+        
+        if(this.keyCb && this.keyFldEleId !== eleId){
             this.keyCb.onFieldLostFocus.call(this.keyCb);
         }
+        
+        this.keyFldEleId = eleId;
         
         this.keyCb = cb;
         var me = this;

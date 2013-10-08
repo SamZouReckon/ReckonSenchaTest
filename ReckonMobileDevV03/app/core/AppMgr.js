@@ -335,7 +335,7 @@ Ext.define('RM.core.AppMgr', {
     setupBaseApi: function(){
         var apiLocation = localStorage.getItem('RmApiLocation'), apiType = localStorage.getItem('RmApiType');
         if(!apiLocation && this.appTypeId !== RM.Consts.App.WEB_CONTAINER){
-            apiLocation = 'staging';            
+            apiLocation = 'production';            
         }        
         
         this.apiLocation = apiLocation;
@@ -345,7 +345,10 @@ Ext.define('RM.core.AppMgr', {
         }
         else if(apiLocation == 'production'){
             this.baseApiUrl = 'http://mobile.reckonone.com/api';            
-        }        
+        }
+        else if(apiLocation == 'preproduction'){
+            this.baseApiUrl = 'http://preprodmobile.reckonone.com/api';            
+        }            
         else if(apiLocation == 'devserver'){
             this.baseApiUrl = 'http://r1mobiledev.reckon.com.au/api';            
         }

@@ -28,7 +28,7 @@ Ext.define('RM.view.CreateItem', {
 					}
 				]
 			},{
-				xtype: 'formpanel',			
+				xtype: 'secureformpanel',			
 				flex: 1,
 				padding: 0,
 				defaults: {xtype: 'exttextfield', cls: 'rm-flatfield', clearIcon: false},

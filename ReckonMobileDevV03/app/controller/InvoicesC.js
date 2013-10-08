@@ -42,7 +42,10 @@ Ext.define('RM.controller.InvoicesC', {
         if(!this.dataLoaded){
             this.onSort('duedate');
             this.dataLoaded = true;
-        }        
+        }
+        else{
+             this.activeList.reload();
+        }
     },
 
     onItemUpdated: function (itemType) {

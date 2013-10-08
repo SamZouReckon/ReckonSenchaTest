@@ -19,6 +19,16 @@ Ext.define('RM.component.InvoicesList', {
         
         var groupDueDate = (this.config.sortVal == 'duedate');
         
+        var store = Ext.data.StoreManager.lookup('Invoices');
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl('Invoices'));
+        if(groupDueDate){
+            store.setGroupField('DuePeriodName');    
+        }
+        else{
+            store.setGroupField(null);              
+        }
+        RM.AppMgr.loadStore(store);
+        
 		this.add({
 			xtype: 'list',
 			store: 'Invoices',
@@ -36,14 +46,7 @@ Ext.define('RM.component.InvoicesList', {
 					noMoreRecordsText: ''
 				}
 			]
-		});
-        
-        var store = Ext.data.StoreManager.lookup('Invoices');
-        store.getProxy().setUrl(RM.AppMgr.getApiUrl('Invoices'));
-        if(groupDueDate){
-            store.setGroupField('DuePeriodName');    
-        }        
-        RM.AppMgr.loadStore(store);
+		});        
         
     },
     

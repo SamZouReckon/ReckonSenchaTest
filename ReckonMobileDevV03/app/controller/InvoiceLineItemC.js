@@ -14,7 +14,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             tax: 'invoicelineitem field[name=Tax]',
             amount: 'invoicelineitem field[name=Amount]',
             itemNameFld: 'invoicelineitem field[name=ItemName]',
-            projectId: 'invoicelineitem field[name=ProjectID]'
+            projectId: 'invoicelineitem field[name=ProjectID]',
+            itemId: 'invoicelineitem field[name=ItemId]',
+            projectName: 'invoicelineitem field[name=ProjectName]',
         },
         control: {
             'invoicelineitem': {
@@ -43,6 +45,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             },
             discount: {
                 change: 'discountChanged'
+            },
+            projectName: {
+                change: 'projectChanged'
             }
 		}
     },
@@ -279,7 +284,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     unitPriceChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;        
+        if(this.ignoreControlEvents()) return;        
                       
         if (!this.isTaxInclusive())
         {         
@@ -290,16 +295,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
    },
     
     discountChanged: function(field, newValue, oldValue) {
-        // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;        
+        if(this.ignoreControlEvents()) return;        
                 
         this.detailsData.Discount = newValue;        
         this.getServerCalculatedValues('Discount');
    },
     
     taxAmountChanged: function(newValue, oldValue) {
-        // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;  
+        if(this.ignoreControlEvents()) return;  
         
         if(!newValue) {
             this.detailsData.TaxIsModified = false;
@@ -312,19 +315,28 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },    
     
     taxCodeChanged: function(){
-        // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;        
+        if(this.ignoreControlEvents()) return;        
         
         this.getServerCalculatedValues('Tax');        
     },
     
-    projectChanged: function() {
+    projectChanged: function(field, newValue, oldValue) {
+        if(this.ignoreControlEvents()) return;        
+                
+        if(!newValue) {
+            // The project field has been cleared using the clearIcon, we have to remove the Id also
+            this.getProjectId().setValue(null);
+        }
+        
         //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)
+        if(this.getItemId().getValue()) {
+            //TODO: thjis requires server-side changes to expose an api call to get the applicable rate for an item for a given project
+            
+        }        
     },
 
-    quantityChanged: function() {
-        // Only respond to changes triggered by the user, not events triggered during page loading
-        if(!this.initShow || this.ignoreEvents) return;                    
+    quantityChanged: function() {        
+        if(this.ignoreControlEvents()) return;                    
         this.getServerCalculatedValues('Quantity');
     },
     
@@ -342,7 +354,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         var formVals = this.getItemForm().getValues();
         var lineItem = {
             // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
-            ChangeStatus : 2, 
+            ChangeStatus : 2,             
             ItemId: formVals.ItemId,
             Quantity: formVals.Quantity || 1,
             TaxGroupID: formVals.TaxGroupId,
@@ -409,6 +421,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             },
             'Working...'
 		);  
+    },
+    
+    ignoreControlEvents: function() {
+        // Only respond to changes triggered by the user, not events triggered during control loading
+        if(!this.initShow || this.ignoreEvents) return true;        
     }
 	
 });

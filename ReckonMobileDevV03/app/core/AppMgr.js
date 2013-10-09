@@ -196,11 +196,10 @@ Ext.define('RM.core.AppMgr', {
                     cbFail.call(cbs, resp.eventMsg);
                 }                
             },
-            failure: function(response) {
+            failure: function(resp) {
                 window.clearInterval(this.loadingTimer);
-                RM.ViewMgr.hideLoadingMask();
-                RM.AppMgr.handleServerCallFailure(response);
-                if(cbFail) { cbFail.call(cbs || this, response.statusText); }
+                RM.ViewMgr.hideLoadingMask();                
+                RM.AppMgr.handleServerCallFailure(resp);
             },
             scope: this
         }); 
@@ -247,7 +246,7 @@ Ext.define('RM.core.AppMgr', {
             },
             failure: function (resp) {
                 RM.ViewMgr.hideLoadingMask();
-                if(cbNetFail){ //put in initially for EnterPinC
+                if(cbNetFail  && resp.status != 401){ //put in initially for EnterPinC
                     cbNetFail.call(cbs, resp);
                 }
                 RM.AppMgr.handleServerCallFailure(resp);
@@ -291,9 +290,6 @@ Ext.define('RM.core.AppMgr', {
                if(success) { 
                    loadComplete(recs, operation, success); 
                } 
-               else if(cbNetFail){
-                    cbNetFail.call(cbs);
-                }
             },
             scope: me
         });

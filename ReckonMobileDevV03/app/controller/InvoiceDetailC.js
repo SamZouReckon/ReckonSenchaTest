@@ -354,6 +354,17 @@ Ext.define('RM.controller.InvoiceDetailC', {
             vals.DiscountAmount = formVals.Discount.replace('$', '');
         }
       
+        // House keeping. The calcs api doesn't handle removing things like the tax group and tax amounts when 
+        // switching to NON-TAXED so we remove them first.
+        if(vals.AmountTaxStatus === RM.Consts.TaxStatus.NON_TAXED) {
+            lineItems = lineItems.map(function(item) {
+                item.TaxGroupId = null;
+                item.Tax = null;
+                return item;
+            });
+        }
+        
+        // Send only the fields required by the calculation contract for line items
         vals.LineItems = lineItems.map(function(item) {
             return {
                 InvoiceLineItemId: item.InvoiceLineItemId,
@@ -368,7 +379,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 TaxGroupID: item.TaxGroupId, 
                 Tax: item.Tax, 
                 TaxIsModified: item.TaxIsModified
-            };
+            };            
         });         
                 
         RM.AppMgr.saveServerRec('InvoiceCalc', true, vals,
@@ -378,7 +389,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 var data = this.detailsData;
                 data.Amount = respRec.TotalIncludingTax;
                 data.AmountExTax = respRec.TotalExcludingTax;
-                data.Tax = respRec.Tax || 0;
+                data.Tax = respRec.Tax;
                 data.Subtotal = respRec.Subtotal;
                 data.DiscountTotal = respRec.Discount || 0;
                 data.Paid = respRec.AmountPaid;
@@ -399,7 +410,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                         }
                     });
                     
-                    // If the item isn't in the response, it must be removed (project/customer filtering is applied server-side)
+                    // If the item isn't in the response, it must be removed (project/customer filtering is potentially applied server-side)
                     if(!resultLine) {
                         lineItems[i] = null;
                     }

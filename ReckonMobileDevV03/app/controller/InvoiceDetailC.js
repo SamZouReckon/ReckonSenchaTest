@@ -363,6 +363,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 Quantity: item.Quantity, 
                 UnitPriceExTax: item.UnitPriceExTax, 
                 DiscountAmount: item.DiscountAmount,
+                DiscountAmountExTax: item.DiscountAmountExTax,
                 DiscountPercentage: item.DiscountPercentage,
                 TaxGroupID: item.TaxGroupId, 
                 Tax: item.Tax, 

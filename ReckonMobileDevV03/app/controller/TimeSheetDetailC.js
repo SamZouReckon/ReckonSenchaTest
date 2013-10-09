@@ -202,8 +202,11 @@ Ext.define('RM.controller.TimeSheetDetailC', {
                 
         if(this.validateForm(vals)){ 
              RM.AppMgr.saveServerRec(this.serverApiName, this.isCreate, vals,
-    			function () {                
-                    this.goBack();
+    			function () { 
+                    RM.AppMgr.showSuccessMsgBox('Timesheet saved',function(){
+                       RM.AppMgr.itemUpdated('timesheet');
+                       this.goBack(); 
+                    }, this);                        
     			    RM.AppMgr.itemUpdated('timesheet');
     			},
     			this,

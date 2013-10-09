@@ -13,7 +13,7 @@ Ext.define('RM.component.ExtTextField', {
         this.element.on('tap', 
             function (e) { 
                 if(!Ext.fly(e.target).hasCls('x-clear-icon')){
-                    this.fireEvent('tap', this);    
+                    this.fireEvent('tap', this, e);    
                 }
             }, 
             this

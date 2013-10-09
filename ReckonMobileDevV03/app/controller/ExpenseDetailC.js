@@ -336,7 +336,8 @@ Ext.define('RM.controller.ExpenseDetailC', {
             //alert("Code = " + r.responseCode + '  Response = ' + r.response + '  Sent = ' + r.bytesSent);
             msgBox.hide();
             RM.AppMgr.showSuccessMsgBox('Expense saved',function(){
-               me.goBack(); 
+               me.goBack();
+                RM.AppMgr.itemUpdated('expense');
             }, me);            
         }
         
@@ -359,7 +360,6 @@ Ext.define('RM.controller.ExpenseDetailC', {
     },
     
     uploadPhotoData: function(vals){
-        
         var boundary = '++++++reckononemobile.formBoundary', postData = '';       
         if(vals.ExpenseId) postData += this.genFormDataFld('ExpenseId', vals.ExpenseId, boundary);
         if(vals.ProjectId) postData += this.genFormDataFld('ProjectId', vals.ProjectId, boundary);
@@ -386,17 +386,21 @@ Ext.define('RM.controller.ExpenseDetailC', {
             },
             rawData: postData,
             url: RM.AppMgr.getApiUrl('Expenses'),
-            success: function (resp) {
-                if(!resp.success){
-                    alert(resp.responseText);    
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if(resp.success){
+                    RM.AppMgr.showSuccessMsgBox('Expense saved',function(){
+                       RM.AppMgr.itemUpdated('expense');
+                       this.goBack(); 
+                    }, this);                        
                 }
                 else{
-                    this.goBack();    
+                     RM.AppMgr.showOkMsgBox(resp.eventMsg);
                 }
                 
             },
             failure: function (resp) {
-                alert(resp.responseText);
+                RM.AppMgr.handleServerCallFailure(resp);
             },
             scope: this
         });

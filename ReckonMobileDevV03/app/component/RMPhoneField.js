@@ -5,13 +5,14 @@ Ext.define('RM.component.RMPhoneField', {
     
     constructor: function(config){          
         this.isInitializing = true;
-        this.readOnlyField = config.readOnly || false;        
+        this.readOnlyField = config.readOnly || false; 
+        config.readOnly = true;
         this.callParent(arguments);        
     },
     
     initialize: function () {        
         this.callParent(arguments);      
-        this.on('focus', this.onFieldFocus, this);
+        this.on('tap', this.onFieldFocus, this);
         //this.on('blur', this.onFieldBlur, this);
         this.setReadOnly(true);
         this.isInitializing = false;
@@ -23,6 +24,7 @@ Ext.define('RM.component.RMPhoneField', {
         
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
+        //this.addCls('rm-field-warning');
         
         this.owningPanel = field.up('panel');  
 
@@ -34,6 +36,7 @@ Ext.define('RM.component.RMPhoneField', {
     onFieldLostFocus: function(){
         console.log(this.getId() + ' onFieldLostFocus');
         this.clearCursorBlinkTimer();
+        //this.removeCls('rm-field-warning');
         
         this.fireValueChangeEvent(this.getValue());
     },

@@ -8,12 +8,13 @@ Ext.define('RM.component.RMAmountField', {
         this.readOnlyField = config.readOnly || false;     
         config.trailingZerosUpTo = config.trailingZerosUpTo == 0 || config.trailingZerosUpTo ? config.trailingZerosUpTo : 2;
         config.prefix = config.prefix || '';
+        config.readOnly = true;
         this.callParent(arguments);        
     },
     
     initialize: function () {        
         this.callParent(arguments);      
-        this.on('focus', this.onFieldFocus, this);         
+        this.on('tap', this.onFieldFocus, this);         
         this.setReadOnly(true);
         this.isInitializing = false;
     },

@@ -68,7 +68,7 @@ Ext.define('RM.controller.CashBooksC', {
             null,
             function(){
                 //prevent app getting stranded on Cashbook select screen if an error loading the cashbooks list
-                 RM.AppMgr.lock();
+                 RM.AppMgr.login();
             }
         
         );

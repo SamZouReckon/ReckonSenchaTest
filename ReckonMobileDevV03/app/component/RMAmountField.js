@@ -43,7 +43,9 @@ Ext.define('RM.component.RMAmountField', {
         
         if (val == '.')
             val = '0.0';           
-        
+        if (this.config.decimalPlaces && val != '') {               
+            this.setValue(this.config.prefix + this.formatVal(val));
+        }
         this.fireValueChangeEvent(val);
     },    
     

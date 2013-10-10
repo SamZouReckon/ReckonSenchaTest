@@ -58,7 +58,7 @@ Ext.define('RM.controller.CustomerInvoicesC', {
     onSort: function (sortVal) {        
         var view = this.getCustomerInvoices();
         view.removeAt(2);
-        this.activeList = view.add({xtype:'invoiceslist', sortVal:sortVal, isShowCustomer: false});
+        this.activeList = view.add({xtype:'invoiceslist', sortVal:sortVal, isShowCustomer: false, customerId: this.customerId});
     },
 
     onSearch: function(val){

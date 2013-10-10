@@ -396,6 +396,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 this.ignoreEvents = true;     
                                 
                 this.detailsData.AmountExTax = calculated.AmountExTax;
+                this.detailsData.AmountTax = calculated.AmountTax;
                 this.detailsData.DiscountedTaxAmount = calculated.DiscountedTaxAmount;
                 this.detailsData.DiscountedTaxExclAmount = calculated.DiscountedTaxExclAmount;
                 

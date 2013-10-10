@@ -19,8 +19,8 @@ Ext.define('RM.component.RMAmountField', {
         this.isInitializing = false;
     },
 
-    onFieldFocus: function(field, e) {    
-        
+    onFieldFocus: function(field, e) {   
+        if(this.fieldMaskEl) this.clearCursorBlinkTimer();
         if (this.readOnlyField) {
             return;     
         }               
@@ -28,15 +28,16 @@ Ext.define('RM.component.RMAmountField', {
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
         //this.fieldUniqueId = e.target.id;       
-        
+        this.inEditMode = true;
         //get field's owner panel
         this.owningPanel = field.up('panel');         
-
+        
         this.revertBackVal = this.getValue();
         this.owningPanel.scrollShowField(field, e.target.id, 'amount', this);
     },
     
     onFieldLostFocus: function(){
+        this.inEditMode = false;
         //console.log(this.getId() + ' onFieldLostFocus');
         this.clearCursorBlinkTimer();
         
@@ -122,15 +123,11 @@ Ext.define('RM.component.RMAmountField', {
         if (valStr.indexOf(this.config.prefix) == -1 && valStr !== '') {
             valStr = this.config.prefix + this.formatVal(valStr);       
         }
-        /*if (!this.keypadOnTop) {            
+        if (!this.inEditMode) {            
             this.fireValueChangeEvent(newVal);
-        }*/
+        }
         return valStr;
-    },     
-    
-    //getPrefix: function() {
-    //    return (this.config.prefix ? this.config.prefix : '');
-    //},    
+    },         
     
     showCursor: function() {        
         var me = this;         
@@ -168,7 +165,7 @@ Ext.define('RM.component.RMAmountField', {
     },
     
     //check for value change and fire valueChange Event
-    fireValueChangeEvent: function(val) {         
+    fireValueChangeEvent: function(val) {      
         var valStr = val ? val.toString() : '';
         valStr = valStr.replace(/,/g,'');
         if (valStr.indexOf(this.config.prefix) != -1) {
@@ -177,8 +174,10 @@ Ext.define('RM.component.RMAmountField', {
         var newVal = parseFloat(val) || '';
         var oldVal = parseFloat(this.valBeforeChange) || '';        
         if (newVal != oldVal) {
+            if(this.valBeforeChange !== undefined){
+                this.fireEvent('valueChange', newVal, oldVal);                
+            }
             this.valBeforeChange = newVal;            
-            this.fireEvent('valueChange', newVal, oldVal);
         }
     },
     
@@ -215,7 +214,6 @@ Ext.define('RM.component.RMAmountField', {
         }
         else{
             return formattedValStr;
-        }
-        
+        }        
     }     
 });

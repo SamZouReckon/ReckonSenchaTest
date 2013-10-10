@@ -20,8 +20,8 @@ Ext.define('RM.component.RMPhoneField', {
 
     onFieldFocus: function(field, e) {
         console.log(this.getId() + ' onFieldFocus');
-        if(this.readOnlyField) return;
-        
+        if(this.fieldMaskEl) this.clearCursorBlinkTimer();
+        if(this.readOnlyField) return;        
         this.fieldMaskEl = e.target.nextElementSibling;
         this.showCursor();        
         //this.addCls('rm-field-warning');

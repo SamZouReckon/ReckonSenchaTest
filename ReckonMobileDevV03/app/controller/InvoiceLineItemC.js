@@ -331,7 +331,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)
         if(this.getItemId().getValue()) {
-            //TODO: thjis requires server-side changes to expose an api call to get the applicable rate for an item for a given project
+            //TODO: this requires server-side changes to expose an api call to get the applicable rate for an item for a given project
             
         }        
     },

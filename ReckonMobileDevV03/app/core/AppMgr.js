@@ -1,11 +1,13 @@
 Ext.define('RM.core.AppMgr', {
 
     singleton: true,  //or could create a globally shared instance the way that Ext.MessageBox does
-    requires: ['RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
+    requires: ['RM.view.TestScreen', 'RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
 
     init: function (application) {
         this.application = application;        
         this.isUserLoggedIn = false;
+        
+        //this.startUpTest();
         
         Ext.Ajax.setDefaultHeaders({'X-APIV': RM.Consts.Api.VERSION});        
         
@@ -29,7 +31,7 @@ Ext.define('RM.core.AppMgr', {
         
         this.addDeviceListeners();
         
-        RM.HomeSettingsMgr.load();
+        RM.HomeSettingsMgr.load();        
         
         //Following login() commented as login() gets called from lock() which is called from MainNavContainer which seems to get called at start of app - this caused 2 copies of EnterUserName 
         //or EnterPin to be put on to stack
@@ -621,6 +623,19 @@ Ext.define('RM.core.AppMgr', {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");        
     },
 
+    formatCurrency: function(value, places, accountancyFormat){
+        if (isNaN(value)){
+            value = 0;
+        }           
+        value = value.toFixed(Ext.isEmpty(places) ? 2 : places);
+        var negSign = (value < 0);
+        value = '$' + Math.abs(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if(negSign && accountancyFormat){
+            return '(' + value + ')';
+        }        
+        return (((negSign) ? '-' : '') + value);       
+    },
+    
     /*saveSettings: function (settings, cb, cbs) {
         
         RM.ViewMgr.showLoadingMask('Saving...');
@@ -662,7 +677,7 @@ Ext.define('RM.core.AppMgr', {
         Ext.data.StoreManager.lookup('GSTCodes').setData([{ GSTCodeID: "7654913f-9486-419c-9752-8c0c2ec91e85", GSTCode: "GST", ShortDescription: "GST on sales", Rate: 10 }, { GSTCodeID: "2d540317-a3a8-4382-be26-94528b6b67d0", GSTCode: "FRE", ShortDescription: "Other GST Free", Rate: 0.0 }, { GSTCodeID: "3cb9ee30-7325-4234-b20b-c2913af9edcd", GSTCode: "EXP", ShortDescription: "GST free exports", Rate: 0.0}]);
         Ext.data.StoreManager.lookup('AccountingCategories').setData([{AccountingCategoryID: '4BE5F10D-F9BA-41E2-AC52-CD575D5B2154', Name:'Contract Work'}, {AccountingCategoryID: '39FA1C88-FAAB-4D2F-AF15-D8916BB68AE4', Name:'Supplies'}]);
         
-        
+        Ext.create('RM.view.TestScreen', {xtype: 'testscreen', fullscreen:true});
         //Ext.Msg.alert('', 'No internet connection found', Ext.emptyFn); return;
        
         //RM.Selectors.showItems(true, null, true, function(){}, function(){});

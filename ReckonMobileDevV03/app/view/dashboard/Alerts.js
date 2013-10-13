@@ -60,7 +60,7 @@ Ext.define('RM.view.dashboard.Alerts', {
             '<div class="rm-fltl rm-mt5">' +
             '<div class="rm-billtext rm-pl5 rm-nextgrayarrow rm-fontsize100">Invoices</div>' +            
             '<div class="rm-billtext">Overdue</div>' +
-            '<div class="rm-billamount">$' + RM.AppMgr.valueWithCommas(data.InvoicesOverdueAmount) + '</div>' + 
+            '<div class="rm-billamount">' + RM.AppMgr.formatCurrency(data.InvoicesOverdueAmount, 0) + '</div>' + 
             '</div>' +
             '<div class="rm-clr"></div>' +
             '</div>' +
@@ -74,7 +74,7 @@ Ext.define('RM.view.dashboard.Alerts', {
             '<div class="rm-fltl rm-mt5">' +
             '<div class="rm-billtext rm-pl5 rm-nextgrayarrow rm-fontsize100">Bills</div>' +
             '<div class="rm-billtext">Due soon</div>' + 
-            '<div class="rm-billamount">$' + RM.AppMgr.valueWithCommas(data.BillsOverdueAmount) + '</div>' + 
+            '<div class="rm-billamount">' + RM.AppMgr.formatCurrency(data.BillsOverdueAmount, 0) + '</div>' + 
             '</div>' +
             '<div class="rm-clr"></div>' +
             '</div>' +

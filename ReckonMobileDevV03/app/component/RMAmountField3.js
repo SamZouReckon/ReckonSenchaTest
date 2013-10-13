@@ -7,7 +7,8 @@ Ext.define('RM.component.RMAmountField3', {
         listeners: {blur: 'onBlur'/*, keyup: 'onKeyup'*/},
         cls: 'rm-flatfield',
         prefix: '',
-        trailingZerosUpTo: 2
+        trailingZerosUpTo: 2,
+        placeHolder: ''
     },       
     
     initialize: function () {        
@@ -16,14 +17,15 @@ Ext.define('RM.component.RMAmountField3', {
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
         }        
-        
+
         this.inputEl = this.element.down('input');
         this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field"></div>', true);
-        this.displayEl.on('tap', this.showInputFld, this);
+        
 
-        //create a shadow text input that can display whatever format we need and also works with previous / next on virtual keypad - seems to be some runaway condition with this when tap
-        //this.displayEl = this.inputEl.insertHtml('afterEnd', '<input class="x-input-el x-form-field" type="text"></input>', true);        
-        //this.displayEl.on('focus', this.showInputFld, this);
+        //create a shadow text input that can display whatever format we need and also works with previous / next on virtual keypad
+        //this.displayEl = this.inputEl.insertHtml('afterEnd', '<input class="x-input-el x-form-field" type="text" placeholder="' + this.getPlaceHolder() + '"></input>', true);        
+        //this.displayEl.on('focus', this.showInputFld, this); //seems to be some runaway condition with this when tap
+        this.displayEl.on('tap', this.showInputFld, this);
         
         this.showDisplayValue();        
     },

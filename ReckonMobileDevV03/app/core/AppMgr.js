@@ -629,7 +629,7 @@ Ext.define('RM.core.AppMgr', {
         }           
         value = value.toFixed(Ext.isEmpty(places) ? 2 : places);
         var negSign = (value < 0);
-        value = '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        value = '$' + Math.abs(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         if(negSign && accountancyFormat){
             return '(' + value + ')';
         }        

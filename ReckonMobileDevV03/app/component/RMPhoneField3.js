@@ -9,7 +9,8 @@ Ext.define('RM.component.RMPhoneField3', {
         //component: {type: 'tel'}, //The issue with making this a tel phone field now is that iOS will allow u to call but Reckon One has area code in separate fields - look at combining in later version
         component: {type: 'number'},        
         ui: 'number',        
-        cls: 'rm-flatfield'
+        cls: 'rm-flatfield',
+        placeHolder: ''
     },       
     
     initialize: function () {        
@@ -20,7 +21,11 @@ Ext.define('RM.component.RMPhoneField3', {
         }        
         
         this.inputEl = this.element.down('input');
-        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field"></div>', true);  
+        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field"></div>', true);
+
+        //create a shadow text input that can display whatever format we need and also works with previous / next on virtual keypad
+        //this.displayEl = this.inputEl.insertHtml('afterEnd', '<input class="x-input-el x-form-field" type="text" placeholder="' + this.getPlaceHolder() + '"></input>', true);        
+        //this.displayEl.on('focus', this.showInputFld, this); //seems to be some runaway condition with this when tap
         this.displayEl.on('tap', this.showInputFld, this);
         
         this.showDisplayValue();        

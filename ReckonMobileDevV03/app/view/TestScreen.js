@@ -35,7 +35,8 @@ Ext.define('RM.view.TestScreen', {
                  },{
                      xtype:'textfield',
                      label: 'Test2',
-                     name: 'Test2'
+                     name: 'Test2',
+                     placeHolder: 'enter'
                  
                  },{
                      xtype:'textfield',
@@ -61,6 +62,7 @@ Ext.define('RM.view.TestScreen', {
                      label: 'Item Price',
                      name: 'ItemPrice',
                      labelWidth: 120,
+                     placeHolder: 'enter',
                      //value: 3276767.778,
                      rmmandatory: true,
                      readOnly: false,
@@ -82,6 +84,7 @@ Ext.define('RM.view.TestScreen', {
                      labelWidth: 120,
                      //value: '09272387878',
                      name: 'BusPhone',
+                     placeHolder: 'enter',
                      rmmandatory: true,
                      readOnly: false,
                      listeners: {

@@ -30,7 +30,7 @@ Ext.define('RM.view.EnterUsername', {
 				height: 182,
 				items: [{
                             xtype: 'component',
-                            html: 'Welcome to Reckon mobile.',                            
+                            html: 'Welcome to Reckon Mobile.',                            
                             height: '90px',
                             padding: '40 10 34 10',
                             cls: 'rm-intromsg'

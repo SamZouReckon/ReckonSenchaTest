@@ -1,6 +1,6 @@
 Ext.define('RM.controller.InvoiceLineItemC', {
     extend: 'Ext.app.Controller',
-    requires: ['RM.view.InvoiceLineItem','RM.util.FormUtils','RM.util.PseudoGuid'],
+    requires: ['RM.view.InvoiceLineItem','RM.util.FormUtils','RM.util.PseudoGuid', 'RM.util.MathHelpers'],
     config: {
         refs: {
             itemDetail: 'invoicelineitem',
@@ -74,6 +74,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             this.detailsData = {
                 IsNew:true,
                 InvoiceLineItemId: RM.util.PseudoGuid.next(),
+                UnitPriceAccuracy: 2,
                 Quantity: 1,
                 TaxGroupId: null,
                 TaxIsModified: false
@@ -102,11 +103,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         if(!this.initShow){
             itemForm.reset();
             itemForm.setValues(this.detailsData);     
-            this.setDiscountValue(this.detailsData.DiscountPercentage, this.detailsData.DiscountAmount);
-            if(!this.isTaxInclusive()) {
-                this.getUnitPrice().setValue(this.detailsData.UnitPriceExTax);
-            }
+            this.setDiscountDisplayValue(this.detailsData.DiscountPercentage, this.detailsData.DiscountAmount);
             
+            var priceDisplayValue = RM.util.MathHelpers.roundToEven(this.isTaxInclusive() ? this.detailsData.UnitPrice : this.detailsData.UnitPriceExTax, this.detailsData.UnitPriceAccuracy);
+            this.getUnitPrice().setValue(priceDisplayValue);
+
             if (this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED) {
                 this.getItemDetail().hideTaxFields();            
             }            
@@ -133,29 +134,18 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getItemDetail().setTaxModified(isModified);
     },
     
-    getDiscountValue: function() {
-        var discount = this.getDiscount().getValue();
-        var result = {};
-        if (discount.indexOf('%') > -1) {
-            result.DiscountPercentage = parseFloat(discount.replace('%', ''));
-        }
-        else if (discount.indexOf('$') > -1) {
-            result.DiscountAmount = parseFloat(discount.replace('$', ''));
-        }
-        return result;
-    },
-    
-    setDiscountValue: function(discountPercent, discountAmount) {
+    setDiscountDisplayValue: function(discountPercent, discountAmount) {
+        var discount;
         if(discountPercent) {
-            this.detailsData.Discount = discountPercent + '%';
+            discount = discountPercent + '%';
         }
         else if(discountAmount) {
-            this.detailsData.Discount = '$' + Ext.Number.toFixed(discountAmount, 2);
+            discount = RM.AppMgr.formatCurrency(discountAmount, 2);
         }
         else {
-            this.detailsData.Discount = '';
+            discount = '';
         }
-        this.getDiscount().setValue(this.detailsData.Discount);
+        this.getDiscount().setValue(discount);
     },
 
     onFieldTap: function (tf) {
@@ -244,14 +234,16 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
 		
 		var formVals = this.getItemForm().getValues();
-
+        
+        // Remove the form fields that are display values only, and shouldn't override detailsData
+        delete formVals.Amount;
+        delete formVals.UnitPrice;
+        delete formVals.Tax;
+        delete formVals.Discount;
+        
         var item = Ext.apply(this.detailsData, formVals);
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
         item.Quantity = item.Quantity || 1;
-
-        var discount = this.getDiscountValue();
-        item.DiscountPercentage = discount.DiscountPercentage;
-        item.DiscountAmount = discount.DiscountAmount;        
 
         if(this.validateForm(item)){		
 		    this.detailsCb.call(this.detailsCbs, [item]);
@@ -276,17 +268,26 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
         this.ignoreEvents = false;
-        var $this = this;
+        var that = this;
         this.getServerCalculatedValues('Item', function() {
             // Make sure the details fields are visible after an item is selected
-            $this.getItemDetail().showDetailsFields();
+            that.getItemDetail().showDetailsFields();
         });
     },
     
     unitPriceChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(this.ignoreControlEvents()) return;        
-                      
+        
+        // Store the number of decimals the amount is captured with
+        var splitNumber = newValue.toString().split('.');        
+        if(splitNumber.length == 2 && splitNumber[1].length > 1) {
+            this.detailsData.UnitPriceAccuracy = splitNumber[1].length;
+        }
+        else {
+            this.detailsData.UnitPriceAccuracy = 2;
+        }                
+               
         if (!this.isTaxInclusive())
         {         
             // Update the tax exclusive unit price shadowing the unit price field
@@ -297,8 +298,24 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     discountChanged: function(field, newValue, oldValue) {
         if(this.ignoreControlEvents()) return;        
-                
-        this.detailsData.Discount = newValue;        
+        
+        // Reset all discount values, then apply the new one
+        this.detailsData.DiscountAmount = null;
+        this.detailsData.DiscountAmountExTax = null;
+        this.detailsData.DiscountPercentage = null;
+        
+        if (newValue.indexOf('%') > -1) {
+            this.detailsData.DiscountPercentage = parseFloat(newValue.replace('%', ''));
+        }
+        else if (newValue.indexOf('$') > -1) {
+            if (this.isTaxInclusive()) {
+                this.detailsData.DiscountAmount = RM.AppMgr.unformatCurrency(newValue);        
+            }
+            else {             
+                this.detailsData.DiscountAmountExTax = RM.AppMgr.unformatCurrency(newValue);
+            }            
+        }
+        
         this.getServerCalculatedValues('Discount');
    },
     
@@ -364,13 +381,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             UnitPriceExTax: this.detailsData.UnitPriceExTax
         };
 
-        var discount = this.getDiscountValue();
         // Only pass the ex-tax discount amount if not using a percentage
-        if(discount.DiscountPercentage) {
-            lineItem.DiscountPercentage = discount.DiscountPercentage;        
+        if(this.detailsData.DiscountPercentage) {
+            lineItem.DiscountPercentage = this.detailsData.DiscountPercentage;        
         }
         else {
-            lineItem.DiscountAmountExTax = this.detailsData.DiscountAmountExTax;            
+            lineItem.DiscountAmountExTax = this.detailsData.DiscountAmountExTax;   
+            lineItem.DiscountAmountTax = this.detailsData.DiscountAmountTax; 
         }
         
         switch(triggerField) {
@@ -382,7 +399,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 lineItem.QuantityIsModified = true;
                 break;
             case 'Discount':                
-                if(!lineItem.DiscountPercentage) { lineItem.DiscountAmount = discount.DiscountAmount; }
+                if(!lineItem.DiscountPercentage) { 
+                    lineItem.DiscountAmount = this.isTaxInclusive() ? this.detailsData.DiscountAmount : this.detailsData.DiscountAmountExTax; 
+                    lineItem.DiscountAmountExTax = this.isTaxInclusive() ? null : this.detailsData.DiscountAmount;  
+                    lineItem.DiscountAmountTax = null;
+                }
                 lineItem.DiscountIsModified = true;
                 break;
         }
@@ -394,25 +415,32 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 			function response(responseRecords) {
                 var calculated = responseRecords[0].Items[0];
                 this.ignoreEvents = true;     
-                                
+                
+                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                this.detailsData.UnitPrice = calculated.UnitPrice;
+                this.detailsData.Amount = calculated.Amount;                
                 this.detailsData.AmountExTax = calculated.AmountExTax;
                 this.detailsData.AmountTax = calculated.AmountTax;
+                this.detailsData.Tax = calculated.Tax;                
                 this.detailsData.DiscountedTaxAmount = calculated.DiscountedTaxAmount;
                 this.detailsData.DiscountedTaxExclAmount = calculated.DiscountedTaxExclAmount;
                 
-                if(triggerField === 'UnitPrice') this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                //Set discount amount, only absolute amounts are affected by tax fiddling so a discount percentage is not affected by the calc results                                
+                this.detailsData.DiscountAmount = calculated.DiscountAmount;
+                this.detailsData.DiscountAmountExTax = calculated.DiscountAmountExTax;
+                this.detailsData.DiscountAmountTax = calculated.DiscountAmountTax;
+                this.setDiscountDisplayValue(this.detailsData.DiscountPercentage, this.detailsData.DiscountAmount);
+
                 this.setTaxModified(calculated.TaxIsModified);                                
                 
+                // Now, the values displayed in the UI are rounded to the requisite number of decimals - THESE UI VALUES ARE NOT PERSISTED
+                var displayedUnitPrice = RM.util.MathHelpers.roundToEven(this.isTaxInclusive() ? calculated.UnitPrice : this.detailsData.UnitPriceExTax, this.detailsData.UnitPriceAccuracy);
                 this.getItemForm().setValues({                
-                    UnitPrice: this.isTaxInclusive() ? calculated.UnitPrice : this.detailsData.UnitPriceExTax,
-                    Amount: calculated.Amount,
-                    Tax: calculated.Tax                
+                    UnitPrice: displayedUnitPrice,
+                    Amount: RM.util.MathHelpers.roundToEven(calculated.Amount, 2),
+                    Tax: RM.util.MathHelpers.roundToEven(calculated.Tax, 2)                
                 });
-                
-                //Set discount amount, only absolute amounts are affected by tax fiddling so a discount percentage is not affected by the calc results
-                this.setDiscountValue(lineItem.DiscountPercentage, calculated.DiscountAmount);
-                this.detailsData.DiscountAmountExTax = calculated.DiscountAmountExTax;
-                                
+                                                
                 this.ignoreEvents = false;
                 if(completeCallback) completeCallback();                
 			},

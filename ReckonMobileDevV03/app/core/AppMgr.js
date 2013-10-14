@@ -342,10 +342,10 @@ Ext.define('RM.core.AppMgr', {
             this.baseApiUrl = 'http://mobile.reckoncloud.com.au/api';
         }
         else if(apiLocation == 'production'){
-            this.baseApiUrl = 'http://mobile.reckonone.com/api';            
+            this.baseApiUrl = 'https://mobile.reckonone.com/api';            
         }
         else if(apiLocation == 'preproduction'){
-            this.baseApiUrl = 'http://preprodmobile.reckonone.com/api';            
+            this.baseApiUrl = 'https://preprodmobile.reckonone.com/api';            
         }            
         else if(apiLocation == 'devserver'){
             this.baseApiUrl = 'http://r1mobiledev.reckon.com.au/api';            

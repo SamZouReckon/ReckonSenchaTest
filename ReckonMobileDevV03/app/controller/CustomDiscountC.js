@@ -50,7 +50,7 @@ Ext.define('RM.controller.CustomDiscountC', {
             }
             else {
                 percDisc.setValue(null);
-                absDiscount.setValue(parseFloat(disc.replace('$', '')).toFixed(2));
+                absDiscount.setValue(RM.AppMgr.unformatCurrency(disc));
                 this.currentField = absDiscount;
             }
         }
@@ -103,7 +103,7 @@ Ext.define('RM.controller.CustomDiscountC', {
                 disc = disc + '%';            
             }
             else {
-                disc = '$' + Ext.Number.toFixed(parseFloat(this.getAbsoluteDiscount().getValue()), 2);
+                disc = RM.AppMgr.formatCurrency(this.getAbsoluteDiscount().getValue(), 2);
             }
             this.selectCb.call(this.selectCbs, disc);
             RM.ViewMgr.back();

@@ -255,7 +255,7 @@ Ext.define('RM.controller.ContactDetailC', {
         else{            
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
-            this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL ADDRESS</h3>');
+            this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
             this.getBranchName().setLabel('First name <span style="color: #F00">*</span>'); 
             console.log(this.getBranchName().getValue());
             this.getBranchName().showValidation(this.getBranchName().getValue()); 

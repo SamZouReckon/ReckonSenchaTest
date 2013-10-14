@@ -36,6 +36,7 @@ Ext.define('RM.core.PermissionsMgr', {
     },
     
     canAddEdit: function(permissionName){
+        if(permissionName == 'Items') return false; //removed ability to Add Items in release 1
         return this.canDo(permissionName, 'AddEdit');
     },
     

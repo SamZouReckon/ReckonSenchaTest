@@ -65,7 +65,7 @@ Ext.define('RM.controller.InvoiceBalanceBreakdownC', {
     },
 
     formatCurrency: function(val){
-        return  RM.AppMgr.formatCurrency(val);
+        return  RM.AppMgr.formatCurrency(val, 2);
     },
     
     back: function () {

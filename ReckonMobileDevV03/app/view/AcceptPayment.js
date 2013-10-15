@@ -1,6 +1,7 @@
 Ext.define('RM.view.AcceptPayment', {
     extend: 'Ext.Panel',
     xtype: 'acceptpayment',
+    requires: ['RM.component.RMAmountField2'],
     config: {
         
         style: 'background:#FFFFFF',
@@ -30,11 +31,12 @@ Ext.define('RM.view.AcceptPayment', {
 			padding: 0,
 			items: [
                 {
-					xtype: 'rmamountfield',
+					xtype: 'rmamountfield2',
 					name: 'AmountPaid',
 					label: 'Amount',
                     rmmandatory: true,
-					cls: 'rm-flatfield rm-cursor-blinkbg',				                
+                    labelWidth: 150,
+					cls: 'rm-flatfield',				                
 					clearIcon: false,
 					placeHolder: 'Enter',
                     decimalPlaces: 2,

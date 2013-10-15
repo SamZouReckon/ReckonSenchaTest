@@ -12,9 +12,12 @@ Ext.define('RM.controller.CustomDiscountC', {
             'customdiscount': {
                 show: 'onShow'
             },
-            'customdiscount exttextfield': {
+            /*'customdiscount exttextfield': {
                 tap: 'onFieldTap'
-            },
+            },*/
+            'customdiscount rmamountfield2': {
+                focus: 'onFieldFocus'
+            },            
             'customdiscount #back': {
                 tap: 'back'
             },
@@ -56,9 +59,15 @@ Ext.define('RM.controller.CustomDiscountC', {
         }
     },
 
-    onFieldTap: function (tf) {        
+    /*onFieldTap: function (tf) {        
         this.currentField = tf;
         this.clearFields();        
+    },*/
+    
+    onFieldFocus: function(tf){
+        console.log('focus');
+        this.currentField = tf;
+        this.clearFields();
     },
     
     clearFields: function(){

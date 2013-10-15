@@ -1,7 +1,9 @@
 Ext.define('RM.core.AppMgr', {
 
     singleton: true,  //or could create a globally shared instance the way that Ext.MessageBox does
-    requires: ['RM.view.TestScreen', 'RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr'],
+    requires: ['RM.view.TestScreen', 'RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 
+    'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 
+    'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr', 'RM.util.MathHelpers'],
 
     init: function (application) {
         this.application = application;        
@@ -342,10 +344,10 @@ Ext.define('RM.core.AppMgr', {
             this.baseApiUrl = 'http://mobile.reckoncloud.com.au/api';
         }
         else if(apiLocation == 'production'){
-            this.baseApiUrl = 'http://mobile.reckonone.com/api';            
+            this.baseApiUrl = 'https://mobile.reckonone.com/api';            
         }
         else if(apiLocation == 'preproduction'){
-            this.baseApiUrl = 'http://preprodmobile.reckonone.com/api';            
+            this.baseApiUrl = 'https://preprodmobile.reckonone.com/api';            
         }            
         else if(apiLocation == 'devserver'){
             this.baseApiUrl = 'http://r1mobiledev.reckon.com.au/api';            
@@ -626,14 +628,18 @@ Ext.define('RM.core.AppMgr', {
     formatCurrency: function(value, places, accountancyFormat){
         if (isNaN(value)){
             value = 0;
-        }           
-        value = value.toFixed(Ext.isEmpty(places) ? 2 : places);
+        }                   
         var negSign = (value < 0);
-        value = '$' + Math.abs(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var absValue = Math.abs(RM.util.MathHelpers.roundToEven(value, places));
+        value = '$' + absValue.toFixed(places).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         if(negSign && accountancyFormat){
             return '(' + value + ')';
         }        
         return (((negSign) ? '-' : '') + value);       
+    },
+    
+    unformatCurrency: function(value) {
+        return value.replace(/(\()?(-)?(\$)?(,)?(\))?/g, '');
     },
     
     /*saveSettings: function (settings, cb, cbs) {

@@ -72,12 +72,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
         this.noteText = '';
         this.dataLoaded = false;
-        
+                
         if (isCreate) {
+            var today = new Date();
+            today.setHours(0,0,0,0);
+        
             this.detailsData = Ext.applyIf(this.detailsData, { 
                 Status: RM.InvoicesMgr.getInitialInvoiceStatus(), 
                 AmountTaxStatus: RM.CashbookMgr.getTaxPreferences().SalesFigures, 
-                Date: new Date(), 
+                Date: today, 
                 Discount: 'None',
                 Amount: 0,
                 DiscountTotal: 0,

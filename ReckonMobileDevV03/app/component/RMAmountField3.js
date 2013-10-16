@@ -19,7 +19,7 @@ Ext.define('RM.component.RMAmountField3', {
         }        
 
         this.inputEl = this.element.down('input');
-        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field"></div>', true);
+        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field" style="position:absolute; top:0; background:white;"></div>', true);
         
 
         //create a shadow text input that can display whatever format we need and also works with previous / next on virtual keypad
@@ -60,7 +60,7 @@ Ext.define('RM.component.RMAmountField3', {
     
     showDisplayValue: function(){
         
-        this.inputEl.hide();
+        //this.inputEl.hide();
         var val = this.getValue();
         if(val){
             var displayVal = this.getPrefix() + RM.AppMgr.numberWithCommas(val.toFixed(2));

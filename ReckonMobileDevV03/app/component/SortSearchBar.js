@@ -42,7 +42,7 @@ Ext.define('RM.component.SortSearchBar', {
 				xtype: 'button',                
                 margin: 0,
 				ui: 'plain',				
-                icon: 'resources/images/icons/rm-search.png'				
+                icon: 'resources/images/icons/rm-search.svg'				
 			}
 		]);
 
@@ -69,15 +69,15 @@ Ext.define('RM.component.SortSearchBar', {
         
 		var sort = this.getComponent(0), search = this.getComponent(1), btn = this.getComponent(3);       
         search.setHidden(!search.isHidden());
-        if('resources/images/icons/rm-search.png' == btn.getIcon())
+        if('resources/images/icons/rm-search.svg' == btn.getIcon())
         {
-            btn.setIcon('resources/images/icons/rm-cross.png');
+            btn.setIcon('resources/images/icons/rm-cross.svg');
             search.focus();
         }
         else 
         {   if(search.getValue()!='')  this.fireEvent('searchclear');         
             search.reset();            
-            btn.setIcon('resources/images/icons/rm-search.png');
+            btn.setIcon('resources/images/icons/rm-search.svg');
         }
         if(this.config.sortfields!=null){
 		    sort.setHidden(!sort.isHidden());

@@ -14,7 +14,7 @@ Ext.define('RM.view.CustomerInvoices', {
         						itemId: 'back',
         						ui: 'rm_topbarbuttonleft',
         						width: '2.6em',
-        						icon: 'resources/images/icons/rm-back.png',
+        						icon: 'resources/images/icons/rm-back.svg',
                                 align: 'left'
                             },{
         						text: 'ADD',
@@ -42,7 +42,7 @@ Ext.define('RM.view.CustomerInvoices', {
                     ui: 'rm_topbarbuttonleft',
                     width: '2.6em',
                     docked: 'left',
-                    icon: 'resources/images/icons/rm-back.png'			
+                    icon: 'resources/images/icons/rm-back.svg'			
                 },{
                     text: 'ADD',
                     itemId: 'add',

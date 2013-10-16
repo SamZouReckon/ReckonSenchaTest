@@ -11,7 +11,7 @@ Ext.define('RM.view.AcceptPaymentType', {
             items: [{
                 itemId: 'back',
                 ui: 'rm_topbarbuttonleft',
-                icon: 'resources/images/icons/rm-back.png',
+                icon: 'resources/images/icons/rm-back.svg',
                 width: '2.6em',
                 iconMask: 'true'
             }, {
@@ -25,7 +25,7 @@ Ext.define('RM.view.AcceptPaymentType', {
 			xtype: 'button',
 			text: 'Credit',
 			cls: 'rm-arrowimgbtn rm-paymenttype-btn-bg',            
-            icon: 'resources/images/icons/rm-credit.png',
+            icon: 'resources/images/icons/rm-credit.svg',
             iconAlign: 'left',
             paymentType: RM.Consts.PaymentMethodTypes.CREDIT_CARD
 
@@ -33,14 +33,14 @@ Ext.define('RM.view.AcceptPaymentType', {
 			xtype: 'button',
 			text: 'Cash',
 			cls: 'rm-arrowimgbtn rm-paymenttype-btn-bg',			
-			icon: 'resources/images/icons/rm-cash.png',
+			icon: 'resources/images/icons/rm-cash.svg',
 			iconAlign: 'left',
 			paymentType: RM.Consts.PaymentMethodTypes.CASH
 		},{
 			xtype: 'button',
 			text: 'Cheque',
 			cls: 'rm-arrowimgbtn rm-paymenttype-btn-bg',			
-			icon: 'resources/images/icons/rm-cheque.png',
+			icon: 'resources/images/icons/rm-cheque.svg',
 			iconAlign: 'left',
 			paymentType: RM.Consts.PaymentMethodTypes.CHEQUE
 		}

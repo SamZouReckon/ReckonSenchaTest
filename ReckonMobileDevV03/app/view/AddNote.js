@@ -8,7 +8,7 @@ Ext.define('RM.view.AddNote', {
             docked: 'top',
             items: [{					
 					ui: 'rm_topbarbuttonleft',
-					icon: 'resources/images/icons/rm-back.png',
+					icon: 'resources/images/icons/rm-back.svg',
                     width: '2.6em',					
 					itemId: 'back'				
 				},{

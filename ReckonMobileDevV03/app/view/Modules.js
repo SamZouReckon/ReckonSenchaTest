@@ -18,7 +18,7 @@ Ext.define('RM.view.Modules', {
                     },{
                         xtype: 'spacer'
                     }, {
-                        icon: 'resources/images/icons/rm-settings.png',
+                        icon: 'resources/images/icons/rm-settings.svg',
                         itemId: 'options',
                         ui: 'rm_maintopbarbuttonright'
                     }
@@ -43,7 +43,7 @@ Ext.define('RM.view.Modules', {
                    '<tpl if="Activated == false">'+
                         'off'+                                            
                     '</tpl>'+
-                    '.png">'+
+                    '.svg">'+
                     '<div style= "color: #969696;">{ShortName}</div></div>'
                 ),	         
                 

@@ -5364,9 +5364,7 @@ body.x-desktop {
 .x-picker .x-toolbar .x-button > * {
   overflow: visible; }
 .x-picker .x-toolbar .x-button .x-button-icon {
-  -webkit-mask-size: 1.4em;
-  width: 1.4em;
-  height: 1.4em; }
+  background-size: 18px 18px; }
 .x-picker .x-toolbar .x-button.x-button-pressing, .x-picker .x-toolbar .x-button.x-button-pressed {
   background: none; }
 .x-picker .x-toolbar .x-button.x-button-pressing .x-button-icon.x-button-mask, .x-picker .x-toolbar .x-button.x-button-pressed .x-button-icon.x-button-mask {
@@ -5395,13 +5393,12 @@ body.x-desktop {
   border-radius: 0;
   background: url(../images/rm-topbar-border.png) repeat-y right top;
   margin-left: -5px;
-  margin-right: 5px; }
+  margin-right: 5px;
+  padding-left: 7px; }
 .x-button.x-button-rm_topbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_topbarbuttonleft > * {
   overflow: visible; }
 .x-button.x-button-rm_topbarbuttonleft .x-button-icon, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-icon {
-  -webkit-mask-size: 1.4em;
-  width: 1.4em;
-  height: 1.4em; }
+  background-size: 18px 18px; }
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
@@ -5427,9 +5424,7 @@ body.x-desktop {
 .x-button.x-button-rm_topbarbuttonright > *, .x-toolbar .x-button.x-button-rm_topbarbuttonright > * {
   overflow: visible; }
 .x-button.x-button-rm_topbarbuttonright .x-button-icon, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-icon {
-  -webkit-mask-size: 1.4em;
-  width: 1.4em;
-  height: 1.4em; }
+  background-size: 18px 18px; }
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing, .x-button.x-button-rm_topbarbuttonright.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
@@ -5454,9 +5449,7 @@ body.x-desktop {
 .x-button.x-button-rm_maintopbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft > * {
   overflow: visible; }
 .x-button.x-button-rm_maintopbarbuttonleft .x-button-icon, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-icon {
-  -webkit-mask-size: 1.4em;
-  width: 1.4em;
-  height: 1.4em; }
+  background-size: 18px 18px; }
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
@@ -5482,9 +5475,7 @@ body.x-desktop {
 .x-button.x-button-rm_maintopbarbuttonright > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright > * {
   overflow: visible; }
 .x-button.x-button-rm_maintopbarbuttonright .x-button-icon, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-icon {
-  -webkit-mask-size: 1.4em;
-  width: 1.4em;
-  height: 1.4em; }
+  background-size: 18px 18px; }
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
@@ -5679,9 +5670,7 @@ body.x-desktop {
 .x-toolbar .x-button.x-button-rm_dropdownbtn > * {
   overflow: visible; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn .x-button-icon {
-  -webkit-mask-size: 1.4em;
-  width: 1.4em;
-  height: 1.4em; }
+  background-size: 18px 18px; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressing, .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressed {
   background: none; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressed .x-button-icon.x-button-mask {

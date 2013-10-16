@@ -10,7 +10,7 @@ Ext.define('RM.view.CustomDiscount', {
             docked: 'top',
             items: [{					
 					ui: 'rm_topbarbuttonleft',
-					icon: 'resources/images/icons/rm-back.png',					
+					icon: 'resources/images/icons/rm-back.svg',					
 					itemId: 'back',
 					width: '2.6em'
 				},{

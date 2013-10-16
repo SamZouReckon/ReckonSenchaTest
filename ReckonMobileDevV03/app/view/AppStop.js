@@ -22,7 +22,7 @@ Ext.define('RM.view.AppStop', {
                 items:[                    
                     {
                         xtype: 'img',
-                        src: 'resources/images/icons/rm-update-icon.png',
+                        src: 'resources/images/icons/rm-update-icon.svg',
                         height: 40,
                         width: 40,
                         margin: '25px auto'                        

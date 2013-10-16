@@ -66,9 +66,10 @@ $include-list-highlights: none;
     }
 
     .x-button-icon {
-      -webkit-mask-size: $toolbar-icon-size;
-      width: $toolbar-icon-size;
-      height: $toolbar-icon-size;
+      //-webkit-mask-size: $toolbar-icon-size;
+      //width: $toolbar-icon-size;
+      //height: $toolbar-icon-size;
+      background-size: 18px 18px;
     }
 
     &.x-button-pressing, &.x-button-pressed {
@@ -264,7 +265,7 @@ $include-list-highlights: none;
     background: url(../images/rm-topbar-border.png) repeat-y right top;
 	margin-left: -5px;
     margin-right: 5px;
-    
+    padding-left: 7px;
     .x-button-label{
         font-size: 85%;
         font-weight: bold;

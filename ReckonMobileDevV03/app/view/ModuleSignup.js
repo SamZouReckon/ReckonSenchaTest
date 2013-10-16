@@ -10,7 +10,7 @@ Ext.define('RM.view.ModuleSignup', {
 				items: [
 					{
 						ui: 'rm_maintopbarbuttonleft',
-						icon: 'resources/images/icons/rm-back.png',
+						icon: 'resources/images/icons/rm-back.svg',
 						width: '2.6em',						
 						itemId: 'back'
 					},{

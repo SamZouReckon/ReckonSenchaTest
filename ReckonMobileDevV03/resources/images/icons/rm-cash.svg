@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
+<svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="100.643px" height="67.665px" viewBox="0 0 100.643 67.665" xml:space="preserve">
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="50.3213" y1="1.5" x2="50.3213" y2="66.165">
+		<stop  offset="0" style="stop-color:#DDE2D0"/>
+		<stop  offset="1" style="stop-color:#CBDABD"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M99.143,63.33c0,1.56-1.275,2.835-2.834,2.835H4.334c-1.559,0-2.834-1.275-2.834-2.835V4.335
+		C1.5,2.775,2.775,1.5,4.334,1.5h91.975c1.559,0,2.834,1.275,2.834,2.835V63.33z"/>
+	<path fill="none" stroke="#7A9A62" stroke-width="3" stroke-miterlimit="10" d="M99.143,63.33c0,1.56-1.275,2.835-2.834,2.835
+		H4.334c-1.559,0-2.834-1.275-2.834-2.835V4.335C1.5,2.775,2.775,1.5,4.334,1.5h91.975c1.559,0,2.834,1.275,2.834,2.835V63.33z"/>
+</g>
+<ellipse fill="#96AE80" cx="51.727" cy="34.115" rx="18.463" ry="23.622"/>
+<circle fill="#B4C4A2" cx="19.115" cy="34.114" r="7.532"/>
+<rect x="75.057" y="30.734" fill="none" width="24.086" height="18.78"/>
+<text transform="matrix(1 0 0 1 75.0571 36.4141)" fill="#7A9A62" font-family="'Gotham-Medium'" font-size="8">100</text>
+<g>
+	<path fill="#B5C7A2" d="M58.744,27.753c-1.635-1.334-3.268-2.137-5.039-2.402v8.241c5.071,1.133,7.208,3.069,7.208,6.475
+		c0,3.604-2.936,6.036-7.107,6.304v3.271h-2.135v-3.338c-2.97-0.266-5.539-1.435-7.874-3.436l1.501-2.002
+		c2.004,1.801,3.971,2.902,6.473,3.201v-8.372c-4.938-1.168-7.107-2.97-7.107-6.474v-0.033c0-3.438,2.905-5.972,7.008-6.173V21.08
+		h2.135v2.001c2.502,0.269,4.405,1.169,6.374,2.668L58.744,27.753z M51.771,33.124v-7.875c-2.834,0.135-4.538,1.737-4.538,3.771
+		C47.233,30.924,48.102,32.157,51.771,33.124z M53.705,36.127v8.042c2.872-0.166,4.639-1.735,4.639-3.905v-0.031
+		C58.344,38.264,57.377,37.096,53.705,36.127z"/>
+</g>
+</svg>

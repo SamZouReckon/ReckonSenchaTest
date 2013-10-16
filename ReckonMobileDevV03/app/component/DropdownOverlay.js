@@ -7,7 +7,7 @@ Ext.define('RM.component.DropdownOverlay', {
 		
 		if (!this.overlay) {
             this.menuBtn = menuBtn;
-            menuBtn.setStyle('background-color: black; background-image: url(resources/images/rm-maintopbar-border.png) repeat-y left top;');
+            menuBtn.setStyle('background-color: black; background-image: url(resources/images/rm-maintopbar-border.svg) repeat-y left top;');
 			Ext.Viewport.on('resize', 'alignMenu', this);
 			this.overlay = Ext.Viewport.add({
 				xtype: 'container',				
@@ -39,7 +39,7 @@ Ext.define('RM.component.DropdownOverlay', {
                         Ext.Viewport.un('resize', 'alignMenu', this);
                     },
                     hide: function(){
-                        menuBtn.setStyle('background: url(resources/images/rm-maintopbar-border.png) repeat-y left top;');
+                        menuBtn.setStyle('background: url(resources/images/rm-maintopbar-border.svg) repeat-y left top;');
                         RM.ViewMgr.deRegBackHandler();
                     },
                     scope: this                    

@@ -12,7 +12,7 @@ Ext.define('RM.view.ItemDetail', {
 					itemId: 'back',
 					ui: 'rm_topbarbuttonleft',
                     width: '2.6em',
-					icon: 'resources/images/icons/rm-back.png'					
+					icon: 'resources/images/icons/rm-back.svg'					
 				},{
 					xtype: 'component',
 					html: 'Item details',

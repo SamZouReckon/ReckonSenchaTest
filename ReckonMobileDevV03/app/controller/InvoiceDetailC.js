@@ -72,12 +72,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
         this.noteText = '';
         this.dataLoaded = false;
-        
+                
         if (isCreate) {
+            var today = new Date();
+            today.setHours(0,0,0,0);
+        
             this.detailsData = Ext.applyIf(this.detailsData, { 
                 Status: RM.InvoicesMgr.getInitialInvoiceStatus(), 
                 AmountTaxStatus: RM.CashbookMgr.getTaxPreferences().SalesFigures, 
-                Date: new Date(), 
+                Date: today, 
                 Discount: 'None',
                 Amount: 0,
                 DiscountTotal: 0,
@@ -192,7 +195,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 }
 			    data.Date = new Date(data.Date);
 			    data.Discount = (data.DiscountPerc && data.DiscountPerc != 0) ? data.DiscountPerc + '%' : 'None';
-			    data.Discount = (data.DiscountAmount && data.DiscountAmount != 0) ? '$' + Ext.Number.toFixed(data.DiscountAmount, 2) : data.Discount;			    
+			    data.Discount = (data.DiscountAmount && data.DiscountAmount != 0) ? RM.AppMgr.formatCurrency(data.DiscountAmount, 2) : data.Discount;			    
                 this.noteText = data.Notes; //Enables preserving of new lines when going from textfield to textarea
                 
                 data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : ''; //ensures new lines will be shown as spaces as Notes on form is previewed in one line. newlines entered in mobile seem to use \n where as entered in web app seem to use \r
@@ -375,6 +378,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 UnitPriceExTax: item.UnitPriceExTax, 
                 DiscountAmount: item.DiscountAmount,
                 DiscountAmountExTax: item.DiscountAmountExTax,
+                DiscountAmountTax: item.DiscountAmountTax,
                 DiscountPercentage: item.DiscountPercentage,
                 TaxGroupID: item.TaxGroupId, 
                 Tax: item.Tax, 

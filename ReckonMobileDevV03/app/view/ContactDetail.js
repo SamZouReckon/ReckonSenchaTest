@@ -113,7 +113,7 @@ Ext.define('RM.view.ContactDetail', {
                             cls: 'x-form-label',
                             style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
                         },{
-                            xtype: 'rmphonefield3',                             
+                            xtype: 'rmphonefield2',                             
                             cls: 'rm-flatfield',                             
                             name: 'PhoneAreaCode',						    
                             placeHolder: 'area code',                            
@@ -123,7 +123,7 @@ Ext.define('RM.view.ContactDetail', {
                             style: 'border-color: #DBDBDB; border-style: solid;'
                         },
                         {
-                            xtype: 'rmphonefield3', 
+                            xtype: 'rmphonefield2', 
                             cls: 'rm-flatfield', 
                             placeHolder: 'enter',
                             name: 'Phone',
@@ -143,7 +143,7 @@ Ext.define('RM.view.ContactDetail', {
                             cls: 'x-form-label',  
                             style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
                         },{
-                            xtype: 'rmphonefield3',                             
+                            xtype: 'rmphonefield2',                             
                             cls: 'rm-flatfield',                             
                             name: 'FaxAreaCode',						    
                             placeHolder: 'area code',
@@ -153,7 +153,7 @@ Ext.define('RM.view.ContactDetail', {
                             style: 'border-color: #DBDBDB; border-style: solid;'
                         },
                         {
-                            xtype: 'rmphonefield3', 
+                            xtype: 'rmphonefield2', 
                             cls: 'rm-flatfield', 
                             placeHolder: 'enter',
                             name: 'Fax',

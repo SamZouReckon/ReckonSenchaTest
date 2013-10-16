@@ -1,6 +1,6 @@
 Ext.define('RM.view.TestScreen', {
 	extend: 'Ext.Panel',
-    requires: ['RM.component.RMAmountField3','RM.component.RMPhoneField3'],
+    requires: ['RM.component.RMAmountField2','RM.component.RMAmountField3','RM.component.RMPhoneField2','RM.component.RMPhoneField3'],
 	xtype: 'testscreen',
     
 	config: {		
@@ -44,7 +44,7 @@ Ext.define('RM.view.TestScreen', {
                      name: 'Test3'
                  
                  },{
-                     xtype:'rmamountfield3',
+                     xtype:'rmamountfield2',
                      label: 'Quantity',
                      name: 'Quantity',
                      labelWidth: 120,
@@ -53,13 +53,14 @@ Ext.define('RM.view.TestScreen', {
                      prefix: '',
                      listeners: {
                          change: function(fld, newValue, oldValue){
-                             console.log('rmamountfield change newValue=' + newValue + ', oldValue=' + oldValue);                             
+                             console.log('rmamountfield2 change newValue=' + newValue + ', oldValue=' + oldValue);                             
                          }
                          
                      }
-                 },{
-                     xtype:'rmamountfield3',
+                 },/*{
+                     xtype:'rmamountfield2',
                      label: 'Item Price',
+                     clearIcon: true,
                      name: 'ItemPrice',
                      labelWidth: 120,
                      placeHolder: 'enter',
@@ -69,17 +70,17 @@ Ext.define('RM.view.TestScreen', {
                      prefix: '$',
                      listeners: {
                          change: function(fld, newValue, oldValue){
-                             console.log('rmamountfield change newValue=' + newValue + ', oldValue=' + oldValue);                             
+                             console.log('rmamountfield2 change newValue=' + newValue + ', oldValue=' + oldValue);                             
                          }
                          
                      }
-                 },{
+                 },*/{
                      xtype:'textfield',
                      label: 'Test5',
                      name: 'Test5'
                  
                  },{
-                     xtype:'rmphonefield3',
+                     xtype:'rmphonefield2',
                      label: 'Bus Phone',
                      labelWidth: 120,
                      //value: '09272387878',

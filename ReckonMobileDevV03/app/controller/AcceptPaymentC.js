@@ -6,7 +6,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
         refs: {
             acceptPayment: 'acceptpayment',
             acceptPaymentForm: 'acceptpayment formpanel',
-            amountPaid: 'acceptpayment exttextfield[name=AmountPaid]',
+            amountPaid: 'acceptpayment textfield[name=AmountPaid]',
             bankAccount: 'acceptpayment extselectfield[name=BankAccountID]',
             paymentMethod: 'acceptpayment extselectfield[name=PaymentMethodID]',
             acceptPaymentMsg: 'acceptpaymentmsg',
@@ -128,6 +128,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     
     onPay: function(){
         var vals = this.getAcceptPaymentForm().getValues();
+                
         vals.InvoiceID = this.invoiceId;
         vals.AccountsReceivableCategoryID = this.accountsReceivableCategoryID;
         vals.CustomerSupplierID = this.customerId;

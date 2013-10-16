@@ -142,7 +142,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
          */
         me.slideButtonDefaults = {
             xtype: 'button',            
-            icon: 'resources/images/icons/rm-menu.png',							//Raj: menu icon
+            icon: 'resources/images/icons/rm-menu.svg',							//Raj: menu icon
 			ui: 'rm_topbarbuttonleft',					//Raj: for flat look button
             width: '2.6em',
             name: 'slidebutton',

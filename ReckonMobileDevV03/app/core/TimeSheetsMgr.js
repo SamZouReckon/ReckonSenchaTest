@@ -8,6 +8,7 @@ Ext.define('RM.core.TimeSheetsMgr', {
         
     },
 	
+    
 	showTimeSheetDetail: function(data, cb, cbs){
 		var timeSheetDetailC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetDetailC');
 		timeSheetDetailC.showView(data, cb, cbs);

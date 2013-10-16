@@ -77,7 +77,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         labelWidth: 135,
     					cls: 'rm-flatfield rm-cursor-blinkbg',
     					placeHolder: 'enter',
-                        decimalPlaces: 2,
+                        decimalPlaces: 8,
                         prefix: '$'
 
     				},{

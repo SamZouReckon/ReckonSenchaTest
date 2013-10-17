@@ -448,7 +448,7 @@ Ext.define('RM.core.AppMgr', {
         var iconPath = 'resources/images/rm-loading-img.gif';
         
         if(icon && icon !=''){
-            iconPath = 'resources/images/rm-msgbox-'+icon+'.png';            
+            iconPath = 'resources/images/rm-msgbox-'+icon+'.svg';            
         }
         
         var msgBox = Ext.create('RM.component.RMMsgPopup');
@@ -456,7 +456,7 @@ Ext.define('RM.core.AppMgr', {
                     xtype: 'image',
                     src: iconPath,
                     height: 50,
-                    width: 250,
+                    width: 255,
                     margin: '25 0 5 0'               
                 }
         );
@@ -496,10 +496,10 @@ Ext.define('RM.core.AppMgr', {
     
     showRMMsgPopup: function(msgText, icon, btnArray, cb, cbs){
         
-        var iconPath = 'resources/images/rm-msgbox-warning.png';
+        var iconPath = 'resources/images/rm-msgbox-warning.svg';
         
         if(icon && icon !=''){
-            iconPath = 'resources/images/rm-msgbox-'+icon+'.png';            
+            iconPath = 'resources/images/rm-msgbox-'+icon+'.svg';            
         }
         
         var msgBox = Ext.create('RM.component.RMMsgPopup');
@@ -507,7 +507,7 @@ Ext.define('RM.core.AppMgr', {
                     xtype: 'image',
                     src: iconPath,
                     height: 55,
-                    width: 60,
+                    width: 65,
                     margin: '25 0 12 0'               
                 }
         );

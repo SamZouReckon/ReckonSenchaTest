@@ -16,6 +16,7 @@ Ext.define('RM.view.History', {
                 
                 ui: 'rm_topbarbuttonleft',
                 icon: 'resources/images/icons/rm-back.svg',
+                iconCls: 'rm-backbtniconcls',
                 width: '2.6em',                
                 itemId: 'back'
             }, {
@@ -30,6 +31,7 @@ Ext.define('RM.view.History', {
             itemId: 'addnote',
             cls: 'rm-actionbtn rm-arrowimgbtn',
             icon: 'resources/images/icons/rm-addnote.svg',
+            iconCls: 'rm-btniconsize',
             iconAlign: 'left',
             permissionFor: 'Invoices'
 

@@ -17,8 +17,9 @@ Ext.define('RM.view.EmailInvoice', {
 						items: [
 							{								
 								ui: 'rm_topbarbuttonleft',
-								icon: 'resources/images/icons/rm-back.svg',								
-								width: '2.6em',
+								icon: 'resources/images/icons/rm-back.svg',                                
+								iconCls: 'rm-backbtniconcls',
+                                width: '2.6em',
 								itemId: 'back'				
 							},{
 								xtype: 'component',
@@ -55,7 +56,7 @@ Ext.define('RM.view.EmailInvoice', {
                                 rmmandatory: true
 							},{
 								xtype: 'selectfield',
-								label: '<img src="resources/images/icons/rm-attach.png" style="margin-right: 10px">Invoice Template',
+								label: '<img src="resources/images/icons/rm-attach.svg" style="margin-right: 10px; width: 18px; height: 18px;">Invoice Template',
                                 labelWidth: '10em',
 								usePicker: true,
 								name: 'InvoiceTemplateID',

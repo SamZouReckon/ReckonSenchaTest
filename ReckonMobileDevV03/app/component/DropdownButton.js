@@ -17,7 +17,7 @@ Ext.define('RM.component.DropdownButton', {
 			return;
 		}
         this.setItemId(options[0].value);
-        this.setText(options[0].text + '<span> <img src="resources/images/icons/rm-dropdown.svg" style="margin-left: 5px; margin-bottom: 2px; width: 7px; height: 7px;"></span>');        
+        this.setText(options[0].text + '<span> <img src="resources/images/icons/rm-dropdown.svg" style="margin-left: 5px; margin-bottom: 2px; width: 7px; height: 6px;"></span>');        
         this.setCls('rm-dropdownbtn');		
         this.setUi('rm_dropdownbtn');
 	},
@@ -53,7 +53,7 @@ Ext.define('RM.component.DropdownButton', {
 						var option = options[i];
 						if(itemId==option.value) {
                             this.setItemId(option.value);
-						    this.setText(option.text + '<span> <img src="resources/images/icons/rm-dropdown.svg" style="margin-left: 5px; margin-bottom: 2px; width: 7px; height: 7px;"></span>');
+						    this.setText(option.text + '<span> <img src="resources/images/icons/rm-dropdown.svg" style="margin-left: 5px; margin-bottom: 2px; width: 7px; height: 6px;"></span>');
 							break;
 						}
 				}

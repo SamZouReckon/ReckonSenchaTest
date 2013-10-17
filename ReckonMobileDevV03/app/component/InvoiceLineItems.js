@@ -129,7 +129,8 @@ Ext.define('RM.component.InvoiceLineItems', {
 							icon: 'resources/images/rm-lineitemcross.svg',
 							height: 30,
 							padding: 0,
-							margin: '-4 0 0 2'
+                            iconCls: 'rm-lineitemcrossbg',
+							margin: '-7 0 0 2'
 						},{
 							xtype: 'component',                        
 							cls:'rm-invoiceitemamount', 

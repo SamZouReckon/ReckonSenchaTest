@@ -10,7 +10,7 @@ Ext.define('RM.view.settings.MyPreferences', {
 				items: [
 					{
 						ui: 'rm_maintopbarbuttonleft',
-						iconCls: 'rm-back',
+						iconCls: 'rm-backbtniconcls',
                         width: '2.6em',
 						icon: 'resources/images/icons/rm-back.svg',
 						itemId: 'back'

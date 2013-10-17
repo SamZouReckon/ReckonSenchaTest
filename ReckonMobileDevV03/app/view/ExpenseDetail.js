@@ -15,7 +15,8 @@ Ext.define('RM.view.ExpenseDetail', {
 						itemId: 'back',
 						ui: 'rm_topbarbuttonleft',
 						icon: 'resources/images/icons/rm-back.svg',
-                        width: '2.6em',
+                        iconCls: 'rm-backbtniconcls',
+                        width: '2.6em'
 						
 					},{
 						xtype: 'component',
@@ -41,6 +42,7 @@ Ext.define('RM.view.ExpenseDetail', {
 						text: 'Photograph the receipt',
 						cls: 'rm-actionbtn rm-arrowimgbtn',						
 						icon: 'resources/images/icons/rm-photo.svg',
+                        iconCls: 'rm-btniconsize',
 						iconAlign: 'left',
 						itemId: 'photo'
 					},{

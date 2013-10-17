@@ -4935,10 +4935,12 @@ body.x-desktop {
   height: 46px;
   text-transform: capitalize; }
 .touch-calendar-view thead tr#touchcalendernav th:nth-child(1) {
-  background: url(../images/larr.png) center center no-repeat;
+  background: url(../images/larr.svg) center center no-repeat;
+  background-size: 8px;
   cursor: pointer; }
 .touch-calendar-view thead tr#touchcalendernav th:nth-child(5) {
-  background: url(../images/rarr.png) center center no-repeat;
+  background: url(../images/rarr.svg) center center no-repeat;
+  background-size: 8px;
   cursor: pointer; }
 .touch-calendar-view thead tr#touchcalendernav th span {
   font-size: 18px;
@@ -4955,7 +4957,7 @@ body.x-desktop {
   height: 8px; }
 
 .topTip {
-  background-image: url("../images/rm-swipebar.png");
+  background-image: url("../images/rm-swipebar.svg");
   background-position: center 2px;
   background-repeat: repeat-y;
   height: 10px;
@@ -4991,11 +4993,11 @@ body.x-desktop {
   margin-bottom: 10px; }
 
 .rm-greendot {
-  background-image: url("../images/greenDot.png");
+  background-image: url("../images/greenDot.svg");
   padding-left: 18px; }
 
 .rm-reddoticon, .rm-reddotright {
-  background-image: url("../images/redDot.png"); }
+  background-image: url("../images/redDot.svg"); }
 
 .rm-plusicon, .rm-minusicon, .rm-greendot, .rm-reddoticon {
   background-position: left center;
@@ -5157,10 +5159,11 @@ body.x-desktop {
   color: #969696; }
 
 .rm-budgetoverviewarrow {
-  background-image: url("../images/icons/rm-listitem-arrow.png");
+  background-image: url("../images/icons/rm-listitem-arrow.svg");
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: 65%;
+  background-size: 10px 20px;
   margin-right: 15px; }
 
 /*@include sencha-panel;
@@ -5364,7 +5367,7 @@ body.x-desktop {
 .x-picker .x-toolbar .x-button > * {
   overflow: visible; }
 .x-picker .x-toolbar .x-button .x-button-icon {
-  background-size: 18px 18px; }
+  background-size: 16px; }
 .x-picker .x-toolbar .x-button.x-button-pressing, .x-picker .x-toolbar .x-button.x-button-pressed {
   background: none; }
 .x-picker .x-toolbar .x-button.x-button-pressing .x-button-icon.x-button-mask, .x-picker .x-toolbar .x-button.x-button-pressed .x-button-icon.x-button-mask {
@@ -5391,14 +5394,14 @@ body.x-desktop {
   height: 2.6em;
   margin: 0;
   border-radius: 0;
-  background: url(../images/rm-topbar-border.png) repeat-y right top;
+  background: url(../images/rm-topbar-border.svg) repeat-y right top;
   margin-left: -5px;
   margin-right: 5px;
   padding-left: 7px; }
 .x-button.x-button-rm_topbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_topbarbuttonleft > * {
   overflow: visible; }
 .x-button.x-button-rm_topbarbuttonleft .x-button-icon, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-icon {
-  background-size: 18px 18px; }
+  background-size: 16px; }
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
@@ -5417,14 +5420,14 @@ body.x-desktop {
   height: 2.6em;
   margin: 0;
   border-radius: 0;
-  background: url(../images/rm-topbar-border.png) repeat-y left top;
+  background: url(../images/rm-topbar-border.svg) repeat-y left top;
   margin-left: 5px;
   margin-right: -5px;
   width: 3.4em; }
 .x-button.x-button-rm_topbarbuttonright > *, .x-toolbar .x-button.x-button-rm_topbarbuttonright > * {
   overflow: visible; }
 .x-button.x-button-rm_topbarbuttonright .x-button-icon, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-icon {
-  background-size: 18px 18px; }
+  background-size: 16px; }
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing, .x-button.x-button-rm_topbarbuttonright.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
@@ -5443,13 +5446,13 @@ body.x-desktop {
   height: 2.6em;
   margin: 0;
   border-radius: 0;
-  background: url(../images/rm-maintopbar-border.png) repeat-y right top;
+  background: url(../images/rm-maintopbar-border.svg) repeat-y right top;
   margin-left: -5px;
   margin-right: 5px; }
 .x-button.x-button-rm_maintopbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft > * {
   overflow: visible; }
 .x-button.x-button-rm_maintopbarbuttonleft .x-button-icon, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-icon {
-  background-size: 18px 18px; }
+  background-size: 16px; }
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
@@ -5468,14 +5471,14 @@ body.x-desktop {
   height: 2.6em;
   margin: 0;
   border-radius: 0;
-  background: url(../images/rm-maintopbar-border.png) repeat-y left top;
+  background: url(../images/rm-maintopbar-border.svg) repeat-y left top;
   margin-left: 5px;
   margin-right: -5px;
   width: 3.4em; }
 .x-button.x-button-rm_maintopbarbuttonright > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright > * {
   overflow: visible; }
 .x-button.x-button-rm_maintopbarbuttonright .x-button-icon, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-icon {
-  background-size: 18px 18px; }
+  background-size: 16px; }
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
@@ -5498,7 +5501,7 @@ body.x-desktop {
 .rm-emailpasswordfield.x-field {
   background: white;
   border-top: 1px solid #dbdbdb;
-  background-image: url("../images/icons/rm-email.png") !important;
+  background-image: url("../images/icons/rm-email.svg") !important;
   background-repeat: no-repeat;
   background-position-x: 5%;
   background-position-y: 50%; }
@@ -5567,10 +5570,11 @@ body.x-desktop {
     @include rm_flatfield("../images/icons/rm-description.png");
 }*/
 .rm-arrowimgbtn {
-  background-image: url("../images/icons/rm-btn-arrow.png") !important;
+  background-image: url("../images/icons/rm-btn-arrow.svg") !important;
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 50%;
+  background-size: 10px 20px;
   background-color: #EBEBEB;
   color: #646464;
   padding: 5px;
@@ -5617,7 +5621,7 @@ body.x-desktop {
 .rm-dropdown .x-button-rm_btnaslistrow {
   border-radius: 0;
   border: none;
-  background: url(../images/rm-menuitem-topborder.png) repeat-x left top; }
+  background: url(../images/rm-menuitem-topborder.svg) repeat-x left top; }
 .rm-dropdown .x-button-label, .rm-dropdown .x-badge {
   text-overflow: ellipsis;
   text-align: left;
@@ -5637,7 +5641,7 @@ body.x-desktop {
 .rm-dropdownmain .x-button-rm_btnaslistrow {
   border-radius: 0;
   border: none;
-  background: url(../images/rm-menuitem-topborder.png) repeat-x left top; }
+  background: url(../images/rm-menuitem-topborder.svg) repeat-x left top; }
 .rm-dropdownmain .x-button-label, .rm-dropdownmain .x-badge {
   text-overflow: ellipsis;
   text-align: right;
@@ -5670,7 +5674,7 @@ body.x-desktop {
 .x-toolbar .x-button.x-button-rm_dropdownbtn > * {
   overflow: visible; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn .x-button-icon {
-  background-size: 18px 18px; }
+  background-size: 16px; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressing, .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressed {
   background: none; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressed .x-button-icon.x-button-mask {
@@ -5729,10 +5733,11 @@ body.x-desktop {
   border-radius: 0;
   border: 0;
   margin: 0;
-  background-image: url("../images/icons/btn_arrow.png"), url(../images/rm-menuitem-topborder.png);
+  background-image: url("../images/icons/rm-btn-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
   background-repeat: no-repeat, repeat-x;
   background-position-x: 96%,0%;
   background-position-y: 50%,0%;
+  background-size: 10px 20px, 2px;
   height: 2.6em; }
 .rm-swipecontainer .x-button-label, .rm-swipecontainer .x-badge {
   text-overflow: ellipsis;
@@ -5757,9 +5762,10 @@ body.x-desktop {
   font-size: 100%; }
 
 .rm-flatkeypad-crossbtn {
-  background-image: url("../images/icons/rm-keypad-cross.png");
+  background-image: url("../images/icons/rm-keypad-cross.svg");
   background-repeat: no-repeat;
-  background-position: center; }
+  background-position: center;
+  background-size: 28px; }
 
 .rm-flatbuttonwitharrow {
   border-radius: 0;
@@ -5845,10 +5851,11 @@ body.x-desktop {
   border-radius: 0;
   border: 0;
   margin: 0;
-  background-image: url("../images/icons/btn_arrow.png"), url(../images/rm-menuitem-topborder.png);
+  background-image: url("../images/icons/rm-btn-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
   background-repeat: no-repeat, repeat-x;
   background-position-x: 95%,0%;
   background-position-y: 50%,0%;
+  background-size: 10px 20px, 2px;
   height: 2.6em; }
 .rm-popup .x-button-rm_btnaslistrow .x-button-label, .rm-popup .x-button-rm_btnaslistrow .x-badge {
   text-overflow: ellipsis;
@@ -5863,7 +5870,8 @@ body.x-desktop {
   width: 31px;
   height: 31px;
   border: 0;
-  background: url("../images/icons/rm-popupcross.png") no-repeat;
+  background: url("../images/icons/rm-popupcross.svg") no-repeat;
+  background-size: 31px;
   top: -14px;
   right: -14px; }
 .rm-popup .x-component-outer {
@@ -5874,7 +5882,7 @@ body.x-desktop {
   color: #FFFFFF;
   border: 0;
   border-radius: 0;
-  background-image: url(../images/rm-menuitem-topborder.png);
+  background-image: url(../images/rm-menuitem-topborder.svg);
   background-repeat: repeat-x;
   background-position: top left; }
 .rm-popup .x-field-radio .x-input-el {
@@ -5883,7 +5891,7 @@ body.x-desktop {
   		color: #4F4F4F;
   		border:0;
   		border-radius:0;
-          background-image: url(../images/rm-menuitem-topborder.png);
+          background-image: url(../images/rm-menuitem-topborder.svg);
           background-repeat:repeat-x;
           background-position:top left;*/ }
 .rm-popup .x-field-radio .x-input-el:checked:before {
@@ -5977,7 +5985,8 @@ body.x-desktop {
   padding-right: 20px; }
 
 .rm-nextgrayarrow {
-  background-image: url("../images/icons/rm-listitem-arrow.png"); }
+  background-image: url("../images/icons/rm-listitem-arrow.svg");
+  background-size: 10px 20px; }
 
 .rm-bill-listcls .rm-booknametext {
   color: #969696;
@@ -5985,7 +5994,7 @@ body.x-desktop {
   font-weight: normal; }
 
 .rm-reddoticon, .rm-reddotright {
-  background-image: url("../images/redDot.png");
+  background-image: url("../images/redDot.svg");
   padding-left: 18px; }
 
 .rm-plusicon {
@@ -6099,10 +6108,10 @@ body.x-desktop {
   font-size: 86%; }
 
 .rm-checkbox-on {
-  background-image: url("../images/icons/checkbox-on.png"); }
+  background-image: url("../images/icons/checkbox-on.svg"); }
 
 .rm-checkbox-off {
-  background-image: url("../images/icons/checkbox-off.png"); }
+  background-image: url("../images/icons/checkbox-off.svg"); }
 
 .rm-checkbox {
   background-position: center;
@@ -6176,9 +6185,10 @@ body.x-desktop {
   font-weight: normal; }
 
 .rm-note-icon {
-  background-image: url("../images/icons/rm-note.png");
+  background-image: url("../images/icons/rm-note.svg");
   background-position: center;
   background-repeat: no-repeat;
+  background-size: 16px;
   width: 22px;
   height: 26px;
   margin-right: 2px; }
@@ -6214,10 +6224,11 @@ rm-emailinvoicebackground {
   background: #F8F8F8; }
 
 .rm-emailscreenbtn {
-  background-image: url("../images/icons/rm-btn-arrow.png") !important;
+  background-image: url("../images/icons/rm-btn-arrow.svg") !important;
   background-repeat: no-repeat;
   background-position-x: 75%;
   background-position-y: 50%;
+  background-size: 10px 20px;
   background-color: #EBEBEB;
   padding: 0.3em;
   border-radius: 0;
@@ -6234,7 +6245,7 @@ rm-emailinvoicebackground {
   color: #646464; }
 
 .rm-emailcheckmark {
-  background-image: url("../images/icons/rm-emailtickmark.png") !important;
+  background-image: url("../images/icons/rm-emailtickmark.svg") !important;
   background-repeat: no-repeat;
   background-color: #A1CF79;
   margin: 3px 10px 3px 10px; }
@@ -6246,7 +6257,7 @@ rm-emailinvoicebackground {
   color: #FFFFFF; }
 
 .rm-emailcrossmark {
-  background-image: url("../images/icons/rm-emailcrossmark.png") !important;
+  background-image: url("../images/icons/rm-emailcrossmark.svg") !important;
   background-repeat: no-repeat;
   background-color: #ED3D57;
   margin: 3px 10px 3px 10px; }
@@ -6267,7 +6278,7 @@ rm-emailinvoicebackground {
   text-align: center; }
 
 .rm-pincode-entered {
-  background: url("../images/icons/rm-pinmask.png") no-repeat center; }
+  background: url("../images/icons/rm-pinmask.svg") no-repeat center; }
 
 .rm-dashboard {
   background: #FFFFFF;
@@ -6300,7 +6311,7 @@ rm-emailinvoicebackground {
   border-radius: 0; }
 
 .rm-module-close-btn {
-  background-image: url("../images/rm-module-close.png") !important;
+  background-image: url("../images/rm-module-close.svg") !important;
   background-repeat: no-repeat;
   border: 0;
   border-radius: 0;
@@ -6328,11 +6339,12 @@ rm-emailinvoicebackground {
   padding: 10px 15px 10px 15px; }
 
 .rm-module-topbar-icon {
-  background-image: url("../images/icons/rm-reckon-icon.png") !important;
+  background-image: url("../images/icons/rm-reckon-icon.svg") !important;
   background-repeat: no-repeat;
   height: 34px;
   width: 121px;
-  margin: 6px 8px 6px 8px; }
+  margin: 6px 8px;
+  background-size: 121px 34px; }
 
 .rm-module-panel-arrow {
   background-image: url("../images/rm-popup-arrow.png") !important;
@@ -6391,7 +6403,7 @@ rm-emailinvoicebackground {
   background: #FFFFFF; }
 
 .rm-swipebar {
-  background-image: url("../images/rm-swipebar.png") !important;
+  background-image: url("../images/rm-swipebar.svg") !important;
   background-position: center top;
   background-repeat: no-repeat;
   height: 2px;
@@ -6399,11 +6411,12 @@ rm-emailinvoicebackground {
   margin: 2px auto; }
 
 .rm-loginbtn {
-  background-image: url("../images/icons/rm-btn-arrow.png") !important;
+  background-image: url("../images/icons/rm-btn-arrow.svg") !important;
   background-repeat: no-repeat;
   background-position-x: 65%;
   background-position-y: 50%;
   background-color: #F0F0F0;
+  background-size: 10px 20px;
   color: #646464;
   border-radius: 0;
   border: 0;
@@ -6526,12 +6539,12 @@ rm-emailinvoicebackground {
 .rm-togglefield-on.x-field .x-field .x-field-input {
   padding-right: 10px; }
 .rm-togglefield-on.x-field .x-input-el {
-  background-image: url("../images/icons/rm-togglefield-on.png") !important;
+  background-image: url("../images/icons/rm-togglefield-on.svg") !important;
   background-repeat: no-repeat;
   background-position: right;
+  background-size: 20px;
   position: absolute;
-  right: 10px;
-  background-position-y: 40% !important; }
+  right: 10px; }
 
 .rm-togglefield-off .x-input-el {
   padding-right: 27px;
@@ -6539,12 +6552,12 @@ rm-emailinvoicebackground {
 .rm-togglefield-off .x-field .x-field-input {
   padding-right: 10px; }
 .rm-togglefield-off .x-input-el {
-  background-image: url("../images/icons/rm-togglefield-off.png") !important;
+  background-image: url("../images/icons/rm-togglefield-off.svg") !important;
   background-repeat: no-repeat;
   background-position: right;
+  background-size: 20px;
   position: absolute;
-  right: 10px;
-  background-position-y: 40% !important; }
+  right: 10px; }
 
 .x-loading-spinner {
   font-size: 0% !important; }
@@ -6644,7 +6657,7 @@ rm-emailinvoicebackground {
 .x-list-pullrefresh-arrow {
   width: 100%;
   height: 41px;
-  background-image: url("../images/rm-pullarrow.png") !important;
+  background-image: url("../images/rm-pullarrow.svg") !important;
   background-size: 20px 22px;
   background-position: center center;
   -webkit-transition-property: -webkit-transform;
@@ -6713,14 +6726,16 @@ rm-emailinvoicebackground {
   overflow: hidden; }
 
 .rm-btnarrow-next {
-  background-image: url("../images/icons/rm-btn-arrow.png");
+  background-image: url("../images/icons/rm-btn-arrow.svg");
   background-position: 96%;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  background-size: 10px 20px; }
 
 .rm-btnarrow-prev {
-  background-image: url("../images/icons/rm-btn-back-arrow.png");
+  background-image: url("../images/icons/rm-btn-back-arrow.svg");
   background-position: 4%;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  background-size: 10px 20px; }
 
 .rm-approved-hearderbg {
   background: #D9F4C1;
@@ -6781,3 +6796,25 @@ rm-emailinvoicebackground {
   color: #969696;
   font-size: 76%;
   text-align: center; }
+
+.rm-sortsearchbtn {
+  background-size: 20px; }
+
+.x-field-input .x-clear-icon {
+  background: url(../images/icons/rm-fieldclear.svg) no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+  width: 2.2em;
+  height: 2.2em;
+  margin: .5em;
+  margin-top: -1.1em;
+  right: -.5em; }
+
+.rm-lineitemcrossbg {
+  background-size: 12px; }
+
+.rm-btniconsize {
+  background-size: 20px; }
+
+.rm-backbtniconcls {
+  background-size: 12px !important; }

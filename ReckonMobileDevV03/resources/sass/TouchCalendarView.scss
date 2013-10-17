@@ -126,12 +126,14 @@
 				text-transform: capitalize;
 				&:nth-child(1)
 					{
-						background: url(../images/larr.png) center center no-repeat;
+						background: url(../images/larr.svg) center center no-repeat;
+                        background-size: 8px;
 						cursor: pointer;
 					}
 				&:nth-child(5)
 					{
-						background: url(../images/rarr.png) center center no-repeat;
+						background: url(../images/rarr.svg) center center no-repeat;
+                        background-size: 8px;
 						cursor: pointer;
 					}
 				span
@@ -155,7 +157,7 @@
 	}
 	.topTip{
 		
-        background-image: url("../images/rm-swipebar.png");
+        background-image: url("../images/rm-swipebar.svg");
 		background-position: center 2px; 
         background-repeat: repeat-y;
         height: 10px;

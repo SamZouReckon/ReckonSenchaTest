@@ -11,6 +11,7 @@ Ext.define('RM.view.InvoiceActions', {
             items: [{
 					ui: 'rm_topbarbuttonleft',
 					icon: 'resources/images/icons/rm-back.svg',
+                    iconCls: 'rm-backbtniconcls',
 					width: '2.6em',
 					itemId: 'back'				
 				},{
@@ -28,6 +29,7 @@ Ext.define('RM.view.InvoiceActions', {
 			itemId: 'approve',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
             icon: 'resources/images/icons/rm-accept.svg',
+            iconCls: 'rm-btniconsize',
             iconAlign: 'left'	
             			
         },{
@@ -35,6 +37,7 @@ Ext.define('RM.view.InvoiceActions', {
 			itemId: 'pay',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
             icon: 'resources/images/icons/rm-receive.png',
+            //iconCls: 'rm-btniconsize',
             iconAlign: 'left'	
             			
         },{
@@ -42,6 +45,7 @@ Ext.define('RM.view.InvoiceActions', {
 			itemId: 'email',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
             icon: 'resources/images/icons/rm-email.svg',
+            iconCls: 'rm-btniconsize',
             iconAlign: 'left'
            						
         },{
@@ -49,6 +53,7 @@ Ext.define('RM.view.InvoiceActions', {
 			itemId: 'history',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
             icon: 'resources/images/icons/rm-history.svg',
+            iconCls: 'rm-btniconsize',
             iconAlign: 'left'						
         }
         ]

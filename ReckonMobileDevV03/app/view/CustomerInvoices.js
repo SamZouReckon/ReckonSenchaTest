@@ -15,6 +15,7 @@ Ext.define('RM.view.CustomerInvoices', {
         						ui: 'rm_topbarbuttonleft',
         						width: '2.6em',
         						icon: 'resources/images/icons/rm-back.svg',
+                                iconCls: 'rm-backbtniconcls',
                                 align: 'left'
                             },{
         						text: 'ADD',

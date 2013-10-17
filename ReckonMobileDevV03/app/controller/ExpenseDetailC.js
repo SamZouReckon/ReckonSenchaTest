@@ -117,11 +117,11 @@ Ext.define('RM.controller.ExpenseDetailC', {
     setPhotoBtnIcon: function(){
         var photoBtn = this.getPhotoBtn(),iconDir = 'resources/images/icons/';
         if(this.detailsData.HasReceiptPhoto){
-            photoBtn.setIcon(iconDir + 'rm-attach.png');
+            photoBtn.setIcon(iconDir + 'rm-attach.svg');
             photoBtn.setText('Photo attached');             
         }
         else{
-            photoBtn.setIcon(iconDir + 'rm-photo.png');
+            photoBtn.setIcon(iconDir + 'rm-photo.svg');
             photoBtn.setText('Photograph the receipt');             
         }
        

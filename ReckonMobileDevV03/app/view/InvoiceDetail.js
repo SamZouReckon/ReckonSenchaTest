@@ -12,6 +12,7 @@ Ext.define('RM.view.InvoiceDetail', {
             items: [{
 					ui: 'rm_topbarbuttonleft',					
 					icon: 'resources/images/icons/rm-back.svg',
+                    iconCls: 'rm-backbtniconcls',
 					itemId: 'back'				
 				},{
 					xtype: 'component',

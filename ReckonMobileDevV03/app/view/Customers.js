@@ -10,7 +10,8 @@ Ext.define('RM.view.Customers', {
                 docked: 'top',
                 items: [{
 						ui: 'rm_topbarbuttonleft',
-						icon: 'resources/images/icons/rm-back.svg',						
+						icon: 'resources/images/icons/rm-back.svg',	
+                        iconCls: 'rm-backbtniconcls',
                         width: '2.6em',
 						itemId: 'back'				
 					},{

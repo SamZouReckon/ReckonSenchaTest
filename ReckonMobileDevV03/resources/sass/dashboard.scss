@@ -5,15 +5,12 @@
 			font-weight:bold;margin-bottom:10px;
 		}
 	}
-	.rm-greendot{
-		//background-image: theme_image($theme-name, "pictos/base64/greenDot.png");
-		background-image: url("../images/greenDot.png");
+	.rm-greendot{		
+		background-image: url("../images/greenDot.svg");
 		padding-left:18px;
 	}
-	.rm-reddoticon, .rm-reddotright{
-		//background-image: theme_image($theme-name, "pictos/base64/redDot.png");
-		background-image: url("../images/redDot.png");
-		
+	.rm-reddoticon, .rm-reddotright{		
+		background-image: url("../images/redDot.svg");		
 	}
 	.rm-plusicon, .rm-minusicon, .rm-greendot, .rm-reddoticon{
 		background-position:left center; 
@@ -167,10 +164,11 @@
     }
 
     .rm-budgetoverviewarrow{
-        background-image: url("../images/icons/rm-listitem-arrow.png");        
+        background-image: url("../images/icons/rm-listitem-arrow.svg");        
         background-repeat: no-repeat;
         background-position-x: right;
         background-position-y: 65%;
+        background-size: 10px 20px;
         margin-right: 15px;       
     }
 }

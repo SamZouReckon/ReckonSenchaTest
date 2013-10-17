@@ -10,7 +10,8 @@ Ext.define('RM.view.settings.CoreSettings', {
             docked: 'top',            
             items: [{
 				ui: 'rm_maintopbarbuttonleft',
-				icon: 'resources/images/icons/rm-back.svg',				
+				icon: 'resources/images/icons/rm-back.svg',	
+                iconCls: 'rm-backbtniconcls',
 				itemId: 'back'				
 			},{
                 xtype: 'component',

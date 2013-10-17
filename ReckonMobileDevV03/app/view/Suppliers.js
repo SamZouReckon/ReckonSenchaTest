@@ -11,6 +11,7 @@ Ext.define('RM.view.Suppliers', {
                 items: [{						
 						ui: 'rm_topbarbuttonleft',
 						icon: 'resources/images/icons/rm-back.svg',
+                        iconCls: 'rm-backbtniconcls',
                         width: '2.6em',						
 						itemId: 'back'				
 					},{

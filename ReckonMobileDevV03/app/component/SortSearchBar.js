@@ -41,7 +41,8 @@ Ext.define('RM.component.SortSearchBar', {
 			},{
 				xtype: 'button',                
                 margin: 0,
-				ui: 'plain',				
+				ui: 'plain', 
+                iconCls: 'rm-sortsearchbtn',
                 icon: 'resources/images/icons/rm-search.svg'				
 			}
 		]);

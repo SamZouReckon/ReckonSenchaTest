@@ -16,6 +16,7 @@ Ext.define('RM.view.ContactDetail', {
 						itemId: 'back',
 						ui: 'rm_topbarbuttonleft',
 						icon: 'resources/images/icons/rm-back.svg',
+                        iconCls: 'rm-backbtniconcls',
 						width: '2.6em'						
 					},{
 						xtype: 'component',						

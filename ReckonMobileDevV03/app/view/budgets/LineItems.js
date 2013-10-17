@@ -14,8 +14,10 @@ Ext.define('RM.view.budgets.LineItems', {
 					{
 						xtype: 'button',
 						ui: 'rm_topbarbuttonleft',
-						icon: 'resources/images/icons/rm-back.svg',						
+						icon: 'resources/images/icons/rm-back.svg',                        
+                        iconCls: 'rm-backbtniconcls',
 						itemId: 'back'
+                        
 					}, {
 						xtype: 'component',
 						html: 'Budget',

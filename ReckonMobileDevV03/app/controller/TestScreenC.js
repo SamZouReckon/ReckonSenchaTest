@@ -25,7 +25,7 @@ Ext.define('RM.controller.TestScreenC', {
     
     onShow: function(){
         
-        var vals = {Test1: 'A Text field', Quantity:25, ItemPrice: 52625.45, BusPhone: '072367672'}
+        var vals = {Test1: 'A Text field', Quantity:25.12345, ItemPrice: 52625.123456789, BusPhone: '072367672'}
         
         this.getTestScreenForm().setValues(vals);
         

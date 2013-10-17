@@ -1,6 +1,6 @@
 Ext.define('RM.view.TestScreen', {
 	extend: 'Ext.Panel',
-    requires: ['RM.component.RMAmountField2','RM.component.RMAmountField3','RM.component.RMPhoneField2','RM.component.RMPhoneField3'],
+    requires: ['RM.component.RMAmountField2','RM.component.RMAmountField','RM.component.RMPhoneField2','RM.component.RMPhoneField3'],
 	xtype: 'testscreen',
     
 	config: {		
@@ -44,37 +44,37 @@ Ext.define('RM.view.TestScreen', {
                      name: 'Test3'
                  
                  },{
-                     xtype:'rmamountfield2',
+                     xtype:'rmamountfield',
                      label: 'Quantity',
                      name: 'Quantity',
                      labelWidth: 120,
                      rmmandatory: true,
-                     readOnly: false,
-                     prefix: '',
+                     readOnly: false,                     
+                     decimalPlaces: 4,                     
+                     currencyMode:false,
                      listeners: {
                          change: function(fld, newValue, oldValue){
                              console.log('rmamountfield2 change newValue=' + newValue + ', oldValue=' + oldValue);                             
                          }
                          
                      }
-                 },/*{
-                     xtype:'rmamountfield2',
+                 },{
+                     xtype:'rmamountfield',
                      label: 'Item Price',
                      clearIcon: true,
                      name: 'ItemPrice',
                      labelWidth: 120,
-                     placeHolder: 'enter',
-                     //value: 3276767.778,
+                     placeHolder: 'enter',                     
                      rmmandatory: true,
                      readOnly: false,
-                     prefix: '$',
+                     decimalPlaces: 8,
                      listeners: {
                          change: function(fld, newValue, oldValue){
                              console.log('rmamountfield2 change newValue=' + newValue + ', oldValue=' + oldValue);                             
                          }
                          
                      }
-                 },*/{
+                 },{
                      xtype:'textfield',
                      label: 'Test5',
                      name: 'Test5'

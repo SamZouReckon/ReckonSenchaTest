@@ -615,14 +615,14 @@ Ext.define('RM.core.AppMgr', {
         }
     },
 
-    numberWithCommas: function (value) {
-        if (Ext.isNumber(value))  value = value.toFixed(2);        
-        return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '';
+    numberWithCommas: function (value, places) {
+        if (Ext.isNumber(value))  value = value.toFixed(places || 2);        
+        return value ? value.toString().replace(/\B(?=(\d{3})+\.)/g, ",") : '';
     },
     
     valueWithCommas: function(value){
         value = Math.round(value);
-        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");        
+        return value.toString().replace(/\B(?=(\d{3})+\.)/g, ",");        
     },
 
     formatCurrency: function(value, places, accountancyFormat){
@@ -631,7 +631,7 @@ Ext.define('RM.core.AppMgr', {
         }                   
         var negSign = (value < 0);
         var absValue = Math.abs(RM.util.MathHelpers.roundToEven(value, places));
-        value = '$' + absValue.toFixed(places).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        value = '$' + absValue.toFixed(places).replace(/\B(?=(\d{3})+\.)/g, ",");
         if(negSign && accountancyFormat){
             return '(' + value + ')';
         }        

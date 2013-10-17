@@ -88,6 +88,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					cls: 'rm-flatfield rm-cursor-blinkbg',
                         decimalPlaces: 4,
                         trailingZerosUpTo: 0,
+                        currencyMode: false,
                         prefix: ''
     				},{
                         xtype: 'exttextfield',

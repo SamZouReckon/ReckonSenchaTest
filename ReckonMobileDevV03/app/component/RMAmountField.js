@@ -43,6 +43,7 @@ Ext.define('RM.component.RMAmountField', {
     },
     
     applyValue: function(value) {
+        // This is to handle when the value is set through code or config, ie not by user interaction
         value = this.callParent(arguments);
         return RM.util.MathHelpers.roundToEven(value, this.getDecimalPlaces());        
     },
@@ -50,24 +51,26 @@ Ext.define('RM.component.RMAmountField', {
     onInputBlur: function(){
         var val = this.getValue();
 
-        if(Ext.isEmpty(val, true)){
-            RM.AppMgr.showErrorMsgBox('Invalid number', 
-                function(){
-                    this.setValue(this.editVal);
-                    this.showDisplayValue();
-                }, 
-                this
-            );
+        if(!Ext.isNumeric(val)) val = null;    
+    
+        // User interaction has changed value. Update the actual underlying input control value, making sure to respect the max decimal places
+        if(val) {
+            this.getComponent().setValue(RM.util.MathHelpers.roundToEven(val, this.getDecimalPlaces()));            
         }
-        else{            
-            this.getComponent().setValue(RM.util.MathHelpers.roundToEven(val, this.getDecimalPlaces()));
-            this.showDisplayValue();             
-        }
+        else {
+            // This is to allow setting a blank value in the input, if that's not a valid case then manage that with validation
+            this.getComponent().setValue(val);
+        }        
+        console.log(this.getValue());
+        this.showDisplayValue();             
+        
     },
     
     showDisplayValue: function(){
         var val = this.getValue();
-        if(val){
+        
+        // Display if we have a valid number to show
+        if(Ext.isNumeric(val)){
             var displayVal;
             if(this.getCurrencyMode()) {
                 displayVal = RM.AppMgr.formatCurrency(val, this.getDecimalPlaces());
@@ -76,9 +79,14 @@ Ext.define('RM.component.RMAmountField', {
                 displayVal = RM.AppMgr.numberWithCommas(val, this.getDecimalPlaces());
             }            
             displayVal = this.handleTrailingZeros(displayVal);                
-            this.displayEl.setHtml(displayVal);            
-        }            
-        this.displayEl.show();            
+            this.displayEl.setHtml(displayVal);                        
+            this.displayEl.show(); 
+        } 
+        // otherwise leave the input control visible and clear the display value
+        else {
+            this.displayEl.hide(); 
+            this.displayEl.setHtml(val);
+        }                   
     },
     
     showInputFld: function(){

@@ -69,7 +69,7 @@ $include-list-highlights: none;
       //-webkit-mask-size: $toolbar-icon-size;
       //width: $toolbar-icon-size;
       //height: $toolbar-icon-size;
-      background-size: 16px;
+      background-size: 18px;
     }
 
     &.x-button-pressing, &.x-button-pressed {
@@ -114,6 +114,11 @@ $include-list-highlights: none;
 .x-android .x-input-el {
     -webkit-text-fill-color: #787878 !important;
     padding-top: 1.6em !important;     	
+}
+
+//Android - to align clear icon in center 
+.x-android .x-field-input .x-clear-icon {
+    margin-top: -1.1em;
 }
 
 //For TextFields with flat look and white bg color in label and field, also icon on right side using bg image
@@ -355,7 +360,7 @@ $include-list-highlights: none;
 .rm-field-warning{    
     background: #F6F0DA;	
     .rm-field-input-formatted {
-        background: #F6F0DA; 
+        background: #F6F0DA !important; 
     }
 }
 /*.customername-icon.x-field{
@@ -1189,7 +1194,8 @@ rm-emailinvoicebackground{
 .rm-emailcheckmark{	
 	background-image: url("../images/icons/rm-emailtickmark.svg") !important;
 	background-repeat: no-repeat;
-	background-color: #A1CF79;	
+	background-color: #A1CF79;
+	background-size: 30px;	
 	margin: 3px 10px 3px 10px;
 }
 
@@ -1198,13 +1204,14 @@ rm-emailinvoicebackground{
 	.x-innerhtml {		
 		color: #FFFFFF;		
 	}
-    padding: 20px 10px 20px 15px;
+    padding: 20px 10px;
 }
 
 .rm-emailcrossmark{	
 	background-image: url("../images/icons/rm-emailcrossmark.svg") !important;	
 	background-repeat: no-repeat;	
 	background-color: #ED3D57;
+	background-size: 28px;
 	margin: 3px 10px 3px 10px;
 }
 
@@ -1213,7 +1220,7 @@ rm-emailinvoicebackground{
 	.x-innerhtml {		
 		color: #FFFFFF;		
 	}
-    padding: 20px 10px 20px 15px;	
+	padding: 20px 10px;	
 }
 
 .rm-paymenttype-btn-bg{	
@@ -1964,7 +1971,7 @@ rm-emailinvoicebackground{
 
 //sort search toolbar icon size
 .rm-sortsearchbtn{    
-        background-size: 20px;    
+        background-size: 26px;    
 }
 
 //Field clear icon
@@ -1975,7 +1982,7 @@ rm-emailinvoicebackground{
     width: 2.2em;
     height: 2.2em;
     margin: .5em;
-    margin-top: -1.1em;
+    margin-top: -0.9em;
     right: -.5em;
 }
 
@@ -1986,10 +1993,22 @@ rm-emailinvoicebackground{
 
 //Button icon std size
 .rm-btniconsize{
-    background-size: 20px;
+    background-size: 26px;
 }
 
 //back btn icon
 .rm-backbtniconcls{
     background-size: 12px !important;
+}
+
+//Invoice action button size
+.rm-invoiceactioniconcls{
+    background-size: 20px;
+}
+
+//Invoice action btn label
+.rm-invoiceactionbtnlabel .x-button-label{
+    font-weight: bold;
+    margin-left: 5px !important;
+    font-size: 90%;
 }

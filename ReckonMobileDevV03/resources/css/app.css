@@ -6759,11 +6759,11 @@ rm-emailinvoicebackground {
 
 .x-field-clearable .rm-field-input-formatted {
   padding-right: 3.2em; }
-.x-field-clearable .clear-icon-hidden .x-field-input {
+.x-field-clearable.clear-icon-hidden .x-field-input {
   padding-right: 0 !important; }
-.x-field-clearable .clear-icon-hidden .x-field-input .x-clear-icon {
+.x-field-clearable.clear-icon-hidden .x-field-input .x-clear-icon {
   display: none; }
-.x-field-clearable .clear-icon-hidden .rm-field-input-formatted {
+.x-field-clearable.clear-icon-hidden .rm-field-input-formatted {
   padding-right: 0.6em; }
 
 .rm-cursor-blinkbg .x-field-mask {

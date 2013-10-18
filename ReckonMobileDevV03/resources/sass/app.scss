@@ -1897,7 +1897,7 @@ rm-emailinvoicebackground{
         padding-right: 3.2em;
     }
 
-    .clear-icon-hidden {
+    &.clear-icon-hidden {
         .x-field-input { 
             padding-right: 0 !important;
             .x-clear-icon { display: none; }

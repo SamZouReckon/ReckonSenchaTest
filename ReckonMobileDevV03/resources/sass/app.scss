@@ -347,8 +347,16 @@ $include-list-highlights: none;
 .rm-flatfield-last{    
     border-bottom: 1px solid #DBDBDB !important;	
 }
+.rm-field-input-formatted {
+    position:absolute; 
+    top:0; 
+    background:white !important;
+}
 .rm-field-warning{    
     background: #F6F0DA;	
+    .rm-field-input-formatted {
+        background: #F6F0DA; 
+    }
 }
 /*.customername-icon.x-field{
 	@include rm_flatfield("../images/icons/rm-customer.png");
@@ -1877,12 +1885,22 @@ rm-emailinvoicebackground{
 	} 
 
 //Allow toggling the clearIcon when it is enabled
-.x-field-clearable.clear-icon-hidden {
-    .x-field-input { 
-        padding-right: 0 !important;
-        .x-clear-icon { display: none; }
+.x-field-clearable {
+    .rm-field-input-formatted {
+        padding-right: 3.2em;
     }
+
+    .clear-icon-hidden {
+        .x-field-input { 
+            padding-right: 0 !important;
+            .x-clear-icon { display: none; }
+        }
+        .rm-field-input-formatted {
+            padding-right: 0.6em;
+        }
+    }        
 }
+
 
 //To simulate cursor in rmamountfield using field mask
 .rm-cursor-blinkbg .x-field-mask{ 

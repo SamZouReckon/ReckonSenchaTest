@@ -23,7 +23,7 @@ Ext.define('RM.component.RMAmountField', {
         // Add a focus handler to support device 'tabbing' focus from prev/next keypad buttons
         this.inputEl.on('focus', this.showInputFld, this);
 
-        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field" style="position:absolute; top:0; background:white;"></div>', true);
+        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field rm-field-input-formatted"></div>', true);
         //this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field" ></div>', true);
         this.displayEl.on('tap', this.focus, this);
         
@@ -104,7 +104,12 @@ Ext.define('RM.component.RMAmountField', {
             //To maintain compatibility with previous RMAmountField for now - InvoiceLineItem listens for this
             me.fireEvent('valueChange', value, this.editVal);    
         }            
-    },        
+    },  
+    
+    onClearIconTap: function() {
+        this.callParent(arguments);
+        this.showDisplayValue();
+    },
     
     showValidation: function(valid){        
          this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');

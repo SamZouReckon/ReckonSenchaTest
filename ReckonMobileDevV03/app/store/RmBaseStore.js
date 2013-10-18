@@ -3,7 +3,8 @@ Ext.define('RM.store.RmBaseStore', {
     config: {
         autoLoad: false,
         remoteFilter: true,
-        remoteSort: true,        
+        remoteSort: true,
+        pageSize: 8,
         proxy: {
             type: 'ajax',
             reader: {

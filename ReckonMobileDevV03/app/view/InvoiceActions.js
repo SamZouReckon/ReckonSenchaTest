@@ -27,15 +27,15 @@ Ext.define('RM.view.InvoiceActions', {
         },{
 			text: 'Approve invoice',
 			itemId: 'approve',
-			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
+			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
             icon: 'resources/images/icons/rm-accept.svg',
-            iconCls: 'rm-btniconsize',
+            iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'	
             			
         },{
 			text: 'Pay invoice',
 			itemId: 'pay',
-			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
+			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
             icon: 'resources/images/icons/rm-receive.png',
             //iconCls: 'rm-btniconsize',
             iconAlign: 'left'	
@@ -43,17 +43,17 @@ Ext.define('RM.view.InvoiceActions', {
         },{
 			text: 'Email customer',
 			itemId: 'email',
-			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
+			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
             icon: 'resources/images/icons/rm-email.svg',
-            iconCls: 'rm-btniconsize',
+            iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'
            						
         },{
 			text: 'View invoice history',
 			itemId: 'history',
-			cls: 'rm-arrowimgbtn rm-invoiceaction-bg',
+			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
             icon: 'resources/images/icons/rm-history.svg',
-            iconCls: 'rm-btniconsize',
+            iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'						
         }
         ]

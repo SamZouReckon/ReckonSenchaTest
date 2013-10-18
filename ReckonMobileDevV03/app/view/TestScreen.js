@@ -30,8 +30,8 @@ Ext.define('RM.view.TestScreen', {
              items: [{
                      xtype:'textfield',
                      label: 'Test1',
-                     name: 'Test1'
-                 
+                     name: 'Test1',
+                     clearIcon: true                 
                  },{
                      xtype:'textfield',
                      label: 'Test2',

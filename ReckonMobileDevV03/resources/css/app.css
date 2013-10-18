@@ -1,4 +1,3 @@
-
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -1091,7 +1090,7 @@ html, body {
   -ms-flex-align: center;
   align-items: center;
   background-color: #eee;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   position: relative;
   overflow: hidden;
   z-index: 1; }
@@ -1139,7 +1138,7 @@ html, body {
 
 .x-badge {
   background-color: #ccc;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
   z-index: 2;
   position: absolute !important;
   width: auto;
@@ -1648,7 +1647,7 @@ audio {
   max-width: 20em;
   max-height: 90%;
   margin: 6px;
-  border: 1px solid #cccccc; }
+  border: 1px solid #ccc; }
 .x-msgbox .x-docking-vertical {
   overflow: hidden; }
 .x-msgbox .x-toolbar.x-docked-top {
@@ -1930,7 +1929,7 @@ audio {
 .x-list .x-list-item > .x-dock {
   height: auto; }
 .x-list .x-list-item .x-dock-horizontal {
-  border-top: 1px solid #cccccc; }
+  border-top: 1px solid #ccc; }
 .x-list .x-list-item.x-item-selected .x-dock-horizontal, .x-list .x-list-item.x-item-selected.x-list-item-tpl {
   background-color: #ccc; }
 .x-list .x-list-item .x-list-item-body, .x-list .x-list-item.x-list-item-tpl .x-innerhtml {
@@ -1939,8 +1938,8 @@ audio {
   position: relative !important; }
 .x-list .x-list-header {
   background-color: #eee;
-  border-top: 1px solid #cccccc;
-  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   font-weight: bold; }
 .x-list .x-list-header.x-list-item-relative {
   position: relative !important; }
@@ -1949,7 +1948,7 @@ audio {
   overflow: visible;
   width: 20px;
   height: 20px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   background-color: #eee; }
 .x-list .x-list-item-tpl .x-list-disclosure {
   position: absolute;
@@ -2133,7 +2132,7 @@ audio {
   margin: 0; }
 .x-spinner .x-spinner-button {
   text-align: center;
-  border: 1px solid #cccccc !important;
+  border: 1px solid #ccc !important;
   background-color: #eee; }
 .x-spinner.x-field-grouped-buttons .x-input-el {
   text-align: left; }
@@ -2175,7 +2174,7 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-text-fill-color: #b3b3b3; }
 
 .x-form-fieldset .x-form-fieldset-inner {
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   overflow: hidden; }
 .x-form-fieldset .x-dock .x-dock-body {
   -webkit-box-flex: 1;
@@ -2206,7 +2205,7 @@ input[type="search"]::-webkit-search-cancel-button {
   overflow: hidden; }
 .x-sheet.x-picker .x-sheet-inner .x-picker-slot .x-body {
   border-left: 1px solid #999999;
-  border-right: 1px solid #acacac; }
+  border-right: 1px solid #ACACAC; }
 .x-sheet.x-picker .x-sheet-inner .x-picker-slot.x-first .x-body {
   border-left: 0; }
 .x-sheet.x-picker .x-sheet-inner .x-picker-slot.x-last .x-body {
@@ -2362,7 +2361,7 @@ input[type="search"]::-webkit-search-cancel-button {
   position: absolute;
   height: 16px;
   width: 10px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   background-color: #ddd; }
 
 .x-slider:before {
@@ -2377,7 +2376,7 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: #eee; }
 
 .x-toggle {
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   width: 30px;
   overflow: hidden;
   -webkit-box-flex: 0;
@@ -2394,7 +2393,7 @@ input[type="search"]::-webkit-search-cancel-button {
   z-index: 1;
   overflow: visible !important;
   background-color: #eee;
-  border: 1px solid #cccccc; }
+  border: 1px solid #ccc; }
 
 .x-tabbar {
   border-color: #ccc;
@@ -2765,7 +2764,7 @@ body.x-desktop {
   -o-border-radius: 0.4em;
   border-radius: 0.4em;
   min-height: 1.8em;
-  padding: 0.3em 0.6em; }
+  padding: .3em .6em; }
 .x-button, .x-toolbar .x-button {
   border: 1px solid #999999;
   border-top-color: #a6a6a6;
@@ -2817,16 +2816,16 @@ body.x-desktop {
   margin-right: .6em; }
 
 .x-iconalign-top, .x-iconalign-bottom {
-  padding-top: 0.2em !important;
-  padding-bottom: 0.2em !important; }
+  padding-top: .2em !important;
+  padding-bottom: .2em !important; }
 
 .x-button-label, .x-badge, .x-hasbadge .x-badge {
   font-weight: bold;
   line-height: 1.2em; }
 
 .x-toolbar .x-button {
-  margin: 6px 0.2em;
-  padding: 0 0.6em; }
+  margin: 6px .2em;
+  padding: 0 .6em; }
 .x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-badge {
   font-size: .7em; }
 .x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-badge {
@@ -2845,9 +2844,9 @@ body.x-desktop {
   -ms-border-radius: 0.3em;
   -o-border-radius: 0.3em;
   border-radius: 0.3em;
-  padding: 0.2em 0.4em;
+  padding: .2em .4em;
   min-height: 0; }
-.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-badge, .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-badge, .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-badge {
+.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-badge, .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-badge {
   font-size: .6em; }
 .x-button-small .x-button-icon, .x-button.x-button-action-small .x-button-icon, .x-button.x-button-confirm-small .x-button-icon, .x-button.x-button-decline-small .x-button-icon, .x-toolbar .x-button-small .x-button-icon, .x-toolbar .x-button.x-button-action-small .x-button-icon, .x-toolbar .x-button.x-button-confirm-small .x-button-icon, .x-toolbar .x-button.x-button-decline-small .x-button-icon {
   width: .75em;
@@ -2944,7 +2943,7 @@ body.x-desktop {
   min-width: 2em;
   line-height: 1.2em;
   top: -.2em;
-  padding: 0.1em 0.3em;
+  padding: .1em .3em;
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -3500,7 +3499,7 @@ body.x-desktop {
   line-height: 2.1em;
   font-size: 1.2em;
   margin: 0 0.3em;
-  padding: 0 0.3em; }
+  padding: 0 .3em; }
 
 /**
 * Creates a theme UI for toolbars.
@@ -3708,9 +3707,9 @@ body.x-desktop {
   -webkit-text-fill-color: rgba(255, 255, 255, 0.6); }
 
 .x-toolbar .x-form-field-container {
-  padding: 0 0.3em; }
+  padding: 0 .3em; }
 .x-toolbar .x-slider-field .x-component-outer, .x-toolbar .x-toggle-field .x-component-outer {
-  padding: 0em 0.3em; }
+  padding: 0em .3em; }
 .x-toolbar .x-field {
   width: 13em;
   margin: .5em;
@@ -3744,7 +3743,7 @@ body.x-desktop {
   background: transparent;
   min-height: 0;
   -webkit-appearance: none;
-  padding: 0em 0.3em;
+  padding: 0em .3em;
   margin: 0; }
 .x-toolbar .x-form-field:focus {
   color: black; }
@@ -3755,7 +3754,7 @@ body.x-desktop {
   -o-border-radius: 0.8em;
   border-radius: 0.8em; }
 .x-toolbar .x-field-search .x-field-input {
-  background-position: 0.5em 50%; }
+  background-position: .5em 50%; }
 .x-toolbar .x-field-select {
   -webkit-box-shadow: none; }
 .x-toolbar .x-field-select .x-form-field {
@@ -3783,7 +3782,7 @@ body.x-desktop {
   color: #fff; }
 
 .x-android .x-field-search .x-field-input {
-  padding-left: 0.2em !important;
+  padding-left: .2em !important;
   padding-right: 2.2em !important; }
 
 /**
@@ -3836,7 +3835,7 @@ body.x-desktop {
   background-color: #eeeeee; }
 
 .x-form-label {
-  text-shadow: white 0 1px 1px;
+  text-shadow: #fff 0 1px 1px;
   color: #333333;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0;
   padding: 0.6em;
@@ -3848,7 +3847,7 @@ body.x-desktop {
  * @class Ext.form.FieldSet
  */
 .x-form-fieldset {
-  margin: 0.5em 0.5em 1.5em; }
+  margin: .5em .5em 1.5em; }
 .x-form-fieldset .x-form-label {
   border-top: 1px solid white; }
 .x-form-fieldset .x-form-fieldset-inner {
@@ -3880,13 +3879,13 @@ body.x-desktop {
   border-bottom-right-radius: 0.4em; }
 
 .x-form-fieldset-title {
-  text-shadow: white 0 1px 1px;
+  text-shadow: #fff 0 1px 1px;
   color: #333333;
   margin: 1em 0.7em 0.3em;
   color: #333333; }
 
 .x-form-fieldset-instructions {
-  text-shadow: white 0 1px 1px;
+  text-shadow: #fff 0 1px 1px;
   color: #333333;
   color: gray;
   margin: 1em 0.7em 0.3em;
@@ -3967,7 +3966,7 @@ body.x-desktop {
   color: #aaa; }
 
 .x-item-disabled .x-form-label:after {
-  color: #666666 !important; }
+  color: #666 !important; }
 
 /**
  * @class Ext.field.Checkbox
@@ -4130,7 +4129,7 @@ body.x-desktop {
 .x-spinner.x-item-disabled .x-input-el {
   -webkit-text-fill-color: #B3B3B3; }
 .x-spinner.x-item-disabled .x-spinner-button {
-  color: #aaaaaa !important; }
+  color: #aaa !important; }
 .x-spinner.x-item-disabled .x-spinner-button, .x-toolbar .x-spinner.x-item-disabled .x-spinner-button {
   border: 1px solid #c4c4c4;
   border-top-color: #d0d0d0;
@@ -4158,7 +4157,7 @@ body.x-desktop {
   margin-top: .25em;
   margin-bottom: .25em;
   width: 2em;
-  padding: 0.23em 0 0.27em;
+  padding: .23em 0 .27em;
   font-weight: bold;
   text-align: center;
   border: 1px solid #dddddd !important;
@@ -4198,7 +4197,7 @@ body.x-desktop {
   margin-right: .5em; }
 
 .x-android .x-spinner-button {
-  padding: 0.4em 0 0.11em !important; }
+  padding: .40em 0 .11em !important; }
 
 .x-ie .x-spinner .x-field-input .x-input-el:disabled {
   color: #000; }
@@ -4214,7 +4213,7 @@ body.x-desktop {
  * @class Ext.dataview.IndexBar
  */
 .x-indexbar {
-  padding: 0.3em 0;
+  padding: .3em 0;
   color: #cb0c0c; }
 
 .x-indexbar-vertical {
@@ -4273,7 +4272,7 @@ body.x-desktop {
 .x-list.x-list-indexed .x-list-disclosure {
   margin-right: 1.8em; }
 .x-list .x-item-selected .x-list-disclosure {
-  background: white none; }
+  background: #fff none; }
 .x-list .x-item-selected .x-list-disclosure:before {
   color: #f10000; }
 .x-list .x-list-item {
@@ -4660,7 +4659,7 @@ body.x-desktop {
  */
 .x-tabbar.x-docked-top {
   height: 2.6em;
-  padding: 0 0.8em; }
+  padding: 0 .8em; }
 .x-tabbar.x-docked-top .x-tab {
   background: transparent none;
   border: 0;
@@ -4677,7 +4676,7 @@ body.x-desktop {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
 .x-tabbar.x-docked-top .x-tab .x-badge {
-  font-size: 0.6em !important;
+  font-size: .6em !important;
   top: -0.5em; }
 .x-tabbar.x-docked-top .x-tab .x-button-icon {
   width: 1.2em;
@@ -4690,7 +4689,7 @@ body.x-desktop {
 .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-button-label, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-badge {
   margin: 0;
   margin-left: .8em;
-  padding: 0.1em 0 0.2em 0;
+  padding: .1em 0 .2em 0;
   display: inline-block;
   position: relative;
   top: -.2em; }
@@ -4719,7 +4718,7 @@ body.x-desktop {
   line-height: 1.1em; }
 .x-tabbar.x-docked-bottom .x-tab .x-button-label, .x-tabbar.x-docked-bottom .x-tab .x-badge {
   margin: 0;
-  padding: 0.1em 0 0.2em 0;
+  padding: .1em 0 .2em 0;
   font-size: 9px;
   line-height: 12px;
   text-rendering: optimizeLegibility;
@@ -4936,11 +4935,11 @@ body.x-desktop {
   text-transform: capitalize; }
 .touch-calendar-view thead tr#touchcalendernav th:nth-child(1) {
   background: url(../images/larr.svg) center center no-repeat;
-  background-size: 8px;
+  background-size: 7px;
   cursor: pointer; }
 .touch-calendar-view thead tr#touchcalendernav th:nth-child(5) {
   background: url(../images/rarr.svg) center center no-repeat;
-  background-size: 8px;
+  background-size: 7px;
   cursor: pointer; }
 .touch-calendar-view thead tr#touchcalendernav th span {
   font-size: 18px;
@@ -5184,6 +5183,9 @@ body.x-desktop {
   -webkit-text-fill-color: #787878 !important;
   padding-top: 1.6em !important; }
 
+.x-android .x-field-input .x-clear-icon {
+  margin-top: -1.1em; }
+
 .x-toolbar-rm-sortsearch-topbar {
   background-image: none;
   background-color: #4e4e4e;
@@ -5309,7 +5311,7 @@ body.x-desktop {
   text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0; }
 
 .rm-listitemselection {
-  background-color: white !important; }
+  background-color: #FFFFFF !important; }
 
 .x-list .x-list-header {
   color: #646464;
@@ -5347,7 +5349,7 @@ body.x-desktop {
 
 .x-picker .x-scroll-container {
   border-left: 0;
-  border-right: 1px solid #acacac;
+  border-right: 1px solid #ACACAC;
   text-align: center; }
 
 .x-picker {
@@ -5367,7 +5369,7 @@ body.x-desktop {
 .x-picker .x-toolbar .x-button > * {
   overflow: visible; }
 .x-picker .x-toolbar .x-button .x-button-icon {
-  background-size: 16px; }
+  background-size: 18px; }
 .x-picker .x-toolbar .x-button.x-button-pressing, .x-picker .x-toolbar .x-button.x-button-pressed {
   background: none; }
 .x-picker .x-toolbar .x-button.x-button-pressing .x-button-icon.x-button-mask, .x-picker .x-toolbar .x-button.x-button-pressed .x-button-icon.x-button-mask {
@@ -5401,7 +5403,7 @@ body.x-desktop {
 .x-button.x-button-rm_topbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_topbarbuttonleft > * {
   overflow: visible; }
 .x-button.x-button-rm_topbarbuttonleft .x-button-icon, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-icon {
-  background-size: 16px; }
+  background-size: 18px; }
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
@@ -5427,7 +5429,7 @@ body.x-desktop {
 .x-button.x-button-rm_topbarbuttonright > *, .x-toolbar .x-button.x-button-rm_topbarbuttonright > * {
   overflow: visible; }
 .x-button.x-button-rm_topbarbuttonright .x-button-icon, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-icon {
-  background-size: 16px; }
+  background-size: 18px; }
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing, .x-button.x-button-rm_topbarbuttonright.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
@@ -5452,7 +5454,7 @@ body.x-desktop {
 .x-button.x-button-rm_maintopbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft > * {
   overflow: visible; }
 .x-button.x-button-rm_maintopbarbuttonleft .x-button-icon, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-icon {
-  background-size: 16px; }
+  background-size: 18px; }
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
@@ -5478,7 +5480,7 @@ body.x-desktop {
 .x-button.x-button-rm_maintopbarbuttonright > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright > * {
   overflow: visible; }
 .x-button.x-button-rm_maintopbarbuttonright .x-button-icon, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-icon {
-  background-size: 16px; }
+  background-size: 18px; }
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed {
   background: none; }
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
@@ -5500,7 +5502,7 @@ body.x-desktop {
 
 .rm-emailpasswordfield.x-field {
   background: white;
-  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid #DBDBDB;
   background-image: url("../images/icons/rm-email.svg") !important;
   background-repeat: no-repeat;
   background-position-x: 5%;
@@ -5520,7 +5522,7 @@ body.x-desktop {
 
 .rm-flatfield {
   background: white;
-  border-top: 1px solid #dbdbdb; }
+  border-top: 1px solid #DBDBDB; }
 .rm-flatfield .x-form-label {
   color: #646464;
   background-color: inherit; }
@@ -5537,10 +5539,17 @@ body.x-desktop {
   font-weight: normal; }
 
 .rm-flatfield-last {
-  border-bottom: 1px solid #dbdbdb !important; }
+  border-bottom: 1px solid #DBDBDB !important; }
+
+.rm-field-input-formatted {
+  position: absolute;
+  top: 0;
+  background: white !important; }
 
 .rm-field-warning {
   background: #F6F0DA; }
+.rm-field-warning .rm-field-input-formatted {
+  background: #F6F0DA !important; }
 
 /*.customername-icon.x-field{
 	@include rm_flatfield("../images/icons/rm-customer.png");
@@ -5609,7 +5618,7 @@ body.x-desktop {
   margin-right: 1em; }
 
 .rm-whitebg {
-  background-color: white !important; }
+  background-color: #FFFFFF !important; }
 
 .rm-dropdown {
   background: #4D4D4D;
@@ -5656,7 +5665,7 @@ body.x-desktop {
   border: none;
   background: #000000;
   color: #FFFFFF;
-  border-top: 1px solid #4f4f4f;
+  border-top: 1px solid #4F4F4F;
   padding: 0px;
   margin: 0px; }
 
@@ -5674,7 +5683,7 @@ body.x-desktop {
 .x-toolbar .x-button.x-button-rm_dropdownbtn > * {
   overflow: visible; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn .x-button-icon {
-  background-size: 16px; }
+  background-size: 18px; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressing, .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressed {
   background: none; }
 .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_dropdownbtn.x-button-pressed .x-button-icon.x-button-mask {
@@ -5772,7 +5781,7 @@ body.x-desktop {
   border-top: 0;
   border-right: 0;
   border-left: 0;
-  border-bottom: 0.2em solid #e4e4e4;
+  border-bottom: 0.2em solid #E4E4E4;
   margin: 0;
   background: #F3F3F3;
   color: #646464; }
@@ -5793,7 +5802,7 @@ body.x-desktop {
   color: #646464;
   background: #efefef;
   border: 0 !important;
-  border-top: 1px solid #b4b4b4 !important; }
+  border-top: 1px solid #B4B4B4 !important; }
 .rm-msgpopup .x-layout-box-item {
   text-align: center; }
 
@@ -6158,11 +6167,11 @@ body.x-desktop {
 
 .rm-invoiceaction-bg {
   background-color: #FFFFFF;
-  border-bottom: 1px solid #dbdbdb; }
+  border-bottom: 1px solid #DBDBDB; }
 
 .rm-notes-icon.x-field {
   background: white;
-  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid #DBDBDB;
   background-image: url("pictos/note.png") !important;
   background-repeat: no-repeat;
   background-position-x: 97%;
@@ -6210,7 +6219,7 @@ body.x-desktop {
   color: #646464;
   margin-right: -8px;
   margin-left: -8px;
-  border-bottom: 1px solid #dbdbdb; }
+  border-bottom: 1px solid #DBDBDB; }
 
 .rm-balance-breakdown-due {
   padding: 0.6em;
@@ -6218,7 +6227,7 @@ body.x-desktop {
   color: #FFFFFF;
   margin-right: -8px;
   margin-left: -8px;
-  border-bottom: 2px solid #dbdbdb; }
+  border-bottom: 2px solid #DBDBDB; }
 
 rm-emailinvoicebackground {
   background: #F8F8F8; }
@@ -6233,7 +6242,7 @@ rm-emailinvoicebackground {
   padding: 0.3em;
   border-radius: 0;
   border: 0;
-  border-bottom: 2px solid #dbdbdb;
+  border-bottom: 2px solid #DBDBDB;
   height: 2.6em; }
 .rm-emailscreenbtn .x-button-label, .rm-emailscreenbtn .x-badge {
   text-overflow: ellipsis;
@@ -6248,11 +6257,12 @@ rm-emailinvoicebackground {
   background-image: url("../images/icons/rm-emailtickmark.svg") !important;
   background-repeat: no-repeat;
   background-color: #A1CF79;
+  background-size: 30px;
   margin: 3px 10px 3px 10px; }
 
 .rm-emailpositivepanel {
   background-color: #A1CF79;
-  padding: 20px 10px 20px 15px; }
+  padding: 20px 10px; }
 .rm-emailpositivepanel .x-innerhtml {
   color: #FFFFFF; }
 
@@ -6260,21 +6270,22 @@ rm-emailinvoicebackground {
   background-image: url("../images/icons/rm-emailcrossmark.svg") !important;
   background-repeat: no-repeat;
   background-color: #ED3D57;
+  background-size: 28px;
   margin: 3px 10px 3px 10px; }
 
 .rm-emailnegativepanel {
   background-color: #ED3D57;
-  padding: 20px 10px 20px 15px; }
+  padding: 20px 10px; }
 .rm-emailnegativepanel .x-innerhtml {
   color: #FFFFFF; }
 
 .rm-paymenttype-btn-bg {
   background-color: #FFFFFF;
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid #DBDBDB;
   padding: 6px 18px 6px 18px; }
 
 .rm-pincode {
-  border-bottom: solid 3px gainsboro;
+  border-bottom: solid 3px #DCDCDC;
   text-align: center; }
 
 .rm-pincode-entered {
@@ -6320,7 +6331,7 @@ rm-emailinvoicebackground {
   margin-top: 15px; }
 
 .rm-module-panel {
-  border-top: 2px solid #d1d1d1;
+  border-top: 2px solid #D1D1D1;
   padding: 15px;
   background: #F0F0F0; }
 
@@ -6380,9 +6391,9 @@ rm-emailinvoicebackground {
   color: #969696;
   background: #3D3D3D; }
 .x-list.x-slidenavigation-list .x-list-item.x-list-item-tpl, .x-list.x-slidenavigation-list .x-list-item .x-dock-horizontal {
-  border-top: 1px solid #4f4f4f; }
+  border-top: 1px solid #4F4F4F; }
 .x-list.x-slidenavigation-list .x-list-item.x-list-item-tpl.x-list-footer-wrap, .x-list.x-slidenavigation-list .x-list-item.x-list-footer-wrap .x-dock-horizontal {
-  border-bottom: 1px solid #4f4f4f; }
+  border-bottom: 1px solid #4F4F4F; }
 .x-list.x-slidenavigation-list .x-list-header {
   background: #131313;
   padding: 0.5em 1em;
@@ -6420,8 +6431,8 @@ rm-emailinvoicebackground {
   color: #646464;
   border-radius: 0;
   border: 0;
-  border-top: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
+  border-top: 1px solid #DBDBDB;
+  border-bottom: 1px solid #DBDBDB;
   height: 2.6em; }
 
 .rm-intromsg {
@@ -6522,7 +6533,7 @@ rm-emailinvoicebackground {
   color: #0096D0;
   border-radius: 0;
   border: 0;
-  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid #DBDBDB;
   height: 2.6em; }
 .rm-createitembtn .x-button-label, .rm-createitembtn .x-badge {
   text-overflow: ellipsis;
@@ -6679,7 +6690,7 @@ rm-emailinvoicebackground {
   color: #969696; }
 
 .rm-dropdownmenu-bgcolor {
-  background: black !important; }
+  background: #000 !important; }
 
 .rm-about-product-name {
   color: #646464;
@@ -6746,10 +6757,14 @@ rm-emailinvoicebackground {
   font-weight: bold;
   font-size: 80%; }
 
+.x-field-clearable .rm-field-input-formatted {
+  padding-right: 3.2em; }
 .x-field-clearable.clear-icon-hidden .x-field-input {
   padding-right: 0 !important; }
 .x-field-clearable.clear-icon-hidden .x-field-input .x-clear-icon {
   display: none; }
+.x-field-clearable.clear-icon-hidden .rm-field-input-formatted {
+  padding-right: 0.6em; }
 
 .rm-cursor-blinkbg .x-field-mask {
   display: block !important;
@@ -6798,7 +6813,7 @@ rm-emailinvoicebackground {
   text-align: center; }
 
 .rm-sortsearchbtn {
-  background-size: 20px; }
+  background-size: 26px; }
 
 .x-field-input .x-clear-icon {
   background: url(../images/icons/rm-fieldclear.svg) no-repeat;
@@ -6807,14 +6822,22 @@ rm-emailinvoicebackground {
   width: 2.2em;
   height: 2.2em;
   margin: .5em;
-  margin-top: -1.1em;
+  margin-top: -0.9em;
   right: -.5em; }
 
 .rm-lineitemcrossbg {
   background-size: 12px; }
 
 .rm-btniconsize {
-  background-size: 20px; }
+  background-size: 26px; }
 
 .rm-backbtniconcls {
   background-size: 12px !important; }
+
+.rm-invoiceactioniconcls {
+  background-size: 20px; }
+
+.rm-invoiceactionbtnlabel .x-button-label, .rm-invoiceactionbtnlabel .x-badge {
+  font-weight: bold;
+  margin-left: 5px !important;
+  font-size: 90%; }

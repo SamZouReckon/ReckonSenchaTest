@@ -29,7 +29,7 @@ Ext.define('RM.view.History', {
             xtype: 'securebutton',
             text: 'Add a note',
             itemId: 'addnote',
-            cls: 'rm-actionbtn rm-arrowimgbtn',
+            cls: 'rm-arrowimgbtn',
             icon: 'resources/images/icons/rm-addnote.svg',
             iconCls: 'rm-btniconsize',
             iconAlign: 'left',

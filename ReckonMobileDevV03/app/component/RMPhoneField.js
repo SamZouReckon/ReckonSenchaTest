@@ -1,122 +1,62 @@
 Ext.define('RM.component.RMPhoneField', {
-    extend: 'RM.component.ExtTextField',
+    extend: 'Ext.field.Text',
     xtype: 'rmphonefield',
-    requires: ['RM.component.DataEntryKeypad'],
     
-    constructor: function(config){          
-        this.isInitializing = true;
-        this.readOnlyField = config.readOnly || false; 
-        config.readOnly = true;
-        this.callParent(arguments);        
-    },
+    config : {
+        clearIcon: false,
+        //component: {type: 'tel'}, //The issue with making this a tel phone field now is that iOS will allow u to call but Reckon One has area code in separate fields - look at combining in later version
+        component: {type: 'number'},
+        ui: 'number',        
+        listeners: {blur: 'onFieldBlur'},
+        cls: 'rm-flatfield'
+    },       
     
     initialize: function () {        
-        this.callParent(arguments);      
-        this.on('tap', this.onFieldFocus, this);
-        //this.on('blur', this.onFieldBlur, this);
-        this.setReadOnly(true);
-        this.isInitializing = false;
-    },
-
-    onFieldFocus: function(field, e) {
-        console.log(this.getId() + ' onFieldFocus');
-        if(this.fieldMaskEl) this.clearCursorBlinkTimer();
-        if(this.readOnlyField) return;        
-        this.fieldMaskEl = e.target.nextElementSibling;
-        this.showCursor();        
-        //this.addCls('rm-field-warning');
+        this.callParent(arguments);
         
-        this.owningPanel = field.up('panel');  
-
-        this.revertBackVal = this.getValue();
-        this.owningPanel.scrollShowField(field, e.target.id, 'phone', this);
-
+        if(this.config.rmmandatory){
+            this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
+        }
+        
     },
     
-    onFieldLostFocus: function(){
-        console.log(this.getId() + ' onFieldLostFocus');
-        this.clearCursorBlinkTimer();
-        //this.removeCls('rm-field-warning');
-        
-        this.fireValueChangeEvent(this.getValue());
+    getValue: function() {
+        this.showValidation(true);
+        return this.callParent(arguments);  
     },
     
-    onKeyTap: function (key) {  
-        if(key === 'bar' || key === 'blankbtn') return;
-        if(key === 'done'){            
-            //this.removeKeypad();
-            return;
-        }
-        if(key === 'cancel'){
-            this.setValue(this.revertBackVal);
-            //this.removeKeypad();            
-            return;
-        }
+    setValue: function(){        
+        var ret = this.callParent(arguments);
+        return ret;
+    },
+    
+    onFieldBlur: function(){
         var val = this.getValue();
-        var valStr = val.toString();
-        var valStrLen = valStr.length;  
-        //var pointIndex = valStr.indexOf('.');        
-               
-        if (key === 'backspace') {
-            if (valStrLen > 0) {
-                valStr = valStr.slice(0, -1);
-                this.setValue(valStr);                
-            }            
-        } 
-        else{
-            this.setValue(valStr + key); 
+        
+        if(val == ''){ //it is impossible to know if user entered empty string or an input with invalid nr chars in - they both return ''
+            this.element.down('input').dom.value = '';
+            //could show a warning but then next on keypad won't work good
+            /*
+            RM.AppMgr.showErrorMsgBox('Empty or invalid number input', 
+                function(){
+                    this.inputEl.dom.value = '';
+                }, 
+                this
+            );*/            
         }
-               
-    },   
-    
-    applyValue: function(newVal,oldVal){        
-        var valStr = newVal ? newVal.toString() : '';  
-        if (!oldVal && oldVal !== '') {            
-            this.valBeforeChange = valStr;        //store original value of the field for valueChange Event           
-        }            
-        return valStr;
-    },    
-    
-    showCursor: function(fieldMask) {        
-        var me = this;         
-        me.cursorBlinkTimer = window.setInterval(
-            function() {                     
-                if (me.myCursorOff) {
-                    me.fieldMaskEl.style.cssText = 'display: none !important;' 
-                }
-                else { 
-                    me.fieldMaskEl.style.cssText = '' 
-                }
-                me.myCursorOff = !me.myCursorOff 
-            }
-            , 500);            
+
+
     },
     
-    //clear cursor blink timer
-    clearCursorBlinkTimer: function(){
-        console.log(this.getId() +' clearCursorBlinkTimer');
-        if(this.cursorBlinkTimer){
-            window.clearTimeout(this.cursorBlinkTimer)
-        }
-        this.fieldMaskEl.style.cssText = 'display: none !important;'
-    },
+    //Override method in Ext.field.Text
+    onChange: function(me, value, startValue) {
+        //if(value != this.editVal){
+           me.fireEvent('change', this, value, startValue);
+        //}            
+    },        
     
-    setReadOnly: function(value){        
-        this.callParent([true]); 
-        if(this.isInitializing) return;
-        this.readOnlyField = value;
-    },
-    
-    getReadOnly: function(){
-        return this.readOnlyField;
-    },
-    
-    //check for value change and fire valueChange Event
-    fireValueChangeEvent: function(val){        
-        var newVal = parseFloat(val) || '';
-        var oldVal = parseFloat(this.valBeforeChange) || '';        
-        if(newVal != oldVal)
-        this.fireEvent('valueChange', newVal, oldVal);
+    showValidation: function(valid){        
+         this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');
     }
     
-});
+});    

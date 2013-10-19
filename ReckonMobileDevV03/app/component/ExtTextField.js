@@ -1,7 +1,11 @@
 Ext.define('RM.component.ExtTextField', {
     extend: 'Ext.field.Text',
     xtype: 'exttextfield',
-
+    
+    config: {
+        readOnly: true
+    },    
+    
     initialize: function () {
         
         this.callParent(arguments);

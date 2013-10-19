@@ -1,6 +1,6 @@
 Ext.define('RM.view.TestScreen', {
 	extend: 'Ext.Panel',
-    requires: ['RM.component.RMAmountField2','RM.component.RMAmountField','RM.component.RMPhoneField2','RM.component.RMPhoneField3'],
+    requires: ['RM.component.RMAmountField','RM.component.RMPhoneField'],
 	xtype: 'testscreen',
     
 	config: {		
@@ -80,7 +80,7 @@ Ext.define('RM.view.TestScreen', {
                      name: 'Test5'
                  
                  },{
-                     xtype:'rmphonefield2',
+                     xtype:'rmphonefield',
                      label: 'Bus Phone',
                      labelWidth: 120,
                      //value: '09272387878',

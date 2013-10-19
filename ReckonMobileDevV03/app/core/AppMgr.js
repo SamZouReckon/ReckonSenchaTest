@@ -172,8 +172,8 @@ Ext.define('RM.core.AppMgr', {
     },
 
     getServerRecById: function (serverApiName, recId, cb, cbs, cbFail) {
-        apiUrl = this.getApiUrl(serverApiName) + '/' + recId;
-        this.getServerRec(apiUrl, {}, cb, cbs, cbFail);        
+        //apiUrl = this.getApiUrl(serverApiName) + '/' + recId;
+        this.getServerRec(serverApiName + '/' + recId, {}, cb, cbs, cbFail);        
     },
 
     

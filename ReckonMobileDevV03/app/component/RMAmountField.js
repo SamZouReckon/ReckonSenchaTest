@@ -92,17 +92,16 @@ Ext.define('RM.component.RMAmountField', {
     showInputFld: function(){
        if(!this.getReadOnly()){
            this.displayEl.hide();
-           this.inputEl.show();
-           this.editVal = this.getValue();
+           this.inputEl.show();           
         }           
     },
     
     //Override method in Ext.field.Text
     onChange: function(me, value, startValue) {
-        if(value != this.editVal){
-            me.fireEvent('change', this, value, this.editVal);
+        if(value != startValue){
+            me.fireEvent('change', this, value, startValue);
             //To maintain compatibility with previous RMAmountField for now - InvoiceLineItem listens for this
-            me.fireEvent('valueChange', value, this.editVal);    
+            me.fireEvent('valueChange', value, startValue);                
         }            
     },  
     

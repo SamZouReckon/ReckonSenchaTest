@@ -15,7 +15,7 @@ Ext.define('RM.controller.CustomDiscountC', {
             /*'customdiscount exttextfield': {
                 tap: 'onFieldTap'
             },*/
-            'customdiscount rmamountfield2': {
+            'customdiscount rmamountfield': {
                 focus: 'onFieldFocus'
             },            
             'customdiscount #back': {

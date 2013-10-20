@@ -91,7 +91,7 @@ Ext.define('RM.view.ExpenseDetail', {
 								name: 'Amount',
 								label: 'Amount',                                
                                 rmmandatory: true,                                                                
-								cls: 'rm-flatfield rm-cursor-blinkbg',                                    
+								cls: 'rm-flatfield',                                    
 								placeHolder: 'enter',
 								clearIcon: false,   
                                 decimalPlaces: 2,

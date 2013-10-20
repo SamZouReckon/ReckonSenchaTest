@@ -510,19 +510,6 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var formVals = this.getInvoiceForm().getValues();        
         formVals.LineItems = this.getLineItems().getViewData();
         
-        // Set the line numbers, to handle new or deleted items
-        var lineNumber = 1;
-        formVals.LineItems.forEach(function(item) {
-            item.lineNo = lineNumber;
-            
-            // Remove the temporary Id for any new items, since the server is way too trusting
-            if(item.IsNew) {
-                delete item.InvoiceLineItemId;                
-            }
-            
-            lineNumber += 1;
-        });        
-        
         var vals = Ext.applyIf(formVals, this.detailsData);
         delete vals.DiscountPerc;
         delete vals.DiscountAmount;
@@ -538,8 +525,21 @@ Ext.define('RM.controller.InvoiceDetailC', {
         vals.Notes = this.noteText;
         
         if(this.validateForm(vals)){
-            if(formVals.LineItems.length > 0){
-                //alert(Ext.encode(vals));
+            if(formVals.LineItems.length > 0){                
+                // Some line item admin
+                var lineNumber = 1;
+                formVals.LineItems.forEach(function(item) {
+                    item.lineNo = lineNumber;
+                    
+                    // Remove the temporary Id for any new items, since the server is way too trusting
+                    if(item.IsNew) {
+                        delete item.InvoiceLineItemId;                
+                    }
+                    
+                    // Set the line numbers to handle new or deleted items
+                    lineNumber += 1;
+                });   
+                
                 this.detailsCb.call(this.detailsCbs, 'save', vals);
         
                 RM.AppMgr.saveServerRec('Invoices', this.isCreate, vals,

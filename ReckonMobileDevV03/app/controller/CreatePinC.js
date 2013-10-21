@@ -56,7 +56,14 @@ Ext.define('RM.controller.CreatePinC', {
 			        localStorage.setItem('RmHasMobilePin', true);
 			        this.goCb.call(this.goCbs);
 			    },
-			    this
+			    this,
+                function(recs, eventMsg){
+                    RM.AppMgr.showOkMsgBox(eventMsg);
+                },
+                'Setting pin...',
+                function(){ //callback if network error
+                    this.getPinKeypad().clearPin();                
+                }
 		    );
         }
         else {

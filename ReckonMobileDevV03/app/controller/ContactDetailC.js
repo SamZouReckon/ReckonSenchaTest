@@ -73,8 +73,9 @@ Ext.define('RM.controller.ContactDetailC', {
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
         if (!this.dataLoaded) {
-            var contactForm =  this.getContactForm(); 
-            //contactForm.reset();   
+            var contactForm =  this.getContactForm();
+            //contactForm.reset();
+            this.getBusinessOrIndividual().setReadOnly(!this.isCreate);
             if (!this.isCreate) {
                 this.loadFormData();
             }

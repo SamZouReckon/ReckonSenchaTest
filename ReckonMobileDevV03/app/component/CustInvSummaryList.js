@@ -69,7 +69,7 @@ Ext.define('RM.component.CustInvSummaryList', {
     
 
     loadList: function () {
-        var store = Ext.data.StoreManager.lookup('Invoices');
+        var store = Ext.data.StoreManager.lookup('CustomerInvoices');
         store.clearFilter();
         
         if(this.search){
@@ -77,7 +77,6 @@ Ext.define('RM.component.CustInvSummaryList', {
         }     
         
         RM.AppMgr.loadStore(store);        
-        RM.AppMgr.loadStore(this.getInvoicesList().getStore());
     },
 
     setLoadTimer: function () {

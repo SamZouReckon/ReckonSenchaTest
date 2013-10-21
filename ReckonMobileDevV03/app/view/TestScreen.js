@@ -50,7 +50,8 @@ Ext.define('RM.view.TestScreen', {
                      labelWidth: 120,
                      rmmandatory: true,
                      readOnly: false,                     
-                     decimalPlaces: 4,                     
+                     decimalPlaces: 4,     
+                     maxValue: 100,
                      currencyMode:false,
                      listeners: {
                          change: function(fld, newValue, oldValue){

@@ -108,24 +108,25 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');                
         
-        this.setEditable(this.isEditable);
-        
-        this.getInvoiceDetail().setActionsHidden(this.isCreate);                 
-        this.getDueDateFld().resetPicker();
-        this.getDateFld().resetPicker();
+        this.setEditable(this.isEditable);        
+        this.getInvoiceDetail().setActionsHidden(this.isCreate);                         
         
         if (!this.dataLoaded) {
+            this.getDueDateFld().resetPicker();
+            this.getDateFld().resetPicker();
+            
             if (!this.isCreate) {                
                 this.loadFormData();
             }
-            else {
+            else {                
                 this.loadNewInvCode();
                 var invoiceForm =  this.getInvoiceForm();
                 
                 var data = this.detailsData;
                 if (data.CustomerId) {                    
                     this.getLineItems().setCustomerId(data.CustomerId);
-                }
+                }                
+                
                 invoiceForm.reset();
                 invoiceForm.setValues(data);
                 this.applyTaxRules();

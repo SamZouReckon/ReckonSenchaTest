@@ -45,13 +45,14 @@ Ext.define('RM.view.ContactDetail', {
 					},{
 						name: 'Description',
 						label: 'Display name',
+                        maxLength: 5,
                         rmmandatory: true
 					},{
                         xtype: 'extselectfield',
                         name: 'CustomerOrSupplier',
 						itemId: 'customerOrSupplier',
 						label: 'Customer or supplier',
-                        labelWidth: '10em',
+                        labelWidth: '10em',                        
                         options: [
                             {text: 'Customer and Supplier',  value: 'CustomerSuppliers'},
                             {text: 'Customer', value: 'Customers'},

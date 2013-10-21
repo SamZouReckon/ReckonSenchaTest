@@ -45,6 +45,7 @@ Ext.define('RM.view.InvoiceLineItem', {
 					xtype: 'exttextfield',
 					name: 'ProjectName',
 					label: 'Project',
+                    readOnly: true, //prevent OS keypad coming as well
 					cls: 'rm-flatfield',
                     clearIcon: true,
                     placeHolder: 'select (optional)',
@@ -52,6 +53,7 @@ Ext.define('RM.view.InvoiceLineItem', {
 				},{
 					xtype: 'exttextfield',
 					name: 'ItemName',
+                    readOnly: true, //prevent OS keypad coming as well
 					label: 'Item',
                     rmmandatory: true,
 					cls: 'rm-flatfield',
@@ -76,7 +78,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					label: 'Item Price',
                         rmmandatory: true,
                         labelWidth: 135,
-    					cls: 'rm-flatfield rm-cursor-blinkbg',
+    					cls: 'rm-flatfield',
     					placeHolder: 'enter',
                         decimalPlaces: 8,
                         prefix: '$'
@@ -86,7 +88,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					name: 'Quantity',
     					label: 'Quantity',
     					value: 1,
-    					cls: 'rm-flatfield rm-cursor-blinkbg',
+    					cls: 'rm-flatfield',
                         decimalPlaces: 4,
                         trailingZerosUpTo: 0,
                         currencyMode: false,
@@ -128,7 +130,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         itemId: 'Tax',
     					label: 'Tax',
                         labelWidth: '7em',
-    					cls: ['rm-flatfield', 'rm-cursor-blinkbg', 'rm-flatfield-last'],
+    					cls: ['rm-flatfield', 'rm-flatfield-last'],
                         decimalPlaces: 2,
                         prefix: '$',
                         clearIcon: true

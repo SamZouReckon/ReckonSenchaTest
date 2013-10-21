@@ -4,7 +4,7 @@ Ext.define('RM.component.RMAmountField', {
     
     config : {
         clearIcon: false,
-        listeners: {blur: 'onInputBlur'/*, keyup: 'onKeyup'*/},
+        listeners: {blur: 'showDisplayValue', focus: 'showInputFld'},
         cls: 'rm-flatfield',
         currencyMode: true,
         decimalPlaces: 2,
@@ -12,7 +12,8 @@ Ext.define('RM.component.RMAmountField', {
         placeHolder: ''
     },       
     
-    initialize: function () {        
+    initialize: function () {    
+        
         this.callParent(arguments);   
         
         if(this.config.rmmandatory){
@@ -20,11 +21,7 @@ Ext.define('RM.component.RMAmountField', {
         }        
 
         this.inputEl = this.element.down('input');
-        // Add a focus handler to support device 'tabbing' focus from prev/next keypad buttons
-        this.inputEl.on('focus', this.showInputFld, this);
-
-        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field rm-field-input-formatted"></div>', true);
-        //this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field" ></div>', true);
+        this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field rm-field-input-formatted"></div>', true);        
         this.displayEl.on('tap', this.focus, this);
         
         this.initComplete = true;
@@ -48,62 +45,71 @@ Ext.define('RM.component.RMAmountField', {
         return RM.util.MathHelpers.roundToEven(value, this.getDecimalPlaces());        
     },
         
-    onInputBlur: function(){
-        var val = this.getValue();
-
-        if(!Ext.isNumeric(val)) val = null;    
-    
-        // User interaction has changed value. Update the actual underlying input control value, making sure to respect the max decimal places
-        if(val) {
-            this.getComponent().setValue(RM.util.MathHelpers.roundToEven(val, this.getDecimalPlaces()));            
-        }
-        else {
-            // This is to allow setting a blank value in the input, if that's not a valid case then manage that with validation
-            this.getComponent().setValue(val);
-        }        
-        console.log(this.getValue());
-        this.showDisplayValue();             
-        
-    },
-    
-    showDisplayValue: function(){
-        var val = this.getValue();
-        
+    showDisplayValue: function(){        
         // Display if we have a valid number to show
-        if(Ext.isNumeric(val)){
-            var displayVal;
-            if(this.getCurrencyMode()) {
-                displayVal = RM.AppMgr.formatCurrency(val, this.getDecimalPlaces());
-            }
-            else {
-                displayVal = RM.AppMgr.numberWithCommas(val, this.getDecimalPlaces());
-            }            
-            displayVal = this.handleTrailingZeros(displayVal);                
-            this.displayEl.setHtml(displayVal);                        
+        if(this.displayVal){                   
             this.displayEl.show(); 
         } 
         // otherwise leave the input control visible and clear the display value
         else {
             this.displayEl.hide(); 
-            this.displayEl.setHtml(val);
         }                   
     },
     
     showInputFld: function(){
        if(!this.getReadOnly()){
-           this.displayEl.hide();
-           this.inputEl.show();           
+           this.displayEl.hide();           
         }           
     },
     
     //Override method in Ext.field.Text
     onChange: function(me, value, startValue) {
-        if(value != startValue){
-            me.fireEvent('change', this, value, startValue);
-            //To maintain compatibility with previous RMAmountField for now - InvoiceLineItem listens for this
-            me.fireEvent('valueChange', value, startValue);                
-        }            
+        // We are potentially modifying the new value again in here, set a flag to prevent firing the change event twice
+        if(!me.inChangeEvent) {
+            me.inChangeEvent = true;
+            var val;
+            if(!Ext.isNumeric(value)) { 
+                val = null; 
+            }
+            else {
+                // Use apply value to do limits checks and rounding
+                val = this.applyValue(parseFloat(value));
+            }
+        
+            this.updateValue(val); 
+            this.setDisplayValue(val);
+            
+            if(String(val) != String(startValue)) {
+                this.fireEvent('change', this, val, startValue);
+                //To maintain compatibility with previous RMAmountField for now - InvoiceLineItem listens for this
+                this.fireEvent('valueChange', val, startValue);   
+    //<debug>                
+                console.log('rmamount value change from ' + startValue + ' to ' + val);
+    //</debug>
+            }
+            me.inChangeEvent = false;
+        }             
     },  
+    
+    setDisplayValue: function(value) {
+        // Display if we have a valid number to show
+        if(Ext.isNumeric(value)){
+            if(this.getCurrencyMode()) {
+                this.displayVal = RM.AppMgr.formatCurrency(value, this.getDecimalPlaces());
+            }
+            else {
+                this.displayVal = RM.AppMgr.numberWithCommas(value, this.getDecimalPlaces());
+            }            
+            this.displayVal = this.handleTrailingZeros(this.displayVal);                
+            this.displayEl.setHtml(this.displayVal);                        
+        } 
+        // otherwise leave the input control visible and clear the display value
+        else {
+            this.displayVal = null;
+            this.displayEl.setHtml('');
+        }    
+        this.showDisplayValue();
+    },
     
     onClearIconTap: function() {
         this.callParent(arguments);

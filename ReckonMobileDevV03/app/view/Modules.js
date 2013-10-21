@@ -36,14 +36,14 @@ Ext.define('RM.view.Modules', {
         			fields: ['ModuleCode', {name:'Activated', type:'bool'}, 'ShortName', 'FullName', 'Description', 'Image']
         		},    
                 itemTpl: new Ext.XTemplate(
-                    '<div style="height:220px;width:120px;"><img src="resources/images/{Image}-'+
+                    '<div ><img src="resources/images/{Image}-'+
                     '<tpl if="Activated == true">'+
                         'on'+                                            
                     '</tpl>'+ 
                    '<tpl if="Activated == false">'+
                         'off'+                                            
                     '</tpl>'+
-                    '.svg">'+
+                    '.svg" style= "width: 90px; height: 90px;">'+
                     '<div style= "color: #969696;">{ShortName}</div></div>'
                 ),	         
                 

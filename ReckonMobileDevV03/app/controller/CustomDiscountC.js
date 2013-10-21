@@ -48,7 +48,7 @@ Ext.define('RM.controller.CustomDiscountC', {
         if (disc != 0) {
             var absDiscount = this.getAbsoluteDiscount();
             if (disc.indexOf('%') > -1) {
-                percDisc.setValue(disc.replace('%', ''));
+                percDisc.setValue(parseFloat(disc.replace('%', '')));
                 absDiscount.setValue(null);
             }
             else {

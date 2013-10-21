@@ -639,7 +639,7 @@ Ext.define('RM.core.AppMgr', {
     },
     
     unformatCurrency: function(value) {
-        return value.replace(/(\()?(-)?(\$)?(,)?(\))?/g, '');
+        return parseFloat(value.replace(/(\()?(-)?(\$)?(,)?(\))?/g, ''));
     },
     
     /*saveSettings: function (settings, cb, cbs) {

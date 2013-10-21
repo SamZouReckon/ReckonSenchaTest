@@ -5752,7 +5752,7 @@ body.x-desktop {
   border-radius: 0;
   border: 0;
   margin: 0;
-  background-image: url("../images/icons/rm-btn-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
+  background-image: url("../images/icons/rm-listitem-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
   background-repeat: no-repeat, repeat-x;
   background-position-x: 96%,0%;
   background-position-y: 50%,0%;
@@ -5870,7 +5870,7 @@ body.x-desktop {
   border-radius: 0;
   border: 0;
   margin: 0;
-  background-image: url("../images/icons/rm-btn-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
+  background-image: url("../images/icons/rm-listitem-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
   background-repeat: no-repeat, repeat-x;
   background-position-x: 95%,0%;
   background-position-y: 50%,0%;
@@ -6135,8 +6135,9 @@ body.x-desktop {
 .rm-checkbox {
   background-position: center;
   background-repeat: no-repeat;
-  width: 20px;
-  height: 20px; }
+  background-size: 21px;
+  width: 23px;
+  height: 23px; }
 
 .rm-checkbox-label {
   color: #969696;
@@ -6854,3 +6855,9 @@ rm-emailinvoicebackground {
   font-weight: bold;
   margin-left: 5px !important;
   font-size: 90%; }
+
+.rm-photobtnfont .x-button-label, .rm-photobtnfont .x-badge {
+  font-weight: bold !important; }
+
+.rm-photobtniconsize {
+  background-size: 24px 18px; }

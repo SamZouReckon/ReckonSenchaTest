@@ -40,9 +40,9 @@ Ext.define('RM.view.ExpenseDetail', {
 					
 						xtype: 'button',
 						text: 'Photograph the receipt',
-						cls: 'rm-arrowimgbtn',						
+						cls: 'rm-arrowimgbtn rm-photobtnfont',						
 						icon: 'resources/images/icons/rm-photo.svg',
-                        iconCls: 'rm-btniconsize',
+                        iconCls: 'rm-photobtniconsize',
 						iconAlign: 'left',
 						itemId: 'photo'
 					},{

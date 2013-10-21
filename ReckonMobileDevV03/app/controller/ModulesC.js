@@ -68,7 +68,7 @@ Ext.define('RM.controller.ModulesC', {
                     itemId: option.value,
                     text: option.text,
                     //cls: 'rm-dropdownmain',
-                    ui: 'rm_btnaslistrowmain'
+                    ui: 'rm_btnaslistrowmainmenu'
                 };
                 menuItems.push(btn);
             }
@@ -137,7 +137,8 @@ Ext.define('RM.controller.ModulesC', {
                 {
                     xtype: 'component',                    
 					cls: 'rm-module-panel-arrow',  
-					left: arrowLeft
+					left: arrowLeft,
+                    zIndex: 1000                    
                 },           
                 {
                     xtype: 'component',
@@ -169,7 +170,7 @@ Ext.define('RM.controller.ModulesC', {
                             
                         },{
                             xtype: 'button',
-                            cls: 'rm-module-close-btn',
+                            cls: 'rm-module-close-btn',                            
                             handler: function(){                        
                                 this.infoSheet.hide();                        
                             },

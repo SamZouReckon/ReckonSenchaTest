@@ -1,3 +1,4 @@
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -5377,13 +5378,13 @@ body.x-desktop {
   background-color: white; }
 .x-picker .x-toolbar .x-button-normal {
   text-transform: uppercase;
-  background: url(../images/rm-pickerbtn-border.png) repeat-y right top;
+  background: url(../images/rm-pickerbtn-border.svg) repeat-y right top;
   margin-left: -5px;
   margin-right: 5px; }
 .x-picker .x-toolbar .x-button-action {
   width: 3.8em !important;
   text-transform: uppercase;
-  background: url(../images/rm-pickerbtn-border.png) repeat-y left top;
+  background: url(../images/rm-pickerbtn-border.svg) repeat-y left top;
   margin-left: 5px;
   margin-right: -5px; }
 
@@ -5660,6 +5661,15 @@ body.x-desktop {
   overflow: hidden;
   padding: 10px; }
 
+.x-button-rm_btnaslistrowmainmenu {
+  border-radius: 0;
+  border: none;
+  background: #000000;
+  color: #FFFFFF;
+  border-bottom: 1px solid #4F4F4F;
+  padding: 0px;
+  margin: 0px; }
+
 .x-button-rm_btnaslistrowmain {
   border-radius: 0;
   border: none;
@@ -5746,7 +5756,7 @@ body.x-desktop {
   background-repeat: no-repeat, repeat-x;
   background-position-x: 96%,0%;
   background-position-y: 50%,0%;
-  background-size: 10px 20px, 2px;
+  background-size: 10px 20px, 4px;
   height: 2.6em; }
 .rm-swipecontainer .x-button-label, .rm-swipecontainer .x-badge {
   text-overflow: ellipsis;
@@ -5864,7 +5874,7 @@ body.x-desktop {
   background-repeat: no-repeat, repeat-x;
   background-position-x: 95%,0%;
   background-position-y: 50%,0%;
-  background-size: 10px 20px, 2px;
+  background-size: 10px 20px, 4px;
   height: 2.6em; }
 .rm-popup .x-button-rm_btnaslistrow .x-button-label, .rm-popup .x-button-rm_btnaslistrow .x-badge {
   text-overflow: ellipsis;
@@ -6322,13 +6332,15 @@ rm-emailinvoicebackground {
   border-radius: 0; }
 
 .rm-module-close-btn {
+  background: none;
   background-image: url("../images/rm-module-close.svg") !important;
   background-repeat: no-repeat;
+  background-size: 40px;
   border: 0;
   border-radius: 0;
-  width: 50px;
-  height: 50px;
-  margin-top: 15px; }
+  width: 42px;
+  height: 42px;
+  margin-top: 16px; }
 
 .rm-module-panel {
   border-top: 2px solid #D1D1D1;
@@ -6359,10 +6371,11 @@ rm-emailinvoicebackground {
 
 .rm-module-panel-arrow {
   background-image: url("../images/rm-popup-arrow.png") !important;
+  background-size: 43px 22px;
   background-repeat: no-repeat;
   width: 43px;
   height: 22px;
-  position: absolute;
+  position: absolute !important;
   top: -22px; }
 
 .rm-slidenav-menuitem {

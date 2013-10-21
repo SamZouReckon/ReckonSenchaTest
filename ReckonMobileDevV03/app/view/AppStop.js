@@ -30,7 +30,7 @@ Ext.define('RM.view.AppStop', {
                         xtype: 'component',
                         html: 'A new update has been released!', 
                         cls: 'rm-update-title', 
-                        margin: '-14 0 5 0'
+                        margin: '-8 0 5 0'
                     },{
                         xtype: 'component',
                         html: 'Click below to update for security & stability.',

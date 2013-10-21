@@ -245,7 +245,7 @@ $include-list-highlights: none;
             
             text-transform: uppercase;
 			//border-right: 0.1em solid #000;
-            background: url(../images/rm-pickerbtn-border.png) repeat-y right top;
+            background: url(../images/rm-pickerbtn-border.svg) repeat-y right top;
             margin-left: -5px;
             margin-right: 5px;
 		}
@@ -254,7 +254,7 @@ $include-list-highlights: none;
             width: 3.8em !important;
             text-transform: uppercase;
 			//border-left: 0.1em solid #000;
-            background: url(../images/rm-pickerbtn-border.png) repeat-y left top;
+            background: url(../images/rm-pickerbtn-border.svg) repeat-y left top;
             margin-left: 5px;
             margin-right: -5px;
 		}
@@ -498,6 +498,17 @@ $include-list-highlights: none;
 }
 
 // Main/Module dropdown menu style and button as menu items. Button text aligned to left using button-label 
+.x-button-rm_btnaslistrowmainmenu{
+    border-radius: 0;
+	border: none;		
+    background: #000000;
+	color: #FFFFFF;
+	border-bottom: 1px solid #4F4F4F;
+	padding: 0px;
+	margin:0px;
+}
+
+//Dropdown menu with black bgcolor for dropdown menu
 .x-button-rm_btnaslistrowmain {
 		border-radius: 0;
 		border: none;		
@@ -588,7 +599,7 @@ $include-list-highlights: none;
 	    background-repeat:no-repeat, repeat-x;	
 	    background-position-x: 96%,0%;
 	    background-position-y: 50%,0%; 
-        background-size: 10px 20px, 2px;
+        background-size: 10px 20px, 4px;
         height: $global-row-height;
 	}
 	.x-button-label {    
@@ -751,7 +762,7 @@ $include-list-highlights: none;
     	    background-repeat:no-repeat, repeat-x;	
     	    background-position-x: 95%,0%;
     	    background-position-y: 50%,0%; 
-            background-size: 10px 20px, 2px;
+            background-size: 10px 20px, 4px;
             height: $global-row-height;
 
 			.x-button-label {    
@@ -1274,14 +1285,15 @@ rm-emailinvoicebackground{
 }
 
 .rm-module-close-btn{
-    
+    background: none;
 	background-image: url("../images/rm-module-close.svg")!important;	
     background-repeat: no-repeat;	
+    background-size: 40px;
     border: 0;
     border-radius: 0; 
-    width: 50px;  
-    height: 50px;  
-	margin-top: 15px;
+    width: 42px;  
+    height: 42px;  
+	margin-top: 16px;
 }
 
 .rm-module-panel{    
@@ -1318,10 +1330,11 @@ rm-emailinvoicebackground{
 .rm-module-panel-arrow{
 	
 	background-image: url("../images/rm-popup-arrow.png")!important;
+    background-size: 43px 22px;
     background-repeat: no-repeat;	
     width: 43px;
 	height: 22px;
-	position: absolute;
+	position: absolute !important;
 	top: -22px;	
 	
 }
@@ -2012,3 +2025,4 @@ rm-emailinvoicebackground{
     margin-left: 5px !important;
     font-size: 90%;
 }
+

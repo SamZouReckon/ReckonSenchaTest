@@ -39,15 +39,15 @@ Ext.define('RM.view.dashboard.Dashboard', {
                 items: [
                     {
                         xtype: 'img',
-                        src: 'resources/images/icons/rm-noaccess-icon.png',                        
-                        width: 75,
-                        height: 69,
-                        margin: '25px auto'  
+                        src: 'resources/images/icons/rm-noaccess-icon.svg',                        
+                        width: 68,
+                        height: 62,
+                        margin: '28px auto'  
                     },{
                         xtype: 'component',
                         html: 'You do not have enough access </br>rights to view the dashboard', 
                         cls: 'rm-update-title', 
-                        margin: '-5 0 30 0'
+                        margin: '-8 0 30 0'
                     },{
                         xtype: 'component',
                         html: 'Please tap the top left button to </br>gain access to other parts of this book.',

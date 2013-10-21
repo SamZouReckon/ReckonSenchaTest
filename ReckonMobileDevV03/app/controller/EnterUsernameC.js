@@ -64,7 +64,7 @@ Ext.define('RM.controller.EnterUsernameC', {
                     xtype: 'button',
                     itemId: option.value,
                     text: option.text,                    
-                    ui: 'rm_btnaslistrowmain'
+                    ui: 'rm_btnaslistrowmainmenu'
                 };
                 menuItems.push(btn);
             }

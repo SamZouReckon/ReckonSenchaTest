@@ -101,7 +101,7 @@ Ext.define('RM.controller.EnterPinC', {
 					xtype: 'button',
 					itemId: option.value,
 					text: option.text,					
-					ui: 'rm_btnaslistrowmain'
+					ui: 'rm_btnaslistrowmainmenu'
 				};
 				menuItems.push(btn);
 			}

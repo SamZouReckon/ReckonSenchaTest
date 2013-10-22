@@ -445,7 +445,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     displayBalanceDue: function () {        
-        this.getBalanceDue().setHtml('$' + RM.AppMgr.numberWithCommas(Ext.Number.toFixed(this.detailsData.BalanceDue, 2)));
+        this.getBalanceDue().setHtml(RM.AppMgr.formatCurrency(this.detailsData.BalanceDue, 2));
     },
 
     onBalanceBreakdown: function () {

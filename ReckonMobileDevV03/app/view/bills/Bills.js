@@ -35,7 +35,7 @@ Ext.define('RM.view.bills.Bills', {
                             '<div class="rm-orgnametext">{SupplierName}</div>',
                         '</div>',
                         '<div style="width: 45%; display: inline-block; vertical-align: top;">',
-                            '<div class="rm-orgnametext rm-alignr">${[RM.AppMgr.numberWithCommas(values.Total)]}</div>',
+                            '<div class="rm-orgnametext rm-alignr">{[RM.AppMgr.formatCurrency(values.Total)]}</div>',
                         '</div>' , 
                         '</div>',
                         '<div>',

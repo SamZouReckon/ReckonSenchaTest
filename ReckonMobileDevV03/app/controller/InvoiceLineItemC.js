@@ -67,6 +67,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.detailsCbs = cbs;
 
         if(detailsData){    	    
+            this.isCreate = false;
             this.detailsData = detailsData;                    
         }
         else{
@@ -256,6 +257,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // An item has been selected from the list:
         // Reset item fields
         this.detailsData.ItemName = newItem.Name;
+        this.detailsData.DefaultTaxGroupId = newItem.SaleTaxCodeID;
         this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
         this.setTaxModified(false);
         

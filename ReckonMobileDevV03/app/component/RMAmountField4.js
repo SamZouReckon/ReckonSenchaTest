@@ -88,7 +88,7 @@ Ext.define('RM.component.RMAmountField4', {
         this.inputEl.hide();
         
         if(this.myVal){
-            this.displayEl.dom.value = this.getPrefix() + RM.AppMgr.numberWithCommas(this.myVal.toFixed(2))    
+            this.displayEl.dom.value = this.getPrefix() + RM.AppMgr.numberWithCommas(this.myVal,2)    
         }
         
         this.displayEl.show();
@@ -97,7 +97,7 @@ Ext.define('RM.component.RMAmountField4', {
         
         var val = this.inputEl.dom.value;
         if(val){
-            var displayVal = '$' + val;  //this.getPrefix() + RM.AppMgr.numberWithCommas(val.toFixed(2));
+            var displayVal = '$' + val;  //this.getPrefix() + RM.AppMgr.numberWithCommas(val,2);
             //TODO: do any other formatting of display value required here        
         
             //this.displayEl.setHtml(displayVal);

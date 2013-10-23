@@ -136,7 +136,7 @@ Ext.define('RM.component.InvoicesList', {
                             '<div class="rm-orgnametext rm-pl5">{CustomerName}</div>'+
                         '</div>'+
                         '<div style="width: 45%; display: inline-block; vertical-align: top;">'+
-                            '<div class="rm-nextgrayarrow rm-invoice-invoiceamount rm-alignr ">${[RM.AppMgr.numberWithCommas(values.Amount)]}</div>'+
+                            '<div class="rm-nextgrayarrow rm-invoice-invoiceamount rm-alignr ">{[RM.AppMgr.formatCurrency(values.Amount)]}</div>'+
                         '</div>' + 
                     '</div>'+
         			'<div>' +
@@ -150,7 +150,7 @@ Ext.define('RM.component.InvoicesList', {
                             '<div class="rm-orgnametext rm-pt5 rm-pl5">{InvCode}</div>'+
                         '</div>' +
                         '<div style="width: 45%; display: inline-block; vertical-align: top;">'+
-                            '<div class="rm-nextgrayarrow rm-pt5 rm-invoices-invoiceamount rm-alignr ">${[RM.AppMgr.numberWithCommas(values.Amount)]}</div>' +
+                            '<div class="rm-nextgrayarrow rm-pt5 rm-invoices-invoiceamount rm-alignr ">{[RM.AppMgr.formatCurrency(values.Amount)]}</div>' +
                         '</div>'+
                     '</div>' +
                 '</tpl>'+			

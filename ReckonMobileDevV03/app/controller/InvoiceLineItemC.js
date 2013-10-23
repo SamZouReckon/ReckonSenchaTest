@@ -67,6 +67,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.detailsCbs = cbs;
 
         if(detailsData){    	    
+            this.isCreate = false;
             this.detailsData = detailsData;                    
         }
         else{

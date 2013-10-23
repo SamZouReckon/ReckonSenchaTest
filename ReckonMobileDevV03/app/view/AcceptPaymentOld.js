@@ -1,4 +1,4 @@
-Ext.define('RM.view.AcceptPayment', {
+Ext.define('RM.view.AcceptPaymentOld', {
     extend: 'Ext.Panel',
     xtype: 'acceptpayment',
     requires: ['RM.component.DataEntryKeypad'],    

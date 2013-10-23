@@ -45,7 +45,7 @@ Ext.define('RM.view.ContactDetail', {
 					},{
 						name: 'Description',
 						label: 'Display name',
-                        maxLength: 5,
+                        //maxLength: 5,
                         rmmandatory: true
 					},{
                         xtype: 'extselectfield',
@@ -96,14 +96,27 @@ Ext.define('RM.view.ContactDetail', {
                         hidden: true,
                         html: '<h3 class="rm-m-1 rm-hearderbg">DETAILS</h3>'
 					},{
-						name: 'FirstNameBranchName',
-						label: 'First name',  
+						name: 'FirstName',
+						label: 'First name',                        
+                        rmmandatory: true,                        
                         hidden: true,
                         border: '0 0 1 0'
 					},{
-						name: 'SurnameBusinessName',                                       
+						name: 'Surname',                                       
 						label: 'Surname',
-                        rmmandatory: true
+                        rmmandatory: true,
+                        hidden: true
+					},{
+						name: 'BusinessName',
+						label: 'Business name', 
+                        border: '0 0 1 0',
+                        rmmandatory: true,
+                        hidden: true                        
+					},{
+						name: 'BranchName',                                       
+						label: 'Branch name',    
+                        hidden: true, 
+                        border: '1 0 1 0'
 					},{
                         xtype: 'container',
                         itemId: 'phoneContainer',                                        
@@ -202,7 +215,7 @@ Ext.define('RM.view.ContactDetail', {
 						label: 'Country',
                         border: '1 0 1 0',
                         style: 'border-color: #DBDBDB; border-style: solid;'
-					}               
+					}              
 				]
 			}
 		]

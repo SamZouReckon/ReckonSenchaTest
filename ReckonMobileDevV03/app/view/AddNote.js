@@ -30,7 +30,8 @@ Ext.define('RM.view.AddNote', {
 			itemId: 'notetext',            
             clearIcon: false,
             //placeHolder: 'enter', //is set in controller depending on whether is editable or not
-            cls: 'rm-addnotefield'                      
+            cls: 'rm-addnotefield'  ,
+            maxRows: 10
         }
         ]
     }

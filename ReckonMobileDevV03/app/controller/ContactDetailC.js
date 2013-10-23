@@ -7,14 +7,15 @@ Ext.define('RM.controller.ContactDetailC', {
             contactTitle: 'contactdetail #title',
             saveBtn: 'contactdetail #save',
             contactForm: 'contactdetail #contactForm',
-            descriptionFld: 'contactdetail textfield[name=Description]',
-            nameFld: 'contactdetail textfield[name=SurnameBusinessName]',
+            descriptionFld: 'contactdetail textfield[name=Description]',            
             customerOrSupplier: 'contactdetail #customerOrSupplier',
             businessOrIndividual: 'contactdetail #businessOrIndividual',            
             addressHeader: 'contactdetail #addressHeader',
             detailHeader: 'contactdetail #detailHeader',
-            branchName: 'contactdetail textfield[name=FirstNameBranchName]',
-            businessName: 'contactdetail textfield[name=SurnameBusinessName]',            
+            businessName: 'contactdetail textfield[name=BusinessName]',
+            branchName: 'contactdetail textfield[name=BranchName]',              
+            firstName: 'contactdetail textfield[name=FirstName]',
+            surname: 'contactdetail textfield[name=Surname]',
             phoneContainer: 'contactdetail #phoneContainer',
             faxContainer: 'contactdetail #faxContainer',
             email: 'contactdetail textfield[name=Email]',
@@ -108,7 +109,7 @@ Ext.define('RM.controller.ContactDetailC', {
     
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
-			function (data) {
+			function (data) {                
                 var contactForm =  this.getContactForm();                
                 contactForm.setValues(data);
                 this.loadFieldsData(data);
@@ -136,26 +137,30 @@ Ext.define('RM.controller.ContactDetailC', {
             isValid = false;
         } 
         
-        if(vals.IsPerson == null ){
-            //this.getBusinessOrIndividual().setLabelCls('rm-manfld-notset-lbl');
+        if(vals.IsPerson == null ){            
             this.getBusinessOrIndividual().showValidation(false);
             isValid = false;
         } 
         
-        if(vals.IsPerson == true && vals.FirstNameBranchName == ''){
-            this.getBranchName().showValidation(false);
+        if(vals.IsPerson == true && !vals.FirstNameBranchName){        
+            this.getFirstName().showValidation(false);
+            isValid = false;
+        }
+        
+        if(vals.IsPerson == true && !vals.SurnameBusinessName){        
+            this.getSurname().showValidation(false);
+            isValid = false;
+        }
+        
+        if(vals.IsPerson == false && !vals.SurnameBusinessName){        
+            this.getBusinessName().showValidation(false);
             isValid = false;
         }
         
         if(!vals.Description){
             this.getDescriptionFld().showValidation(false);
             isValid = false;
-        }         
-        
-        if(vals.SurnameBusinessName == ''){
-            this.getNameFld().showValidation(false);
-            isValid = false;
-        }  
+        }    
         
         if (vals.Email !== '' && !RM.AppMgr.validateEmail(vals.Email)) {             
             this.getEmail().showValidation(false);
@@ -173,8 +178,21 @@ Ext.define('RM.controller.ContactDetailC', {
     
     save: function(){
         
-        var vals = this.getContactForm().getValues();        
+        var vals = this.getContactForm().getValues();          
         vals.IsPerson = this.detailsData.IsPerson;
+        if(vals.IsPerson === true){
+            vals.FirstNameBranchName = vals.FirstName;
+            vals.SurnameBusinessName = vals.Surname;
+        }
+        else {
+            vals.FirstNameBranchName = vals.BranchName;
+            vals.SurnameBusinessName = vals.BusinessName;
+        }
+        delete vals.FirstName;
+        delete vals.Surname;
+        delete vals.BranchName;
+        delete vals.BusinessName;
+        
         vals.IsCustomer = this.detailsData.IsCustomer;
         vals.IsSupplier = this.detailsData.IsSupplier;  
         vals.IsActive = true;                             //Set this to field value when contact state field is added back to contact detail form
@@ -249,18 +267,19 @@ Ext.define('RM.controller.ContactDetailC', {
             this.detailsData.IsPerson = false;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS DETAILS</h3>');
             this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
-            this.getBranchName().setLabel('Branch name');
-            this.getBranchName().showValidation(true);
-            this.getBusinessName().setLabel('Business name <span style="color: #F00">*</span>');
+            this.getBusinessName().setHidden(false);
+            this.getBranchName().setHidden(false);
+            this.getFirstName().setHidden(true);
+            this.getSurname().setHidden(true);            
         }
         else{            
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
             this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
-            this.getBranchName().setLabel('First name <span style="color: #F00">*</span>'); 
-            console.log(this.getBranchName().getValue());
-            this.getBranchName().showValidation(this.getBranchName().getValue()); 
-            this.getBusinessName().setLabel('Surname <span style="color: #F00">*</span>');
+            this.getBusinessName().setHidden(true);
+            this.getBranchName().setHidden(true);
+            this.getFirstName().setHidden(false);
+            this.getSurname().setHidden(false);            
         }
     },
     
@@ -278,19 +297,20 @@ Ext.define('RM.controller.ContactDetailC', {
         
         if(data.IsPerson == true){
             this.getBusinessOrIndividual().setValue('Individual');
+            this.getFirstName().setValue(data.FirstNameBranchName);
+            this.getSurname().setValue(data.SurnameBusinessName);
         }
         else{
             this.getBusinessOrIndividual().setValue('Business');
+            this.getBusinessName().setValue(data.SurnameBusinessName);
+            this.getBranchName().setValue(data.FirstNameBranchName);
         }
         
     },
     
     hideFields: function(val){        
-        
         this.getDetailHeader().setHidden(val);
-        this.getAddressHeader().setHidden(val);
-        this.getBranchName().setHidden(val);
-        this.getBusinessName().setHidden(val);
+        this.getAddressHeader().setHidden(val);        
         this.getPhoneContainer().setHidden(val);
         this.getFaxContainer().setHidden(val);
         this.getEmail().setHidden(val);
@@ -299,8 +319,7 @@ Ext.define('RM.controller.ContactDetailC', {
         this.getSuburb().setHidden(val);
         this.getState().setHidden(val);
         this.getPostcode().setHidden(val);
-        this.getCountry().setHidden(val);
-        
+        this.getCountry().setHidden(val);        
     }    
 
 });

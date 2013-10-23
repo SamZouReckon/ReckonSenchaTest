@@ -91,8 +91,6 @@ Ext.define('RM.controller.InvoiceDetailC', {
             });
         }
         
-        //Amount, DiscountTotal, Tax, Subtotal, Paid, BalanceDue
-
         this.isEditable = RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && RM.PermissionsMgr.canAddEdit('Invoices');
         
         var view = this.getInvoiceDetail();
@@ -295,8 +293,33 @@ Ext.define('RM.controller.InvoiceDetailC', {
         if(!this.dataLoaded) return;
         this.detailsData.AmountTaxStatus = newValue;
         this.previousAmountTaxStatus = oldValue;
-        this.calculateBreakdown();          
-        this.getLineItems().setTaxStatus(newValue);
+        
+        var that = this;
+        function proceedWithChange() {
+            that.calculateBreakdown();          
+            that.getLineItems().setTaxStatus(newValue);
+            that.previousAmountTaxStatus = newValue;
+        }
+                
+        // Make sure the user is aware of the impact of certain changes
+        if(newValue === RM.Consts.TaxStatus.NON_TAXED && this.taxModificationsExist()) {
+            RM.AppMgr.showYesNoMsgBox('This change will remove the modified tax information on all your line items, are you sure you want to do this?', 
+            function(result) {
+                if(result === 'yes') {
+                    proceedWithChange();
+                }
+                else {
+                    // Put the old value back, suppressing the change event at the same time
+                    amountTaxStatusFld.suspendEvents();
+                    amountTaxStatusFld.setValue(oldValue);
+                    this.detailsData.AmountTaxStatus = oldValue;
+                    amountTaxStatusFld.resumeEvents(true);
+                }
+            }, this);
+        }
+        else {
+            proceedWithChange();
+        }        
     },
 
     onInvoiceDateChanged: function(dateField, newValue, oldValue) {
@@ -346,8 +369,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
             CustomerId: formVals.CustomerId,
             InvoiceDate: formVals.Date, 
             AmountTaxStatus: formVals.AmountTaxStatus, 
-            PreviousAmountTaxStatus: 
-            this.previousAmountTaxStatus, 
+            PreviousAmountTaxStatus: this.previousAmountTaxStatus, 
             LineItems:[]
         };
         
@@ -358,14 +380,24 @@ Ext.define('RM.controller.InvoiceDetailC', {
             vals.DiscountAmount = formVals.Discount.replace('$', '');
         }
       
-        // House keeping. The calcs api doesn't handle removing things like the tax group and tax amounts when 
-        // switching to NON-TAXED so we remove them first.
-        if(vals.AmountTaxStatus === RM.Consts.TaxStatus.NON_TAXED) {
-            lineItems = lineItems.map(function(item) {
-                item.TaxGroupId = null;
-                item.Tax = null;
-                return item;
-            });
+        if(vals.PreviousAmountTaxStatus !== vals.AmountTaxStatus) {
+            if(vals.AmountTaxStatus === RM.Consts.TaxStatus.NON_TAXED) {
+                // House keeping. The calcs api doesn't handle removing things like the tax group and tax amounts when 
+                // switching to NON-TAXED so we remove them first.
+                lineItems = lineItems.map(function(item) {
+                    item.TaxGroupId = null;
+                    item.Tax = null;
+                    item.TaxIsModified = false;
+                    return item;
+                });
+            }
+            else {
+                // User is changing from NON-TAXED to a Tax-incl state. Apply the default tax group to each of the line items.
+                lineItems = lineItems.map(function(item) {
+                    item.TaxGroupId = item.DefaultTaxGroupId;
+                    return item;
+                });
+            }
         }
         
         // Send only the fields required by the calculation contract for line items
@@ -563,6 +595,21 @@ Ext.define('RM.controller.InvoiceDetailC', {
         }
 
 
+    },
+
+    // Check all the lineItems for modifications to tax code or tax amount
+    taxModificationsExist: function() {
+        var lineItems = this.getLineItems().getViewData();
+        var changesExist = false;
+        
+        Ext.Array.some(lineItems, function(item) {
+            if(item.TaxIsModified || item.TaxGroupId !== item.DefaultTaxGroupId) {
+                changesExist = true;
+                return true;
+            }            
+        });
+        
+        return changesExist;
     }
 
 });

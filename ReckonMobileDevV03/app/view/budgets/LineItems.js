@@ -55,24 +55,15 @@ Ext.define('RM.view.budgets.LineItems', {
     					'<div style="width: 35%; display: inline-block;"><div class="rm-budgetlineitem-name rm-alignr">{[this.calculateTotal(values.Forecast, values.Actual)]}</div></td>' + 
     				'</div>' +
     				'<div>' +
-    					'<span class="rm-budgetlineitem-field rm-pt5">Forecast: </span><span class="rm-budgetlineitem-value"> ${[RM.AppMgr.numberWithCommas(values.Forecast)]}</span>' +
+    					'<span class="rm-budgetlineitem-field rm-pt5">Forecast: </span><span class="rm-budgetlineitem-value"> {[RM.AppMgr.formatCurrency(values.Forecast)]}</span>' +
                     '</div>' +
                     '<div>' +
-    					'<span class="rm-budgetlineitem-field rm-pt5">Actual: </span><span class="rm-budgetlineitem-value"> ${[RM.AppMgr.numberWithCommas(values.Actual)]}</span>' +                
+    					'<span class="rm-budgetlineitem-field rm-pt5">Actual: </span><span class="rm-budgetlineitem-value"> {[RM.AppMgr.formatCurrency(values.Actual)]}</span>' +                
 					'</div>',
 					{
 					calculateTotal: function(forecast, actual) {
-						var totalValue = forecast - actual;
-						if (totalValue < 0) {
-							totalValue = Math.abs(totalValue);    //totalValue.toString().replace(/\-/g, "");
-							totalValue = RM.AppMgr.numberWithCommas(totalValue);
-							totalValue = "($" + totalValue + ")";
-						}
-						else {
-							totalValue = RM.AppMgr.numberWithCommas(totalValue);
-							totalValue = "$" + totalValue;
-						}
-						return totalValue;
+						var totalValue = forecast - actual;						
+						return RM.AppMgr.formatCurrency(totalValue, 2, true);
 					}
                             
 				}),

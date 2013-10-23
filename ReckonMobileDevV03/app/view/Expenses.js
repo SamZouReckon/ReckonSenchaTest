@@ -41,7 +41,7 @@ Ext.define('RM.view.Expenses', {
                             '<div class="rm-orgnametext">{[this.customerText(values.CustomerName)]}</div>',
                         '</div>',
                         '<div style="width: 45%; display: inline-block; vertical-align: top;">',
-                            '<div class="rm-nextgrayarrow rm-orgnametext rm-alignr">${[RM.AppMgr.numberWithCommas(values.Amount)]}</div>',
+                            '<div class="rm-nextgrayarrow rm-orgnametext rm-alignr">{[RM.AppMgr.formatCurrency(values.Amount)]}</div>',
                         '</div>' , 
                     '</div>',
                     '<div>',

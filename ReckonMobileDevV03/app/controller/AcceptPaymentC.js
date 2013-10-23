@@ -85,7 +85,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     },
 
     onMsgShow: function () {        
-        //this.getMsgCont().setHtml('$' + RM.AppMgr.numberWithCommas(Ext.Number.toFixed(this.amountPaid, 2)) + ' accepted.');
+        //this.getMsgCont().setHtml(RM.AppMgr.formatCurrency(this.amountPaid)) + ' accepted.');
         this.getMsgCont().setHtml('Payment Accepted');
     },
 
@@ -118,7 +118,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
          
         if(vals.AmountPaid > this.fullAmount){
             this.getAmountPaid().showValidation(false);
-            RM.AppMgr.showErrorMsgBox('Payment Amount cannot be more than the balance due amount of $' + RM.AppMgr.numberWithCommas(this.fullAmount));            
+            RM.AppMgr.showErrorMsgBox('Payment Amount cannot be more than the balance due amount of ' + RM.AppMgr.formatCurrency(this.fullAmount));            
             isValid = false;
         }        
          

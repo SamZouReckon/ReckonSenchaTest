@@ -58,7 +58,7 @@ Ext.define('RM.view.InvoiceExpenseSelect', {
                                 '<div class="rm-orgnametext">{EmployeeName}</div>',
                             '</div>',
                             '<div style="width: 45%; display: inline-block; vertical-align: top;">',
-                                '<div class="rm-floatr rm-orgnametext rm-alignr">${[RM.AppMgr.numberWithCommas(values.Amount)]}</div>',
+                                '<div class="rm-floatr rm-orgnametext rm-alignr">{[RM.AppMgr.formatCurrency(values.Amount)]}</div>',
                              '</div>',
                         '</div>',
                         //Row 2    

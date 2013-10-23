@@ -615,9 +615,21 @@ Ext.define('RM.core.AppMgr', {
         }
     },
 
-    numberWithCommas: function (value, places) {
-        if (Ext.isNumber(value))  value = value.toFixed(places || 2);        
-        return value ? value.toString().replace(/\B(?=(\d{3})+\.)/g, ",") : '';
+    numberWithCommas: function (value, places) {        
+        if (Ext.isNumber(value)) { 
+            value = RM.util.MathHelpers.roundToEven(value, places); 
+        }
+        else {
+            value = 0;
+        }
+        
+        // Some hackery here. This regex doesn't handle a number without a decimal point, and I can't fathom it without a negative 
+        // lookbehind which JS doesn't support. The workaround is to always have a decimal place in the string and remove afterwards 
+        // if it's not required.
+        var withCommas = value.toFixed(places || 1).replace(/\B(?=(\d{3})+\.)/g, ",");
+        if(!places) withCommas = withCommas.replace('.0','');   
+        
+        return withCommas;
     },
     
     valueWithCommas: function(value){
@@ -628,10 +640,16 @@ Ext.define('RM.core.AppMgr', {
     formatCurrency: function(value, places, accountancyFormat){
         if (isNaN(value)){
             value = 0;
-        }                   
-        var negSign = (value < 0);
-        var absValue = Math.abs(RM.util.MathHelpers.roundToEven(value, places));
-        value = '$' + absValue.toFixed(places).replace(/\B(?=(\d{3})+\.)/g, ",");
+        }   
+        
+        if(!places && places !==0) { 
+            places = 2; 
+        }      
+        
+        var negSign = (value < 0);        
+        var withCommas = this.numberWithCommas(Math.abs(value), places);                     
+        value = '$' + withCommas;
+        
         if(negSign && accountancyFormat){
             return '(' + value + ')';
         }        

@@ -135,7 +135,7 @@ Ext.define('RM.component.InvoiceLineItems', {
 							xtype: 'component',                        
 							cls:'rm-invoiceitemamount', 
 							docked: 'right',                        
-							html: '$' + RM.AppMgr.numberWithCommas(item.Amount)
+							html: RM.AppMgr.formatCurrency(item.Amount)
                         
 						}, 
 					]

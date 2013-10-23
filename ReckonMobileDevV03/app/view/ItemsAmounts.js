@@ -49,7 +49,7 @@ Ext.define('RM.view.ItemsAmounts', {
         
         
         if(this.config.selectDetails){
-            tplStr +=      '<td width="33%"><div class="rm-nextgrayarrow rm-pricevalue rm-alignr rm-pr20">${[RM.AppMgr.numberWithCommas(values.SalePrice)]}</div></td>';           
+            tplStr +=      '<td width="33%"><div class="rm-nextgrayarrow rm-pricevalue rm-alignr rm-pr20">{[RM.AppMgr.formatCurrency(values.SalePrice)]}</div></td>';           
         }
         
         tplStr +=     '</tr>' +      

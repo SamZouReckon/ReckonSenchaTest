@@ -27,7 +27,7 @@ Ext.define('RM.view.dashboard.NetPosition', {
             '<div class="rm-reddoticon rm-dashboardnetposition">Expense: <span class="rm-netpositionamount">' + RM.AppMgr.formatCurrency(data.NetPositionExpenses, 0, true) + '</span></div>'+
             '</td>'+
             '<td width="2%"><div class="rm-equalicon">=</div></td>'+
-            '<td width="49%"><div class="rm-totalamount">' + RM.AppMgr.formatCurrency(data.NetPositionIncome - data.NetPositionExpenses, 0) + '</div></td>'+
+            '<td width="49%"><div class="rm-totalamount">' + RM.AppMgr.formatCurrency(data.NetPositionIncome - data.NetPositionExpenses, 0, true) + '</div></td>'+
             '<tr>'+
             '</table>'+
             '</div>'        

@@ -541,7 +541,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     
     save: function () {
         var formVals = this.getInvoiceForm().getValues();        
-        formVals.LineItems = this.getLineItems().getViewData();
+        formVals.LineItems = Ext.clone(this.getLineItems().getViewData());
         
         var vals = Ext.applyIf(formVals, this.detailsData);
         delete vals.DiscountPerc;
@@ -576,9 +576,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.detailsCb.call(this.detailsCbs, 'save', vals);
         
                 RM.AppMgr.saveServerRec('Invoices', this.isCreate, vals,
-        			function () {
-        			    //RM.ViewMgr.back({ type: 'slide', direction: 'left' });
-        			    //this.dataLoaded = false;
+        			function () {        			    
                         this.goBack();
         			    this.getLineItems().removeAllItems();
         			    RM.AppMgr.itemUpdated('invoice');

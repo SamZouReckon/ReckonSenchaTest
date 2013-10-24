@@ -48,7 +48,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 change: 'discountChanged'
             },
             projectName: {
-                change: 'projectChanged'
+                clearIconTap: 'projectCleared'
             }
 		}
     },
@@ -68,7 +68,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
         if(detailsData){    	    
             this.isCreate = false;
-            this.detailsData = detailsData;                    
+            this.detailsData = Ext.clone(detailsData);                 
         }
         else{
             this.isCreate = true;
@@ -165,8 +165,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 RM.Selectors.showProjects(
                     this.customerId,
                     null,
-    				function (data) {
-    				    this.getItemForm().setValues({ ProjectID: data.ProjectId, ProjectName: data.ProjectPath });
+    				function (data) {                        
+                        var currentValue = this.getProjectId().getValue();                          
+                        if(currentValue !== data.ProjectId) {
+                            this.projectChanged(data, currentValue);
+                        }
     				},
     				this
     			);
@@ -183,10 +186,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     			);
             }
         }           
-
     },	
-	
-    
+	    
     goBack: function () {
         RM.ViewMgr.back();
     },
@@ -245,6 +246,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         var item = Ext.apply(this.detailsData, formVals);
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
         item.Quantity = item.Quantity || 1;
+        item.LineText = item.Description || item.ItemName;
 
         if(this.validateForm(item)){		
 		    this.detailsCb.call(this.detailsCbs, [item]);
@@ -252,6 +254,47 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         }
         
 	},
+    
+    projectChanged: function(newProjectData, oldProjectId) {        
+        this.getItemForm().setValues({ 
+            ProjectID: newProjectData.ProjectId, 
+            ProjectName: newProjectData.ProjectPath 
+        });                        
+        
+        // If an item is already selected, check if it has a rate override for the new project
+        var currentItem = this.getItemId().getValue();
+        if (currentItem) {
+            RM.AppMgr.getServerRecs('Items/GetByProject', 
+            {
+                id: currentItem,
+                projectId: newProjectData.ProjectId
+            },
+            function(result) {
+                if(result && result.length === 1) {
+                    // There is a project rate for this item, apply it
+                    this.setNewUnitPriceExTax(result[0].SalePrice);                    
+                }
+            },
+            this);
+        }
+    },
+    
+    projectCleared: function() {        
+        // The project field has been cleared using the clearIcon, we have to remove the Id also
+        this.getProjectId().setValue(null);  
+        
+        // Now retrieve the default unit price
+        RM.AppMgr.getServerRecs('Items/GetById', 
+        {
+            id: currentItem            
+        },
+        function(result) {
+            if(result && result.length === 1) {                
+                this.setNewUnitPriceExTax(result[0].SalePrice);                    
+            }
+        },
+        this);
+    },
     
     itemChanged: function(newItem) {
         // An item has been selected from the list:
@@ -340,21 +383,6 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getServerCalculatedValues('Tax');        
     },
     
-    projectChanged: function(field, newValue, oldValue) {
-        if(this.ignoreControlEvents()) return;        
-                
-        if(!newValue) {
-            // The project field has been cleared using the clearIcon, we have to remove the Id also
-            this.getProjectId().setValue(null);
-        }
-        
-        //If an item is already selected, determine the affect on that item (if there are project overrides for the unit price)
-        if(this.getItemId().getValue()) {
-            //TODO: this requires server-side changes to expose an api call to get the applicable rate for an item for a given project
-            
-        }        
-    },
-
     quantityChanged: function() {        
         if(this.ignoreControlEvents()) return;                    
         this.getServerCalculatedValues('Quantity');
@@ -458,6 +486,16 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     ignoreControlEvents: function() {
         // Only respond to changes triggered by the user, not events triggered during control loading
         if(!this.initShow || this.ignoreEvents) return true;        
+    },
+    
+    setNewUnitPriceExTax: function(unitPriceExTax) {
+        // Setting a new unit price ex tax means we have to reset the unit price displayed and call the calculation service
+        this.ignoreEvents = true;
+        this.setTaxModified(false);
+        this.detailsData.UnitPriceExTax = unitPriceExTax;
+        this.getUnitPrice().setValue(this.isTaxInclusive() ? '' : unitPriceExTax);
+        this.ignoreEvents = false;
+        this.getServerCalculatedValues();
     }
 	
 });

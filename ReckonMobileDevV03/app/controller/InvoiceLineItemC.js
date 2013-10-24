@@ -98,8 +98,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
         this.getAddBtn().setHidden(!this.isEditable);
         this.getAddBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
-        this.setEditable(this.isEditable);
-        this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);
+        
+        this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);        
+        if(!this.isEditable) { this.makeViewReadonly(); }
         
         if(!this.initShow){
             itemForm.reset();
@@ -126,8 +127,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         return !RM.AppMgr.isFormValsEqual( this.getItemForm().getValues(), this.initialFormValues);        
     },        
     
-    setEditable: function(editable){
-        if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getItemForm()); }    
+    makeViewReadonly: function(){
+        RM.util.FormUtils.makeAllFieldsReadOnly(this.getItemForm());    
     },
     
     setTaxModified: function(isModified) {

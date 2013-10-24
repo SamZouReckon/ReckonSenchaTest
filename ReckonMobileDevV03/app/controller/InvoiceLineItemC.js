@@ -215,7 +215,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     validateForm: function(vals){        
         var isValid = true;
-        
+    
+        // Field-specific validations
         if(!vals.ItemId){
             this.getItemNameFld().showValidation(false);
             isValid = false;
@@ -230,14 +231,19 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             RM.AppMgr.showInvalidFormMsg();
         }
         
+        // More general validations (non-deterministic which field should be corrected)
+        if(vals.Amount < 0) {
+            RM.AppMgr.showOkMsgBox("The total amount can't be negative, please check your Discount and Unit Price.");
+            isValid = false;
+        }
+        
         return isValid;
     },       
     
 	add: function(){
 		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
-		
-		var formVals = this.getItemForm().getValues();
-        
+
+        var formVals = this.getItemForm().getValues();
         // Remove the form fields that are display values only, and shouldn't override detailsData
         delete formVals.Amount;
         delete formVals.UnitPrice;
@@ -248,8 +254,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
         item.Quantity = item.Quantity || 1;
         item.LineText = item.Description || item.ItemName;
-
-        if(this.validateForm(item)){		
+        
+        if(this.validateForm(item)){            
 		    this.detailsCb.call(this.detailsCbs, [item]);
             RM.ViewMgr.back();
         }

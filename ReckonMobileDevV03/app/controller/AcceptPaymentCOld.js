@@ -1,4 +1,4 @@
-Ext.define('RM.controller.AcceptPaymentC', {
+Ext.define('RM.controller.AcceptPaymentCOld', {
     extend: 'Ext.app.Controller',
 
     requires: ['RM.view.AcceptPayment', 'RM.view.AcceptPaymentType', 'RM.view.AcceptPaymentMsg'],

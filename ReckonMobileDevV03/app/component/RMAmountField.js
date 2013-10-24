@@ -42,7 +42,10 @@ Ext.define('RM.component.RMAmountField', {
     applyValue: function(value) {
         // This is to handle when the value is set through code or config, ie not by user interaction
         value = this.callParent(arguments);
-        return RM.util.MathHelpers.roundToEven(value, this.getDecimalPlaces());        
+        if(Ext.isNumeric(value)) {
+            value =  RM.util.MathHelpers.roundToEven(value, this.getDecimalPlaces());        
+        }
+        return value;
     },
         
     showDisplayValue: function(){        

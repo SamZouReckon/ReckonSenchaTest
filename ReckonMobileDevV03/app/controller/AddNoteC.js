@@ -49,6 +49,10 @@ Ext.define('RM.controller.AddNoteC', {
         
     },
 
+    isFormDirty: function(){        
+        return this.getNoteText().getValue() != this.noteText;        
+    },    
+    
     onAdd: function () {
         var noteText = this.getNoteText().getValue();
         if(noteText)
@@ -58,6 +62,27 @@ Ext.define('RM.controller.AddNoteC', {
     },
 
     back: function () {
+        
+        if(this.isFormDirty()){
+            RM.AppMgr.showUnsavedChangesMsgBox(
+                function(btn){
+                    if(btn == 'yes'){
+                        this.onAdd();
+                    }
+                    else{
+                        this.goBack();
+                    }
+                },
+                this
+            );
+        }
+        else{
+            this.goBack();
+        }
+
+    },
+    
+    goBack: function () {
         RM.ViewMgr.back();
     }
 

@@ -222,7 +222,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             isValid = false;
         }        
         
-        if(!vals.UnitPriceExTax){
+        if(!Ext.isNumber(vals.UnitPriceExTax)){
             this.getUnitPrice().showValidation(false);
             isValid = false;
         }        
@@ -241,6 +241,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },       
     
 	add: function(){
+        // Make sure we aren't waiting on an async action like item calculation
+        if(this.ignoreControlEvents()) return;
+        
 		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
 
         var formVals = this.getItemForm().getValues();
@@ -330,6 +333,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     unitPriceChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(this.ignoreControlEvents()) return;        
+        
+        // Emptying the field is treated as a 0 unit price
+        newValue = newValue || 0;
         
         // Store the number of decimals the amount is captured with
         var splitNumber = newValue.toString().split('.');        
@@ -429,7 +435,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         switch(triggerField) {
             case 'UnitPrice':
-                lineItem.UnitPrice = this.getUnitPrice().getValue();
+                lineItem.UnitPrice = this.getUnitPrice().getValue() || 0;
                 lineItem.UnitPriceIsModified = true;
                 break;            
             case 'Quantity':
@@ -448,12 +454,12 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         invoice.LineItems.push(lineItem);
         
         // call the invoice calculation method
+        this.ignoreEvents = true;     
         RM.AppMgr.saveServerRec('InvoiceCalc', true, invoice,
 			function response(responseRecords) {
-                var calculated = responseRecords[0].Items[0];
-                this.ignoreEvents = true;     
+                var calculated = responseRecords[0].Items[0];                
                 
-                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax || 0;
                 this.detailsData.UnitPrice = calculated.UnitPrice;
                 this.detailsData.Amount = calculated.Amount;                
                 this.detailsData.AmountExTax = calculated.AmountExTax;
@@ -485,6 +491,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             function(eventMsg){
                 //TODO: what to do if the calc call fails, hmmm
                 alert(eventMsg);                
+                this.ignoreEvents = false;     
             },
             'Working...'
 		);  

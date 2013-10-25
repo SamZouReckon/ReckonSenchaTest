@@ -5183,6 +5183,16 @@ body.x-desktop {
 .x-android .x-input-el {
   -webkit-text-fill-color: #787878 !important;
   padding-top: 1.6em !important; }
+.x-android .x-input-el .rm-togglefield-off .x-field-input {
+  padding-top: 1em !important; }
+.x-android .x-input-el .rm-togglefield-on .x-field-input {
+  padding-top: 1em !important; }
+
+.x-android .rm-togglefield-off .x-input-el {
+  padding-top: 1.1em !important; }
+
+.x-android .rm-togglefield-on .x-input-el {
+  padding-top: 1.1em !important; }
 
 .x-android .x-field-input .x-clear-icon {
   margin-top: -1.1em; }
@@ -6558,21 +6568,22 @@ rm-emailinvoicebackground {
   overflow: hidden;
   margin-left: 5px; }
 
-.rm-togglefield-on.x-field .x-input-el {
-  padding-right: 27px;
+.rm-togglefield-on .x-input-el {
+  padding-right: 25px;
   color: #646464; }
-.rm-togglefield-on.x-field .x-field .x-field-input {
+.rm-togglefield-on .x-field .x-field-input {
   padding-right: 10px; }
-.rm-togglefield-on.x-field .x-input-el {
+.rm-togglefield-on .x-input-el {
   background-image: url("../images/icons/rm-togglefield-on.svg") !important;
   background-repeat: no-repeat;
   background-position: right;
-  background-size: 20px;
+  background-size: 18px;
   position: absolute;
-  right: 10px; }
+  right: 10px;
+  padding-bottom: 0.9em; }
 
 .rm-togglefield-off .x-input-el {
-  padding-right: 27px;
+  padding-right: 23px;
   color: #646464; }
 .rm-togglefield-off .x-field .x-field-input {
   padding-right: 10px; }
@@ -6580,9 +6591,10 @@ rm-emailinvoicebackground {
   background-image: url("../images/icons/rm-togglefield-off.svg") !important;
   background-repeat: no-repeat;
   background-position: right;
-  background-size: 20px;
+  background-size: 14px;
   position: absolute;
-  right: 10px; }
+  right: 10px;
+  padding-bottom: 0.9em; }
 
 .x-loading-spinner {
   font-size: 0% !important; }
@@ -6827,7 +6839,7 @@ rm-emailinvoicebackground {
   text-align: center; }
 
 .rm-sortsearchbtn {
-  background-size: 26px; }
+  background-size: 24px; }
 
 .x-field-input .x-clear-icon {
   background: url(../images/icons/rm-fieldclear.svg) no-repeat;
@@ -6861,3 +6873,21 @@ rm-emailinvoicebackground {
 
 .rm-photobtniconsize {
   background-size: 24px 18px; }
+
+.rm-flatfield-disabled {
+  background: white;
+  border-top: 1px solid #DBDBDB; }
+.rm-flatfield-disabled .x-form-label {
+  color: #C3C2C2;
+  background-color: inherit; }
+.rm-flatfield-disabled .x-input-el {
+  text-align: right;
+  color: #C3C2C2;
+  background-color: inherit;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding-top: 0.9em;
+  padding-right: 0.6em; }
+.rm-flatfield-disabled input::-webkit-input-placeholder {
+  color: #C0C9D2;
+  font-weight: normal; }

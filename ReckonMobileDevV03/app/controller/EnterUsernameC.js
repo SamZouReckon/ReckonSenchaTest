@@ -110,7 +110,7 @@ Ext.define('RM.controller.EnterUsernameC', {
                     if(rec.StatusCode.toUpperCase() == 'LI'){
                         localStorage.setItem('RmUserName', userName);
                         localStorage.setItem('RmDisplayName', rec.DisplayName);
-                        this.goCb.call(this.goCbs, rec.UserId, rec.LogLevel);
+                        this.goCb.call(this.goCbs, rec);
                     }
                     else{
                         RM.AppMgr.showErrorMsgBox(eventMsg);

@@ -22,8 +22,7 @@ Ext.define('RM.core.SessionManager', {
 
     startSession: function(sessionInfo) {        
         this.ttl = parseInt(sessionInfo.SessionTTLInMinutes) * 60;
-        this.loggedIn = true;
-        this.lastActivity = Date.now();
+        this.loggedIn = true;        
 
         if (this.ttl) {
             this.setSessionTimers();
@@ -41,6 +40,8 @@ Ext.define('RM.core.SessionManager', {
         var me = this;
         clearTimeout(this.sessionTimer);
         clearTimeout(this.warningTimer);
+        
+        this.lastSessionStart = Date.now();
         
         // Work out the timeouts for session bump and session expiry
         var timeUntilWarning = this.ttl - this.bumpWindowInSeconds;
@@ -60,7 +61,7 @@ Ext.define('RM.core.SessionManager', {
 
         clearInterval(this.bumpTimer);
 
-        var elapsedSeconds = (Date.now() - this.lastActivity) / 1000;
+        var elapsedSeconds = (Date.now() - this.lastSessionStart) / 1000;
         if (elapsedSeconds > this.ttl / 2) {
             // Activity past half way through the session activity window slides the session expiry along
             console.log('Session sliding');            

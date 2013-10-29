@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceDetail', {
     extend: 'RM.component.SecurePanel',
     xtype: 'invoicedetail',
-	requires: ['RM.component.InvoiceLineItems', 'RM.component.ExtTextField', 'RM.component.ExtSelectField', 'Ext.field.Hidden', 'RM.component.ExtDatePickerField', 'RM.component.SecureFormPanel'],
+	requires: ['RM.component.InvoiceLineItems', 'RM.component.ExtTextField', 'RM.component.ExtSelectField', 'RM.component.RMSelectScreenField', 'Ext.field.Hidden', 'RM.component.ExtDatePickerField', 'RM.component.SecureFormPanel'],
     config: {
         permissionFor: 'Invoices',
         layout: 'fit',
@@ -48,13 +48,12 @@ Ext.define('RM.view.InvoiceDetail', {
 					xtype: 'hiddenfield',
 					name: 'CustomerId'			
 				},{
-					xtype: 'exttextfield',
+					xtype: 'rmselectscreenfield',
 					name: 'CustomerName',
 					label: 'Customer',
                     placeHolder: 'select',
-					cls: 'rm-flatfield',
-                    //readOnly: true,
                     clearIcon: false,
+					cls: 'rm-flatfield',
                     labelWidth: '6em',
                     rmmandatory: true
 				},{

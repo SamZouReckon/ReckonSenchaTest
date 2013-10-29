@@ -28,7 +28,7 @@ Ext.define('RM.view.TestScreen', {
              itemId: 'testScreenForm',
              defaults: {cls: 'rm-flatfield', clearIcon: false},
              items: [{
-                     xtype:'textfield',
+                     xtype:'rmselectscreenfield',
                      label: 'Test1',
                      name: 'Test1',
                      clearIcon: true                 

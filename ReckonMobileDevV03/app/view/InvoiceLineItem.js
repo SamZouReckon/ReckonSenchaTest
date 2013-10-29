@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceLineItem', {
     extend: 'Ext.Panel',
     xtype: 'invoicelineitem',
-    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'Ext.field.Select', 'RM.component.RMAmountField'],
+    requires: ['RM.component.SecureFormPanel', 'RM.component.ExtNumberField', 'RM.component.RMSelectScreenField', 'Ext.field.Select', 'RM.component.RMAmountField'],
     config: {
         layout: 'fit',
         items: [{
@@ -42,10 +42,10 @@ Ext.define('RM.view.InvoiceLineItem', {
 					xtype: 'hiddenfield',
 					name: 'ItemPath'			
 				},{
-					xtype: 'exttextfield',
+					xtype: 'rmselectscreenfield',
 					name: 'ProjectName',
 					label: 'Project',
-                    readOnly: true, //prevent OS keypad coming as well
+                    //readOnly: true, //prevent OS keypad coming as well
 					cls: 'rm-flatfield',
                     clearIcon: true,
                     placeHolder: 'select (optional)',

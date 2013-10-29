@@ -15,14 +15,14 @@ Ext.define('RM.core.PermissionsMgr', {
         var granted = this.permissions.indexOf(actionCode.toLowerCase()) > -1;
         //<debug>
         if (actionCode in this.getOverrides()) { 
-            console.log("Action override of '" + this.overrides[actionCode] + "' applied to: " + actionCode);
+            if(this.logEvents) console.log("Action override of '" + this.overrides[actionCode] + "' applied to: " + actionCode);
             return this.overrides[actionCode]; 
         }
         if ("globalOverride" in this) { 
-            console.log("Global override of '" + this.globalOverride + "' applied to: " + actionCode);
+            if(this.logEvents) console.log("Global override of '" + this.globalOverride + "' applied to: " + actionCode);
             return this.globalOverride; 
         }        
-        console.log("Access value of '" + granted + "' applied to: " + actionCode);
+        if(this.logEvents) console.log("Access value of '" + granted + "' applied to: " + actionCode);
         //</debug>
         return granted;
     },
@@ -91,7 +91,12 @@ Ext.define('RM.core.PermissionsMgr', {
     getOverrides : function() {    
         if(!this.overrides) {this.overrides = {};}   
         return this.overrides;
-    }    
+    },
+    
+    enableLogging: function() {
+        this.logEvents = true;
+        console.log('Permissions logging enabled');
+    }
     
     //</debug>
 	

@@ -215,13 +215,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     validateForm: function(vals){        
         var isValid = true;
-        
+    
+        // Field-specific validations
         if(!vals.ItemId){
             this.getItemNameFld().showValidation(false);
             isValid = false;
         }        
         
-        if(!vals.UnitPriceExTax){
+        if(!Ext.isNumber(vals.UnitPriceExTax)){
             this.getUnitPrice().showValidation(false);
             isValid = false;
         }        
@@ -230,14 +231,22 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             RM.AppMgr.showInvalidFormMsg();
         }
         
+        // More general validations (non-deterministic which field should be corrected)
+        if(vals.Amount < 0) {
+            RM.AppMgr.showOkMsgBox("The total amount can't be negative, please check your Discount and Unit Price.");
+            isValid = false;
+        }
+        
         return isValid;
     },       
     
 	add: function(){
-		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
-		
-		var formVals = this.getItemForm().getValues();
+        // Make sure we aren't waiting on an async action like item calculation
+        if(this.ignoreControlEvents()) return;
         
+		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
+
+        var formVals = this.getItemForm().getValues();
         // Remove the form fields that are display values only, and shouldn't override detailsData
         delete formVals.Amount;
         delete formVals.UnitPrice;
@@ -248,8 +257,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
         item.Quantity = item.Quantity || 1;
         item.LineText = item.Description || item.ItemName;
-
-        if(this.validateForm(item)){		
+        
+        if(this.validateForm(item)){            
 		    this.detailsCb.call(this.detailsCbs, [item]);
             RM.ViewMgr.back();
         }
@@ -324,6 +333,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     unitPriceChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(this.ignoreControlEvents()) return;        
+        
+        // Emptying the field is treated as a 0 unit price
+        newValue = newValue || 0;
         
         // Store the number of decimals the amount is captured with
         var splitNumber = newValue.toString().split('.');        
@@ -423,7 +435,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         switch(triggerField) {
             case 'UnitPrice':
-                lineItem.UnitPrice = this.getUnitPrice().getValue();
+                lineItem.UnitPrice = this.getUnitPrice().getValue() || 0;
                 lineItem.UnitPriceIsModified = true;
                 break;            
             case 'Quantity':
@@ -442,12 +454,12 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         invoice.LineItems.push(lineItem);
         
         // call the invoice calculation method
+        this.ignoreEvents = true;     
         RM.AppMgr.saveServerRec('InvoiceCalc', true, invoice,
 			function response(responseRecords) {
-                var calculated = responseRecords[0].Items[0];
-                this.ignoreEvents = true;     
+                var calculated = responseRecords[0].Items[0];                
                 
-                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax;
+                this.detailsData.UnitPriceExTax = calculated.UnitPriceExTax || 0;
                 this.detailsData.UnitPrice = calculated.UnitPrice;
                 this.detailsData.Amount = calculated.Amount;                
                 this.detailsData.AmountExTax = calculated.AmountExTax;
@@ -479,6 +491,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             function(eventMsg){
                 //TODO: what to do if the calc call fails, hmmm
                 alert(eventMsg);                
+                this.ignoreEvents = false;     
             },
             'Working...'
 		);  

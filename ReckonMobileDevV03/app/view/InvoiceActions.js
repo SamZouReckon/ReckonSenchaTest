@@ -36,8 +36,8 @@ Ext.define('RM.view.InvoiceActions', {
 			text: 'Pay invoice',
 			itemId: 'pay',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
-            icon: 'resources/images/icons/rm-receive.png',
-            //iconCls: 'rm-btniconsize',
+            icon: 'resources/images/icons/rm-receive.svg',
+            iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'	
             			
         },{

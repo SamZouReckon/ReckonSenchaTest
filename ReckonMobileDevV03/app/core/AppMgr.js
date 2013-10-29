@@ -3,7 +3,8 @@ Ext.define('RM.core.AppMgr', {
     singleton: true,  //or could create a globally shared instance the way that Ext.MessageBox does
     requires: ['RM.view.TestScreen', 'RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 
     'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 
-    'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr', 'RM.util.MathHelpers'],
+    'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr', 'RM.util.MathHelpers',
+    'RM.core.SessionManager'],
 
     init: function (application) {
         this.application = application;        
@@ -18,12 +19,10 @@ Ext.define('RM.core.AppMgr', {
         RM.EventMgr.logEvent(RM.Consts.Events.OP, 1, 'am.i.1', 'Test', {MyVar:'My Data'});
         
         this.setupBaseApi();
+        RM.SessionManager.init(application);                
+        this.application.on( {'rm-sessionexpired': this.lock, scope:this });
         
-        //Moved following to CashbookMgr using data loaded from server
-        //Ext.data.StoreManager.lookup('ItemTypes').setData([{ItemTypeID: '1', Name:'Product'}, {ItemTypeID: '2', Name:'Service'}]);
-        //Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusID: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxable'}, {TaxStatusID: RM.Consts.TaxStatus.INCLUSIVE, Name:'Include tax'}, {TaxStatusID: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclude tax'}]);
-        
-        RM.PermissionsMgr.init(application);        
+        RM.PermissionsMgr.init(application);         
         RM.ViewMgr.init(application);
         RM.Selectors.init(application);
         RM.ContactsMgr.init(application);        
@@ -32,12 +31,7 @@ Ext.define('RM.core.AppMgr', {
         RM.InvoicesMgr.init(application);
         
         this.addDeviceListeners();
-        
         RM.HomeSettingsMgr.load();        
-        
-        //Following login() commented as login() gets called from lock() which is called from MainNavContainer which seems to get called at start of app - this caused 2 copies of EnterUserName 
-        //or EnterPin to be put on to stack
-        //this.login();        
         
     },
     
@@ -77,10 +71,11 @@ Ext.define('RM.core.AppMgr', {
             RM.ViewMgr.showEnterPin(
                 localStorage.getItem('RmUserName'),
                 localStorage.getItem('RmDisplayName'),
-				function (userId, logLevel) {
-                    this.userId = userId;
+				function (user) {
+                    this.userId = user.UserId;
                     this.isUserLoggedIn = true;
-                    RM.EventMgr.setUserLogLevel(logLevel);
+                    RM.SessionManager.startSession(user.SessionInfo);
+                    RM.EventMgr.setUserLogLevel(user.LogLevel);
                     if (RM.CashbookMgr.getCashbookId()) {
                          RM.CashbookMgr.loadLastCashbook( function() { 
                              RM.ViewMgr.back(); 
@@ -115,10 +110,11 @@ Ext.define('RM.core.AppMgr', {
 
     loginUserName: function () {
         RM.ViewMgr.showEnterUsername(
-			function (userId, logLevel) {
-                this.userId = userId;
+			function (user) {
+                this.userId = user.UserId;
                 this.isUserLoggedIn = true;
-                RM.EventMgr.setUserLogLevel(logLevel);
+                RM.SessionManager.startSession(user.SessionInfo);
+                RM.EventMgr.setUserLogLevel(user.LogLevel);
 			    RM.ViewMgr.showCreatePin(
                     function () {                           
                         RM.CashbookMgr.selectCashBook();
@@ -140,7 +136,7 @@ Ext.define('RM.core.AppMgr', {
         
         localStorage.removeItem('RmDisplayName');
         localStorage.removeItem('RmHasMobilePin');
-        localStorage.removeItem('RmUserName');
+        localStorage.removeItem('RmUserName');        
         
         this.logoutFromServer();
         this.login();
@@ -156,7 +152,7 @@ Ext.define('RM.core.AppMgr', {
             });        
             this.isUserLoggedIn = false;
         }
-              
+        RM.SessionManager.endSession();      
     },
     
     getUserName: function () {

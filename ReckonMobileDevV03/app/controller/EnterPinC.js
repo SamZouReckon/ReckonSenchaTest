@@ -56,7 +56,7 @@ Ext.define('RM.controller.EnterPinC', {
 			function (recs) {
                 var rec = recs[0];
 				if (rec.StatusCode.toUpperCase() == 'LI') {
-					this.goCb.call(this.goCbs, rec.UserId, rec.LogLevel);
+					this.goCb.call(this.goCbs, rec);
 				}
 				else {
                     this.incorrectPinCount++;

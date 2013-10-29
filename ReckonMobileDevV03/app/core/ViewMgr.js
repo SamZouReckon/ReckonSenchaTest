@@ -17,7 +17,7 @@ Ext.define('RM.core.ViewMgr', {
         this.hideKeyPad();
         RM.AppMgr.clearLoadingTimer();
                
-		if(this.appBackStack.length <= 1 && RM.AppMgr.isLoggedIn() && this.dashboardShown && !this.isDashboardShowing()){
+		if(this.appBackStack.length <= 1 && RM.AppMgr.isLoggedIn() && this.dashboardShown){
             this.appBackStack.pop();
             this.showDashboard(anim);
 			return;

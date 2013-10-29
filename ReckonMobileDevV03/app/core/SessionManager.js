@@ -82,7 +82,7 @@ Ext.define('RM.core.SessionManager', {
     },
     
     bumpSession: function() {
-        this.bumpingSession = true;
+/*        this.bumpingSession = true;
         RM.AppMgr.getServerRec('Login/ExtendSession', 
         {},
         function(sessionInfo) {
@@ -93,7 +93,7 @@ Ext.define('RM.core.SessionManager', {
             this.bumpingSession = false;
         },
         this,
-        function() { this.bumpingSession = false; });
+        function() { this.bumpingSession = false; });*/
     }
 
   }

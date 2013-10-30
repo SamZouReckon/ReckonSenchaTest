@@ -57,7 +57,7 @@ Ext.define('RM.view.dashboard.BudgetOverview', {
             '<div >'+  
             '<div class="rm-budgetoverview rm-budgetoverviewarrow">'+
             '<span class="rm-budgetoverviewname">'+budgetData.Name+'</span>'+
-            '<span class="rm-budgetoverviewprice"> - $'+RM.AppMgr.valueWithCommas(budgetData.Actual)+'</span>'+
+            '<span class="rm-budgetoverviewprice"> - ' + RM.AppMgr.formatCurrency(budgetData.Actual, 0) + '</span>'+
             '<div class="rm-clr"></div>'+
             '<canvas id="lineBarChart'+xindex+'" style="width: 92%;background: #ccc;height: 10px; margin-left: 5px;"></canvas>'+
             '<div class="rm-clr"></div>'+

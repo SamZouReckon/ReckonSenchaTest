@@ -490,7 +490,7 @@ Ext.define('RM.core.AppMgr', {
         return msgBox;
     },
     
-    showRMMsgPopup: function(msgText, icon, btnArray, cb, cbs){
+    showRMMsgPopup: function(msgText, icon, btnArray, cb, cbs, options){
         
         var iconPath = 'resources/images/rm-msgbox-warning.svg';
         
@@ -515,6 +515,10 @@ Ext.define('RM.core.AppMgr', {
                     margin: '18 0 20 0'                                  
                 }
         );
+        
+        if(options) { 
+            if(options.hideBackground) { msgBox.getModal().setCls('rm-mask-obscured'); }            
+        }
         
         if (btnArray.length) {
             for(i = 0; i < btnArray.length; i++){
@@ -548,6 +552,10 @@ Ext.define('RM.core.AppMgr', {
     showErrorMsgBox: function(msgText, cb, cbs){ 
         this.showRMMsgPopup(msgText,'error',[{text: 'RETURN', itemId: 'Yes'}], cb, cbs);        
     },    
+    
+    showErrorMsgBoxOpaque: function(msgText, cb, cbs){ 
+        this.showRMMsgPopup(msgText,'error', [{text: 'RETURN', itemId: 'Yes'}], cb, cbs, { hideBackground:true });        
+    },  
     
     showOkMsgBox: function(msgText, cb, cbs){ 
         this.showRMMsgPopup(msgText,'',[{text: 'OK', itemId: 'Yes'}], cb, cbs);        

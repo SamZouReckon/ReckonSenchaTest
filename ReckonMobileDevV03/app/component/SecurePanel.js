@@ -21,7 +21,7 @@ Ext.define('RM.component.SecurePanel', {
         // If there is a editAction specified, make sure the user has access to it, otherwise make all fields readonly
         var actionTarget = this.getPermissionFor();
         if(actionTarget && !RM.core.PermissionsMgr.canView(actionTarget)) {
-            RM.AppMgr.showErrorMsgBox('You are not permitted to view this screen', function() {
+            RM.AppMgr.showErrorMsgBoxOpaque('You are not permitted to view this screen', function() {
                 RM.ViewMgr.back();
             },
             this);            

@@ -14,7 +14,7 @@ Ext.define('RM.core.Consts',{
     //HistoryAdded = 1,  HistoryDeleted=2,  HistoryEdited=3, HistoryStatusChanged=4, Note = 5
     PaymentMethodTypes: { CASH: 0, CHEQUE: 1, CREDIT_CARD: 2 },
     TaxStatus: {UNKNOWN: 0, NON_TAXED: 1, INCLUSIVE: 2, EXCLUSIVE: 3},
-    InvoiceStatus: {UNKNOWN: 0, DRAFT: 1, APPROVED: 2, PARTIALLY_PAID: 3, PAID: 4},
+    InvoiceStatus: {UNKNOWN: 0, DRAFT: 1, APPROVED: 2, PAID: 3},
     TimeSheetStatus: {UNKNOWN: 0, NON_BILLABLE: 1, UNBILLED: 2, INVOICED: 3, BILLED: 4},
     DocTemplates: {INVOICE: 1, ESTIMATE: 2, CREDIT_NOTE: 3},
     NoAccessMsg: 'No access rights'

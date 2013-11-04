@@ -184,8 +184,19 @@ Ext.define('RM.controller.InvoiceDetailC', {
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Invoices', this.detailsData.InvoiceId,
 			function (data) {
-			    
-                this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));
+			                    
+                if(data.Status === 2 && data.BalanceDue < data.Amount) {
+                    if(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
+                        this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status) + ' (' + RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText()  + ')');                
+                    }
+                    else {
+                        this.getInvStatus().setHtml(RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText());                
+                    }                    
+                }
+                else {
+                    this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));
+                }
+                
                 var invoiceForm =  this.getInvoiceForm();
 			    this.getLineItems().removeAllItems();
 			    this.detailsData = data;

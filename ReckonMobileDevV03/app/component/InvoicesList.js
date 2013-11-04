@@ -130,30 +130,16 @@ Ext.define('RM.component.InvoicesList', {
        
         var tplStr =                         
                 	
-               '<tpl if="this.isShowCustomer()">'+
-                    '<div>'+
-                        '<div style="width: 55%; display: inline-block;">'+
-                            '<div class="rm-orgnametext rm-pl5">{CustomerName}</div>'+
-                        '</div>'+
-                        '<div style="width: 45%; display: inline-block; vertical-align: top;">'+
-                            '<div class="rm-nextgrayarrow rm-invoice-invoiceamount rm-alignr ">{[RM.AppMgr.formatCurrency(values.Status == 2 ? values.Balance : values.Amount)]}</div>'+
-                        '</div>' + 
-                    '</div>'+
-        			'<div>' +
-                        '<div style="display: inline-block; vertical-align: top;">'+
-        			        '<div class="rm-invoices-invoicecode rm-pt5 rm-pl5">{InvCode}</div>' +
-                        '</div>'+                        
-        			'</div>' +            
-                '<tpl else>'+
-                    '<div>' +
-                        '<div style="width: 55%; display: inline-block; vertical-align: top;">'+
-                            '<div class="rm-orgnametext rm-pt5 rm-pl5">{InvCode}</div>'+
-                        '</div>' +
-                        '<div style="width: 45%; display: inline-block; vertical-align: top;">'+
-                            '<div class="rm-nextgrayarrow rm-pt5 rm-invoices-invoiceamount rm-alignr ">{[RM.AppMgr.formatCurrency(values.Status == 2 ? values.Balance : values.Amount)]}</div>' +
-                        '</div>'+
+               '<div>' +
+                    '<div style="width: 55%; display: inline-block; vertical-align: top;">'+
+                        '<div class="rm-orgnametext rm-pt5 rm-pl5">{InvCode}</div>'+
                     '</div>' +
-                '</tpl>'+			
+                    '<div style="width: 45%; display: inline-block; vertical-align: top;">'+
+                        '<div class="rm-nextgrayarrow rm-pt5 rm-invoices-invoiceamount rm-alignr">' + 
+                            '{[RM.AppMgr.formatCurrency(values.Status == 2 ? values.Balance : values.Amount)]}' + 
+                        '</div>' +
+                    '</div>'+
+                '</div>' +               
     			'<div>' +  
                     '<div style="width: 60%; display: inline-block; vertical-align: top;">'+
                         '<div class="rm-invoices-duestatus rm-pt5 rm-pl5 "> {[this.calculateDays(values.DueDate, values.DueDays, values.Status)]}' +
@@ -166,7 +152,13 @@ Ext.define('RM.component.InvoicesList', {
                         '</div>' +
                     '</div>'+
                     '<div style="width: 40%; display: inline-block; vertical-align: top;">'+
-                            '<div class="rm-invoices-duestatus rm-alignr rm-pt5 rm-mr20">{[RM.AppMgr.capitalizeString(RM.InvoicesMgr.getInvoiceStatusText(values.Status))]}</div>'+
+                            '<div class="rm-invoices-duestatus rm-alignr rm-pt5 rm-mr20">' + 
+                                '<tpl if="(values.Status == 2 &amp;&amp; values.Balance &lt; values.Amount)">' +
+                                    '{[RM.AppMgr.capitalizeString(RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText())]}' + 
+                                '<tpl else>'+
+                                    '{[RM.AppMgr.capitalizeString(RM.InvoicesMgr.getInvoiceStatusText(values.Status))]}' + 
+                                '</tpl>' +
+                        '</div>'+
                     '</div>' +                     
     			'</div>'
 						 

@@ -677,7 +677,7 @@ Ext.define('RM.core.AppMgr', {
     
     capitalizeString: function(str) {
         str = (str + '').toLowerCase();
-        return str.replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+        return str.replace(/\b([a-z])/g, function ($1) {
             return $1.toUpperCase();
         });        
     },

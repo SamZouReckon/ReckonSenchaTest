@@ -15,8 +15,6 @@ Ext.define('RM.core.InvoicesMgr', {
                 return 'DRAFT';
             case RM.Consts.InvoiceStatus.APPROVED:
                 return RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled ? 'APPROVED' : 'UNPAID';
-            case RM.Consts.InvoiceStatus.PARTIALLY_PAID:
-                return 'PARTIALLY PAID';
             case RM.Consts.InvoiceStatus.PAID:
                 return 'PAID';
         }
@@ -24,6 +22,10 @@ Ext.define('RM.core.InvoicesMgr', {
         return 'UNKNOWN';        
     },
     
+    getPartiallyPaidInvoiceStatusText: function(){
+        return 'PART-PAID';
+    },
+        
     getInitialInvoiceStatus: function() {
         if(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
             return RM.Consts.InvoiceStatus.DRAFT;

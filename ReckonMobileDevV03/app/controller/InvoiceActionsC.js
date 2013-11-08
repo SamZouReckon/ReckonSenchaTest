@@ -6,7 +6,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         refs: {
             invActions: 'invoiceactions',
             invStatus: 'invoiceactions #invoiceStatus',
-            invAproveBtn: 'invoiceactions #approve',
+            invApproveBtn: 'invoiceactions #approve',
             invPayBtn: 'invoiceactions #pay',
             invEmailBtn: 'invoiceactions #email'
         },
@@ -49,7 +49,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.invoiceData.Status));
         
         var hideApprove = !(RM.InvoicesMgr.isInvoiceApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
-        this.getInvAproveBtn().setHidden(hideApprove);        
+        this.getInvApproveBtn().setHidden(hideApprove);        
         
         var hideEmail = !( RM.InvoicesMgr.isInvoiceEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
         this.getInvEmailBtn().setHidden(hideEmail);
@@ -61,8 +61,10 @@ Ext.define('RM.controller.InvoiceActionsC', {
         RM.AppMgr.saveServerRec('InvoiceApprove', true, {InvoiceID: this.invoiceData.InvoiceId},
 			function () {
                 RM.AppMgr.itemUpdated('invoice');
-                RM.ViewMgr.backTo('slidenavigationview');
-                RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode +' was Approved.');                
+                RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode +' was Approved.');     
+                this.invoiceData.Status = RM.Consts.InvoiceStatus.APPROVED;
+                this.getInvStatus().addCls("rm-approved-hearderbg");
+                this.onShow();
 			},
 			this,
             function(recs, eventMsg){
@@ -72,7 +74,6 @@ Ext.define('RM.controller.InvoiceActionsC', {
     },    
     
     onPay: function () {
-        //RM.InvoicesMgr.showAcceptPayment(this.invoiceData.invoiceId, this.invoiceData.BalanceDue);
         RM.InvoicesMgr.showAcceptPayment(this.invoiceData);
     },
 

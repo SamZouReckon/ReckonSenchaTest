@@ -63,6 +63,13 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.getApplication().addListener('itemupdated', 'onItemUpdated', this);
     },
 
+    isEditable: function() {
+        return RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && 
+        RM.PermissionsMgr.canAddEdit('Invoices') && 
+        !(Ext.isDefined(this.detailsData.SaveSupport) && !this.detailsData.SaveSupport) &&
+        !(this.detailsData.Paid > 0);         
+    },
+    
     showView: function (isCreate, data, cb, cbs) {
         this.lineItemsDirty = false;
         this.isCreate = isCreate;
@@ -90,9 +97,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 BalanceDue: 0
             });
         }
-        
-        this.isEditable = RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && RM.PermissionsMgr.canAddEdit('Invoices');
-        
+                
         var view = this.getInvoiceDetail();
         if (!view){
             view = { xtype: 'invoicedetail' };
@@ -101,12 +106,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     onShow: function () {        
-        
+                
         RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');                
         
-        this.setEditable(this.isEditable);        
+        this.applyViewEditableRules();        
         this.getInvoiceDetail().setActionsHidden(this.isCreate);                         
         
         if (!this.dataLoaded) {
@@ -147,11 +152,13 @@ Ext.define('RM.controller.InvoiceDetailC', {
     
     onItemUpdated: function (itemType) {
         if (itemType == 'invoice' && !this.isCreate) {
+            this.dataLoaded = false;
             this.loadFormData();
         }
     },
     
-    setEditable: function(editable){
+    applyViewEditableRules: function(){
+        var editable = this.isEditable();
         this.getSaveBtn().setHidden(!editable);
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getInvoiceForm()); }        
         this.getLineItems().setIsEditable(editable);
@@ -160,7 +167,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     applyTaxRules: function() {
         var amounts = this.getAmountsFld();
         var taxPrefs = RM.CashbookMgr.getTaxPreferences();
-        amounts.setReadOnly(!this.isEditable || !taxPrefs.AllowTaxEdit);
+        amounts.setReadOnly(!this.isEditable() || !taxPrefs.AllowTaxEdit);
         
         if(this.isCreate) {
             // New invoice behaviour
@@ -184,7 +191,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Invoices', this.detailsData.InvoiceId,
 			function (data) {
-			                    
+                
                 if(data.Status === 2 && data.BalanceDue < data.Amount) {
                     if(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
                         this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status) + ' (' + RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText()  + ')');                
@@ -212,11 +219,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 invoiceForm.setValues(data);
                 this.applyTaxRules();
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
-
-                if((Ext.isDefined(data.SaveSupport) && !data.SaveSupport) || this.detailsData.Paid > 0) {
-                    this.isEditable = false;
-                    this.setEditable(false); //needs to be called before adding line items below so that line items can have delete x hidden if necessary
-                }                
+                
+                this.applyViewEditableRules(); //needs to be called before adding line items below so that line items can have delete x hidden if necessary
                 
                 var lineItemsPanel = this.getLineItems();
 			    lineItemsPanel.addLineItems(data.LineItems);                
@@ -266,7 +270,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         if (fldName == 'Notes') {
             this.showNotes();
         }          
-        else if(this.isEditable){
+        else if(this.isEditable()){
             if (fldName == 'CustomerName') {
                 RM.Selectors.showCustomers(
                     null,
@@ -344,7 +348,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         
         RM.Selectors.showNoteText(
             'Notes',
-            this.isEditable,
+            this.isEditable(),
             'OK',
             this.noteText,
             function(noteText){

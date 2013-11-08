@@ -76,7 +76,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 IsNew:true,
                 InvoiceLineItemId: RM.util.PseudoGuid.next(),
                 UnitPriceAccuracy: 2,
-                Quantity: 1,
+                Quantity: null,
                 TaxGroupId: null,
                 TaxIsModified: false
             };
@@ -255,7 +255,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         var item = Ext.apply(this.detailsData, formVals);
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
-        item.Quantity = item.Quantity || 1;
+        item.Quantity = item.Quantity;
         item.LineText = item.Description || item.ItemName;
         
         if(this.validateForm(item)){            
@@ -417,7 +417,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
             ChangeStatus : 2,             
             ItemId: formVals.ItemId,
-            Quantity: formVals.Quantity || 1,
+            Quantity: formVals.Quantity,
             TaxGroupID: formVals.TaxGroupId,
             TaxIsModified: this.detailsData.TaxIsModified,
             Tax: this.detailsData.TaxIsModified ? formVals.Tax : null,

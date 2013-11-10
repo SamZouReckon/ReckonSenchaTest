@@ -58,6 +58,15 @@ Ext.define('RM.view.InvoiceDetail', {
                     rmmandatory: true
 				},{
 					xtype: 'extdatepickerfield',
+					name : 'Date',
+					dateFormat : 'jS M Y',        //'D, d F Y',
+					placeHolder: 'select',
+					label : 'Date',
+                    cls: 'rm-flatfield',
+                    ui : 'plain',
+                    rmmandatory: true
+				},{
+					xtype: 'extdatepickerfield',
 					name : 'DueDate',
 					dateFormat : 'jS M Y',
 					placeHolder: 'select',
@@ -67,15 +76,6 @@ Ext.define('RM.view.InvoiceDetail', {
                     clearIcon: true,
                     ui : 'plain'
                     
-				},{
-					xtype: 'extdatepickerfield',
-					name : 'Date',
-					dateFormat : 'jS M Y',        //'D, d F Y',
-					placeHolder: 'select',
-					label : 'Date',
-                    cls: 'rm-flatfield',
-                    ui : 'plain',
-                    rmmandatory: true
 				},{
 					xtype: 'exttextfield',
 					name: 'InvCode',

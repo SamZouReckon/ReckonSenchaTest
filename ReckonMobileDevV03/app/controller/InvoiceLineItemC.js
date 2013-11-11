@@ -48,7 +48,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 change: 'discountChanged'
             },
             projectName: {
-                clearIconTap: 'projectCleared'
+                clearicontap: 'projectCleared'
             }
 		}
     },
@@ -294,16 +294,19 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getProjectId().setValue(null);  
         
         // Now retrieve the default unit price
-        RM.AppMgr.getServerRecs('Items/GetById', 
-        {
-            id: currentItem            
-        },
-        function(result) {
-            if(result && result.length === 1) {                
-                this.setNewUnitPriceExTax(result[0].SalePrice);                    
-            }
-        },
-        this);
+        var currentItem = this.getItemId().getValue();
+        if(currentItem) {
+            RM.AppMgr.getServerRecs('Items/GetById', 
+            {
+                id: currentItem            
+            },
+            function(result) {
+                if(result && result.length === 1) {                
+                    this.setNewUnitPriceExTax(result[0].SalePrice);                    
+                }
+            },
+            this);
+        }
     },
     
     itemChanged: function(newItem) {

@@ -106,17 +106,18 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     onShow: function () {        
-                
+        var dateField = this.getDateFld();
+        
         RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');                
         
         this.applyViewEditableRules();        
-        this.getInvoiceDetail().setActionsHidden(this.isCreate);                         
+        this.getInvoiceDetail().setActionsHidden(this.isCreate);    
         
         if (!this.dataLoaded) {
             this.getDueDateFld().resetPicker();
-            this.getDateFld().resetPicker();
+            dateField.resetPicker();
             
             if (!this.isCreate) {                
                 this.loadFormData();
@@ -140,6 +141,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.getLineItems().setInvoiceDate(this.getDateFld().getValue());
                 this.getLineItems().setTaxStatus(data.AmountTaxStatus);
                 this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));
+
+                // Check that the default date in the picker isn't before the lock off date
+                var curDateValue = dateField.getValue();
+                var lockOffDate = RM.CashbookMgr.getLockOffDate();
+                if(curDateValue.getTime() <= lockOffDate.getTime()) {
+                    lockOffDate.setDate(lockOffDate.getDate() + 1);
+                    dateField.updateValue(lockOffDate);                    
+                }
+                
                 this.dataLoaded = true;
             }           
         }

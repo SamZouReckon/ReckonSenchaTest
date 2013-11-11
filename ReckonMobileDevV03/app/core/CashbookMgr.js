@@ -16,6 +16,14 @@ Ext.define('RM.core.CashbookMgr', {
         return this.getCurrentCashbook().SalesPreferences;
     },
     
+    hasLockOffDate: function() {
+        return this.getCurrentCashbook().LockoffDate !== null;
+    },
+    
+    getLockOffDate: function() {
+        return new Date(this.getCurrentCashbook().LockoffDate);
+    },
+    
     loadLastCashbook: function(callback) {
         if(this.getCashbookId()){
             this.setCashbook(this.getCashbookId());

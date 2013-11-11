@@ -20,7 +20,7 @@ Ext.define('RM.core.AppMgr', {
         
         this.setupBaseApi();
         RM.SessionManager.init(application);                
-        this.application.on( {'rm-sessionexpired': this.lock, scope:this });
+        this.application.on( {'rm-sessionexpired': this.appPause, scope:this });
         
         RM.PermissionsMgr.init(application);         
         RM.ViewMgr.init(application);

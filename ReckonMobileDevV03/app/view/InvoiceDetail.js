@@ -23,7 +23,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					xtype: 'spacer'
 				},{					
 					itemId: 'options',	
-					icon: 'resources/images/icons/rm-settings.svg',
+					icon: 'resources/images/icons/rm-actions.svg',
 					ui: 'rm_topbarbuttonright',
                     width: '2.6em'
 				},{

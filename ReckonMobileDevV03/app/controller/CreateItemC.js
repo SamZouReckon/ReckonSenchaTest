@@ -6,8 +6,8 @@ Ext.define('RM.controller.CreateItemC', {
             createItemForm: 'createitem formpanel',
             itemTypeFld: 'createitem #itemType',
             itemNameFld: 'createitem #itemName',            
-            acctCatFld: 'createitem selectfield[name=SaleCategoryID]',
-            taxCodeFld: 'createitem selectfield[name=SaleTaxCodeID]'
+            acctCatFld: 'createitem selectfield[name=SaleCategoryId]',
+            taxCodeFld: 'createitem selectfield[name=SaleTaxCodeId]'
         },
         control: {
             'createitem': {
@@ -80,7 +80,7 @@ Ext.define('RM.controller.CreateItemC', {
             isValid = false;
         }
         
-        if(!vals.SaleCategoryID){
+        if(!vals.SaleCategoryId){
             this.getAcctCatFld().showValidation(false);
             isValid = false;
         }

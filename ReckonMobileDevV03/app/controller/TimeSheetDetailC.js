@@ -48,7 +48,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
 
         this.dataLoaded = false;
         if (this.isCreate)
-            this.detailsData = {Date: new Date()}; // { TaxTypeID: '52c59eb2-7dc3-411b-848a-27c4aa7378b7', UserID: '00000000-0000-0000-0000-000000000000', StatusCode: 'b' };
+            this.detailsData = {Date: new Date()}; // { TaxTypeId: '52c59eb2-7dc3-411b-848a-27c4aa7378b7', UserId: '00000000-0000-0000-0000-000000000000', StatusCode: 'b' };
 
         var view = this.getTimeSheetDetail();
         if (!view){
@@ -75,7 +75,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
 					    this.detailsData = data;
 					    data.Date = new Date(data.Date);
 					    //delete data.Notes;
-                        //data.SaleTaxCodeID = data.TaxTypeID;					    
+                        //data.SaleTaxCodeId = data.TaxTypeId;					    
                         this.noteText = data.Notes; //Enables preserving of new lines when going from textfield to textarea                        
                         data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
                         timesheetForm.setValues(data);
@@ -132,8 +132,8 @@ Ext.define('RM.controller.TimeSheetDetailC', {
                 false,
 				function (data) {
                     var rec = data[0];
-				    this.detailsData.TaxTypeID = rec.SaleTaxCodeID;//data[0].TaxCodeId;
-				    //this.getTimeSheetForm().setValues({ ItemId: data[0].ItemId, ItemName: data[0].Name, SaleTaxCodeID: data[0].SaleTaxCodeID });
+				    this.detailsData.TaxTypeId = rec.SaleTaxCodeId;//data[0].TaxCodeId;
+				    //this.getTimeSheetForm().setValues({ ItemId: data[0].ItemId, ItemName: data[0].Name, SaleTaxCodeId: data[0].SaleTaxCodeId });
                     this.getTimeSheetForm().setValues({ ItemId: rec.ItemId, ItemName:rec.ItemPath});
 				},
 				this
@@ -195,7 +195,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
 
     save: function () {
         var formVals = this.getTimeSheetForm().getValues();
-        //formVals.TaxTypeID = formVals.SaleTaxCodeID;
+        //formVals.TaxTypeId = formVals.SaleTaxCodeId;
         formVals.Billable = this.getBillableCheckbox().getValue();
         var vals = Ext.applyIf(formVals, this.detailsData);        
         vals.Notes = this.noteText;

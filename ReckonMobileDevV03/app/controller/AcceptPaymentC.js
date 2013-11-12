@@ -7,8 +7,8 @@ Ext.define('RM.controller.AcceptPaymentC', {
             acceptPayment: 'acceptpayment',
             acceptPaymentForm: 'acceptpayment formpanel',
             amountPaid: 'acceptpayment textfield[name=AmountPaid]',
-            bankAccount: 'acceptpayment extselectfield[name=BankAccountID]',
-            paymentMethod: 'acceptpayment extselectfield[name=PaymentMethodID]',
+            bankAccount: 'acceptpayment extselectfield[name=BankAccountId]',
+            paymentMethod: 'acceptpayment extselectfield[name=PaymentMethodId]',
             acceptPaymentMsg: 'acceptpaymentmsg',
             msgCont: 'acceptpaymentmsg #msgcont'
         },
@@ -35,7 +35,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
         //console.log(Ext.encode(invoiceData));
         this.invoiceId = invoiceData.InvoiceId;
         this.fullAmount = invoiceData.BalanceDue;
-        this.accountsReceivableCategoryID = invoiceData.AccountsReceivableCategoryID;
+        this.accountsReceivableCategoryId = invoiceData.AccountsReceivableCategoryId;
         this.customerId = invoiceData.CustomerId;
         
         var view = this.getAcceptPayment();
@@ -60,7 +60,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
         bankAcctStore.getProxy().setUrl(RM.AppMgr.getApiUrl('BankAccount'));        
         RM.AppMgr.loadStore(bankAcctStore,
             function(){
-                //this.getTemplateFld().setValue(this.invoiceData.TemplateID);
+                //this.getTemplateFld().setValue(this.invoiceData.TemplateId);
             },
             this
         );  
@@ -69,7 +69,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
         payMethodStore.getProxy().setUrl(RM.AppMgr.getApiUrl('PaymentMethod'));        
         RM.AppMgr.loadStore(payMethodStore,
             function(){
-                //this.getTemplateFld().setValue(this.invoiceData.TemplateID);
+                //this.getTemplateFld().setValue(this.invoiceData.TemplateId);
             },
             this
         );
@@ -101,12 +101,12 @@ Ext.define('RM.controller.AcceptPaymentC', {
             isValid = false;
         } 
         
-        if(!vals.BankAccountID){
+        if(!vals.BankAccountId){
             this.getBankAccount().showValidation(false);
             isValid = false;
         } 
          
-        if(!vals.PaymentMethodID){
+        if(!vals.PaymentMethodId){
             this.getPaymentMethod().showValidation(false);
             isValid = false;
         }
@@ -129,9 +129,9 @@ Ext.define('RM.controller.AcceptPaymentC', {
     onPay: function(){
         var vals = this.getAcceptPaymentForm().getValues();
                 
-        vals.InvoiceID = this.invoiceId;
-        vals.AccountsReceivableCategoryID = this.accountsReceivableCategoryID;
-        vals.CustomerSupplierID = this.customerId;
+        vals.InvoiceId = this.invoiceId;
+        vals.AccountsReceivableCategoryId = this.accountsReceivableCategoryId;
+        vals.CustomerSupplierId = this.customerId;
 
         if(this.validateForm(vals)){ 
             RM.AppMgr.saveServerRec('AcceptPayment', true, vals,

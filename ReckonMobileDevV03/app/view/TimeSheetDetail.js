@@ -85,10 +85,10 @@ Ext.define('RM.view.TimeSheetDetail', {
                         label: 'Tax code',
                         labelWidth: '6em',
     					usePicker: true,
-    					name: 'SaleTaxCodeID',
+    					name: 'SaleTaxCodeId',
     					store: 'GSTCodes',
     					displayField: 'GSTCode',
-    					valueField: 'GSTCodeID',
+    					valueField: 'GSTCodeId',
     					cls: 'rm-flatfield',
                         ui:'plain'
                     },*/ {

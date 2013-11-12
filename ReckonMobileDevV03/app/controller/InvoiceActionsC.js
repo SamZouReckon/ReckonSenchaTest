@@ -58,7 +58,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
     },
     
     onApprove: function () {        
-        RM.AppMgr.saveServerRec('InvoiceApprove', true, {InvoiceID: this.invoiceData.InvoiceId},
+        RM.AppMgr.saveServerRec('InvoiceApprove', true, {InvoiceId: this.invoiceData.InvoiceId},
 			function () {
                 RM.AppMgr.itemUpdated('invoice');
                 RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode +' was Approved.');     

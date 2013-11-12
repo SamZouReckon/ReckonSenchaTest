@@ -111,7 +111,7 @@ Ext.define('RM.controller.InvoiceExpenseSelectC', {
 
         this.getExpSelectList().getStore().each(function (item) {
             if (item.get('Selected')) {
-                var itemData = item.data, taxCode = RM.AppMgr.getTaxCode(itemData.TaxTypeID);
+                var itemData = item.data, taxCode = RM.AppMgr.getTaxCode(itemData.TaxTypeId);
 
                 items.push({ //fields corresponding to InvoiceLineItemDto
                     //InvoiceItemId: null, //is assigned at server
@@ -124,7 +124,7 @@ Ext.define('RM.controller.InvoiceExpenseSelectC', {
                     ItemName:  itemData.ItemName,                    
                     Quantity: 1,
                     Amount: itemData.Amount,
-                    TaxCodeId: itemData.TaxTypeID,
+                    TaxCodeId: itemData.TaxTypeId,
                     TaxRate: taxCode ? taxCode.Rate / 100 * itemData.Amount : 0,
                     UnitPrice: itemData.Amount
                     //,DiscountAmount: 0

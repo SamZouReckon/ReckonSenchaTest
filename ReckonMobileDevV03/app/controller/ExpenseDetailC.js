@@ -52,7 +52,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
         this.noteText = '';
         
         if (this.isCreate){
-            this.detailsData = {HasReceiptPhoto: false, Date: new Date(), StatusCode:'b'}; // { TaxTypeID: '52c59eb2-7dc3-411b-848a-27c4aa7378b7', UserID: '00000000-0000-0000-0000-000000000000', StatusCode: '' };
+            this.detailsData = {HasReceiptPhoto: false, Date: new Date(), StatusCode:'b'}; // { TaxTypeId: '52c59eb2-7dc3-411b-848a-27c4aa7378b7', UserId: '00000000-0000-0000-0000-000000000000', StatusCode: '' };
         }
 
         var view = this.getExpenseDetail();
@@ -81,7 +81,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
 					    this.detailsData = data;                        
 					    data.Date = new Date(data.Date);
 					    //delete data.Notes;
-                        //data.SaleTaxCodeID = data.TaxTypeID;
+                        //data.SaleTaxCodeId = data.TaxTypeId;
 					    //expenseForm.setValues(data);
                         this.noteText = data.Notes; //Enables preserving of new lines when going from textfield to textarea
                         data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
@@ -157,8 +157,8 @@ Ext.define('RM.controller.ExpenseDetailC', {
                 false,
 				function (data) {   
                     var rec = data[0];
-				    this.detailsData.TaxTypeID = rec.SaleTaxCodeID;
-				    //this.getExpenseForm().setValues({ ItemId: data[0].ItemId, ItemName: data[0].Name, SaleTaxCodeID: data[0].SaleTaxCodeID });
+				    this.detailsData.TaxTypeId = rec.SaleTaxCodeId;
+				    //this.getExpenseForm().setValues({ ItemId: data[0].ItemId, ItemName: data[0].Name, SaleTaxCodeId: data[0].SaleTaxCodeId });
                     this.getExpenseForm().setValues({ ItemId:rec.ItemId, ItemName:rec.ItemPath});
 				},
 				this
@@ -315,7 +315,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
         if(vals.ExpenseId) options.params.ExpenseId = vals.ExpenseId;
         if(vals.ProjectId) options.params.ProjectId = vals.ProjectId;
         if(vals.CustomerId) options.params.CustomerId = vals.CustomerId;
-        if(vals.TaxTypeID) options.params.ExpenseId = vals.TaxTypeID;
+        if(vals.TaxTypeId) options.params.ExpenseId = vals.TaxTypeId;
         
         var ft = new FileTransfer();            
         
@@ -371,7 +371,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
         postData += this.genFormDataFld('Notes', vals.Notes, boundary);
         postData += this.genFormDataFld('Billable', vals.Billable, boundary);
         postData += this.genFormDataFld('StatusCode', vals.StatusCode, boundary);
-        if(vals.TaxTypeID) postData += this.genFormDataFld('TaxTypeID', vals.TaxTypeID, boundary);
+        if(vals.TaxTypeId) postData += this.genFormDataFld('TaxTypeId', vals.TaxTypeId, boundary);
         
         if(this.receiptImage){
             var imgData = this.receiptImage.substr(this.receiptImage.indexOf(';base64,') + 8);

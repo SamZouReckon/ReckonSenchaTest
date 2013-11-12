@@ -14,7 +14,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             tax: 'invoicelineitem field[name=Tax]',
             amount: 'invoicelineitem field[name=Amount]',
             itemNameFld: 'invoicelineitem field[name=ItemName]',
-            projectId: 'invoicelineitem field[name=ProjectID]',
+            projectId: 'invoicelineitem field[name=ProjectId]',
             itemId: 'invoicelineitem field[name=ItemId]',
             projectName: 'invoicelineitem field[name=ProjectName]',
         },
@@ -267,7 +267,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     projectChanged: function(newProjectData, oldProjectId) {        
         this.getItemForm().setValues({ 
-            ProjectID: newProjectData.ProjectId, 
+            ProjectId: newProjectData.ProjectId, 
             ProjectName: newProjectData.ProjectPath 
         });                        
         
@@ -313,7 +313,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // An item has been selected from the list:
         // Reset item fields
         this.detailsData.ItemName = newItem.Name;
-        this.detailsData.DefaultTaxGroupId = newItem.SaleTaxCodeID;
+        this.detailsData.DefaultTaxGroupId = newItem.SaleTaxCodeId;
         this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
         this.setTaxModified(false);
         
@@ -321,7 +321,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getItemForm().setValues({ 
             ItemId: newItem.ItemId, 
             ItemName:newItem.ItemPath, 
-            TaxGroupId:newItem.SaleTaxCodeID,         
+            TaxGroupId:newItem.SaleTaxCodeId,         
             Description: newItem.SalesDescription,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
@@ -421,7 +421,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ChangeStatus : 2,             
             ItemId: formVals.ItemId,
             Quantity: formVals.Quantity,
-            TaxGroupID: formVals.TaxGroupId,
+            TaxGroupId: formVals.TaxGroupId,
             TaxIsModified: this.detailsData.TaxIsModified,
             Tax: this.detailsData.TaxIsModified ? formVals.Tax : null,
             UnitPriceExTax: this.detailsData.UnitPriceExTax

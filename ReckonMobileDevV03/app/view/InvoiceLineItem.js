@@ -34,7 +34,7 @@ Ext.define('RM.view.InvoiceLineItem', {
             defaults: {clearIcon: false},
 			items: [{
 					xtype: 'hiddenfield',
-					name: 'ProjectID'			
+					name: 'ProjectId'			
 				},{	
                     xtype: 'hiddenfield',
 					name: 'ItemId'			
@@ -120,7 +120,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                         itemId: 'TaxGroupId',
     					store: 'GSTCodes',
     					displayField: 'GSTCode',
-    					valueField: 'GSTCodeID',
+    					valueField: 'GSTCodeId',
                         autoSelect: false,
     					cls: 'rm-flatfield',
                         ui:'plain'

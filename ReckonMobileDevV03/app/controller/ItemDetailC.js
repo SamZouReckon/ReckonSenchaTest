@@ -4,7 +4,7 @@ Ext.define('RM.controller.ItemDetailC', {
         refs: {
             itemDetail: 'itemdetail',
 			itemForm: 'itemdetail #itemForm',
-			taxCode: 'itemdetail selectfield[name=SaleTaxCodeID]'
+			taxCode: 'itemdetail selectfield[name=SaleTaxCodeId]'
         },
         control: {
             'itemdetail': {
@@ -52,7 +52,7 @@ Ext.define('RM.controller.ItemDetailC', {
             var itemForm = this.getItemForm();
     		itemForm.setValues(Ext.applyIf(this.detailsData, {Quantity: 1}));
             this.getTaxCode().setHidden(!this.showTaxCode);
-    		//itemForm.getComponent(3).setValue(this.detailsData.SaleTaxCodeID);
+    		//itemForm.getComponent(3).setValue(this.detailsData.SaleTaxCodeId);
             
             this.initShow = true;
         }           
@@ -84,7 +84,7 @@ Ext.define('RM.controller.ItemDetailC', {
 		
 		var formVals = this.getItemForm().getValues();
 		//alert(Ext.encode(formVals));
-		//formVals.SaleTaxCodeID = '7654913F-9486-419C-9752-8C0C2EC91E85';
+		//formVals.SaleTaxCodeId = '7654913F-9486-419C-9752-8C0C2EC91E85';
 		var taxRec = this.getTaxCode().getRecord();
 		var amount = formVals.Quantity * this.detailsData.SalePrice;
 
@@ -95,10 +95,10 @@ Ext.define('RM.controller.ItemDetailC', {
 		    ItemId: formVals.ItemId,
 		    ItemName: formVals.ItemName,
             ItemPath: formVals.ItemPath,
-            ProjejctID: formVals.ProjectID,
+            ProjejctId: formVals.ProjectId,
 		    Quantity: formVals.Quantity,
 		    Amount: amount,
-		    TaxGroupId: taxRec.get('GSTCodeID'), //formVals.SaleTaxCodeID,
+		    TaxGroupId: taxRec.get('GSTCodeId'), //formVals.SaleTaxCodeId,
 			TaxRate: taxRec.get('Rate') / 100 * amount,
 			UnitPrice: this.detailsData.SalePrice
         };

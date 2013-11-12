@@ -47,7 +47,7 @@ Ext.define('RM.controller.InvoiceTimeSelectDetailC', {
         			xtype: 'invoicetimeselectdetailpan',
         			detailTitle:  (item.CustomerName ? item.CustomerName : '(no customer)') + ' - ' + item.EmployeeName,
                     itemName: item.ItemName,
-                    taxCodeID: item.TaxCodeId,
+                    taxCodeId: item.TaxCodeId,
                     discount: 0     
     			});
     
@@ -67,7 +67,7 @@ Ext.define('RM.controller.InvoiceTimeSelectDetailC', {
 			var comp = view.getAt(i);
 			if (comp.getViewData) {
                 var itemNr = i - 1, detailsData = comp.getViewData() //toolbar is at position 0 in components in view
-                this.items[itemNr].TaxCodeId = detailsData.TaxCodeID;
+                this.items[itemNr].TaxCodeId = detailsData.TaxCodeId;
                 //this.items[itemNr].Discount = 
 			}
 		}

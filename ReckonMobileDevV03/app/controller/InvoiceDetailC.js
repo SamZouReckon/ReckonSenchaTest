@@ -430,15 +430,15 @@ Ext.define('RM.controller.InvoiceDetailC', {
             return {
                 InvoiceLineItemId: item.InvoiceLineItemId,
                 ItemType: item.ItemType, 
-                ItemID: item.ItemId, 
-                ProjectID: item.ProjectID,
+                ItemId: item.ItemId, 
+                ProjectId: item.ProjectId,
                 Quantity: item.Quantity, 
                 UnitPriceExTax: item.UnitPriceExTax, 
                 DiscountAmount: item.DiscountAmount,
                 DiscountAmountExTax: item.DiscountAmountExTax,
                 DiscountAmountTax: item.DiscountAmountTax,
                 DiscountPercentage: item.DiscountPercentage,
-                TaxGroupID: item.TaxGroupId, 
+                TaxGroupId: item.TaxGroupId, 
                 Tax: item.Tax, 
                 TaxIsModified: item.TaxIsModified
             };            

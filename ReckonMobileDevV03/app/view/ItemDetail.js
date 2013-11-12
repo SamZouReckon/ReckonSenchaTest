@@ -36,7 +36,7 @@ Ext.define('RM.view.ItemDetail', {
 					name: 'ItemId'			
 				},{
 					xtype: 'hiddenfield',
-					name: 'ProjectID'			
+					name: 'ProjectId'			
 				},{
 					xtype: 'hiddenfield',
 					name: 'ItemPath'			
@@ -59,10 +59,10 @@ Ext.define('RM.view.ItemDetail', {
                     label: 'Tax code',
                     labelWidth: '6em',
 					usePicker: true,
-					name: 'SaleTaxCodeID',
+					name: 'SaleTaxCodeId',
 					store: 'GSTCodes',
 					displayField: 'GSTCode',
-					valueField: 'GSTCodeID',
+					valueField: 'GSTCodeId',
 					cls: 'rm-flatfield',
                     ui:'plain'
                 },{

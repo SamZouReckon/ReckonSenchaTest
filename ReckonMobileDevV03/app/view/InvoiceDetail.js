@@ -102,7 +102,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					name: 'AmountTaxStatus',
 					store: 'TaxStatuses',
 					displayField: 'Name',
-					valueField: 'TaxStatusID',
+					valueField: 'TaxStatusId',
                     autoSelect: false,
                     value: null,
                     placeHolder: 'select',

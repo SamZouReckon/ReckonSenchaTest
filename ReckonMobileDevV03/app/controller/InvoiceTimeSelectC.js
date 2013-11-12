@@ -113,7 +113,7 @@ Ext.define('RM.controller.InvoiceTimeSelectC', {
 
         this.getTimeSelectList().getStore().each(function (item) {
             if (item.get('Selected')) {
-                var itemData = item.data, amount = itemData.Duration * itemData.HourlyRate, taxCode = RM.AppMgr.getTaxCode(itemData.TaxTypeID);
+                var itemData = item.data, amount = itemData.Duration * itemData.HourlyRate, taxCode = RM.AppMgr.getTaxCode(itemData.TaxTypeId);
                 //alert(Ext.encode(itemData));
                 items.push({ //fields corresponding to InvoiceLineItemDto
                     //InvoiceItemId: null, //is assigned at server
@@ -126,7 +126,7 @@ Ext.define('RM.controller.InvoiceTimeSelectC', {
                     ItemName:  itemData.ItemName,
                     Quantity: itemData.Duration,
                     Amount: amount,
-                    TaxCodeId: itemData.TaxTypeID,
+                    TaxCodeId: itemData.TaxTypeId,
                     TaxRate: taxCode ? taxCode.Rate / 100 * amount : 0, //this is the tax amount - need to change TaxRate to Tax in InvoiceLineItemDto
                     UnitPrice: itemData.HourlyRate
                     //,DiscountAmount: 0

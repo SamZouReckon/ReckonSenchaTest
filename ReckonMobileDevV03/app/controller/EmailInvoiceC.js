@@ -10,7 +10,7 @@ Ext.define('RM.controller.EmailInvoiceC', {
             subject: 'emailinvoice textfield[name=Subject]',
             sentCont: 'emailinvoice #sentcont',
             errorCont: 'emailinvoice #errorcont',
-            templateFld: 'emailinvoice selectfield[name=InvoiceTemplateID]'
+            templateFld: 'emailinvoice selectfield[name=InvoiceTemplateId]'
         },
         control: {
             'emailinvoice': {
@@ -57,7 +57,7 @@ Ext.define('RM.controller.EmailInvoiceC', {
     
     onShow: function(){
         this.getEmailInvoiceForm().reset();  
-        RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceID: this.invoiceData.InvoiceId}, 
+        RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceId: this.invoiceData.InvoiceId}, 
             function(rec){
                 this.getEmailInvoiceForm().setValues({Email: this.invoiceData.CustomerEmail, Subject: rec.Subject, Body: rec.Body });
             },
@@ -74,7 +74,7 @@ Ext.define('RM.controller.EmailInvoiceC', {
         
         RM.AppMgr.loadStore(store,
             function(){
-                this.getTemplateFld().setValue(this.invoiceData.TemplateID);
+                this.getTemplateFld().setValue(this.invoiceData.TemplateId);
             },
             this
         );

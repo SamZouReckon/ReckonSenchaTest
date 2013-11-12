@@ -402,7 +402,7 @@ Ext.define('RM.core.AppMgr', {
     },
 
     getTaxCode: function (taxCode) {
-        var rec = Ext.data.StoreManager.lookup('GSTCodes').findRecord('GSTCodeID', taxCode);
+        var rec = Ext.data.StoreManager.lookup('GSTCodes').findRecord('GSTCodeId', taxCode);
         return rec ? rec.data : null;
     },
 
@@ -702,8 +702,8 @@ Ext.define('RM.core.AppMgr', {
     
     startUpTest: function(){
         //following line is required for testing screens below when not using login()
-        Ext.data.StoreManager.lookup('GSTCodes').setData([{ GSTCodeID: "7654913f-9486-419c-9752-8c0c2ec91e85", GSTCode: "GST", ShortDescription: "GST on sales", Rate: 10 }, { GSTCodeID: "2d540317-a3a8-4382-be26-94528b6b67d0", GSTCode: "FRE", ShortDescription: "Other GST Free", Rate: 0.0 }, { GSTCodeID: "3cb9ee30-7325-4234-b20b-c2913af9edcd", GSTCode: "EXP", ShortDescription: "GST free exports", Rate: 0.0}]);
-        Ext.data.StoreManager.lookup('AccountingCategories').setData([{AccountingCategoryID: '4BE5F10D-F9BA-41E2-AC52-CD575D5B2154', Name:'Contract Work'}, {AccountingCategoryID: '39FA1C88-FAAB-4D2F-AF15-D8916BB68AE4', Name:'Supplies'}]);
+        Ext.data.StoreManager.lookup('GSTCodes').setData([{ GSTCodeId: "7654913f-9486-419c-9752-8c0c2ec91e85", GSTCode: "GST", ShortDescription: "GST on sales", Rate: 10 }, { GSTCodeId: "2d540317-a3a8-4382-be26-94528b6b67d0", GSTCode: "FRE", ShortDescription: "Other GST Free", Rate: 0.0 }, { GSTCodeId: "3cb9ee30-7325-4234-b20b-c2913af9edcd", GSTCode: "EXP", ShortDescription: "GST free exports", Rate: 0.0}]);
+        Ext.data.StoreManager.lookup('AccountingCategories').setData([{AccountingCategoryId: '4BE5F10D-F9BA-41E2-AC52-CD575D5B2154', Name:'Contract Work'}, {AccountingCategoryId: '39FA1C88-FAAB-4D2F-AF15-D8916BB68AE4', Name:'Supplies'}]);
         
         Ext.create('RM.view.TestScreen', {xtype: 'testscreen', fullscreen:true});
         //Ext.Msg.alert('', 'No internet connection found', Ext.emptyFn); return;
@@ -768,7 +768,7 @@ Ext.define('RM.core.AppMgr', {
         this		
         );*/
         /*RM.Selectors.showItemDetail(
-        {SaleTaxCodeID:'2D540317-A3A8-4382-BE26-94528B6B67D0'},
+        {SaleTaxCodeId:'2D540317-A3A8-4382-BE26-94528B6B67D0'},
         function(closeType, itemData){
 			
 			

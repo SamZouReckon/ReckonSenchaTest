@@ -47,7 +47,7 @@ Ext.define('RM.view.History', {
                         '</tr>' +
                         '<tr>' +
                             '<td></td>'+
-                            '<td><div class="rm-historydate rm-pt5">{Date:date("j/m/Y h:ia")}</div></td>'+
+                            '<td><div class="rm-historydate rm-pt5">{Date:date("j/m/Y h:i:s a")}</div></td>'+
                         '</tr>' +
                             '<td></td>' +
                             '<td><div class="rm-historytext rm-pt5">{[this.formatText(values.Text)]}</div></td>' +                       

@@ -45,7 +45,7 @@ Ext.define('RM.view.ContactDetail', {
 					},{
 						name: 'Description',
 						label: 'Display name',
-                        //maxLength: 5,
+                        maxLength: 100,
                         rmmandatory: true
 					},{
                         xtype: 'extselectfield',
@@ -97,24 +97,28 @@ Ext.define('RM.view.ContactDetail', {
                         html: '<h3 class="rm-m-1 rm-hearderbg">DETAILS</h3>'
 					},{
 						name: 'FirstName',
-						label: 'First name',                        
+						label: 'First name',
+                        maxLength: 100,
                         rmmandatory: true,                        
                         hidden: true,
                         border: '0 0 1 0'
 					},{
 						name: 'Surname',                                       
 						label: 'Surname',
+                        maxLength: 100,
                         rmmandatory: true,
                         hidden: true
 					},{
 						name: 'BusinessName',
-						label: 'Business name', 
+						label: 'Business name',
+                        maxLength: 100,
                         border: '0 0 1 0',
                         rmmandatory: true,
                         hidden: true                        
 					},{
 						name: 'BranchName',                                       
-						label: 'Branch name',    
+						label: 'Branch name',
+                        maxLength: 100,
                         hidden: true, 
                         border: '1 0 1 0'
 					},{
@@ -191,28 +195,34 @@ Ext.define('RM.view.ContactDetail', {
 					},{
                         name: 'Address1',                                        
                         label: 'Street1',
+                        maxLength: 100,
                         hidden: true,
                         border: '0 0 1 0'
                     },{
                         name: 'Address2', 
                         hidden: true,
-                        label: 'Street2',                       
+                        label: 'Street2',
+                        maxLength: 100
                     },{
 						name: 'Suburb',   
                         hidden: true,
-						label: 'Suburb'
+						label: 'Suburb',
+                        maxLength: 100
 					},{
 						name: 'State',  
                         hidden: true,
 						label: 'State'
 					},{
-						name: 'PostCode',    
+						name: 'PostCode',
+                        xtype: 'numberfield',
                         hidden: true,
-						label: 'Postcode'
+						label: 'Postcode',
+                        maxLength: 100
 					},{
 						name: 'Country', 
                         hidden: true,
 						label: 'Country',
+                        maxLength: 100,
                         border: '1 0 1 0',
                         style: 'border-color: #DBDBDB; border-style: solid;'
 					}              

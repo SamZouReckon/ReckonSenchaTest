@@ -546,7 +546,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     onOptions: function () {
-        this.getInvoiceDetail().toggleOptions();
+        this.onInvoiceActions();
     },
 
     validateForm: function(vals){        

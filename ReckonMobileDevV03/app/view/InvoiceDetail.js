@@ -187,24 +187,11 @@ Ext.define('RM.view.InvoiceDetail', {
             cls : 'rm-swipecontainer',
 			defaults:{
 				cls: 'rm-swipecontainer'
-			},
+			}, 
             items : [
 				{
 					xtype : 'component',					
-					//cls : 'tipBG',
-					//id: 'swipeTip',
-					html: '<div style="margin: 8px;"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div>',
-                     listeners:[
-                                 {
-                                    element: 'element',
-                                    event: 'tap',
-                                    fn: function() {
-                                        this.toggleOptions();
-                                    },
-                                     scope: this
-                                }
-                            ]             
-					
+					html: '<div style="margin: 8px;"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div><div align="center" class="rm-swipebar"></div>'
 				},
 				{
 					xtype : 'panel',
@@ -236,10 +223,19 @@ Ext.define('RM.view.InvoiceDetail', {
 				}
             ],
             listeners: {
-                painted: function() {         
-                    this.collapseOptions();
+                painted: {
+                    fn: function() {         
+                        this.collapseOptions();
+                    },
+                    scope:this
                 },
-                scope: this
+                tap:{
+                    element: 'element', 
+                    fn: function() {
+                        this.toggleOptions();
+                    },
+                    scope:this
+                }
             }
         });
         

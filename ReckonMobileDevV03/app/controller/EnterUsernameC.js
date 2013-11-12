@@ -44,10 +44,10 @@ Ext.define('RM.controller.EnterUsernameC', {
 
         var menu = Ext.create('RM.component.DropdownOverlay');
         var menuItems = new Array();
-        var options = [{
+        var options = [ /*{
             text: 'Signup for One',
             value: 'reckonone'
-        }, /*{
+        },{
             text: 'Signup for Pay',
             value: 'reckonpay'
         },*/ {

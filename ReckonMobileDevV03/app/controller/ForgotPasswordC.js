@@ -93,7 +93,8 @@ Ext.define('RM.controller.ForgotPasswordC', {
             this,
             function (recs, errMsg) {
                 this.showFail(errMsg);
-            }
+            },
+            'Sending email'
         );   
         }
              

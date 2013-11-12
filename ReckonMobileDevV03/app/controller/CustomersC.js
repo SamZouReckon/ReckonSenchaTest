@@ -5,9 +5,13 @@ Ext.define('RM.controller.CustomersC', {
     config: {
         refs: {
             customers: 'customers',
-            customersList: 'customers list'
+            customersList: 'customers list',
+            createCustomer: 'customers #createCustomer'
         },
         control: {
+            'customers': {
+              show: 'onShow'
+            },
 			'customers sortsearchbar': {
 				sort: 'onSort',				
 				search: function(val){
@@ -46,10 +50,14 @@ Ext.define('RM.controller.CustomersC', {
         }
 		RM.ViewMgr.showPanel(view);
 		
-		this.getCustomersList().getStore().getProxy().setUrl(RM.AppMgr.getApiUrl('Contacts'));
-		this.loadList();
-		
 	},
+    
+    onShow: function(){
+        this.getCreateCustomer().setHidden(!RM.PermissionsMgr.canAddEdit('Contacts'));
+        delete this.searchFilter;
+        this.getCustomersList().getStore().getProxy().setUrl(RM.AppMgr.getApiUrl('Contacts'));
+        this.loadList();
+    },
 	
 	onItemSelect: function(list, rec){		
 		setTimeout(function(){list.deselect(rec);},500);

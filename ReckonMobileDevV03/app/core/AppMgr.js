@@ -14,8 +14,8 @@ Ext.define('RM.core.AppMgr', {
         
         Ext.Ajax.setDefaultHeaders({'X-APIV': RM.Consts.Api.VERSION});        
         
-        RM.EventMgr = RM.core.EventMgr;        
-        this.appTypeId = (Ext.typeOf(navigator.connection) != 'undefined') ? RM.Consts.App.CORDOVA_CONTAINER : RM.Consts.App.WEB_CONTAINER;        
+        RM.EventMgr = RM.core.EventMgr;
+        this.appTypeId = (Ext.typeOf(window.cordova) != 'undefined') ? RM.Consts.App.CORDOVA_CONTAINER : RM.Consts.App.WEB_CONTAINER;        
         RM.EventMgr.logEvent(RM.Consts.Events.OP, 1, 'am.i.1', 'Test', {MyVar:'My Data'});
         
         this.setupBaseApi();

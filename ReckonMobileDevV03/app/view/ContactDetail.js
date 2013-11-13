@@ -29,7 +29,7 @@ Ext.define('RM.view.ContactDetail', {
 						text: 'SAVE',
 						itemId: 'save',	                        
 						ui: 'rm_topbarbuttonright',
-                        permissionFor: { name:'Contacts', action:'AddEdit' }
+                        permissionFor: 'Contacts'
 					}
 				]
 			},{

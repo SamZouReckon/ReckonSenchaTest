@@ -11,6 +11,9 @@
 
 $base-color: #F82C2C;				//Global theme color used for theming app
 
+$rm-warning-color: #8e6c09;
+$rm-warning-bg-color: #fbe29e;
+
 $list-color: #646464;				//List Text color
 $list-header-bg-color: #EBEBEB;		//group header bg color
 $list-header-gradient: none;		//group header gradient
@@ -890,11 +893,13 @@ $include-list-highlights: none;
 	.rm-booknametext{
 		color:#969696;font-size:80%;
 		font-weight:bold;
+        float: left;
 	}
 	.rm-accesstext{
-		color: #969696;
+		color: $rm-warning-color;
         font-size: 68%;
 		font-weight: normal;
+        float: right;
 	}
 
 	.rm-listdynamiccolor{
@@ -2082,8 +2087,8 @@ rm-emailinvoicebackground{
 }
 
 .rm-warning-message {
-    background: #fbe29e;  
-    color: #8e6c09;
+    background: $rm-warning-bg-color;  
+    color: $rm-warning-color;
     font-size: 0.9em;
     padding: 10px 15px;
     border: 1px solid #dcb337;

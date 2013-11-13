@@ -5993,12 +5993,14 @@ body.x-desktop {
 .rm-booknametext {
   color: #969696;
   font-size: 80%;
-  font-weight: bold; }
+  font-weight: bold;
+  float: left; }
 
 .rm-accesstext {
-  color: #969696;
+  color: #8e6c09;
   font-size: 68%;
-  font-weight: normal; }
+  font-weight: normal;
+  float: right; }
 
 .rm-listdynamiccolor {
   width: 10px;

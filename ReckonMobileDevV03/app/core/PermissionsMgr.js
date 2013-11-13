@@ -6,8 +6,16 @@ Ext.define('RM.core.PermissionsMgr', {
 		this.app = application;
 	},
 	
-	setPermissions: function(permissions){        
+	setPermissions: function(permissions, access){        
         this.permissions = permissions.map(function(action) { return action.toLowerCase ? action.toLowerCase() : action });
+        
+        if(access.toUpperCase() === 'R') {
+            this.forceReadOnly = true;
+            //<debug
+            console.log('Cashbook loaded as Read Only, permissions overrides will apply to AddEdit, Delete and certain Do actions.');
+            //</debug>
+        }
+        
         this.triggerUpdateEvent();
     },
     
@@ -27,17 +35,21 @@ Ext.define('RM.core.PermissionsMgr', {
         return granted;
     },
     
-    canDo: function(permissionName, action){
+    canDo: function(permissionName, action){        
        return this.getPermission(permissionName + '_' + action);
+    },
+    
+    canDoUnlessReadOnly: function(permissionName, action){        
+       return !this.forceReadOnly && this.canDo(permissionName, action);
     },
 
     canApprove: function(permissionName){
-        return this.canDo(permissionName, 'Approve');
+        return this.canDoUnlessReadOnly(permissionName, 'Approve');
     },
     
     canAddEdit: function(permissionName){
         if(permissionName == 'Items') return false; //removed ability to Add Items in release 1
-        return this.canDo(permissionName, 'AddEdit');
+        return this.canDoUnlessReadOnly(permissionName, 'AddEdit');
     },
     
     canView: function(permissionName){
@@ -45,7 +57,7 @@ Ext.define('RM.core.PermissionsMgr', {
     },
     
     canDelete: function(permissionName){
-        return this.canDo(permissionName, 'Delete');
+        return this.canDoUnlessReadOnly(permissionName, 'Delete');
     },
     
     canReport: function(permissionName){
@@ -96,6 +108,11 @@ Ext.define('RM.core.PermissionsMgr', {
     enableLogging: function() {
         this.logEvents = true;
         console.log('Permissions logging enabled');
+    },
+    
+    setBookIsReadOnly: function(readOnly) {
+        this.forceReadOnly = readOnly;
+        this.triggerUpdateEvent();
     }
     
     //</debug>

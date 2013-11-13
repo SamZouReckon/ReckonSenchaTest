@@ -16,7 +16,7 @@ Ext.define('RM.view.Contacts', {
 						xtype: 'spacer'
 					}, {
                         xtype: 'securebutton',
-                        permissionFor: { name:'Contacts', action:'AddEdit' },
+                        permissionFor: 'Contacts',
 						text: 'ADD',
 						itemId: 'add',                        
 						ui: 'rm_topbarbuttonright'

@@ -68,7 +68,7 @@ Ext.define('RM.core.CashbookMgr', {
                     Ext.data.StoreManager.lookup('TaxStatuses').setData([{TaxStatusId: RM.Consts.TaxStatus.NON_TAXED, Name:'Non Taxable'}, {TaxStatusId: RM.Consts.TaxStatus.INCLUSIVE, Name:'Include tax'}, {TaxStatusId: RM.Consts.TaxStatus.EXCLUSIVE, Name:'Exclude tax'}])
                 Ext.data.StoreManager.lookup('ItemTypes').setData(recs[0].ItemTypes);
                 
-                RM.PermissionsMgr.setPermissions(this.getCurrentCashbook().Permissions);                
+                RM.PermissionsMgr.setPermissions(this.getCurrentCashbook().Permissions, this.getCurrentCashbook().Access);
                               
                 if(cb){
                     cb.call(cbs);

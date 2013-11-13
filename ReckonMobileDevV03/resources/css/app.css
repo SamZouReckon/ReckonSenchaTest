@@ -6896,9 +6896,11 @@ rm-emailinvoicebackground {
 
 .rm-warning-message {
   background: #fbe29e;
-  color: #646464;
+  color: #8e6c09;
   font-size: 0.9em;
-  padding: 10px 15px; }
+  padding: 10px 15px;
+  border: 1px solid #dcb337;
+  border-left: none;
+  border-right: none; }
 .rm-warning-message strong {
   font-weight: bold; }
-

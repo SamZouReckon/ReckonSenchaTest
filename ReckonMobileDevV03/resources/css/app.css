@@ -6893,3 +6893,12 @@ rm-emailinvoicebackground {
 
 .rm-mask-obscured {
   background: #323232; }
+
+.rm-warning-message {
+  background: #fbe29e;
+  color: #646464;
+  font-size: 0.9em;
+  padding: 10px 15px; }
+.rm-warning-message strong {
+  font-weight: bold; }
+

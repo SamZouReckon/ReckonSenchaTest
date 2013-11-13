@@ -35,19 +35,19 @@ Ext.define('RM.core.InvoicesMgr', {
         }
     },
     
-    isInvoiceApprovable: function(status){
+    isInvoiceStatusApprovable: function(status){
         return (status == RM.Consts.InvoiceStatus.DRAFT);        
     },    
     
-    isInvoicePayable: function(status){        
+    isInvoiceStatusPayable: function(status){        
         return (status == RM.Consts.InvoiceStatus.APPROVED) || (status == RM.Consts.InvoiceStatus.PARTIALLY_PAID);
     },
     
-    isInvoiceEditable: function(status){
+    isInvoiceStatusEditable: function(status){
         return (status == this.getInitialInvoiceStatus());
     },    
     
-    isInvoiceEmailable: function(status){        
+    isInvoiceStatusEmailable: function(status){        
         return (status == RM.Consts.InvoiceStatus.APPROVED) || (status == RM.Consts.InvoiceStatus.PARTIALLY_PAID) || (status == RM.Consts.InvoiceStatus.PAID);
     },    
     

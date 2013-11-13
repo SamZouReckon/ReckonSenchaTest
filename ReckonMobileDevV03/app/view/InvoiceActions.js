@@ -25,6 +25,11 @@ Ext.define('RM.view.InvoiceActions', {
             itemId: 'invoiceStatus',
             cls: 'rm-hearderbg'            
         },{
+            xtype: 'component',            
+            itemId: 'lockOffWarning',
+            hidden: true,
+            cls: 'rm-warning-message'
+        },{
 			text: 'Approve invoice',
 			itemId: 'approve',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',

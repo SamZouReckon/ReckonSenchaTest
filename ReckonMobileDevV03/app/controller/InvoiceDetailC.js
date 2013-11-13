@@ -64,7 +64,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     isEditable: function() {
-        return RM.InvoicesMgr.isInvoiceEditable(this.detailsData.Status) && 
+        return RM.InvoicesMgr.isInvoiceStatusEditable(this.detailsData.Status) && 
         RM.PermissionsMgr.canAddEdit('Invoices') && 
         !(Ext.isDefined(this.detailsData.SaveSupport) && !this.detailsData.SaveSupport) &&
         !(this.detailsData.Paid > 0);         

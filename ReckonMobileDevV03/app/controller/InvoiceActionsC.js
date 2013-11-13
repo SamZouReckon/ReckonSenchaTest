@@ -8,7 +8,8 @@ Ext.define('RM.controller.InvoiceActionsC', {
             invStatus: 'invoiceactions #invoiceStatus',
             invApproveBtn: 'invoiceactions #approve',
             invPayBtn: 'invoiceactions #pay',
-            invEmailBtn: 'invoiceactions #email'
+            invEmailBtn: 'invoiceactions #email',
+            warningMessage: 'invoiceactions #lockOffWarning'
         },
         control: {
             'invoiceactions': {
@@ -48,13 +49,26 @@ Ext.define('RM.controller.InvoiceActionsC', {
     onShow: function(){
         this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.invoiceData.Status));
         
-        var hideApprove = !(RM.InvoicesMgr.isInvoiceApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
+        var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));        
+        var hideEmail = !( RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
+        var hidePay = !RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status);
+                
+        // Handle lock-off rules
+        if(RM.CashbookMgr.getLockOffDate().getTime() >= this.invoiceData.Date.getTime()) {
+            var showWarning = !(hideApprove && hidePay);
+            hideApprove = true;
+            hidePay = true;
+            
+            if(showWarning) {
+                var warningMessage = this.getWarningMessage();
+                warningMessage.setHtml('<strong>Note:</strong> Certain actions for this Invoice are not available because the Book is locked off until ' + RM.CashbookMgr.getLockOffDate().toLocaleDateString());
+                warningMessage.setHidden(false);
+            }            
+        }
+        
         this.getInvApproveBtn().setHidden(hideApprove);        
-        
-        var hideEmail = !( RM.InvoicesMgr.isInvoiceEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
         this.getInvEmailBtn().setHidden(hideEmail);
-        
-        this.getInvPayBtn().setHidden(!RM.InvoicesMgr.isInvoicePayable(this.invoiceData.Status));        
+        this.getInvPayBtn().setHidden(hidePay);   
     },
     
     onApprove: function () {        

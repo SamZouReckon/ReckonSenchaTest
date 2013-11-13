@@ -2080,3 +2080,12 @@ rm-emailinvoicebackground{
 .rm-mask-obscured {
     background: rgb(50,50,50);
 }
+
+.rm-warning-message {
+    background: #fbe29e;  
+    color: #646464;
+    font-size: 0.9em;
+    padding: 10px 15px;
+
+     strong { font-weight:bold;}
+}

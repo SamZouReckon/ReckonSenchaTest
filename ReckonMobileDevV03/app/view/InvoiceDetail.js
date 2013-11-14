@@ -90,7 +90,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					xtype: 'exttextfield',
 					name: 'Ref',
 					labelWidth: 160,
-					label: 'Reference',
+					label: 'Reference code',
 					placeHolder: 'enter',
 					cls: 'rm-flatfield',
                     clearIcon: false,

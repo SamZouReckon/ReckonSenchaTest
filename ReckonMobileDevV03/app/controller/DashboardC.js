@@ -25,11 +25,21 @@ Ext.define('RM.controller.DashboardC', {
     
     showView: function(dashboardData){
         this.dashboardData = dashboardData;
-        this.onShow();
+        this.showDashboardData();
     },    
     
     onShow: function(){       
-        this.showDashboardData();
+        
+        RM.AppMgr.getServerRecs('Dashboard', null,
+            function(recs){
+                alert(Ext.encode(recs));    
+                
+            },
+            this
+        
+        );
+        
+        //this.showDashboardData();
     },
     
     showDashboardData: function(){ 

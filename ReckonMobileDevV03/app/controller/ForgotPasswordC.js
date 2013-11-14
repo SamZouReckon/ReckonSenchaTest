@@ -137,7 +137,7 @@ Ext.define('RM.controller.ForgotPasswordC', {
     },
 
     onOk: function () {
-        RM.ViewMgr.back();
+        this.getForgotPassword().setActiveItem(0);
     },
 
     back: function () {

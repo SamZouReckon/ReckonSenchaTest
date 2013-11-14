@@ -315,7 +315,7 @@ Ext.define('RM.core.AppMgr', {
             this.login();
         }        
         else if(resp.statusText === 'communication failure') {
-            this.showOkMsgBox("The connection failed, please try again or contact support.");    
+            this.showOkMsgBox("The connection failed, please try again. If the problem persists please contact support.");    
         }
         else if(resp.status == 412){
             var respErr = Ext.decode(resp.statusText);
@@ -324,7 +324,7 @@ Ext.define('RM.core.AppMgr', {
         }
         else {
             var statusText = resp.statusText ? ' ' + resp.statusText : '';
-            this.showErrorMsgBox('There was an error, please try again or contact support: <br/><br/> (' + resp.status + statusText + ')');    
+            this.showErrorMsgBox('There was an error, please try again. If the problem persists please contact support.<br/><br/> (' + resp.status + statusText + ')');    
         }
     },
     

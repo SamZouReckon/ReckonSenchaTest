@@ -79,6 +79,7 @@ Ext.define('RM.view.ContactDetail', {
                         itemId: 'businessOrIndividual',
 						label: 'Business or individual',
                         labelWidth: '11em',
+                        disabledCls: 'rm-flatfield-disabled',
                         options: [
                             {text: 'Business',  value: 'Business'},
                             {text: 'Individual', value: 'Individual'}                            

@@ -5993,21 +5993,28 @@ body.x-desktop {
 .rm-booknametext {
   color: #969696;
   font-size: 80%;
-  font-weight: bold;
-  float: left; }
+  font-weight: bold; }
 
 .rm-accesstext {
-  color: #8e6c09;
+  color: #969696;
   font-size: 68%;
-  font-weight: normal;
-  float: right; }
+  font-weight: normal; }
 
-.rm-listdynamiccolor {
+.rm-list-active-cashbook {
   width: 10px;
   height: 10px;
   float: left;
   background: #d2d2d2;
-  margin-top: 5px; }
+  margin-top: 5px;
+  background: #ff0913; }
+
+.rm-list-readonly-cashbook {
+  width: 10px;
+  height: 10px;
+  float: left;
+  background: #d2d2d2;
+  margin-top: 5px;
+  background: #e7e7e7; }
 
 .rm-nextgrayarrow {
   background-position: right;

@@ -31,6 +31,9 @@ Ext.define('RM.controller.EnterUsernameC', {
         if (!view)
             view = { xtype: 'enterusername' };
         RM.ViewMgr.showPanel(view);
+        //<debug>
+        localStorage.setItem('RmShowSettings', true);
+        //</debug>
     },
 
     onShow: function () {
@@ -55,7 +58,8 @@ Ext.define('RM.controller.EnterUsernameC', {
             value: 'forgotlogin'
         }, {
             text: 'Core Settings',
-            value: 'coresettings'
+            value: 'coresettings',
+            hidden: !(localStorage.getItem('RmShowSettings')) && RM.AppMgr.runningOnDevice()
         }];
         if (options.length) {
             for (var i = 0; i < options.length; i++) {
@@ -64,7 +68,8 @@ Ext.define('RM.controller.EnterUsernameC', {
                     xtype: 'button',
                     itemId: option.value,
                     text: option.text,                    
-                    ui: 'rm_btnaslistrowmainmenu'
+                    ui: 'rm_btnaslistrowmainmenu',
+                    hidden: option.hidden
                 };
                 menuItems.push(btn);
             }
@@ -104,24 +109,33 @@ Ext.define('RM.controller.EnterUsernameC', {
 
         if ((userName && userName != '') && (password  && password!='')) {
             
-            RM.AppMgr.saveServerRec('Login', true, { ReqCode: 'LI', UserName: userName, Password: password },
-                function (recs, eventMsg) {
-                    var rec = recs[0];
-                    if(rec.StatusCode.toUpperCase() == 'LI'){
-                        localStorage.setItem('RmUserName', userName);
-                        localStorage.setItem('RmDisplayName', rec.DisplayName);
-                        this.goCb.call(this.goCbs, rec);
-                    }
-                    else{
-                        RM.AppMgr.showErrorMsgBox(eventMsg);
-                    }
-                },
-                this,
-                function(recs, eventMsg){
-                    RM.AppMgr.showOkMsgBox(eventMsg);
-                },
-                'Logging in...'
-            );            
+            // Awful hackery because we can't get a role for support power users
+            if(userName === 'setmeup' && password === 'Mak3!t5o') {
+                this.getUserName().setValue('');
+                this.getPassword().setValue('');
+                localStorage.setItem('RmShowSettings', true);
+                RM.ViewMgr.showCoreSettings();                
+            }
+            else {
+                RM.AppMgr.saveServerRec('Login', true, { ReqCode: 'LI', UserName: userName, Password: password },
+                    function (recs, eventMsg) {
+                        var rec = recs[0];
+                        if(rec.StatusCode.toUpperCase() == 'LI'){
+                            localStorage.setItem('RmUserName', userName);
+                            localStorage.setItem('RmDisplayName', rec.DisplayName);
+                            this.goCb.call(this.goCbs, rec);
+                        }
+                        else{
+                            RM.AppMgr.showErrorMsgBox(eventMsg);
+                        }
+                    },
+                    this,
+                    function(recs, eventMsg){
+                        RM.AppMgr.showOkMsgBox(eventMsg);
+                    },
+                    'Logging in...'
+                );            
+            }
         }
         else {
             RM.AppMgr.showErrorMsgBox('Please enter your User Name and Password');

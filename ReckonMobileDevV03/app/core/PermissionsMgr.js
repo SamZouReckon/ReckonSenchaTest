@@ -11,7 +11,7 @@ Ext.define('RM.core.PermissionsMgr', {
         
         if(access.toUpperCase() === 'R') {
             this.forceReadOnly = true;
-            //<debug
+            //<debug>
             console.log('Cashbook loaded as Read Only, permissions overrides will apply to AddEdit, Delete and certain Do actions.');
             //</debug>
         }

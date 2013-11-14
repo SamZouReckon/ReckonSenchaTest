@@ -30,20 +30,20 @@ Ext.define('RM.view.CashBooks', {
         
                             '<table width="100%">'+
                                 '<tr>'+
-                                    '<td valign="top" width="20"><div class="rm-listdynamiccolor" style="background:{ColorCode};"></div></td>'+
+                                    '<td valign="top" width="20"><div class="{[this.getClass(values.Access)]}"></div></td>'+
                                     '<td>'+
                                         '<div class="rm-nextgrayarrow rm-orgnametext rm-mr5">{OrgName}</div>'+
                                         '<div class="rm-booknametext rm-pt5">{BookName}</div>'+
-                                        //'<div class="rm-accesstext rm-pt5">{[this.accessLevel(values.Access)]}</div>'+
+                                        '<div class="rm-accesstext rm-pt5">{[this.accessLevel(values.Access)]}</div>'+
                                     '</td>'+
                                 '</tr>'+
                             '</table>',
                         {
+                            getClass: function(access) {
+                              if(access.toUpperCase() == 'R') return 'rm-list-readonly-cashbook'; else return 'rm-list-active-cashbook ';
+                            },
                             accessLevel: function(access) {
-                              if(access == 'f')
-                                  return 'FULL ACCESS';
-                              else
-                                  return 'READ ONLY';
+                              if(access.toUpperCase() == 'R') return 'READ ONLY';
                             }
                         }),
 

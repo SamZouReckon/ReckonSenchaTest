@@ -35,6 +35,10 @@ Ext.define('RM.core.AppMgr', {
         
     },
     
+    runningOnDevice: function() {
+        return this.appTypeId === RM.Consts.App.CORDOVA_CONTAINER;
+    },
+    
     addDeviceListeners: function(){
         
         if(this.appTypeId == RM.Consts.App.CORDOVA_CONTAINER){

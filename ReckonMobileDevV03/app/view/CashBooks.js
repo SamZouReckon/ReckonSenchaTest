@@ -30,20 +30,30 @@ Ext.define('RM.view.CashBooks', {
         
                             '<table width="100%">'+
                                 '<tr>'+
-                                    '<td valign="top" width="20"><div class="{[this.getClass(values.Access)]}"></div></td>'+
+                                    '<td valign="top" width="20"><div class="{[this.getClass(values)]}" style="background-color:{ColorCode}"></div></td>'+
                                     '<td>'+
                                         '<div class="rm-nextgrayarrow rm-orgnametext rm-mr5">{OrgName}</div>'+
                                         '<div class="rm-booknametext rm-pt5">{BookName}</div>'+
-                                        '<div class="rm-accesstext rm-pt5">{[this.accessLevel(values.Access)]}</div>'+
+                                        '<div class="rm-accesstext rm-pt5">{[this.accessLevel(values)]}</div>'+
                                     '</td>'+
                                 '</tr>'+
                             '</table>',
                         {
-                            getClass: function(access) {
-                              if(access.toUpperCase() == 'R') return 'rm-list-readonly-cashbook'; else return 'rm-list-active-cashbook ';
+                            getClass: function(values) {
+                              if(values.Access.toUpperCase() == 'R') {
+                                  return 'rm-list-readonly-cashbook'; 
+                              }
+                              else {
+                                return 'rm-list-cashbook';
+                              }
                             },
-                            accessLevel: function(access) {
-                              if(access.toUpperCase() == 'R') return 'READ ONLY';
+                            accessLevel: function(values) {                                                                
+                                if (values.Access.toUpperCase() == 'R') {
+                                    return 'READ ONLY' + (values.StatusText ? ' - ' + values.StatusText : '');
+                                }
+                                else {
+                                    return values.StatusText;
+                                }
                             }
                         }),
 

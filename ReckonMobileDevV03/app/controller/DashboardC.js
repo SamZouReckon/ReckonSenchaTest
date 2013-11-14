@@ -24,22 +24,29 @@ Ext.define('RM.controller.DashboardC', {
     },
     
     showView: function(dashboardData){
+        this.dashboardFirstShown = false; //flag to indicate to onShow not to load dashboard data if shown is just after cashbook select
+        
         this.dashboardData = dashboardData;
         this.showDashboardData();
     },    
     
     onShow: function(){       
         
-        RM.AppMgr.getServerRecs('Dashboard', null,
-            function(recs){
-                alert(Ext.encode(recs));    
-                
-            },
-            this
+        if(this.dashboardShown){
+            RM.AppMgr.getServerRecs('Dashboard', null,
+                function(recs){
+                    this.dashboardData = recs[0];
+                    this.showDashboardData();
+                },
+                this            
+            );            
+            
+        }
+        else{
+            this.showDashboardData();
+        }        
+        this.dashboardShown = true;
         
-        );
-        
-        //this.showDashboardData();
     },
     
     showDashboardData: function(){ 

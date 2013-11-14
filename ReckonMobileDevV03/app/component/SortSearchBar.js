@@ -18,10 +18,6 @@ Ext.define('RM.component.SortSearchBar', {
 			}
 		}
     },
-        
-    /*initConfig: function() {
-		this.callParent(arguments);
-    },*/
     
 	
     initialize: function() {
@@ -68,22 +64,40 @@ Ext.define('RM.component.SortSearchBar', {
 	
 	onSearchToggle: function(){
         
-		var sort = this.getComponent(0), search = this.getComponent(1), btn = this.getComponent(3);       
-        search.setHidden(!search.isHidden());
-        if('resources/images/icons/rm-search.svg' == btn.getIcon())
+		var search = this.getComponent(1);       
+
+        if(search.isHidden())
         {
-            btn.setIcon('resources/images/icons/rm-cross.svg');
-            search.focus();
+            this.showSearch();
         }
         else 
-        {   if(search.getValue()!='')  this.fireEvent('searchclear');         
-            search.reset();            
-            btn.setIcon('resources/images/icons/rm-search.svg');
+        {   
+            this.hideSearch();
         }
-        if(this.config.sortfields!=null){
-		    sort.setHidden(!sort.isHidden());
-        }	
         
-	}
+        
+	},
+    
+    showSearch: function(){
+        var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);
+        
+        search.setHidden(false);
+        btn.setIcon('resources/images/icons/rm-cross.svg');
+        search.focus();
+        sort.setHidden(true);
+        
+    },
+    
+    hideSearch: function(supressEvent){
+        var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);
+        
+        search.setHidden(true);
+        if(!supressEvent && search.getValue() != ''){
+            this.fireEvent('searchclear'); 
+        }           
+        search.reset();            
+        btn.setIcon('resources/images/icons/rm-search.svg');        
+        sort.setHidden(false);
+    }
 
 });

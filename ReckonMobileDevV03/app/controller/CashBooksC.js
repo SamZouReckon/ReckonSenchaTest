@@ -3,21 +3,18 @@ Ext.define('RM.controller.CashBooksC', {
     config: {
         refs: {
             cashBooks: 'cashbooks',
-            cashBooksList: 'cashbooks list'
+            cashBooksList: 'cashbooks list',
+            sortSearchBar: 'cashbooks sortsearchbar'
         },
         control: {
             'cashbooks sortsearchbar': {
                 sort: 'onSort',
 
                 search: function (val) {
-                    var store = this.getCashBooksList().getStore();
-                    store.clearFilter();
-                    store.filter('search', val);
-                    this.setLoadTimer();
+                    this.setLoadTimer(val);
                 },
 
-                searchclear: function () {
-                    this.getCashBooksList().getStore().clearFilter();
+                searchclear: function () {                   
                     this.loadList();
                 }
             },
@@ -34,6 +31,10 @@ Ext.define('RM.controller.CashBooksC', {
         var view = this.getCashBooks();
         if (!view){
             view = { xtype: 'cashbooks' };
+        }
+        else{
+            this.getSortSearchBar().hideSearch(true);
+            this.getCashBooksList().getStore().clearFilter();
         }
         
         //RM.ViewMgr.clearBackStack(); //don't clear it as may have come from select cashbook in slide nav
@@ -55,11 +56,17 @@ Ext.define('RM.controller.CashBooksC', {
         this.selectCb.call(this.selectCbs, rec.data);
     },
 
-    loadList: function () {
+    loadList: function (searchFilter) {
+        var store = this.getCashBooksList().getStore();
+        store.clearFilter();
+        if(searchFilter){
+            store.filter('search', searchFilter);
+        }
+        
         RM.AppMgr.loadStore(
-            this.getCashBooksList().getStore(),
+            store,
             function(recs){
-                if(recs.length == 0){
+                if(!searchFilter && recs.length == 0){
                     RM.AppMgr.showOkMsgBox('You do not have any books to select.', RM.AppMgr.lock, RM.AppMgr);
                 }
             },
@@ -74,12 +81,12 @@ Ext.define('RM.controller.CashBooksC', {
         );
     },
 
-    setLoadTimer: function () {
+    setLoadTimer: function (searchFilter) {
         if (this.loadTimer) {
             clearTimeout(this.loadTimer);
             this.loadTimer = null;
         }
-        this.loadTimer = Ext.defer(this.loadList, 1000, this);
+        this.loadTimer = Ext.defer(this.loadList, 1000, this, [searchFilter]);
     }
 
 });

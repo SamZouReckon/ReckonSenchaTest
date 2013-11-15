@@ -161,9 +161,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
     
     onItemUpdated: function (itemType) {
-        if (itemType == 'invoice' && !this.isCreate) {
+        if (itemType == 'invoice' && !this.isCreate) {            
             this.dataLoaded = false;
-            this.loadFormData();
         }
     },
     
@@ -198,7 +197,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         }        
     },
 
-    loadFormData: function () {
+    loadFormData: function () {        
         RM.AppMgr.getServerRecById('Invoices', this.detailsData.InvoiceId,
 			function (data) {
                 
@@ -518,7 +517,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         }        
     },
 
-    goBack: function(){
+    goBack: function(){        
         this.detailsCb.call(this.detailsCbs, 'back');
         RM.ViewMgr.back();
         this.getLineItems().removeAllItems();

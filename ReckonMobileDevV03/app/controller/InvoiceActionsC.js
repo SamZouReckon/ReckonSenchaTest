@@ -51,7 +51,9 @@ Ext.define('RM.controller.InvoiceActionsC', {
         
         var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));        
         var hideEmail = !(RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canDo('Invoices', 'PrintEmail'));
-        var hidePay = !(RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status) && RM.PermissionsMgr.canAddEdit('Payments'));
+        var hidePay = !RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status) || 
+                      !RM.PermissionsMgr.canAddEdit('Payments') ||
+                      this.invoiceData.BalanceDue === 0;
                 
         // Handle lock-off rules
         if(RM.CashbookMgr.getLockOffDate().getTime() >= this.invoiceData.Date.getTime()) {

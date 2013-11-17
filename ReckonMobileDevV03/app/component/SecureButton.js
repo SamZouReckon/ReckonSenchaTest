@@ -24,12 +24,14 @@ Ext.define('RM.component.SecureButton', {
     
     config : {
         permissionFor : '',
-        listeners: {painted : function () {this.checkPermissions();}} 
+        hidden: true,
+        listeners: {painted : 'checkPermissions'} 
     },
     
     initialize: function() {
-       this.callParent();        
+       this.callParent(arguments);        
        RM.AppMgr.application.on( {'rm-permissionsupdated' : this.checkPermissions, scope : this} );
+       this.checkPermissions();
     },
     
     checkPermissions: function() {

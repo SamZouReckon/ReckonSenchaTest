@@ -18,6 +18,10 @@ Ext.define('RM.core.PermissionsMgr', {
         }
         
         this.triggerUpdateEvent();
+        
+        //<debug>
+        this.resetPermissions();
+        //</debug>
     },
     
     getPermission: function(actionCode){        

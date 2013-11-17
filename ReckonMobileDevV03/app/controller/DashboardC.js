@@ -53,7 +53,7 @@ Ext.define('RM.controller.DashboardC', {
         var canViewNetPosition = RM.PermissionsMgr.canView('PAndLReport');
         var canViewAlertsInvoices = RM.PermissionsMgr.canView('Invoices');
         var canViewAlertsBills =  RM.PermissionsMgr.canView('Bills');
-        var canViewTopExpenses = RM.PermissionsMgr.canView('AccountEnquiryReport');
+        var canViewTopExpenses = RM.PermissionsMgr.canView('TopExpenseAccountsReport');
         var canViewBudgets = RM.PermissionsMgr.canView('Budgets');
         
         //For no access to all components

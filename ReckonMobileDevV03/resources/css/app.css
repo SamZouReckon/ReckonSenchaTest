@@ -5998,9 +5998,10 @@ body.x-desktop {
 .rm-accesstext {
   color: #969696;
   font-size: 68%;
-  font-weight: normal; }
+  font-weight: normal;
+  text-transform: uppercase; }
 
-.rm-list-active-cashbook {
+.rm-list-cashbook {
   width: 10px;
   height: 10px;
   float: left;

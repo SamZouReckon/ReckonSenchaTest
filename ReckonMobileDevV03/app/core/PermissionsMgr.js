@@ -8,6 +8,7 @@ Ext.define('RM.core.PermissionsMgr', {
 	
 	setPermissions: function(permissions, access){        
         this.permissions = permissions.map(function(action) { return action.toLowerCase ? action.toLowerCase() : action });
+        this.forceReadOnly = false;
         
         if(access.toUpperCase() === 'R') {
             this.forceReadOnly = true;

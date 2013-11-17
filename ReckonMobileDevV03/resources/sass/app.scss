@@ -898,6 +898,7 @@ $include-list-highlights: none;
 		color:#969696;
         font-size: 68%;
 		font-weight: normal;
+        text-transform: uppercase;
 	}
 
 	@mixin rm-listdynamiccolor{
@@ -905,7 +906,7 @@ $include-list-highlights: none;
 		background:#d2d2d2;margin-top:5px;
 	}
 
-    .rm-list-active-cashbook {
+    .rm-list-cashbook {
         @include rm-listdynamiccolor;
         background:#ff0913;
     }

@@ -57,6 +57,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         return this.taxStatusCode === RM.Consts.TaxStatus.INCLUSIVE;
     },
     
+    isTaxTracking: function() {
+        return this.taxStatusCode !== RM.Consts.TaxStatus.NON_TAXED;
+    },
+    
     showView: function (editable, customerId, options, detailsData, cb, cbs) {
         this.ignoreEvents = false;
         this.isEditable = editable;
@@ -110,7 +114,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             var priceDisplayValue = RM.util.MathHelpers.roundToEven(this.isTaxInclusive() ? this.detailsData.UnitPrice : this.detailsData.UnitPriceExTax, this.detailsData.UnitPriceAccuracy);
             this.getUnitPrice().setValue(priceDisplayValue);
 
-            if (this.taxStatusCode === RM.Consts.TaxStatus.NON_TAXED) {
+            if (!this.isTaxTracking()) {
                 this.getItemDetail().hideTaxFields();            
             }            
             
@@ -253,6 +257,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         delete formVals.Tax;
         delete formVals.Discount;
         
+        if(!this.isTaxTracking()) delete formVals.TaxGroupId;
+        
         var item = Ext.apply(this.detailsData, formVals);
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
         item.Quantity = item.Quantity;
@@ -321,7 +327,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getItemForm().setValues({ 
             ItemId: newItem.ItemId, 
             ItemName:newItem.ItemPath, 
-            TaxGroupId:newItem.SaleTaxCodeId,         
+            TaxGroupId: this.isTaxTracking() ? newItem.SaleTaxCodeId : null,         
             Description: newItem.SalesDescription,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
@@ -421,7 +427,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ChangeStatus : 2,             
             ItemId: formVals.ItemId,
             Quantity: formVals.Quantity,
-            TaxGroupId: formVals.TaxGroupId,
+            TaxGroupId: this.isTaxTracking() ? formVals.TaxGroupId : null,
             TaxIsModified: this.detailsData.TaxIsModified,
             Tax: this.detailsData.TaxIsModified ? formVals.Tax : null,
             UnitPriceExTax: this.detailsData.UnitPriceExTax

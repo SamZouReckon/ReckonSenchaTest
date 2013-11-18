@@ -52,7 +52,7 @@ Ext.define('RM.controller.EnterPinC', {
 	},
 
 	onPinEntered: function (pin) {
-		RM.AppMgr.saveServerRec('Login', true, { ReqCode: 'LI', UserName: this.userName, MobilePin: pin },
+		RM.AppMgr.saveServerRec('Login', true, { ReqCode: 'LI', UserName: this.userName, MobilePin: pin, CashbookId: RM.CashbookMgr.getCashbookId() },
 			function (recs) {
                 var rec = recs[0];
 				if (rec.StatusCode.toUpperCase() == 'LI') {

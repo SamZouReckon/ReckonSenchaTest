@@ -82,7 +82,7 @@ Ext.define('RM.core.AppMgr', {
                     RM.EventMgr.setUserLogLevel(user.LogLevel);
                     if (RM.CashbookMgr.getCashbookId()) {
                          RM.CashbookMgr.loadLastCashbook( function() { 
-                             RM.ViewMgr.back(); 
+                             RM.ViewMgr.back();
                          });
                     }                    
                     else {
@@ -142,6 +142,7 @@ Ext.define('RM.core.AppMgr', {
         localStorage.removeItem('RmHasMobilePin');
         localStorage.removeItem('RmUserName');        
         
+        RM.CashbookMgr.unloadCashbook();
         this.logoutFromServer();
         this.login();
     },

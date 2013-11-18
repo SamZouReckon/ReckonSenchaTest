@@ -16,6 +16,9 @@ Ext.define('RM.controller.EnterUsernameC', {
             'enterusername #login': {
                 tap: 'onLogin'
             },
+            'password' : {
+                keyup: 'onPasswordKeyUp'  
+            },
             'enterusername #options': {
                 tap: 'onOptions'
             }
@@ -99,6 +102,11 @@ Ext.define('RM.controller.EnterUsernameC', {
      
     },     
     
+    onPasswordKeyUp: function(field, e) {
+        if (e.event.keyCode == 13) {
+            this.onLogin();
+        }
+    },
     
     onLogin: function () {
         

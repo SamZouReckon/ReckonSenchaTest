@@ -133,8 +133,8 @@ Ext.define('RM.controller.EmailInvoiceC', {
                     this.showEmailSent(vals.Email);
                 },
                 this,
-                function (recs) {
-                    this.showEmailFail();
+                function (recs, eventMsg) {
+                    this.showEmailFail(eventMsg);
                 },'Sending...'
             );
         }
@@ -145,8 +145,8 @@ Ext.define('RM.controller.EmailInvoiceC', {
         this.getEmailInvoice().setActiveItem(1);
     },
 
-    showEmailFail: function () {
-        this.getErrorCont().setHtml('Error sending email.');
+    showEmailFail: function (eventMsg) {
+        this.getErrorCont().setHtml('Error sending email.<br/>' + eventMsg);
         this.getEmailInvoice().setActiveItem(2);
     },
 

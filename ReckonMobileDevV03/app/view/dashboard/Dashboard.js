@@ -17,7 +17,9 @@ Ext.define('RM.view.dashboard.Dashboard', {
 					},{
 						text: '',
 						itemId: 'refresh',
-						ui: 'rm_topbarbuttonright'
+						ui: 'rm_topbarbuttonright',
+                        icon: 'resources/images/icons/rm-refresh.svg',
+                        width: '2.6em'
 					}
                 ]
             },{

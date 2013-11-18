@@ -17,7 +17,7 @@ Ext.define('RM.view.AcceptPayment', {
                 width: '2.6em'                
             }, {
                 xtype: 'component',
-                html: 'Pay invoice',
+                html: 'Receive payment',
                 cls: 'rm-topbartitle'
             }, {
                 xtype: 'spacer'

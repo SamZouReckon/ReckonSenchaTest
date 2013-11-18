@@ -149,7 +149,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     },
 
     onBack: function () {
-         RM.AppMgr.showYesNoMsgBox("Are you sure you want to cancel pay invoice?",
+         RM.AppMgr.showYesNoMsgBox("Are you sure you want to cancel receive payment?",
                   function(btn){
                       if(btn == 'yes'){
                           RM.ViewMgr.back();

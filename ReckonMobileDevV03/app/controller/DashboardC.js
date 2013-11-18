@@ -7,12 +7,16 @@ Ext.define('RM.controller.DashboardC', {
 			topExpenses: 'dashboard dbtopexpenses',
 			budgetOverview: 'dashboard dbbudgetoverview',
             dashboardCont: 'dashboard #cont',
-            noaccessCont: 'dashboard #noaccesscont'
+            noaccessCont: 'dashboard #noaccesscont',
+            refresh: 'dashboard #refresh'
         },
         control: {
 			'dashboard': {
                 //contready: 'loadItems'
                 show: 'onShow'
+            },            
+			'refresh': {
+                tap: 'refreshDashboard'
             }	
         }
 
@@ -20,34 +24,27 @@ Ext.define('RM.controller.DashboardC', {
     
     init: function() {
        this.callParent();        
-       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.showDashboardData, scope : this} );
+       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.showDashboardData, 'itemupdated': this.refreshDashboard, scope : this} );        
     },
     
     showView: function(dashboardData){
-        this.dashboardFirstShown = false; //flag to indicate to onShow not to load dashboard data if shown is just after cashbook select
-        
         this.dashboardData = dashboardData;
         this.showDashboardData();
     },    
     
-    onShow: function(){       
-        
-        if(this.dashboardShown){
-            RM.AppMgr.getServerRecs('Dashboard', null,
-                function(recs){
-                    this.dashboardData = recs[0];
-                    this.showDashboardData();
-                },
-                this            
-            );            
-            
-        }
-        else{
-            this.showDashboardData();
-        }        
-        this.dashboardShown = true;
-        
+    onShow: function(){
+        this.showDashboardData();
     },
+    
+    refreshDashboard: function(){
+        RM.AppMgr.getServerRecs('Dashboard', null,
+            function(recs){
+                this.dashboardData = recs[0];
+                this.showDashboardData();
+            },
+            this            
+        );
+    },    
     
     showDashboardData: function(){ 
         var canViewNetPosition = RM.PermissionsMgr.canView('PAndLReport');

@@ -12,7 +12,13 @@ Ext.define('RM.view.dashboard.Dashboard', {
                         xtype: 'component',
                         html: 'Dashboard',
                         cls: 'rm-topbartitle'                        
-                    }
+                    },{
+						xtype: 'spacer'					
+					},{
+						text: '',
+						itemId: 'refresh',
+						ui: 'rm_topbarbuttonright'
+					}
                 ]
             },{
                 xtype: 'container',

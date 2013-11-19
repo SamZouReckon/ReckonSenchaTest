@@ -72,6 +72,7 @@ Ext.define('RM.controller.EnterPinC', {
 			},
 			this,
             function(recs, eventMsg){
+                this.getPinKeypad().clearPin();
                 RM.AppMgr.showOkMsgBox(eventMsg);
             },
             'Logging in...',

@@ -1,6 +1,6 @@
 Ext.define('RM.controller.InvoiceDetailC', {
     extend: 'Ext.app.Controller',
-    requires: ['RM.util.FormUtils'],
+    requires: ['RM.util.FormUtils','RM.util.Dates'],
 
     config: {
         refs: {
@@ -217,9 +217,9 @@ Ext.define('RM.controller.InvoiceDetailC', {
 			    this.getLineItems().removeAllItems();
 			    this.detailsData = data;
                 if(data.DueDate != null){
-                   data.DueDate = new Date(data.DueDate);             
+                   data.DueDate = RM.util.Dates.decodeAsLocal(data.DueDate);             
                 }
-			    data.Date = new Date(data.Date);
+			    data.Date = RM.util.Dates.decodeAsLocal(data.Date);
 			    data.Discount = (data.DiscountPerc && data.DiscountPerc != 0) ? data.DiscountPerc + '%' : 'None';
 			    data.Discount = (data.DiscountAmount && data.DiscountAmount != 0) ? RM.AppMgr.formatCurrency(data.DiscountAmount, 2) : data.Discount;			    
                 this.noteText = data.Notes; //Enables preserving of new lines when going from textfield to textarea
@@ -391,7 +391,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var lineItems = this.getLineItems().getViewData();
         var vals = {
             CustomerId: formVals.CustomerId,
-            InvoiceDate: formVals.Date, 
+            InvoiceDate: RM.util.Dates.encodeAsUTC(formVals.Date), 
             AmountTaxStatus: formVals.AmountTaxStatus, 
             PreviousAmountTaxStatus: this.previousAmountTaxStatus, 
             LineItems:[]
@@ -580,6 +580,10 @@ Ext.define('RM.controller.InvoiceDetailC', {
         delete vals.Discount;
         
         vals.Notes = this.noteText;
+        
+        // Some date fernagling, the default json serialization of dates will format the date in UTC which will alter the time from 00:00:00
+        vals.Date = RM.util.Dates.encodeAsUTC(vals.Date);
+        vals.DueDate = vals.DueDate ? RM.util.Dates.encodeAsUTC(vals.DueDate) : null;
         
         if(this.validateForm(vals)){
             if(formVals.LineItems.length > 0){                

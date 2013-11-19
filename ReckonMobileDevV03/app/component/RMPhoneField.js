@@ -4,9 +4,9 @@ Ext.define('RM.component.RMPhoneField', {
     
     config : {
         clearIcon: false,
-        //component: {type: 'tel'}, //The issue with making this a tel phone field now is that iOS will allow u to call but Reckon One has area code in separate fields - look at combining in later version
-        component: {type: 'number'},
-        ui: 'number',        
+        component: {type: 'tel'}, //The issue with making this a tel phone field now is that iOS will allow u to call but Reckon One has area code in separate fields - look at combining in later version
+        //component: {type: 'number'},
+        //ui: 'number',        
         listeners: {blur: 'onFieldBlur'},
         cls: 'rm-flatfield'
     },       

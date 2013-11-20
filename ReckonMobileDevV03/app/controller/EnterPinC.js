@@ -24,7 +24,9 @@ Ext.define('RM.controller.EnterPinC', {
 	},
 
 	showView: function (userName, displayName, cb, cbs, cbFail) {
-        console.log('EnterPin onShow');
+
+        RM.ViewMgr.hideKeyPad();
+        
         this.incorrectPinCount = 0;
 		this.userName = userName;
 		this.displayName = displayName;
@@ -72,6 +74,7 @@ Ext.define('RM.controller.EnterPinC', {
 			},
 			this,
             function(recs, eventMsg){
+                this.getPinKeypad().clearPin();
                 RM.AppMgr.showOkMsgBox(eventMsg);
             },
             'Logging in...',

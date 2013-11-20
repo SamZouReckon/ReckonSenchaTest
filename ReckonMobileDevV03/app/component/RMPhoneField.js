@@ -44,6 +44,10 @@ Ext.define('RM.component.RMPhoneField', {
                 this
             );*/            
         }
+        else{
+            //remove no number chars from input such as #,*
+            this.setValue(val.replace(/\D/g,''));
+        }
 
 
     },

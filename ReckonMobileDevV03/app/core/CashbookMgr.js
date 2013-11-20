@@ -24,31 +24,35 @@ Ext.define('RM.core.CashbookMgr', {
         return new Date(this.getCurrentCashbook().LockoffDate);
     },
     
-    loadLastCashbook: function(callback) {
+    loadLastCashbook: function(callback, callbackScope, callbackFail, callbackNetFail) {
         if(this.getCashbookId()){
-            this.setCashbook(this.getCashbookId());
-            if (callback) { callback(); }            
+            this.setCashbook(this.getCashbookId(), callback, callbackScope, callbackFail, callbackNetFail);
         }
     },
     
     unloadCashbook: function(){
-        this.cashbookId = null;
+        this.setCashbookId(null);
+        this.setCurrentCashbook(null);
     },
         
     selectCashBook: function() {
 
         RM.Selectors.showCashBooks(
-			function (data) {
-                this.setCashbookId(data.CashBookId);			    
+			function (data) {                			    
                 RM.EventMgr.logEvent(RM.Consts.Events.OP, 2, 'cm.sc.1', 'CashBook=' + data.CashBookId);
-                this.setCashbook(data.CashBookId,
+                this.setCashbook(data.CashBookId,                    
                     function(){
+                        this.setCashbookId(data.CashBookId);
                         RM.ViewMgr.showMainNavContainer(localStorage.getItem('RmDisplayName'), data.BookName);
                         var dashboardC = RM.AppMgr.getAppControllerInstance('RM.controller.DashboardC');
                         dashboardC.showView(this._currentCashbook.Dashboard);
         	            RM.ViewMgr.showDashboard();                        
                     },
-                    this
+                    this,
+                    function(recs, eventMsg){
+                        RM.AppMgr.showErrorMsgBox(eventMsg);
+                        RM.AppMgr.login();
+                    }                
                 );
 			},
 			this
@@ -56,11 +60,12 @@ Ext.define('RM.core.CashbookMgr', {
         
     },    
     
-    setCashbook: function(cashbookId, cb, cbs){
+    setCashbook: function(cashbookId, callback, callbackScope, callbackFail, callbackNetFail){
+        var me = this;
 	    RM.AppMgr.saveServerRec('CashBookSelect', false, { CashBookId: cashbookId },
 	        function (recs) {
-                this.setCashbookId(cashbookId);  
-                this.setCurrentCashbook(recs[0]);
+                me.setCashbookId(cashbookId);  
+                me.setCurrentCashbook(recs[0]);
                 
 	            Ext.data.StoreManager.lookup('GSTCodes').setData(recs[0].GSTCodes);
                 Ext.data.StoreManager.lookup('AccountingCategories').setData(recs[0].AccountingCategories);
@@ -68,15 +73,16 @@ Ext.define('RM.core.CashbookMgr', {
                 Ext.data.StoreManager.lookup('TaxStatuses').setData(recs[0].AmountTaxStatuses);
                 Ext.data.StoreManager.lookup('ItemTypes').setData(recs[0].ItemTypes);
                 
-                RM.PermissionsMgr.setPermissions(this.getCurrentCashbook().Permissions, this.getCurrentCashbook().Access);
+                RM.PermissionsMgr.setPermissions(me.getCurrentCashbook().Permissions, me.getCurrentCashbook().Access);
                               
-                if(cb){
-                    cb.call(cbs);
+                if(callback){
+                    callback.call(callbackScope);
                 }
 	        },
-            this,
-            null,
-            'Loading book...'
+            callbackScope,
+            callbackFail,
+            'Loading book...',
+            callbackNetFail
 	    );        
     }
 });

@@ -81,9 +81,7 @@ Ext.define('RM.core.AppMgr', {
                     RM.SessionManager.startSession(user.SessionInfo);
                     RM.EventMgr.setUserLogLevel(user.LogLevel);
                     if (RM.CashbookMgr.getCashbookId()) {
-                         RM.CashbookMgr.loadLastCashbook( function() { 
-                             RM.ViewMgr.back();
-                         });
+                         RM.ViewMgr.back();
                     }                    
                     else {
                         RM.CashbookMgr.selectCashBook();

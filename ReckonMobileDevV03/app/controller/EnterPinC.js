@@ -58,7 +58,7 @@ Ext.define('RM.controller.EnterPinC', {
 			function (recs) {
                 var rec = recs[0];
 				if (rec.StatusCode.toUpperCase() == 'LI') {
-					this.goCb.call(this.goCbs, rec);
+					this.afterLogin(rec);
 				}
 				else {
                     this.incorrectPinCount++;
@@ -84,6 +84,30 @@ Ext.define('RM.controller.EnterPinC', {
 		);         
 	},
 
+    afterLogin: function(rec){
+         if (RM.CashbookMgr.getCashbookId()){
+             RM.CashbookMgr.loadLastCashbook( 
+                 function() { 
+                     this.goCb.call(this.goCbs, rec);
+                 },
+                 this,
+                 function(recs, eventMsg){
+                     this.getPinKeypad().clearPin();
+                     RM.CashbookMgr.unloadCashbook(); //give user a chance to choose another cashbook in case repeated problem of reloading current cashbook - e.g. maybe permission changed
+                     RM.AppMgr.showErrorMsgBox(eventMsg);
+                 },
+                 function(){
+                     this.getPinKeypad().clearPin();
+                 }
+             );             
+             
+         }
+        else{
+            this.goCb.call(this.goCbs, rec);
+        }        
+    },
+    
+    
 	onOptions: function () {
 		var menu = Ext.create('RM.component.DropdownOverlay');
 		var menuItems = new Array();

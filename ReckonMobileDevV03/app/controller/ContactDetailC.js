@@ -74,8 +74,14 @@ Ext.define('RM.controller.ContactDetailC', {
         this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
         if (!this.dataLoaded) {
-            var contactForm =  this.getContactForm();         
-            this.getBusinessOrIndividual().setDisabled(!this.isCreate);
+            var contactForm =  this.getContactForm(), businessOrIndividual = this.getBusinessOrIndividual();         
+            
+            //simply setting the field disabled works in simulator but doesn't display value in iOS
+            businessOrIndividual.setReadOnly(!this.isCreate);
+            if(!this.isCreate){
+                businessOrIndividual.addCls('rm-flatfield-disabled');    
+            }                        
+            
             if (!this.isCreate) {
                 this.loadFormData();
             }

@@ -26,14 +26,14 @@ Ext.define('RM.controller.AboutC', {
         var that = this;
         try {
             cordova.AppVersion.getAppVersion(function (version) {
-                that.getVersion().setHtml('Version:' + version);
+                that.getVersion().setHtml('Version: ' + version);
             });
         }
         catch(e) {
-            this.getVersion().setHtml('Failed to read version info.');
+            this.getVersion().setHtml('unknown version');
         }
         
-        this.getApiVersion().setHtml('Api Version: ' + RM.HomeSettingsMgr.getSetting('ApiVersion'));
+        this.getApiVersion().setHtml('Api Version: ' + RM.HomeSettingsMgr.getSetting('ApiVersion') || 'unknown');
     }
 
 });

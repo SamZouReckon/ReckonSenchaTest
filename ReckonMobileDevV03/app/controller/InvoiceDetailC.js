@@ -202,12 +202,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
 			function (data) {
                 
                 if(data.Status === 2 && data.BalanceDue < data.Amount) {
-                    if(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
-                        this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status) + ' (' + RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText()  + ')');                
-                    }
-                    else {
-                        this.getInvStatus().setHtml(RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText());                
-                    }                    
+                    this.getInvStatus().setHtml(RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText());                                    
                 }
                 else {
                     this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(data.Status));

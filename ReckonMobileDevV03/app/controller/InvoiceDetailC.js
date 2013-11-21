@@ -550,11 +550,13 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
     validateForm: function(vals){        
         var isValid = true;
-        
+
         if(!vals.CustomerId){
             this.getCustomerFld().showValidation(false);
             isValid = false;
         } 
+        
+        this.getLineItems().validateForm(); //still return isValid = true even if no line items, as the 'No items have been added to this invoice.' will be shown in save()
         
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();

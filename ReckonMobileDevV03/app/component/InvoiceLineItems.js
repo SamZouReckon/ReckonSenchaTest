@@ -27,7 +27,7 @@ Ext.define('RM.component.InvoiceLineItems', {
             cls: 'rm-whitebg',
             items: [{
                 xtype: 'component',
-                html: 'Items <span style="color: #F00">*</span>',
+                html: this.getItemsLabelHtml(true),
                 cls: 'rm-invoicelineitem-text'
             }, {
                 xtype: 'spacer'
@@ -59,6 +59,10 @@ Ext.define('RM.component.InvoiceLineItems', {
         this.isEditable = editable;
         this.query('button[action=addItem]')[0].setHidden(!editable);
     },
+    
+    getItemsLabelHtml: function(valid){
+        return valid ? 'Items <span style="color: #F00">*</span>' : '<span style="color: #F00">Items *</span>';        
+    },
 
     onAddItem: function () {
         RM.InvoicesMgr.showChooseItemPopup(this.customerId, { taxStatus: this.taxStatus, invoiceDate: this.invoiceDate }, this.addNewLineItems, this);
@@ -76,6 +80,7 @@ Ext.define('RM.component.InvoiceLineItems', {
         for (var i = 0; i < items.length; i++) {
             this.addLineItem(items[i]);
         }
+
     },
 
 	addLineItem: function (item) {
@@ -144,6 +149,7 @@ Ext.define('RM.component.InvoiceLineItems', {
 		});
 
 		this.lineItems[c.getId()] = item;
+        this.validateForm();
 	},
     
     editLineItem: function(compId){
@@ -205,6 +211,12 @@ Ext.define('RM.component.InvoiceLineItems', {
             data.push(this.lineItems[li]);
         }
         return data;
+    },
+    
+    validateForm: function(){
+        var hasLineItems = this.getViewData().length > 0;
+        this.getComponent(0).getComponent(0).setHtml(this.getItemsLabelHtml(hasLineItems));
+        return hasLineItems;
     }
 
 

@@ -14,6 +14,6 @@ Ext.application({
 
     launch: function () {
         //Fix for textareafield cursor issue in iOS       
-        Ext.event.publisher.TouchGesture.prototype.isNotPreventable = /^(select|a|input|textarea)$/i;
+        Ext.event.publisher.TouchGesture.prototype.isNotPreventable = /^(select|a|input|textarea)$/i;        
     }
 });

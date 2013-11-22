@@ -75,11 +75,8 @@ Ext.define('RM.core.AppMgr', {
             RM.ViewMgr.showEnterPin(
                 localStorage.getItem('RmUserName'),
                 localStorage.getItem('RmDisplayName'),
-				function (user) {
-                    this.userId = user.UserId;
-                    this.isUserLoggedIn = true;
-                    RM.SessionManager.startSession(user.SessionInfo);
-                    RM.EventMgr.setUserLogLevel(user.LogLevel);
+				function (loginDto) {
+                    this.doAfterLogin(loginDto);
                     if (RM.CashbookMgr.getCashbookId()) {
                          RM.ViewMgr.back();
                     }                    
@@ -112,11 +109,8 @@ Ext.define('RM.core.AppMgr', {
 
     loginUserName: function () {
         RM.ViewMgr.showEnterUsername(
-			function (user) {
-                this.userId = user.UserId;
-                this.isUserLoggedIn = true;
-                RM.SessionManager.startSession(user.SessionInfo);
-                RM.EventMgr.setUserLogLevel(user.LogLevel);
+			function (loginDto) {
+                this.doAfterLogin(loginDto);
 			    RM.ViewMgr.showCreatePin(
                     function () {                           
                         RM.CashbookMgr.selectCashBook();
@@ -126,6 +120,26 @@ Ext.define('RM.core.AppMgr', {
 			},
 			this
 		);
+    },
+    
+    doAfterLogin: function(loginDto){
+        this.userId = loginDto.UserId;
+        this.isUserLoggedIn = true;
+        RM.SessionManager.startSession(loginDto.SessionInfo);
+        RM.EventMgr.setUserLogLevel(loginDto.LogLevel);
+        
+        //alert((new Date()).getTime() + ' ' + Ext.Date.now());
+        if(loginDto.LoginAlert){
+            var lastLoginAlertStr = localStorage.getItem('RmLastLoginAlert'), lastLoginAlert = null;
+            if(lastLoginAlertStr){
+                lastLoginAlert = Ext.decode(lastLoginAlertStr);                
+            }
+            
+            if(!lastLoginAlert || (lastLoginAlert.AlertId != loginDto.LoginAlert.AlertId)){
+                this.showRMMsgPopup(loginDto.LoginAlert.Text, loginDto.LoginAlert.AlertType, [{text: 'OK', itemId: 'ok'}]);
+                localStorage.setItem('RmLastLoginAlert',  Ext.decode({AlertId: loginDto.LoginAlert.AlertId, LastShown: Ext.Date.now()}));
+            }
+        }
     },
 
     lock: function(){
@@ -495,22 +509,17 @@ Ext.define('RM.core.AppMgr', {
     
     showRMMsgPopup: function(msgText, icon, btnArray, cb, cbs, options){
         
-        var iconPath = 'resources/images/rm-msgbox-warning.svg';
-        
-        if(icon && icon !=''){
-            iconPath = 'resources/images/rm-msgbox-'+icon+'.svg';            
-        }
-        
         var msgBox = Ext.create('RM.component.RMMsgPopup');
-        msgBox.add({
-                    xtype: 'image',
-                    src: iconPath,
-                    height: 55,
-                    width: 65,
-                    margin: '25 0 12 0'               
-                }
-        );
-        
+        if(!Ext.isEmpty(icon)){
+            msgBox.add({
+                        xtype: 'image',
+                        src:'resources/images/rm-msgbox-' + icon + '.svg',
+                        height: 55,
+                        width: 65,
+                        margin: '25 0 12 0'               
+                    }
+            );
+        }
         msgBox.add({                    
                     xtype: 'component',
                     html: msgText,
@@ -561,15 +570,15 @@ Ext.define('RM.core.AppMgr', {
     },  
     
     showOkMsgBox: function(msgText, cb, cbs){ 
-        this.showRMMsgPopup(msgText,'',[{text: 'OK', itemId: 'Yes'}], cb, cbs);        
+        this.showRMMsgPopup(msgText,'warning',[{text: 'OK', itemId: 'Yes'}], cb, cbs);        
     },    
     
     showOkCancelMsgBox: function(msgText, cb, cbs){        
-        this.showRMMsgPopup(msgText,'',[{text: 'OK', itemId: 'ok'}, {text: 'Cancel', itemId: 'cancel'}], cb, cbs);       
+        this.showRMMsgPopup(msgText,'warning',[{text: 'OK', itemId: 'ok'}, {text: 'Cancel', itemId: 'cancel'}], cb, cbs);       
     },
     
     showYesNoMsgBox: function(msgText, cb, cbs){        
-        this.showRMMsgPopup(msgText,'',[{text: 'Yes', itemId: 'yes'}, {text: 'No', itemId: 'no'}], cb, cbs);        
+        this.showRMMsgPopup(msgText,'warning',[{text: 'Yes', itemId: 'yes'}, {text: 'No', itemId: 'no'}], cb, cbs);        
     },
     
     showUnsavedChangesMsgBox: function(cb, cbs){

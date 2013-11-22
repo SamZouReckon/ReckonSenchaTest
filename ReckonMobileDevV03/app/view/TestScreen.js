@@ -96,7 +96,7 @@ Ext.define('RM.view.TestScreen', {
                          
                      }
                  },{
-                     xtype:'textfield',
+                     xtype:'textareafield',
                      label: 'Test6',
                      name: 'Test6'
                  

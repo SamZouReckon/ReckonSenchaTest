@@ -214,7 +214,6 @@ Ext.define('RM.view.ContactDetail', {
 						label: 'State'
 					},{
 						name: 'PostCode',
-                        xtype: 'numberfield',
                         hidden: true,
 						label: 'Postcode',
                         maxLength: 100

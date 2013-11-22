@@ -410,7 +410,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                     return item;
                 });
             }
-            else {
+            else if(vals.PreviousAmountTaxStatus === RM.Consts.TaxStatus.NON_TAXED) {
                 // User is changing from NON-TAXED to a Tax-incl state. Apply the default tax group to each of the line items.
                 lineItems = lineItems.map(function(item) {
                     item.TaxGroupId = item.DefaultTaxGroupId;

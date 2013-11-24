@@ -51,18 +51,21 @@ Ext.define('RM.controller.EmailInvoiceC', {
         
         this.loadTemplates();
         
-        RM.ViewMgr.showPanel(view);
+        RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceId: this.invoiceData.InvoiceId}, 
+            function(rec){
+                this.messagetemplateRec = rec;
+                RM.ViewMgr.showPanel(view);
+            },
+            this
+        );          
     },
 
     
     onShow: function(){
-        this.getEmailInvoiceForm().reset();  
-        RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceId: this.invoiceData.InvoiceId}, 
-            function(rec){
-                this.getEmailInvoiceForm().setValues({Email: this.invoiceData.CustomerEmail, Subject: rec.Subject, Body: rec.Body });
-            },
-            this
-        );        
+        var rec = this.messagetemplateRec;
+        this.getEmailInvoiceForm().reset();
+        this.getEmailInvoiceForm().setValues({Email: this.invoiceData.CustomerEmail, Subject: rec.Subject, Body: rec.Body });
+      
     },
     
     loadTemplates: function(){

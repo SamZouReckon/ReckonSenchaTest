@@ -97,7 +97,7 @@ Ext.define('RM.component.SortSearchBar', {
         }           
         search.reset();            
         btn.setIcon('resources/images/icons/rm-search.svg');        
-        sort.setHidden(false);
+        sort.setHidden(this.config.sortfields == null);
     }
 
 });

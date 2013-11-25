@@ -24,7 +24,7 @@ Ext.define('RM.controller.DashboardC', {
     
     init: function() {
        this.callParent();        
-       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.showDashboardData, 'itemupdated': this.refreshDashboard, scope : this} );        
+       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.showDashboardData, 'itemupdated': this.onItemUpdated, scope : this} );        
     },
     
     showView: function(dashboardData){
@@ -33,14 +33,24 @@ Ext.define('RM.controller.DashboardC', {
     },    
     
     onShow: function(){
-        this.showDashboardData();
+        if(this.needsRefresh) {
+            this.refreshDashboard()
+        }
+        else {
+            this.showDashboardData();
+        }        
+    },
+    
+    onItemUpdated: function() {
+        this.needsRefresh = true;
     },
     
     refreshDashboard: function(){
         RM.AppMgr.getServerRecs('Dashboard', null,
             function(recs){
+                this.needsRefresh = false;
                 this.dashboardData = recs[0];
-                this.showDashboardData();
+                this.showDashboardData();                
             },
             this            
         );

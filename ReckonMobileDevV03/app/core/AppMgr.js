@@ -128,16 +128,15 @@ Ext.define('RM.core.AppMgr', {
         RM.SessionManager.startSession(loginDto.SessionInfo);
         RM.EventMgr.setUserLogLevel(loginDto.LogLevel);
         
-        //alert((new Date()).getTime() + ' ' + Ext.Date.now());
         if(loginDto.LoginAlert){
             var lastLoginAlertStr = localStorage.getItem('RmLastLoginAlert'), lastLoginAlert = null;
             if(lastLoginAlertStr){
                 lastLoginAlert = Ext.decode(lastLoginAlertStr);                
             }
             
-            if(!lastLoginAlert || (lastLoginAlert.AlertId != loginDto.LoginAlert.AlertId)){
+            if(!lastLoginAlert || (lastLoginAlert.AlertId != loginDto.LoginAlert.AlertId) || (loginDto.LoginAlert.RepeatInterval > 0 && Ext.Date.now() / 1000 - lastLoginAlert.LastShown > loginDto.LoginAlert.RepeatInterval)){
                 this.showRMMsgPopup(loginDto.LoginAlert.Text, loginDto.LoginAlert.AlertType, [{text: 'OK', itemId: 'ok'}]);
-                localStorage.setItem('RmLastLoginAlert',  Ext.decode({AlertId: loginDto.LoginAlert.AlertId, LastShown: Ext.Date.now()}));
+                localStorage.setItem('RmLastLoginAlert',  Ext.encode({AlertId: loginDto.LoginAlert.AlertId, LastShown: Ext.Date.now() / 1000}));
             }
         }
     },
@@ -324,7 +323,7 @@ Ext.define('RM.core.AppMgr', {
     
     handleServerCallFailure: function(resp){
         if(navigator.connection && navigator.connection.type === 'none') {
-            this.showOkMsgBox("It looks like your device has no internet connection, please connect and try again.");    
+            this.showCommsError("It looks like your device has no internet connection, please connect and try again.");    
             return;
         }
         
@@ -332,7 +331,7 @@ Ext.define('RM.core.AppMgr', {
             this.login();
         }        
         else if(resp.statusText === 'communication failure') {
-            this.showOkMsgBox("The connection failed, please try again. If the problem persists please contact support.");    
+            this.showCommsError("The connection failed, please try again. If the problem persists please contact support.");    
         }
         else if(resp.status == 412){
             var respErr = Ext.decode(resp.statusText);
@@ -344,6 +343,20 @@ Ext.define('RM.core.AppMgr', {
             this.showErrorMsgBox('There was an error, please try again. If the problem persists please contact support.<br/><br/> (' + resp.status + statusText + ')');    
         }
     },
+    
+    showCommsError: function(msgText){
+        
+        if(!this.showingCommsError){ //prevent showing 2 comms errors at same time - e.g. if say a form load makes more than 1 call to server and they both timeout
+            this.showingCommsError = true;
+            this.showOkMsgBox(
+                msgText,
+                function(){
+                    this.showingCommsError = false;
+                },
+                this
+            );
+        }           
+    },    
     
     setupBaseApi: function(){
         var apiLocation = localStorage.getItem('RmApiLocation'), apiType = localStorage.getItem('RmApiType');

@@ -28,7 +28,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 tap: 'back'
             },
             'invoicedetail #save': {
-                tap: 'save'
+                tap: 'onSave'
             },
             'invoicedetail #options': {
                 tap: 'onOptions'
@@ -164,6 +164,10 @@ Ext.define('RM.controller.InvoiceDetailC', {
         if (itemType == 'invoice' && !this.isCreate) {            
             this.dataLoaded = false;
         }
+    },
+    
+    onSave: function(button) {
+        this.save();  
     },
     
     applyViewEditableRules: function(){
@@ -540,7 +544,19 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     onOptions: function () {
-        this.onInvoiceActions();
+        if(this.isFormDirty()) {
+            RM.AppMgr.showOkCancelMsgBox('You must save your changes to continue, save now?',
+                function(btn) {
+                    if(btn == 'ok'){
+                        this.save(this.onInvoiceActions);                                     
+                    }
+                },
+                this
+            );
+        }
+        else {
+            this.onInvoiceActions();
+        }              
     },
 
     validateForm: function(vals){        
@@ -560,7 +576,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         return isValid;
     },
     
-    save: function () {
+    save: function (afterSaveCallback) {
         var formVals = this.getInvoiceForm().getValues();        
         formVals.LineItems = Ext.clone(this.getLineItems().getViewData());
         
@@ -602,9 +618,17 @@ Ext.define('RM.controller.InvoiceDetailC', {
         
                 RM.AppMgr.saveServerRec('Invoices', this.isCreate, vals,
         			function () {        			    
-                        this.goBack();
-        			    this.getLineItems().removeAllItems();
-        			    RM.AppMgr.itemUpdated('invoice');
+                        RM.AppMgr.itemUpdated('invoice');                           
+                        
+                        if(afterSaveCallback) { 
+                            // Clear the loaded flag to force a reload of invoice information when the view is shown again
+                            this.dataLoaded = false;                                             
+                            this.isCreate = false;                        
+                            afterSaveCallback.apply(this);                            
+                        }       			     
+        			    else {
+                            this.goBack();                             
+                        }
         			},
         			this,
                     function(recs, eventMsg){

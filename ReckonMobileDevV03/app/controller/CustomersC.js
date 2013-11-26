@@ -48,13 +48,15 @@ Ext.define('RM.controller.CustomersC', {
 		if(!view){
 			view = {xtype:'customers'};
         }
+        
+        delete this.searchFilter;
 		RM.ViewMgr.showPanel(view);
 		
 	},
     
     onShow: function(){
         this.getCreateCustomer().setHidden(!RM.PermissionsMgr.canAddEdit('Contacts'));
-        delete this.searchFilter;
+        //delete this.searchFilter;
         this.getCustomersList().getStore().getProxy().setUrl(RM.AppMgr.getApiUrl('Contacts'));
         this.loadList();
     },

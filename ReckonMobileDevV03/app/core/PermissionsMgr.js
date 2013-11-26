@@ -12,9 +12,7 @@ Ext.define('RM.core.PermissionsMgr', {
         
         if(access.toUpperCase() === 'R') {
             this.forceReadOnly = true;
-            //<debug>
-            console.log('Cashbook loaded as Read Only, permissions overrides will apply to AddEdit, Delete and certain Do actions.');
-            //</debug>
+            RM.Log.debug('Cashbook loaded as Read Only, permissions overrides will apply to AddEdit, Delete and certain Do actions.');            
         }
         
         this.triggerUpdateEvent();
@@ -28,14 +26,14 @@ Ext.define('RM.core.PermissionsMgr', {
         var granted = this.permissions.indexOf(actionCode.toLowerCase()) > -1;
         //<debug>
         if (actionCode in this.getOverrides()) { 
-            if(this.logEvents) console.log("Action override of '" + this.overrides[actionCode] + "' applied to: " + actionCode);
+            if(this.logEvents) RM.Log.debug("Action override of '" + this.overrides[actionCode] + "' applied to: " + actionCode);
             return this.overrides[actionCode]; 
         }
         if ("globalOverride" in this) { 
-            if(this.logEvents) console.log("Global override of '" + this.globalOverride + "' applied to: " + actionCode);
+            if(this.logEvents) RM.Log.debug("Global override of '" + this.globalOverride + "' applied to: " + actionCode);
             return this.globalOverride; 
         }        
-        if(this.logEvents) console.log("Access value of '" + granted + "' applied to: " + actionCode);
+        if(this.logEvents) RM.Log.debug("Access value of '" + granted + "' applied to: " + actionCode);
         //</debug>
         return granted;
     },

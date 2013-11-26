@@ -236,6 +236,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 lineItemsPanel.setCustomerId(data.CustomerId);
                 lineItemsPanel.setTaxStatus(data.AmountTaxStatus);
                 lineItemsPanel.setInvoiceDate(data.Date);
+                this.lineItemsDirty = false;
                 
 			    this.displayBalanceDue();
                 this.initialFormValues = invoiceForm.getValues();
@@ -618,11 +619,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 this.detailsCb.call(this.detailsCbs, 'save', vals);
         
                 RM.AppMgr.saveServerRec('Invoices', this.isCreate, vals,
-        			function () {        			    
+        			function (recs) {        			    
                         RM.AppMgr.itemUpdated('invoice');                           
                         
                         if(afterSaveCallback) { 
-                            // Clear the loaded flag to force a reload of invoice information when the view is shown again
+                            if(this.isCreate) { this.detailsData.InvoiceId = recs[0].InvoiceId; }
+                            // Clear the loaded flag to force a reload of invoice information when the view is shown again                            
                             this.dataLoaded = false;                                             
                             this.isCreate = false;                        
                             afterSaveCallback.apply(this);                            

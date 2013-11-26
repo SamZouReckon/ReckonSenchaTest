@@ -26,7 +26,8 @@ Ext.define('RM.controller.InvoicesC', {
     },
 
     init: function () {
-        this.getApplication().addListener('itemupdated', 'onItemUpdated', this);        
+        this.getApplication().addListener('itemupdated', 'onItemUpdated', this);  
+        this.getApplication().addListener('rm-activeviewchanged', 'onActiveViewChanged', this);  
     },
 
     showView: function () {
@@ -49,8 +50,19 @@ Ext.define('RM.controller.InvoicesC', {
     },
 
     onItemUpdated: function (itemType) {
-        if (itemType == 'invoice') {            
+        if (itemType == 'invoice' && this.dataLoaded) {      
+            RM.Log.debug('invoices list reload scheduled');
+            this.reloadOnNextActivation = true;
+        }
+    },
+    
+    onActiveViewChanged: function(newView) {
+        if(!this.reloadOnNextActivation) return;
+                
+        if(newView.xtype === this.getInvoices().xtype) {                       
+            this.reloadOnNextActivation = false; 
             this.activeList.reload();
+            RM.Log.debug('invoices list reloaded');
         }
     },
 

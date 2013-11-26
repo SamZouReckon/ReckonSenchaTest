@@ -8,8 +8,8 @@ Ext.define('RM.core.ViewMgr', {
 		this.app = application;
 		this.appBackStack = new Array();
 		this.mainView = Ext.create('RM.view.Main');
-		
-		this.mainNavContainer = Ext.create('RM.view.MainNavContainer');		
+		this.mainNavContainer = Ext.create('RM.view.MainNavContainer');
+        this.setUpNavigationListeners();
 	},
 	
 	back: function(anim){
@@ -279,6 +279,41 @@ Ext.define('RM.core.ViewMgr', {
     setPostAnimationCallback: function(anim, callback) {
         if(!anim.listeners) { anim.listeners = {}; }
         anim.listeners.animationend = callback;
+    },
+    
+    setUpNavigationListeners: function() {
+        this.mainNavContainer.addListener('itemselected', 
+                                          function(item) { 
+                                              this.navigationHandler(item, this.activeView); 
+                                          }, 
+                                          this
+        );
+        
+        this.mainView.addListener('activeitemchange', 
+                                  function (container, newView, oldView) {                                      
+                                      this.navigationHandler(newView, oldView);
+                                  },
+                                  this
+        );
+    },
+    
+    getActiveView: function() {
+        return this.activeView;
+    },
+    
+	navigationHandler: function(newView, oldView) {
+        newView = this.viewOrActiveSlideNavChild(newView);
+        oldView = this.viewOrActiveSlideNavChild(oldView);
+        this.activeView = newView;
+        this.app.fireEvent('rm-activeviewchanged', newView);        
+    },
+    
+    viewOrActiveSlideNavChild: function(view) {
+        if(view.xtype === 'slidenavigationview') {
+            return this.mainNavContainer.getActiveItem().raw;
+        }
+        else {
+            return view;
+        }
     }
-	
 });

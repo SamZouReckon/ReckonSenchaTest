@@ -225,6 +225,11 @@ Ext.define('RM.view.MainNavContainer', {
         }*/
     },
     
+    onSelect: function(list, item, eOpts) {
+        this.callParent(arguments);
+        this.fireEvent('itemselected', item.raw);
+    },
+    
     setSelectedItem: function (key) {
       var keyIndex = this.store.getData().indexOfKey(key);
       if(keyIndex > 0)  {

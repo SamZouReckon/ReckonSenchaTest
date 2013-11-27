@@ -260,6 +260,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         RM.AppMgr.saveServerRec('InvoiceCreate', true, null,
 			function (recs) {
                 this.getInvCodeFld().setValue(recs[0].InvCode);
+                this.detailsData.InvCode = recs[0].InvCode;
 			},
 			this,
             function(recs, eventMsg){

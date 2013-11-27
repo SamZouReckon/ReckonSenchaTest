@@ -73707,13 +73707,13 @@ Ext.define('Ext.event.publisher.ElementSize', {
  */
 Ext.define('Ext.event.publisher.TouchGesture', {
 
-    extend: 'Ext.event.publisher.Dom',
+    extend:  Ext.event.publisher.Dom ,
 
-    requires: [
-        'Ext.util.Point',
-        'Ext.event.Touch',
-        'Ext.AnimationQueue'
-    ],
+               
+                         
+                          
+                            
+      
 
     isNotPreventable: /^(select|a)$/i,
 
@@ -74007,6 +74007,11 @@ Ext.define('Ext.event.publisher.TouchGesture', {
         this.invokeRecognizers('onTouchStart', e);
 
         parent = target.parentNode || {};
+
+        // Prevent all emulated mouse events by stopping the default of touchstart. This will also stop the focus event.
+        if (Ext.os.is.iOS && !isNotPreventable.test(target.tagName) && !isNotPreventable.test(parent.tagName)) {
+            e.preventDefault();
+        }
     },
 
     onTouchMove: function(e) {
@@ -74108,11 +74113,7 @@ Ext.define('Ext.event.publisher.TouchGesture', {
                 MSPointerDown: 'touchstart',
                 MSPointerMove: 'touchmove',
                 MSPointerUp: 'touchend',
-                MSPointerCancel: 'touchcancel',
-                pointerdown: 'touchstart',
-                pointermove: 'touchmove',
-                pointerup: 'touchend',
-                pointercancel: 'touchcancel'
+                MSPointerCancel: 'touchcancel'
             },
 
             touchToPointerMap: {
@@ -74146,9 +74147,19 @@ Ext.define('Ext.event.publisher.TouchGesture', {
             }
         });
     }
-    else if (!Ext.browser.is.Ripple && (Ext.os.is.ChromeOS || !Ext.feature.has.Touch)) {
+    else if (Ext.os.is.ChromeOS || !Ext.feature.has.Touch) {
         this.override({
             handledEvents: ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup']
+        });
+    }
+    else if (!Ext.browser.is.Silk && Ext.feature.has.Touch) {
+        // Stop all mousedown events on Touch capable browsers. This will prevent the 'focus' event from the emulated mouse events on non-iOS devices
+        Ext.onDocumentReady(function() {
+            window.document.body.addEventListener('mousedown', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, true);
         });
     }
 });
@@ -87861,4 +87872,3 @@ Ext.define('Ext.viewport.Viewport', {
  * **Note** if you use {@link Ext#onReady}, this instance of {@link Ext.Viewport} will **not** be created. Though, in most cases,
  * you should **not** use {@link Ext#onReady}.
  */
-

@@ -110,7 +110,8 @@ $include-list-highlights: none;
             //font-weight: bold;
             padding-top: 0.9em;
             padding-right: 0.6em;	
-		}		
+		}
+	
 }
 
 // Android Textfield input color fix 
@@ -159,6 +160,7 @@ $include-list-highlights: none;
 		.x-input-el{
 			text-align: right;	
 			color: #787878;
+            -webkit-text-fill-color: #787878;
             background-color: inherit;
             font-size: 0.8em;
             font-weight: bold;
@@ -169,6 +171,12 @@ $include-list-highlights: none;
         input::-webkit-input-placeholder {
            color: #A0A0A0;   
            font-weight: normal;        
+        }	
+
+        .x-component-outer {
+            &:after {              
+              -webkit-mask-size: 0 !important;              
+            }
         }	
 }
 
@@ -2078,6 +2086,7 @@ rm-emailinvoicebackground{
 		.x-input-el{
 			text-align: right;	
 			color: #C3C2C2;
+            -webkit-text-fill-color: #C3C2C2;
             background-color: inherit;
             font-size: 0.8em;
             font-weight: bold;

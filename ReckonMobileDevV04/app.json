@@ -1,5 +1,5 @@
 {
-  "name": "ReckonOne Mobile",
+  "name": "ReckonMobile",
   "indexHtmlPath": "index.html",
   "url": null,
   "js": [
@@ -8,15 +8,17 @@
       "x-bootstrap": true
     },
     {
+      "path": "bootstrap.js",
+      "x-bootstrap": true
+    },
+    {
       "path": "app.js",
-      "bundle": true,
-      "update": "delta"
+      "bundle": true
     }
   ],
   "css": [
     {
-      "path": "resources/css/app.css",
-      "update": "delta"
+      "path": "resources/css/app.css"
     }
   ],
   "appCache": {
@@ -38,5 +40,7 @@
     ".svn$"
   ],
   "archivePath": "archive",
+  "requires": [
+  ],
   "id": "7c85d081-0dc3-4226-b909-df58a80c322b"
 }

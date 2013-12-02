@@ -4,7 +4,7 @@
     <import file="${basedir}/build_config/deployment.xml"/>
 
     <!-- This wires in the deployment project update that occurs after a production build -->
-    <target name="-after-build" depends="update-deployment-project"/>
+    <!--<target name="-after-build" depends="update-deployment-project"/>-->
 
 	<!--<import file="D:/sencha-cordova-builder-master/build-cordova.xml" />-->
 	<!--<target name="-after-build" depends="-build-cordova-all" />-->
@@ -43,5 +43,29 @@
             <target name="-before-build"/>
             <target name="-after-build"/>
     -->
-   
+    
+    <!-- Specify preprocessor options -->
+    <!--
+    <target name="-before-init">
+        <property name="build.options.production.debug" value="debug:false"/>
+        <property name="build.options.production.logger" value="logger:true"/>
+        <property name="build.options.production.minVersion" value="minVersion:3"/>
+        <property name="build.options.production.product" value="product:touch"/>
+        
+        <property name="build.options.testing.debug" value="debug:false"/>
+        <property name="build.options.testing.logger" value="logger:true"/>
+        <property name="build.options.testing.minVersion" value="minVersion:3"/>
+        <property name="build.options.testing.product" value="product:touch"/>
+        
+        <property name="build.options.package.debug" value="debug:false"/>
+        <property name="build.options.package.logger" value="logger:true"/>
+        <property name="build.options.package.minVersion" value="minVersion:3"/>
+        <property name="build.options.package.product" value="product:touch"/>
+        
+        <property name="build.options.native.debug" value="debug:false"/>
+        <property name="build.options.native.logger" value="logger:true"/>
+        <property name="build.options.native.minVersion" value="minVersion:3"/>
+        <property name="build.options.native.product" value="product:touch"/>
+    </target>
+    -->
 </project>

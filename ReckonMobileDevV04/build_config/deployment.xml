@@ -6,8 +6,8 @@
 
     <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
     <property name="build.artifacts.dir" value="${app.build.dir}/production" />
-
 	<target name="update-deployment-project" unless="${skip-deployment}">
+		<echo message="Skip deployment set to ${skip-deployment}"/>
 		<if>
 		  <equals arg1="${args.environment}" arg2="production"/>
 		  <then>		  	

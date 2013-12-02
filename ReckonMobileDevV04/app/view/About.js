@@ -78,7 +78,8 @@ Ext.define('RM.view.About', {
 									window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');
 								}
 							}
-						}
+						},
+                        hidden: true
 					}
                 
                 

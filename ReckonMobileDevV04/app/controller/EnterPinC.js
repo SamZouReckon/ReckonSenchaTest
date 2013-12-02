@@ -42,7 +42,9 @@ Ext.define('RM.controller.EnterPinC', {
 			view = { xtype: 'enterpin' };
 		}
 
-		RM.ViewMgr.showPanel(view);
+        if(RM.ViewMgr.getActiveView() !== view) {
+           RM.ViewMgr.showPanel(view);
+        }
 	},
 
 	onShow: function () {

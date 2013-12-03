@@ -5,11 +5,9 @@
 	<import file="git.targets"/>	
 
     <property name="deployment.project.dir" value="${deployment.project.root}/${deployment.project.name}/${deployment.project.name}/" />
-    <property name="build.artifacts.dir" value="${app.build.dir}/production" />
 	<target name="update-deployment-project" unless="${skip-deployment}">
-		<echo message="Skip deployment set to ${skip-deployment}"/>
 		<if>
-		  <equals arg1="${args.environment}" arg2="production"/>
+		  <equals arg1="${build.environment}" arg2="production"/>
 		  <then>		  	
 		    <antcall target="-update-deployment-project" />
 		  </then>
@@ -28,7 +26,7 @@
 	<target name="-copy-files-over">
 		<echo message="Copying new build output to deployment project at ${deployment.project.dir}"/>
 		<copy todir="${deployment.project.dir}" overwrite="true">
-			<fileset dir="${build.artifacts.dir}"/>
+			<fileset dir="${build.dir}"/>
 		</copy>
 		<move todir="${deployment.project.dir}" verbose="true">
 			<fileset dir="${deployment.project.dir}" includes="**/*.production*"/>

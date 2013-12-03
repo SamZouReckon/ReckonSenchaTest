@@ -15,8 +15,12 @@ Ext.define('RM.component.RMPullRefresh', {
         this.getList().getStore().loadPage(1, {
             callback: function (recs, operation, success) {
                if(success) { 
-                    this.setViewState('loaded');
-                    this.fireEvent('latestfetched');                   
+                    this.setState("loaded");
+                    this.fireEvent('latestfetched', this, recs);
+                    if (this.getAutoSnapBack()) {
+                        this.snapBack();
+                    }                   
+                   
                } 
             },
             scope: this

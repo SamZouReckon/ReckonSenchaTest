@@ -6952,6 +6952,7 @@ rm-emailinvoicebackground {
 
 .x-mask .x-mask-message {
   width: 100% !important;
+  color: #787878;
   text-shadow: none;
   max-width: none;
   position: absolute;

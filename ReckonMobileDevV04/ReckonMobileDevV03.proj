@@ -15,8 +15,7 @@
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
     <iOSBackgroundMode />
     <AndroidVersionCode>1</AndroidVersionCode>
-    <CorePlugins>
-    </CorePlugins>
+    <CorePlugins>org.apache.cordova.inappbrowser</CorePlugins>
     <FrameworkVersion>3.0.0</FrameworkVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />

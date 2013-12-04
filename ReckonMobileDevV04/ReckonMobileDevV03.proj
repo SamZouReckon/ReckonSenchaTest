@@ -4,7 +4,7 @@
     <ProjectGuid>ded88774-d691-4e8e-bd16-c1122722fc75</ProjectGuid>
     <ProjectTypeGuids>{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}</ProjectTypeGuids>
     <AppIdentifier>com.reckon.ReckonMobileDevV04</AppIdentifier>
-    <ProjectName>ReckonMobileDevV03</ProjectName>
+    <ProjectName>ReckonMobileDevV04</ProjectName>
     <IsRunnable>true</IsRunnable>
     <AndroidPermissions>android.permission.CAMERA;android.permission.READ_PHONE_STATE;android.permission.INTERNET;android.permission.ACCESS_NETWORK_STATE</AndroidPermissions>
     <DeviceOrientations>Portrait;Landscape</DeviceOrientations>

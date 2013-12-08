@@ -3,7 +3,7 @@ Ext.define('RM.core.Consts',{
     singleton : true,
     
     App: {VERSION: 0.001, CORDOVA_CONTAINER: 1, WEB_CONTAINER: 2},
-    Api: {TIME_OUT: 20000, STORE_LOAD_TIME_OUT: 20000, VERSION: 0.1},
+    Api: {TIME_OUT: 35000, STORE_LOAD_TIME_OUT: 35000, VERSION: 0.1},
     Log: {UPLOAD_KEY: 'rmey467rt'},
     Events: {OP: 5, ERROR_GEN: 1000, ERROR_COMMS: 2000},
     //ItemTypes: {CHARGEABLE_ITEM: 1, EXPENSE: 3, TIME: 6 },

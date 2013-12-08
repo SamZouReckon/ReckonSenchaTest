@@ -305,7 +305,10 @@ Ext.define('RM.core.AppMgr', {
             callback: function (recs, operation, success) {
                if(success) { 
                    loadComplete(recs, operation, success); 
-               } 
+               }
+               else if(cbNetFail){
+                   cbNetFail.call(cbs);
+               }
             },
             scope: me
         });

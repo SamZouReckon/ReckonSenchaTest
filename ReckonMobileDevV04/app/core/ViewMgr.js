@@ -100,14 +100,18 @@ Ext.define('RM.core.ViewMgr', {
     },
     
     confirmExitApp: function(){
-        RM.AppMgr.showYesNoMsgBox("Are you sure you want to exit?",
-          function(btn){
-              if(btn == 'yes'){
-                  navigator.app.exitApp();
-              }
-          },
-          this
-        );
+        if(!this.confirmExitMsgShowing){
+            this.confirmExitMsgShowing = true;
+            RM.AppMgr.showYesNoMsgBox("Are you sure you want to exit?",
+              function(btn){
+                  this.confirmExitMsgShowing = false;
+                  if(btn == 'yes'){
+                      navigator.app.exitApp();
+                  }                  
+              },
+              this
+            );            
+        }
     },
 
     regBackHandler: function(handler, scope){

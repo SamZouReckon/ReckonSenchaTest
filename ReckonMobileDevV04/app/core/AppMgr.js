@@ -190,7 +190,7 @@ Ext.define('RM.core.AppMgr', {
     },
 
     
-    getServerRecs: function (serverApi, params, cb, cbs, cbFail) {
+    getServerRecs: function (serverApi, params, cb, cbs, cbFail, msg, cbNetFail) {
         var me = this;
         if(serverApi.substr(0,4) !== 'http') {
             // A named api has been supplied, resolve the url
@@ -215,7 +215,10 @@ Ext.define('RM.core.AppMgr', {
             },
             failure: function(resp) {
                 window.clearInterval(this.loadingTimer);
-                RM.ViewMgr.hideLoadingMask();                
+                RM.ViewMgr.hideLoadingMask();
+                if(cbNetFail){
+                    cbNetFail.call(cbs, resp);
+                }                
                 RM.AppMgr.handleServerCallFailure(resp);
             },
             scope: this
@@ -224,7 +227,7 @@ Ext.define('RM.core.AppMgr', {
         me.setLoadingTimer();        
     },
     
-    getServerRec:  function (serverApi, params, cb, cbs, cbFail) {
+    getServerRec:  function (serverApi, params, cb, cbs, cbFail, msg, cbNetFail) {
         
         return this.getServerRecs(serverApi, params, 
             function(recs){ 
@@ -233,7 +236,9 @@ Ext.define('RM.core.AppMgr', {
                 }
             }, 
             cbs, 
-            cbFail
+            cbFail,
+            msg,
+            cbNetFail
         );
         
     },

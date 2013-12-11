@@ -10,6 +10,27 @@ Ext.define('RM.component.ExtDatePickerField', {
         }        
     },    
 
+    onClearIconTap: function() {        
+        this.callParent(arguments); 
+        
+        // This is a workaround for the DatePicker>Select>TextInput>Input default behaviour of (for android) focusing in on the field
+        // immediately after clearing it, which is undesirable for this control.
+        if(Ext.os.is.Android) {
+            var me = this;
+            me.clearing = true;
+            setTimeout(function() { 
+                me.clearing = false; 
+                me.blur();
+            }, 50);
+        }
+    },
+    
+    onFocus: function() {
+        if(!this.clearing) {
+            this.callParent(arguments);
+        }
+    },
+    
     applyValue: function(){
         var value = this.callParent(arguments);
         var iconCls = (this.getName() + '-icon').toLowerCase();

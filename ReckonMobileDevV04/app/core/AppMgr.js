@@ -56,7 +56,7 @@ Ext.define('RM.core.AppMgr', {
     
     appPause: function(){
         RM.ViewMgr.appPause();
-        this.login();
+        this.lock();
     },
     
     appResume: function(){
@@ -152,7 +152,8 @@ Ext.define('RM.core.AppMgr', {
         localStorage.removeItem('RmDisplayName');
         localStorage.removeItem('RmHasMobilePin');
         localStorage.removeItem('RmUserName');        
-        
+    
+        RM.ViewMgr.clearBackStack();
         RM.CashbookMgr.unloadCashbook();
         this.logoutFromServer();
         this.login();

@@ -89,7 +89,9 @@ Ext.define('RM.component.ExtDatePickerField', {
     
     updateValue: function(newValue) {
         this.callParent(arguments);
-
+        if(newValue == null){
+            this.resetPicker(); //show picker next time starting with today's date
+        }
         //this[valueValid && this.isDirty() ? 'showClearIcon' : 'hideClearIcon']();
         //this.syncEmptyCls();
         //this[this.isDirty() ? 'showClearIcon' : 'hideClearIcon']();

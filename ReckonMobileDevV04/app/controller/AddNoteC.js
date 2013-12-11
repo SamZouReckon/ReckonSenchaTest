@@ -24,6 +24,7 @@ Ext.define('RM.controller.AddNoteC', {
     },
 
     showView: function (title, isEditable, saveText, text, cb, cbs) {
+        this.viewInitialized = false;
         this.noteTitle = title;
         this.isEditable = isEditable;
         this.saveText = saveText;
@@ -38,15 +39,18 @@ Ext.define('RM.controller.AddNoteC', {
     },
     
     onShow: function(){
-        var saveBtn = this.getSaveBtn(), noteText = this.getNoteText();
-        
-        this.getTitle().setHtml(this.noteTitle);
-        saveBtn.setHidden(!this.isEditable);
-        saveBtn.setText(this.saveText);
-        noteText.setValue(this.noteText);
-        noteText.setReadOnly(!this.isEditable);
-        noteText.setPlaceHolder(this.isEditable ? 'enter' : '');
-        
+        if(!this.viewInitialized){ //don't initialize on each show - e.g. don't want to reset any text if user entered text and then hit pause and resume
+            
+            var saveBtn = this.getSaveBtn(), noteText = this.getNoteText();
+            
+            this.getTitle().setHtml(this.noteTitle);
+            saveBtn.setHidden(!this.isEditable);
+            saveBtn.setText(this.saveText);
+            noteText.setValue(this.noteText);
+            noteText.setReadOnly(!this.isEditable);
+            noteText.setPlaceHolder(this.isEditable ? 'enter' : ''); 
+            this.viewInitialized = true;
+        }        
     },
 
     isFormDirty: function(){        

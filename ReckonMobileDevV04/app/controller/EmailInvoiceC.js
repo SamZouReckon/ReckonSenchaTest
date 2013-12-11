@@ -49,22 +49,28 @@ Ext.define('RM.controller.EmailInvoiceC', {
             view = { xtype: 'emailinvoice' };
         }
         
-        this.loadTemplates();
         
-        RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceId: this.invoiceData.InvoiceId}, 
-            function(rec){
-                this.messagetemplateRec = rec;
-                RM.ViewMgr.showPanel(view);
-            },
-            this
-        );          
+        RM.ViewMgr.showPanel(view);
+        
+         
     },
 
     
     onShow: function(){
-        var rec = this.messagetemplateRec;
-        this.getEmailInvoiceForm().reset();
-        this.getEmailInvoiceForm().setValues({Email: this.invoiceData.CustomerEmail, Subject: rec.Subject, Body: rec.Body });
+        var emailInvoiceForm = this.getEmailInvoiceForm();
+        
+        emailInvoiceForm.reset();
+        
+        RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceId: this.invoiceData.InvoiceId}, 
+            function(rec){
+                emailInvoiceForm.setValues({Email: this.invoiceData.CustomerEmail, Subject: rec.Subject, Body: rec.Body });
+                this.loadTemplates();
+            },
+            this,
+            this.goBack,
+            null,
+            this.goBack
+        );         
       
     },
     
@@ -79,7 +85,10 @@ Ext.define('RM.controller.EmailInvoiceC', {
             function(){
                 this.getTemplateFld().setValue(this.invoiceData.TemplateId);
             },
-            this
+            this,
+            this.goBack,
+            null,
+            this.goBack
         );
         
     }, 
@@ -166,12 +175,16 @@ Ext.define('RM.controller.EmailInvoiceC', {
         //RM.ViewMgr.backTo('invoicedetail');
         this.goCb.call(this.goCbs);
     },
+    
+    goBack: function(){
+        RM.ViewMgr.back();
+    },
 
     back: function () {
          RM.AppMgr.showYesNoMsgBox("Are you sure you want to cancel sending email?",
                   function(btn){
                       if(btn == 'yes'){
-                          RM.ViewMgr.back();
+                          this.goBack();
                       }
                   },
                   this

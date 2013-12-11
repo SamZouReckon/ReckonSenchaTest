@@ -20,7 +20,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         },
         control: {
             'invoicelineitem': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },
             'invoicelineitem #itemForm exttextfield': {
                 tap: 'onFieldTap'
@@ -98,6 +99,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },
 	
     onShow: function () {
+        RM.ViewMgr.regFormBackHandler(this.back, this);
+        
         var itemForm = this.getItemForm();
 
         this.getAddBtn().setHidden(!this.isEditable);
@@ -126,6 +129,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             this.initShow = true;
         }           
     },
+    
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler();
+    },     
     
     isFormDirty: function(){        
         return !RM.AppMgr.isFormValsEqual( this.getItemForm().getValues(), this.initialFormValues);        

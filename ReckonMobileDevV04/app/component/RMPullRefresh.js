@@ -6,7 +6,7 @@ Ext.define('RM.component.RMPullRefresh', {
         pullRefreshText: '',
         releaseRefreshText: '',        
         loadingText: '<img src="resources/images/rm-loading-img.gif" width="175" height="35">',  
-        lastUpdatedDateFormat: 'd/m/Y h:iA',
+        lastUpdatedDateFormat: 'd/m/Y h:i:s A',
     },
 
     //Override fetchLatest() behaviour so that lists are reloaded instead of default of inserting new records at the start

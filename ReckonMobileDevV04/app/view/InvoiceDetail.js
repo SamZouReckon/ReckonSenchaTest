@@ -70,7 +70,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					name : 'DueDate',
 					dateFormat : 'jS M Y',
 					placeHolder: 'select',
-					label : 'Due Date',
+					label : 'Due date',
                     cls: 'rm-flatfield ',
                     labelWidth: '5em',
                     clearIcon: true,
@@ -113,10 +113,10 @@ Ext.define('RM.view.InvoiceDetail', {
 				    xtype: 'exttextfield',
 					name: 'Discount',
                     readOnly: true,
-					label: 'Discount',
+					label: 'Invoice discount',
 					cls: 'rm-flatfield',
                     clearIcon: false,
-                    labelWidth: '6em'
+                    labelWidth: '8em'
                     
 				},{
 					xtype: 'exttextfield',

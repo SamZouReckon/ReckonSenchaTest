@@ -60,7 +60,6 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     onShow: function () {
         RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getTimeSheetTitle().setHtml(this.isCreate ? 'Add Timesheet' : 'View Timesheet');
-        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
         //Prevent date picker from coming up with previous value selected
         this.getDateFld().resetPicker();

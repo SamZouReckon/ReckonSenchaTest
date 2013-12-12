@@ -110,8 +110,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var dateField = this.getDateFld();
         
         RM.ViewMgr.regFormBackHandler(this.back, this);
-        this.getInvoiceTitle().setHtml(this.isCreate ? 'Add Invoice' : 'View Invoice');
-        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');                
+        this.getInvoiceTitle().setHtml(this.isCreate ? 'Add invoice' : 'View invoice');
         
         this.applyViewEditableRules();        
         this.getInvoiceDetail().setActionsHidden(this.isCreate);    

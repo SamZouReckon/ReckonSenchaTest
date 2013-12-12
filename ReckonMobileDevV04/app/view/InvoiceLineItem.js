@@ -96,9 +96,10 @@ Ext.define('RM.view.InvoiceLineItem', {
     				},{
                         xtype: 'exttextfield',
     					name: 'Discount',
-    					label: 'Discount',
+    					label: 'Item discount',
+                        labelWidth: '7em',
                         readOnly: true, //prevent OS keypad coming as well
-                        placeHolder: 'none',
+                        placeHolder: 'None',
     					value: 0,
     					cls: ['rm-flatfield']                   
     				},{

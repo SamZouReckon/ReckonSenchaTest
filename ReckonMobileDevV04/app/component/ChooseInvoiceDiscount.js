@@ -71,7 +71,7 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
                 }, {
                     name: 'disc',
                     itemId: 'custom',
-                    label: 'Custom or absolute',
+                    label: 'Custom % or $',
                     checked: (val != 0 && val != '5%' && val != '10%' && val != '20%')
                 }
 					]

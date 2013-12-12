@@ -52,7 +52,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));        
         var hideEmail = !(RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canDo('Invoices', 'PrintEmail'));
         var hidePay = !RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status) || 
-                      !RM.PermissionsMgr.canAddEdit('Payments') ||
+                      !RM.PermissionsMgr.canAddEdit('Receipts') ||
                       this.invoiceData.BalanceDue === 0;
                 
         // Handle lock-off rules

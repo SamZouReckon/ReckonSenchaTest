@@ -5501,9 +5501,11 @@ body.x-desktop {
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-list-pullrefresh;*/
+.x-field-input {
+  overflow: hidden; }
+
 .x-android .x-input-el {
-  -webkit-text-fill-color: #787878 !important;
-  padding-top: 1.6em !important; }
+  -webkit-text-fill-color: #787878 !important; }
 .x-android .x-input-el .rm-togglefield-off .x-field-input {
   padding-top: 1em !important; }
 .x-android .x-input-el .rm-togglefield-on .x-field-input {
@@ -5514,9 +5516,6 @@ body.x-desktop {
 
 .x-android .rm-togglefield-on .x-input-el {
   padding-top: 1.1em !important; }
-
-.x-android .x-field-input .x-clear-icon {
-  margin-top: -1.1em; }
 
 .x-toolbar-rm-sortsearch-topbar {
   background-image: none;
@@ -5844,7 +5843,7 @@ body.x-desktop {
   color: #969696;
   background-color: inherit;
   font-size: 0.8em;
-  padding-top: 0.9em;
+  min-height: 3.2em;
   padding-right: 0.6em; }
 
 .rm-flatfield {
@@ -5859,8 +5858,8 @@ body.x-desktop {
   -webkit-text-fill-color: #787878;
   background-color: inherit;
   font-size: 0.8em;
+  min-height: 3.2em;
   font-weight: bold;
-  padding-top: 0.9em;
   padding-right: 0.6em; }
 .rm-flatfield input::-webkit-input-placeholder {
   color: #A0A0A0;
@@ -5873,6 +5872,9 @@ body.x-desktop {
 
 .rm-field-input-formatted {
   position: absolute;
+  line-height: 3.2em;
+  padding-top: 0;
+  padding-bottom: 0;
   top: 0;
   background: white !important; }
 
@@ -6537,8 +6539,8 @@ body.x-desktop {
   -webkit-text-fill-color: #787878;
   background-color: inherit;
   font-size: 0.8em;
+  min-height: 3.2em;
   font-weight: bold;
-  padding-top: 0.9em;
   padding-right: 0.6em; }
 .rm-notes-icon.x-field input::-webkit-input-placeholder {
   color: #A0A0A0;
@@ -7181,7 +7183,7 @@ rm-emailinvoicebackground {
   width: 2.2em;
   height: 2.2em;
   margin: .5em;
-  margin-top: -0.9em;
+  margin-top: -1.1em;
   right: -.5em; }
 
 .rm-lineitemcrossbg {

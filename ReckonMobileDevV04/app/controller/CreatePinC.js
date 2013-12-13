@@ -68,7 +68,7 @@ Ext.define('RM.controller.CreatePinC', {
         }
         else {
             this.getPinKeypad().clearPin();
-            this.getTitle().setHtml('Reenter PIN');
+            this.getTitle().setHtml('Re-enter PIN');
             this.getMsg().setHtml('PIN numbers did not match, please retry');
             this.getMsg().setCls('rm-errormsg');
             this.pinStep = 1

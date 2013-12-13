@@ -66,7 +66,6 @@ Ext.define('RM.controller.ExpenseDetailC', {
     onShow: function () {
         RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getExpenseTitle().setHtml(this.isCreate ? 'Add Expense' : 'View Expense');
-        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         
         //Prevent date picker from coming up with previous value selected
         this.getDateFld().resetPicker();

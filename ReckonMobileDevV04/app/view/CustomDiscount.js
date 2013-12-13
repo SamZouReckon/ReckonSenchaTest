@@ -49,7 +49,7 @@ Ext.define('RM.view.CustomDiscount', {
 				},{
 					xtype: 'rmamountfield',
 					itemId: 'absoluteDiscount',
-					label: 'Absolute amount',
+					label: '$ discount',
                     decimalPlaces: 2,
                     prefix: '$', 
                     clearIcon: false,   

@@ -57,7 +57,7 @@ Ext.define('RM.controller.EnterUsernameC', {
             text: 'Signup for Pay',
             value: 'reckonpay'
         },*/ {
-            text: 'Forgotten Login details',
+            text: 'Forgotten login details',
             value: 'forgotlogin'
         }, {
             text: 'Core Settings',
@@ -146,7 +146,7 @@ Ext.define('RM.controller.EnterUsernameC', {
             }
         }
         else {
-            RM.AppMgr.showErrorMsgBox('Please enter your User Name and Password');
+            RM.AppMgr.showErrorMsgBox('Please enter your user name and password');
         }
 
     }

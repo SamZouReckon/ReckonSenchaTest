@@ -70,8 +70,7 @@ Ext.define('RM.controller.ContactDetailC', {
     
     onShow: function(){
         RM.ViewMgr.regFormBackHandler(this.back, this);
-        this.getContactTitle().setHtml(this.isCreate ? 'Add Contact' : 'View Contact');
-        this.getSaveBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
+        this.getContactTitle().setHtml(this.isCreate ? 'Add contact' : 'View contact');
         
         if (!this.dataLoaded) {
             var contactForm =  this.getContactForm(), businessOrIndividual = this.getBusinessOrIndividual();         

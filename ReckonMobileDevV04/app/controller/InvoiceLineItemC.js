@@ -409,6 +409,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     taxCodeChanged: function(){
         if(this.ignoreControlEvents()) return;        
         
+        this.setTaxModified(false);
         this.getServerCalculatedValues('Tax');        
     },
     

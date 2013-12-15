@@ -396,7 +396,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     taxAmountChanged: function(newValue, oldValue) {
         if(this.ignoreControlEvents()) return;  
         
-        if(!newValue) {
+        if(!newValue && newValue !== 0) {
             this.detailsData.TaxIsModified = false;
         }
         else {

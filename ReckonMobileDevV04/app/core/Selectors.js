@@ -53,7 +53,7 @@ Ext.define('RM.core.Selectors', {
 	addNote: function(historyType, historyItemId, cb, cbs){
 		var addNoteC = RM.AppMgr.getAppControllerInstance('RM.controller.AddNoteC');
 		addNoteC.showView(
-            'Add a Note',
+            'Add a note',
             true,
             'SAVE',
             '',

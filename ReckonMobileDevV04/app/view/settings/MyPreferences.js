@@ -40,7 +40,7 @@ Ext.define('RM.view.settings.MyPreferences', {
 						xtype: 'spacer'
 					}, {
 						xtype: 'button',
-						text: 'Core Settings',
+						text: 'Core settings',
 						itemId: 'coreSettings',
 						ui: 'rm_maintopbarbuttonright'
 					}

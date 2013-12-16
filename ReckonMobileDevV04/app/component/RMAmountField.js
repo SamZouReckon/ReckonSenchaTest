@@ -85,10 +85,7 @@ Ext.define('RM.component.RMAmountField', {
             if(String(val) != String(startValue)) {
                 this.fireEvent('change', this, val, startValue);
                 //To maintain compatibility with previous RMAmountField for now - InvoiceLineItem listens for this
-                this.fireEvent('valueChange', val, startValue);   
-    //<debug>                
-                console.log('rmamount value change from ' + startValue + ' to ' + val);
-    //</debug>
+                this.fireEvent('valueChange', val, startValue);          
             }
             me.inChangeEvent = false;
         }             

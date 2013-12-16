@@ -33,7 +33,7 @@ Ext.define('RM.core.SessionManager', {
         clearTimeout(this.warningTimer);    
         clearTimeout(this.sessionTimer);
         this.loggedIn = false;
-        console.log('Session ended');
+        RM.Log.debug('Session ended');
     },
 
     setSessionTimers: function() {
@@ -51,7 +51,7 @@ Ext.define('RM.core.SessionManager', {
         // fallback behaviour if the session expires completely.
         this.sessionTimer = setTimeout( function() { me.sessionTimedOut(); }, (this.ttl - this.ttlMarginInSeconds) * 1000);
         
-        console.log('Session timers started at ' + new Date());
+        RM.Log.debug('Session timers started at ' + new Date());
     },
 
     onSessionActivity: function() {
@@ -64,7 +64,7 @@ Ext.define('RM.core.SessionManager', {
         var elapsedSeconds = (Date.now() - this.lastSessionStart) / 1000;
         if (elapsedSeconds > this.ttl / 2) {
             // Activity past half way through the session activity window slides the session expiry along
-            console.log('Session sliding');            
+            RM.Log.debug('Session should be sliding, timers reset');            
             this.setSessionTimers();
         }
     },
@@ -72,7 +72,7 @@ Ext.define('RM.core.SessionManager', {
     sessionTimingOut: function() {
         var me = this;
         var left = me.bumpWindowInSeconds - 1;
-        console.log('Session expires in ' + left + ' seconds, attempting to bump at ' + new Date());        
+        RM.Log.debug('Session expires in ' + left + ' seconds, attempting bump at ' + new Date());        
         this.bumpSession();
     },
 

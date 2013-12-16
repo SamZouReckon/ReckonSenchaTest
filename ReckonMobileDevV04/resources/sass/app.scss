@@ -112,7 +112,7 @@ $include-list-highlights: none;
             //font-weight: bold;
             //padding-top: 0.9em;
             padding-right: 0.6em;	
-		}
+		}    
 	
 }
 
@@ -179,7 +179,9 @@ $include-list-highlights: none;
             &:after {              
               -webkit-mask-size: 0 !important;              
             }
-        }	
+        }
+
+        	
 }
 
 //Toolbar UI for gray toolbar used for sort search component
@@ -2091,8 +2093,8 @@ rm-emailinvoicebackground{
         
 		.x-input-el{
 			text-align: right;	
-			color: #C3C2C2;
-            -webkit-text-fill-color: #C3C2C2;
+			color: #C3C2C2 !important;
+            -webkit-text-fill-color: #C3C2C2 !important;
             background-color: inherit;
             font-size: 0.8em;
             font-weight: bold;
@@ -2121,3 +2123,4 @@ rm-emailinvoicebackground{
 
      strong { font-weight:bold;}
 }
+

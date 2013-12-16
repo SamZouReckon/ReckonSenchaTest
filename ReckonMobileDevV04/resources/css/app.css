@@ -5865,7 +5865,8 @@ body.x-desktop {
   color: #A0A0A0;
   font-weight: normal; }
 .rm-flatfield .x-component-outer:after {
-  -webkit-mask-size: 0 !important; }
+  -webkit-mask-size: 0 !important;
+  background-color: white !important; }
 
 .rm-flatfield-last {
   border-bottom: 1px solid #DBDBDB !important; }
@@ -6546,7 +6547,8 @@ body.x-desktop {
   color: #A0A0A0;
   font-weight: normal; }
 .rm-notes-icon.x-field .x-component-outer:after {
-  -webkit-mask-size: 0 !important; }
+  -webkit-mask-size: 0 !important;
+  background-color: white !important; }
 
 .rm-note-icon {
   background-image: url("../images/icons/rm-note.svg");
@@ -7217,8 +7219,8 @@ rm-emailinvoicebackground {
   background-color: inherit; }
 .rm-flatfield-disabled .x-input-el {
   text-align: right;
-  color: #C3C2C2;
-  -webkit-text-fill-color: #C3C2C2;
+  color: #C3C2C2 !important;
+  -webkit-text-fill-color: #C3C2C2 !important;
   background-color: inherit;
   font-size: 0.8em;
   font-weight: bold;

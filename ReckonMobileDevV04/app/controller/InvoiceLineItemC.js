@@ -244,7 +244,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         // More general validations (non-deterministic which field should be corrected)
         if(vals.Amount < 0) {
-            RM.AppMgr.showOkMsgBox("The total amount can't be negative, please check your Discount and Unit Price.");
+            RM.AppMgr.showOkMsgBox("The item amount can't be negative, please check discount & item amount.");
             isValid = false;
         }
         

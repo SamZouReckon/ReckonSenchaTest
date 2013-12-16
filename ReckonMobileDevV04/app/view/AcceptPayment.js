@@ -44,7 +44,7 @@ Ext.define('RM.view.AcceptPayment', {
                     prefix: '$'
 				},{
 					xtype: 'extselectfield',
-					label: 'Bank Account',
+					label: 'Bank account',
                     rmmandatory: true,
                     labelWidth: 150,
 					usePicker: true,
@@ -58,7 +58,7 @@ Ext.define('RM.view.AcceptPayment', {
 					ui: 'plain'
 				},{
 					xtype: 'extselectfield',
-					label: 'Payment Method',
+					label: 'Payment method',
                     rmmandatory: true,
                     labelWidth: 150,
 					usePicker: true,

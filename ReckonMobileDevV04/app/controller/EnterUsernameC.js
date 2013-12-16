@@ -60,7 +60,7 @@ Ext.define('RM.controller.EnterUsernameC', {
             text: 'Forgotten login details',
             value: 'forgotlogin'
         }, {
-            text: 'Core Settings',
+            text: 'Core settings',
             value: 'coresettings',
             hidden: !(localStorage.getItem('RmShowSettings')) && RM.AppMgr.runningOnDevice()
         }];

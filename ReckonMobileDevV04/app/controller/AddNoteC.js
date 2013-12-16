@@ -11,7 +11,8 @@ Ext.define('RM.controller.AddNoteC', {
         },
         control: {
             'addnote' :{
-              show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },
             'addnote #back': {
                 tap: 'back'
@@ -51,6 +52,12 @@ Ext.define('RM.controller.AddNoteC', {
             noteText.setPlaceHolder(this.isEditable ? 'enter' : ''); 
             this.viewInitialized = true;
         }        
+
+        RM.ViewMgr.regBackHandler(this.back, this);
+    },
+        
+    onHide: function() {
+        RM.ViewMgr.deRegBackHandler();
     },
 
     isFormDirty: function(){        

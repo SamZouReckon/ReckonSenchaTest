@@ -36,8 +36,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                 valueChange: 'unitPriceChanged'
             },
             tax: {
-                valueChange: 'taxAmountChanged',
-                clearicontap: function() { this.taxAmountChanged(null,null); }
+                valueChange: 'taxAmountChanged'/*,
+                clearicontap: function() { this.taxAmountChanged(null,null); }*/
             },
             'taxCode':{
                 change: 'taxCodeChanged'
@@ -396,7 +396,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     taxAmountChanged: function(newValue, oldValue) {
         if(this.ignoreControlEvents()) return;  
         
-        if(!newValue) {
+        if(!newValue && newValue !== 0) {
             this.detailsData.TaxIsModified = false;
         }
         else {
@@ -409,6 +409,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     taxCodeChanged: function(){
         if(this.ignoreControlEvents()) return;        
         
+        this.setTaxModified(false);
         this.getServerCalculatedValues('Tax');        
     },
     
@@ -499,6 +500,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                     Amount: RM.util.MathHelpers.roundToEven(calculated.Amount, 2),
                     Tax: RM.util.MathHelpers.roundToEven(calculated.Tax, 2)                
                 });
+                
+                // Crazy workaround for a timing issue that occurs when using the clearIcon to reset the tax amount on android. The control will refocus itself before the new value is applied,
+                // which causes another change event to be triggered when you focus elsewhere after this code has applied the default calculated value.
+                this.getTax().blur();
                                                 
                 this.ignoreEvents = false;
                 if(completeCallback) completeCallback();                

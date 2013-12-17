@@ -11,7 +11,8 @@ Ext.define('RM.component.SortSearchBar', {
 			},
 			'textfield': {			
 				keyup: 'onSearchKeyUp',
-				clearicontap: 'onClearIconTap'
+				clearicontap: 'onClearIconTap',
+                blur: 'onSearchBlur'
 			},
 			'button': {			
 				tap: 'onSearchToggle'
@@ -78,14 +79,34 @@ Ext.define('RM.component.SortSearchBar', {
         
 	},
     
-    showSearch: function(){
+    showSearch: function(){        
         var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);
         
-        search.setHidden(false);
-        btn.setIcon('resources/images/icons/rm-cross.svg');
-        search.focus();
-        sort.setHidden(true);
         
+        btn.setIcon('resources/images/icons/rm-cross.svg');        
+        sort.setHidden(true);
+        search.setHidden(false);
+        search.focus();
+        this.needForceFocus = true;
+        /*if (this.focusTimer) {
+            clearTimeout(this.focusTimer);
+            this.focusTimer = null;
+        }
+        this.focusTimer = Ext.defer(this.focusSearch, 1000, this);*/
+        
+    },
+    
+    /*focusSearch: function(){        
+        this.getComponent(1).focus();        
+    }, */
+    
+    onSearchBlur: function() { 
+        if (Ext.os.is('Android')) {
+            if (this.needForceFocus) {
+                this.getComponent(1).focus();
+                this.needForceFocus = false;              
+            }
+        }           
     },
     
     hideSearch: function(supressEvent){

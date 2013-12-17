@@ -7,9 +7,7 @@ Ext.application({
     stores: ['GSTCodes', 'ItemTypes', 'AccountingCategories', 'TaxStatuses', 'CashBooks', 'Bills', 'Items', 'BudgetLineItems', 'CustomerInvoices', 'Customers', 'Contacts', 'Invoices', 'InvoiceTemplates', 'InvoiceTimeSelect', 'InvoiceExpenseSelect', 'TimeEntries', 'TimeEntriesCalendar', 'Expenses', 'Projects', 'Suppliers', 'Histories', 'PaymentMethods', 'BankAccounts'],
 
     launch: function () {
-        //Fix for textareafield cursor issue in iOS              
-        //This one will cause problems with tapping textfields: Ext.event.publisher.TouchGesture.prototype.isNotPreventable = /^(select|a|input|textarea)$/i; - see http://www.sencha.com/forum/showthread.php?265533-ST-2.2.1-Cannot-move-cursor-in-TextField-TextAreaField-in-iOS/page2
-        //Ext.event.publisher.TouchGesture.prototype.isNotPreventable=/^(select|a|textarea)$/i;
+
         
     }
 });

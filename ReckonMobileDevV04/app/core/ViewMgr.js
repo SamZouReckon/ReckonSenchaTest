@@ -280,17 +280,13 @@ Ext.define('RM.core.ViewMgr', {
         document.activeElement.blur();
         try {
             if(cordova) cordova.plugins.SoftKeyboard.hide();
-        } catch(e) { //Guess not 
-            RM.Log.debug(e);
-        }
+        } catch(e) { }
     },
     
     keypadVisible: function() {
         try {
             if(cordova) return cordova.plugins.SoftKeyboard.isShowing();        
-        } catch(e) { //Guess not 
-            RM.Log.debug(e);
-        }
+        } catch(e) { }
         return false;
     },
     

@@ -27,9 +27,8 @@ Ext.define('RM.component.ExtDatePickerField', {
     
     onFocus: function() {
         if(!this.clearing) {            
-            this.callParent(arguments);
             
-            /* Parked for now, workaround to delay the picker display if another input element is in focus because of the slow keyboard dismissal on android in Sencha 2.3
+            // workaround to delay the picker display if another input element is in focus because of the slow keyboard dismissal on android in Sencha 2.3
             var inputActive = document.activeElement && (document.activeElement.nodeName || '').toLowerCase() === 'input';           
             if(Ext.os.is.Android && !this.focusDelayed && inputActive) {
                 this.focusDelayed = true;
@@ -43,7 +42,7 @@ Ext.define('RM.component.ExtDatePickerField', {
             else {
                 this.callParent(arguments);
             }
-            */            
+                        
         }
     },
     

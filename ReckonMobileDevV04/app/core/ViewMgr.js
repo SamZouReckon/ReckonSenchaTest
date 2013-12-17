@@ -278,6 +278,7 @@ Ext.define('RM.core.ViewMgr', {
     
     hideKeyPad: function() {
         document.activeElement.blur();
+        cordova.plugins.SoftKeyboard.hide();
     },
     
     setPostAnimationCallback: function(anim, callback) {

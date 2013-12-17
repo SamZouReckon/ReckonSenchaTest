@@ -571,6 +571,7 @@ Ext.define('RM.core.AppMgr', {
                 });
             }            
         }
+        RM.ViewMgr.hideKeyPad();
         msgBox.show();
         
     },

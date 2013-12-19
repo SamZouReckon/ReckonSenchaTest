@@ -253,8 +253,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
 	add: function(){
         // Make sure we aren't waiting on an async action like item calculation
-        if(this.ignoreControlEvents()) return;
-        
+        if(this.ignoreControlEvents() || this.pendingUnitPriceChange()) return;
 		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
 
         var formVals = this.getItemForm().getValues();
@@ -531,6 +530,25 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getUnitPrice().setValue(this.isTaxInclusive() ? '' : unitPriceExTax);
         this.ignoreEvents = false;
         this.getServerCalculatedValues();
+    },
+    
+    pendingUnitPriceChange: function() {
+        // Check if the value in the unit price or tax fields is out of line with that in the current details data. This can happen in Android when the change event
+        // fires after the button click event on the toolbar. 
+        var pendingPrice, pendingTax = false;
+        if(this.isTaxInclusive()) {
+            pendingPrice = this.getUnitPrice().getValue() !== RM.util.MathHelpers.roundToEven(this.detailsData.UnitPrice, this.detailsData.UnitPriceAccuracy);
+        }
+        else {
+            pendingPrice = this.getUnitPrice().getValue() !== RM.util.MathHelpers.roundToEven(this.detailsData.UnitPriceExTax, this.detailsData.UnitPriceAccuracy);
+        }
+        
+        pendingTax = RM.util.MathHelpers.roundToEven(this.detailsData.Tax,2) !== this.getTax().getValue();
+        
+        if(pendingPrice) RM.Log.debug('price change pending');
+        if(pendingTax) RM.Log.debug('tax change pending');        
+        
+        return pendingPrice || pendingTax;
     }
 	
 });

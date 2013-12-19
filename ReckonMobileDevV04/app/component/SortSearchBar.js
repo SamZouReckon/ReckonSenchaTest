@@ -111,12 +111,13 @@ Ext.define('RM.component.SortSearchBar', {
     
     hideSearch: function(supressEvent){
         var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);
-        
+        search.blur();
         search.setHidden(true);
         if(!supressEvent && search.getValue() != ''){
             this.fireEvent('searchclear'); 
         }           
-        search.reset();            
+        search.reset(); 
+        
         btn.setIcon('resources/images/icons/rm-search.svg');        
         sort.setHidden(this.config.sortfields == null);
     }

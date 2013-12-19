@@ -1,3 +1,4 @@
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -5865,8 +5866,7 @@ body.x-desktop {
   color: #A0A0A0;
   font-weight: normal; }
 .rm-flatfield .x-component-outer:after {
-  -webkit-mask-size: 0 !important;
-  background-color: white !important; }
+  -webkit-mask-size: 0 !important; }
 
 .rm-flatfield-last {
   border-bottom: 1px solid #DBDBDB !important; }
@@ -6269,6 +6269,9 @@ body.x-desktop {
 .rm-fontsize100 {
   font-size: 100%; }
 
+.rm-fontsize98 {
+  font-size: 98%; }
+
 .rm-p5 {
   padding: 5px; }
 
@@ -6547,8 +6550,7 @@ body.x-desktop {
   color: #A0A0A0;
   font-weight: normal; }
 .rm-notes-icon.x-field .x-component-outer:after {
-  -webkit-mask-size: 0 !important;
-  background-color: white !important; }
+  -webkit-mask-size: 0 !important; }
 
 .rm-note-icon {
   background-image: url("../images/icons/rm-note.svg");

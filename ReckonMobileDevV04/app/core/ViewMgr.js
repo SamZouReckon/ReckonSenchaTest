@@ -238,8 +238,7 @@ Ext.define('RM.core.ViewMgr', {
 	hideLoadingMask: function(){
 		//Ext.Viewport.setMasked(false);
         this.mainView.setMasked(false);
-        this.mainView.hide();
-        this.mainView.show();
+        this.mainView.setHeight(this.mainView.getHeight());
 	},
 	
 	showLogin: function(cb, cbs){

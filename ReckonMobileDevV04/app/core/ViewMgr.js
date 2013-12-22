@@ -232,12 +232,13 @@ Ext.define('RM.core.ViewMgr', {
          //To hide keypad 
         this.hideKeyPad();
 		//Ext.Viewport.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});	
-        Ext.Viewport.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});
+        this.mainView.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});
 	},
 	
 	hideLoadingMask: function(){
 		//Ext.Viewport.setMasked(false);
-        Ext.Viewport.setMasked(false);        
+        this.mainView.setMasked(false);        
+        this.invalidateWebView();
 	},
 	
 	showLogin: function(cb, cbs){
@@ -328,6 +329,17 @@ Ext.define('RM.core.ViewMgr', {
         }
         else {
             return view;
+        }
+    },
+    
+    invalidateWebView: function() {
+        if(Ext.os.is.Android) {
+            try {
+                cordova.plugins.Redraw.invalidateWebView();
+            } 
+            catch(e) {
+                RM.Log.debug(e);
+            }
         }
     }
 });

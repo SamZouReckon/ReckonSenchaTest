@@ -146,7 +146,7 @@ Ext.define('RM.controller.EnterUsernameC', {
             }
         }
         else {
-            RM.AppMgr.showErrorMsgBox('Please enter your user name and password');
+            RM.AppMgr.showErrorMsgBox('Please enter your username and password');
         }
 
     }

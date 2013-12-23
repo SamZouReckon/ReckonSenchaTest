@@ -5866,7 +5866,7 @@ body.x-desktop {
   color: #A0A0A0;
   font-weight: normal; }
 .rm-flatfield .x-component-outer:after {
-  -webkit-mask-size: 0 !important; }
+  display: none; }
 
 .rm-flatfield-last {
   border-bottom: 1px solid #DBDBDB !important; }
@@ -6550,7 +6550,7 @@ body.x-desktop {
   color: #A0A0A0;
   font-weight: normal; }
 .rm-notes-icon.x-field .x-component-outer:after {
-  -webkit-mask-size: 0 !important; }
+  display: none; }
 
 .rm-note-icon {
   background-image: url("../images/icons/rm-note.svg");

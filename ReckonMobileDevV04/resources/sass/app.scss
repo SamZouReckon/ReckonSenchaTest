@@ -177,7 +177,8 @@ $include-list-highlights: none;
 
         .x-component-outer {
             &:after {              
-              -webkit-mask-size: 0 !important;              
+              //-webkit-mask-size: 0 !important;                   
+              display: none;        
             }
         }
 

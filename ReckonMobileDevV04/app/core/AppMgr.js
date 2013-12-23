@@ -685,7 +685,7 @@ Ext.define('RM.core.AppMgr', {
             places = 2; 
         }      
         
-        var negSign = (value < 0);        
+        var negSign = (value.toFixed(places) < 0);         
         var withCommas = this.numberWithCommas(Math.abs(value), places);                     
         value = '$' + withCommas;
         

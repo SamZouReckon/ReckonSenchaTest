@@ -237,7 +237,8 @@ Ext.define('RM.core.ViewMgr', {
 	
 	hideLoadingMask: function(){
 		//Ext.Viewport.setMasked(false);
-        this.mainView.setMasked(false);
+        this.mainView.setMasked(false);        
+        this.invalidateWebView();
 	},
 	
 	showLogin: function(cb, cbs){
@@ -328,6 +329,17 @@ Ext.define('RM.core.ViewMgr', {
         }
         else {
             return view;
+        }
+    },
+    
+    invalidateWebView: function() {
+        if(Ext.os.is.Android && cordova) {
+            try {
+                cordova.plugins.Redraw.invalidateWebView(500);
+            } 
+            catch(e) {
+                console.log(e);
+            }
         }
     }
 });

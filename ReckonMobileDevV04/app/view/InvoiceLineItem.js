@@ -75,7 +75,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                     {                        
     					xtype: 'rmamountfield',
     					name: 'UnitPrice',
-    					label: 'Item Price',
+    					label: 'Item price',
                         rmmandatory: true,
                         labelWidth: 135,
     					cls: 'rm-flatfield',

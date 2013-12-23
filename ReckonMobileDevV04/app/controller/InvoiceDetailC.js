@@ -359,7 +359,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         RM.Selectors.showNoteText(
             'Notes',
             this.isEditable(),
-            'OK',
+            'SAVE',
             this.noteText,
             function(noteText){
                 RM.ViewMgr.back();

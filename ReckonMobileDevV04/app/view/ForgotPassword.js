@@ -32,14 +32,14 @@ Ext.define('RM.view.ForgotPassword', {
 						]						
 					},{
 						xtype: 'component',
-						html: 'Please enter your user name and email to reset your password',
+						html: 'Please enter your username and email to reset your password',
 						cls: 'rm-resetpasswordmsg',
                         padding: '18 15 15 15'
 					},
                     {
 						xtype: 'exttextfield',
 						itemId: 'username',
-						label: 'User name',
+						label: 'Username',
                         rmmandatory: true,
                         labelWidth: '6em',
                         cls: 'rm-flatfield',

@@ -333,12 +333,12 @@ Ext.define('RM.core.ViewMgr', {
     },
     
     invalidateWebView: function() {
-        if(Ext.os.is.Android) {
+        if(Ext.os.is.Android && cordova) {
             try {
-                cordova.plugins.Redraw.invalidateWebView();
+                cordova.plugins.Redraw.invalidateWebView(500);
             } 
             catch(e) {
-                RM.Log.debug(e);
+                console.log(e);
             }
         }
     }

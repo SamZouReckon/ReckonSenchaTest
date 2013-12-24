@@ -284,11 +284,21 @@ Ext.define('RM.core.ViewMgr', {
         } catch(e) { }
     },
     
-    keypadVisible: function() {
+    ifKeypadVisible: function(thenCb, elseCb) {
+        var safeThen = thenCb || function() {};
+        var safeElse = elseCb || function() {};
         try {
-            if(cordova) return cordova.plugins.SoftKeyboard.isShowing();        
-        } catch(e) { }
-        return false;
+            cordova.plugins.SoftKeyboard.isShowing(
+                function(result) {
+                    if (result) safeThen();
+                    else safeElse();
+                }, 
+                safeElse
+                );        
+        }
+        catch (e) { 
+            safeElse();
+        }        
     },
     
     setPostAnimationCallback: function(anim, callback) {
@@ -337,9 +347,7 @@ Ext.define('RM.core.ViewMgr', {
             try {
                 cordova.plugins.Redraw.invalidateWebView();
             } 
-            catch(e) {
-                console.log(e);
-            }
+            catch(e) { }
         }
     }
 });

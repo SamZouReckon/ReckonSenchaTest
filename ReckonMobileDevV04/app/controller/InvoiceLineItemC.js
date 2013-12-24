@@ -156,7 +156,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             discount = RM.AppMgr.formatCurrency(discountAmount, 2);
         }
         else {
-            discount = '';
+            discount = 'None';
         }
         this.getDiscount().setValue(discount);
     },
@@ -166,9 +166,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     		if (tf.getName() == 'Discount') {
                 var discVal = tf.getValue();
     		    RM.InvoicesMgr.showChooseDiscountPopup(
-                    discVal || 0,
+                    'None' ? 0 : discVal,
     				function (disc) {                        
-                        tf.setValue(disc == 0 ? '' : disc);                                                 
+                        tf.setValue(disc == 0 ? 'None' : disc);                                                 
     				},
     				this
     			);

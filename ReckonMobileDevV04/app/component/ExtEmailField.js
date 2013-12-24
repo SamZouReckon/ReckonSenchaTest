@@ -1,6 +1,7 @@
 Ext.define('RM.component.ExtEmailField', {
     extend:'Ext.field.Email',
     xtype: 'extemailfield',  
+    mixins: { visibleOnFocus: 'RM.component.VisibleOnFocus' },
     
     initialize: function () {
         
@@ -9,6 +10,8 @@ Ext.define('RM.component.ExtEmailField', {
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
         }
+        
+        this.mixins.visibleOnFocus.constructor.call(this);
     },    
     
     showValidation: function(valid){        

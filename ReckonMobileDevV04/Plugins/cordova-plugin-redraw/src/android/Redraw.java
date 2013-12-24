@@ -18,15 +18,14 @@ public class Redraw extends CordovaPlugin {
       return false;
     }
 
+    // 300ms was the sweet spot it seems, but allow it to be overridden
+    long delay = 300;
+    if(args.length() == 1) {
+      delay = args.getLong(0);
+    }
+
     // Post a request for a redraw on the UI thread, with the specified delay
-    this.webView.postInvalidateDelayed(args.getLong(0));
-    // final CordovaWebView view = this.webView;
-    // cordova.getActivity().runOnUiThread(new Runnable() {
-    //   public void run() {
-    //       view.invalidate();
-    //       callbackContext.success("done");
-    //   }
-    // });
+    this.webView.postInvalidateDelayed(delay);
 
     return true;
   }

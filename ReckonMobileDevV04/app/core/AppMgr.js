@@ -676,7 +676,7 @@ Ext.define('RM.core.AppMgr', {
         return value.toString().replace(/\B(?=(\d{3})+\.)/g, ",");        
     },
 
-    formatCurrency: function(value, places, accountancyFormat){
+    formatCurrency: function(value, places, accountancyFormat){        
         if (isNaN(value)){
             value = 0;
         }   
@@ -686,9 +686,11 @@ Ext.define('RM.core.AppMgr', {
         }      
         
         var negSign = (value.toFixed(places) < 0);         
-        var withCommas = this.numberWithCommas(Math.abs(value), places);                     
-        value = '$' + withCommas;
-        
+        var withCommas = this.numberWithCommas(Math.abs(value), places);    
+        if(withCommas == 0){
+            return '$' + withCommas;
+        }        
+        value = '$' + withCommas;        
         if(negSign && accountancyFormat){
             return '(' + value + ')';
         }        

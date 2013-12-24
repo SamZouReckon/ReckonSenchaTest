@@ -41,7 +41,7 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
                         },
                         scope: this
                     },
-                    labelWidth: 180,
+                    labelWidth: 196,
                     labelAlign: 'right'
                 },
                 items: [{
@@ -71,7 +71,7 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
                 }, {
                     name: 'disc',
                     itemId: 'custom',
-                    label: 'Custom % or $',
+                    label: 'Custom % or $ discount',
                     checked: (val != 0 && val != '5%' && val != '10%' && val != '20%')
                 }
 					]

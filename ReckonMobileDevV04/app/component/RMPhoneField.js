@@ -1,7 +1,8 @@
 Ext.define('RM.component.RMPhoneField', {
     extend: 'Ext.field.Text',
     xtype: 'rmphonefield',
-    
+    mixins: { visibleOnFocus: 'RM.component.VisibleOnFocus' },
+        
     config : {
         clearIcon: false,
         component: {type: 'tel'}, //The issue with making this a tel phone field now is that iOS will allow u to call but Reckon One has area code in separate fields - look at combining in later version
@@ -17,7 +18,7 @@ Ext.define('RM.component.RMPhoneField', {
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
         }
-        
+        this.mixins.visibleOnFocus.constructor.call(this);        
     },
     
     getValue: function() {

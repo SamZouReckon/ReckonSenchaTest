@@ -90,9 +90,9 @@ Ext.define('RM.core.ViewMgr', {
             this.showPanel2(this.mainNavContainer, { type: 'slide', direction: 'right'});
             this.mainNavContainer.setSelectedItem('Dashboard');
         }
-        else if (this.appBackStack.length <= 1 ) {
+        else if (this.appBackStack.length <= 1 || (this.getActiveView() && this.getActiveView().xtype == 'enterpin')) {
             this.confirmExitApp();
-        } 
+        }
         else {
           this.back();
         }
@@ -284,11 +284,21 @@ Ext.define('RM.core.ViewMgr', {
         } catch(e) { }
     },
     
-    keypadVisible: function() {
+    ifKeypadVisible: function(thenCb, elseCb) {
+        var safeThen = thenCb || function() {};
+        var safeElse = elseCb || function() {};
         try {
-            if(cordova) return cordova.plugins.SoftKeyboard.isShowing();        
-        } catch(e) { }
-        return false;
+            cordova.plugins.SoftKeyboard.isShowing(
+                function(result) {
+                    if (result) safeThen();
+                    else safeElse();
+                }, 
+                safeElse
+                );        
+        }
+        catch (e) { 
+            safeElse();
+        }        
     },
     
     setPostAnimationCallback: function(anim, callback) {
@@ -337,9 +347,7 @@ Ext.define('RM.core.ViewMgr', {
             try {
                 cordova.plugins.Redraw.invalidateWebView();
             } 
-            catch(e) {
-                console.log(e);
-            }
+            catch(e) { }
         }
     }
 });

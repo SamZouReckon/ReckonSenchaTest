@@ -1,6 +1,7 @@
 Ext.define('RM.component.RMAmountField', {
     extend: 'Ext.field.Number',
     xtype: 'rmamountfield',
+    mixins: { visibleOnFocus: 'RM.component.VisibleOnFocus' },
     
     config : {
         clearIcon: false,
@@ -23,6 +24,8 @@ Ext.define('RM.component.RMAmountField', {
         this.inputEl = this.element.down('input');
         this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field rm-field-input-formatted"></div>', true);        
         this.displayEl.on('tap', this.focus, this);
+        
+        this.mixins.visibleOnFocus.constructor.call(this);
         
         this.initComplete = true;
         this.showDisplayValue();        

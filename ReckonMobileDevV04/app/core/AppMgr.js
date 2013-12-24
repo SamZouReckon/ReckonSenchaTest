@@ -142,7 +142,6 @@ Ext.define('RM.core.AppMgr', {
     },
 
     lock: function(){
-        RM.ViewMgr.clearBackStack();
         this.logoutFromServer();
         this.login();
     },
@@ -331,7 +330,7 @@ Ext.define('RM.core.AppMgr', {
     },    
     
     handleServerCallFailure: function(resp){
-        if(navigator.connection && navigator.connection.type === 'none') {
+        if((navigator.connection && navigator.connection.type === 'none') || resp.status == 0) {  //First condition works for iOS, but on Android seem to get a Http 0 when network is off
             this.showCommsError("It looks like your device has no internet connection, please connect and try again.");    
             return;
         }

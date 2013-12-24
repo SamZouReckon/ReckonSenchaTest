@@ -1,6 +1,7 @@
 Ext.define('RM.component.ExtTextField', {
     extend: 'Ext.field.Text',
     xtype: 'exttextfield',
+    mixins: { visibleOnFocus: 'RM.component.VisibleOnFocus' },
     
     initialize: function () {
         
@@ -23,6 +24,7 @@ Ext.define('RM.component.ExtTextField', {
             this.on('blur', this.onMyBlur, this);
         }
         
+        this.mixins.visibleOnFocus.constructor.call(this);
     },
 
     onMyFocus: function(tf){

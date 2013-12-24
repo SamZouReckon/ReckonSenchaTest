@@ -90,9 +90,9 @@ Ext.define('RM.core.ViewMgr', {
             this.showPanel2(this.mainNavContainer, { type: 'slide', direction: 'right'});
             this.mainNavContainer.setSelectedItem('Dashboard');
         }
-        else if (this.appBackStack.length <= 1 ) {
+        else if (this.appBackStack.length <= 1 || (this.getActiveView() && this.getActiveView().xtype == 'enterpin')) {
             this.confirmExitApp();
-        } 
+        }
         else {
           this.back();
         }

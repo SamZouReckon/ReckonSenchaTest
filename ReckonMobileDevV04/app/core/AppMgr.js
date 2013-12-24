@@ -142,7 +142,6 @@ Ext.define('RM.core.AppMgr', {
     },
 
     lock: function(){
-        RM.ViewMgr.clearBackStack();
         this.logoutFromServer();
         this.login();
     },

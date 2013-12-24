@@ -11,7 +11,7 @@ Ext.define('RM.component.VisibleOnFocus', {
         }
 
         var me = this;
-        // wait half a second for any default behaviour, keyboard, etc to occur
+        // wait a little for any default behaviour, keyboard, etc to occur
         setTimeout(function() {
                                 // If the element is visible then there is nothing to do
                                 if (me.isElementInViewport(me.element.dom)) return;
@@ -28,7 +28,7 @@ Ext.define('RM.component.VisibleOnFocus', {
                                     scrollable.getScroller().scrollTo(0, me.element.dom.offsetTop);
                                 }
                             }, 
-                   500);
+                   750);
 
     },
     

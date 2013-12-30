@@ -48,7 +48,8 @@ Ext.define('RM.core.InvoicesMgr', {
     },    
     
     isInvoiceStatusEmailable: function(status){        
-        return (status == RM.Consts.InvoiceStatus.APPROVED) || (status == RM.Consts.InvoiceStatus.PARTIALLY_PAID) || (status == RM.Consts.InvoiceStatus.PAID);
+        //return (status == RM.Consts.InvoiceStatus.APPROVED) || (status == RM.Consts.InvoiceStatus.PARTIALLY_PAID) || (status == RM.Consts.InvoiceStatus.PAID);
+        return true;
     },    
     
     showCustInvoices: function (invoicesTitle, customerId, customerName, sortVal) {

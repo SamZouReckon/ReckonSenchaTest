@@ -135,7 +135,8 @@ Ext.define('RM.view.ContactDetail', {
                             xtype: 'rmphonefield',                             
                             cls: 'rm-flatfield',                             
                             name: 'PhoneAreaCode',						    
-                            placeHolder: 'area code',                            
+                            placeHolder: 'area code',
+                            maxLength: 20,
                             flex: 2.2,
                             clearIcon: false,
                             border: '0 1 0 1 ',
@@ -145,6 +146,7 @@ Ext.define('RM.view.ContactDetail', {
                             xtype: 'rmphonefield', 
                             cls: 'rm-flatfield', 
                             placeHolder: 'enter',
+                            maxLength: 20,
                             name: 'Phone',
                             flex: 3.5,
                             clearIcon: false,
@@ -166,6 +168,7 @@ Ext.define('RM.view.ContactDetail', {
                             cls: 'rm-flatfield',                             
                             name: 'FaxAreaCode',						    
                             placeHolder: 'area code',
+                            maxLength: 20,
                             flex: 2.2,
                             clearIcon: false,
                             border: '0 1 0 1 ',
@@ -175,6 +178,7 @@ Ext.define('RM.view.ContactDetail', {
                             xtype: 'rmphonefield', 
                             cls: 'rm-flatfield', 
                             placeHolder: 'enter',
+                            maxLength: 20,
                             name: 'Fax',
                             flex: 3.5,
                             clearIcon: false,
@@ -186,6 +190,7 @@ Ext.define('RM.view.ContactDetail', {
 						name: 'Email',  
                         hidden: true,
 						label: 'Email',
+                        maxLength: 100,
                         labelWidth: '4em'
 					},{
                         xtype: 'component',                                        
@@ -195,33 +200,34 @@ Ext.define('RM.view.ContactDetail', {
 					},{
                         name: 'Address1',                                        
                         label: 'Street1',
-                        maxLength: 100,
+                        maxLength: 80,
                         hidden: true,
                         border: '0 0 1 0'
                     },{
                         name: 'Address2', 
                         hidden: true,
                         label: 'Street2',
-                        maxLength: 100
+                        maxLength: 80
                     },{
 						name: 'Suburb',   
                         hidden: true,
 						label: 'Suburb',
-                        maxLength: 100
+                        maxLength: 80
 					},{
 						name: 'State',  
                         hidden: true,
-						label: 'State'
+						label: 'State',
+                        maxLength: 80
 					},{
 						name: 'PostCode',
                         hidden: true,
 						label: 'Postcode',
-                        maxLength: 100
+                        maxLength: 30
 					},{
 						name: 'Country', 
                         hidden: true,
 						label: 'Country',
-                        maxLength: 100,
+                        maxLength: 30,
                         border: '1 0 1 0',
                         style: 'border-color: #DBDBDB; border-style: solid;'
 					}              

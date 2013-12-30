@@ -2112,6 +2112,12 @@ rm-emailinvoicebackground{
         }
 }
 
+.rm-flatfield-disabled-pt0{
+    .x-input-el{
+        padding-top: 0 !important;
+    }
+}
+
 .rm-mask-obscured {
     background: rgb(50,50,50);
 }

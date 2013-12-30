@@ -7232,6 +7232,9 @@ rm-emailinvoicebackground {
   color: #C0C9D2;
   font-weight: normal; }
 
+.rm-flatfield-disabled-pt0 .x-input-el {
+  padding-top: 0 !important; }
+
 .rm-mask-obscured {
   background: #323232; }
 

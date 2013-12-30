@@ -46,9 +46,10 @@ Ext.define('RM.controller.InvoiceBalanceBreakdownC', {
                 '</tr>') +
                 '<tr>'+
                     '<div class="rm-balance-breakdown-row"><span>Total</span><span class="rm-balance-breakdown-amount">{4}</span></div>' +
-                '</tr>' +
+                '</tr>' +                
                 '<tr>' +
-                    '<div class="rm-balance-breakdown-row"><span>Already paid</span><span class="rm-balance-breakdown-amount">{5}</span></div>' +
+                    (data.Paid == 0 ? '' : 
+                    '<div class="rm-balance-breakdown-row"><span>Already paid</span><span class="rm-balance-breakdown-amount">{5}</span></div>') +
                 '</tr>' +
                 '<tr>' +
                     '<div class="rm-balance-breakdown-due"><span>Balance due</span><span class="rm-balance-breakdown-amount">{6}</span></div>'   +

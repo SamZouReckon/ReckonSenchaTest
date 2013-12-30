@@ -82,7 +82,7 @@ Ext.define('RM.view.InvoiceDetail', {
                     readOnly: true,
 					labelWidth: 135,
 					label: 'Invoice number',
-					cls: 'rm-flatfield',
+					cls: 'rm-flatfield-disabled', //cls: 'rm-flatfield',
                     clearIcon: false,
                     placeHolder: 'Auto-generated',
                     labelWidth: '7.5em'

@@ -105,8 +105,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
         this.getAddBtn().setHidden(!this.isEditable);
         this.getAddBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
+        this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);
         
-        this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);        
         if(!this.isEditable) { this.makeViewReadonly(); }
         
         if(!this.initShow){
@@ -119,6 +119,10 @@ Ext.define('RM.controller.InvoiceLineItemC', {
 
             if (!this.isTaxTracking()) {
                 this.getItemDetail().hideTaxFields();            
+            }
+            else {                
+                var taxCodeSelected = this.detailsData.TaxGroupId !== null;
+                this.getItemDetail().setTaxAmountAccessible(taxCodeSelected);
             }            
             
             this.setTaxModified(this.detailsData.TaxIsModified);
@@ -405,9 +409,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getServerCalculatedValues('Tax');
     },    
     
-    taxCodeChanged: function(){
-        if(this.ignoreControlEvents()) return;        
+    taxCodeChanged: function(field, newValue, oldValue){
+        this.getItemDetail().setTaxAmountAccessible(newValue !== null);
         
+        if(this.ignoreControlEvents()) return;        
+             
         this.setTaxModified(false);
         this.getServerCalculatedValues('Tax');        
     },
@@ -523,6 +529,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },
     
     setNewUnitPriceExTax: function(unitPriceExTax) {
+        // If the value is the same as the current one, then there is nothing to do
+        if(this.detailsData.UnitPriceExTax === unitPriceExTax) return;
+        
         // Setting a new unit price ex tax means we have to reset the unit price displayed and call the calculation service
         this.ignoreEvents = true;
         this.setTaxModified(false);
@@ -546,7 +555,8 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             pendingPrice = this.getUnitPrice().getValue() !== RM.util.MathHelpers.roundToEven(this.detailsData.UnitPriceExTax, this.detailsData.UnitPriceAccuracy);
         }
         
-        pendingTax = RM.util.MathHelpers.roundToEven(this.detailsData.Tax,2) !== this.getTax().getValue();
+        // This check seems redundant, but tax can be set to null if the tax code is not set. If it isn't then the amount entered and displayed will only be to two decimals.
+        pendingTax = this.detailsData.Tax !== this.getTax().getValue() && RM.util.MathHelpers.roundToEven(this.detailsData.Tax,2) !== this.getTax().getValue();
         
         if(pendingPrice) RM.Log.debug('price change pending');
         if(pendingTax) RM.Log.debug('tax change pending');        

@@ -53,26 +53,26 @@ Ext.define('RM.view.InvoiceLineItem', {
 				},{
 					xtype: 'exttextfield',
 					name: 'ItemName',
+                    itemId:'itemField',
                     readOnly: true, //prevent OS keypad coming as well
 					label: 'Item',
                     rmmandatory: true,
-					cls: 'rm-flatfield',
-					placeHolder: 'select'
-				},{
-					xtype: 'exttextfield',
-					name: 'Description',
-                    itemId:'descriptionField',
-					label: 'Description',
-                    labelWidth: 105,
 					cls: ['rm-flatfield', 'rm-flatfield-last'],
-					placeHolder: 'enter'
+					placeHolder: 'select'
 				},{
                     xtype: 'container',
                     itemId: 'detailsFields',
                     defaults: {clearIcon: false},
                     hidden:true,
                     items: [
-                    {                        
+                    {
+    					xtype: 'exttextfield',
+    					name: 'Description',                        
+    					label: 'Description',
+                        labelWidth: 105,
+    					cls: 'rm-flatfield',
+    					placeHolder: 'enter'
+    				},{                        
     					xtype: 'rmamountfield',
     					name: 'UnitPrice',
     					label: 'Item price',
@@ -142,12 +142,12 @@ Ext.define('RM.view.InvoiceLineItem', {
     },
     
     showDetailsFields: function() {
-        this.down('#descriptionField').removeCls(['rm-flatfield-last']);        
+        this.down('#itemField').removeCls(['rm-flatfield-last']);        
         this.down('#detailsFields').setHidden(false);        
     },
     
     hideDetailsFields: function() {    
-        this.down('#descriptionField').addCls(['rm-flatfield-last']);
+        this.down('#itemField').addCls(['rm-flatfield-last']);
         this.down('#detailsFields').setHidden(true);        
     },
     

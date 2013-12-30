@@ -123,6 +123,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					valueField: 'GSTCodeId',
                         autoSelect: false,
     					cls: 'rm-flatfield',
+                        placeHolder: 'select',
                         ui:'plain'
                     },{
     					xtype: 'rmamountfield',
@@ -155,6 +156,18 @@ Ext.define('RM.view.InvoiceLineItem', {
         this.down('#TaxGroupId').setHidden(true);
         this.down('#Tax').setHidden(true);        
         this.down('#Amount').addCls(['rm-flatfield-last']);
+    },
+    
+    setTaxAmountAccessible: function(accessible) {
+        this.down('#Tax').setHidden(!accessible);  
+        
+        var taxCode = this.down('#TaxGroupId');
+        if(accessible) {
+            taxCode.removeCls(['rm-flatfield-last']);
+        }
+        else {
+            taxCode.addCls(['rm-flatfield-last']);
+        }
     },
     
     setTaxModified: function(isModified) {

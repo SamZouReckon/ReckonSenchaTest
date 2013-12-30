@@ -1,5 +1,6 @@
 Ext.define('RM.component.ExtSelectField', {
     extend:'Ext.field.Select',
+    requires: ['RM.component.RMPicker'],
     xtype: 'extselectfield',
     
     initialize: function () {         

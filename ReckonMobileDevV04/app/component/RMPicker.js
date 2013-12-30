@@ -1,7 +1,7 @@
 Ext.define('RM.component.RMPicker', {
     override: 'Ext.picker.Picker',
     
-    // Egregious, I know. Money patching the picker button handler so we can delay the default behaviour by enough time for the 
+    // Egregious, I know. Monkey patching the picker button handler so we can delay the default behaviour by enough time for the 
     // extra click event to be absorbed by the picker and not the underlying form. Affects android only.
     onDoneButtonTap: function(button, e) {
         if(!Ext.os.is.Android || this.noDelay) {

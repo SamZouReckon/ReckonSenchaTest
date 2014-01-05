@@ -13,12 +13,15 @@ Ext.define('RM.controller.ContactDetailC', {
             addressHeader: 'contactdetail #addressHeader',
             detailHeader: 'contactdetail #detailHeader',
             businessName: 'contactdetail textfield[name=BusinessName]',
-            branchName: 'contactdetail textfield[name=BranchName]',              
+            branchName: 'contactdetail textfield[name=BranchName]',  
+            abn: 'contactdetail textfield[name=ABN]',  
             firstName: 'contactdetail textfield[name=FirstName]',
             surname: 'contactdetail textfield[name=Surname]',
             phoneContainer: 'contactdetail #phoneContainer',
             faxContainer: 'contactdetail #faxContainer',
             email: 'contactdetail textfield[name=Email]',
+            web: 'contactdetail textfield[name=Web]',
+            notesFld: 'contactdetail textfield[name=Notes]',
             address1: 'contactdetail textfield[name=Address1]',
             address2: 'contactdetail textfield[name=Address2]',
             suburb: 'contactdetail textfield[name=Suburb]',
@@ -43,6 +46,9 @@ Ext.define('RM.controller.ContactDetailC', {
             },
             'contactdetail #businessOrIndividual': {
                 change: 'onBusinessOrIndividualSelect'
+            },
+            notesFld : {
+                tap: 'showNotes'
             }
         }
 
@@ -50,6 +56,7 @@ Ext.define('RM.controller.ContactDetailC', {
 	
 	showView: function(isCreate, data, cb, cbs){
         this.isCreate = isCreate;
+        this.isEditable = true;
         this.detailsData = data ? data : {};
         this.detailsCb = cb;
         this.detailsCbs = cbs;
@@ -107,6 +114,7 @@ Ext.define('RM.controller.ContactDetailC', {
     },        
     
     setEditable: function(editable){
+        this.isEditable = editable;
         this.getSaveBtn().setHidden(!editable);
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getContactForm()); }        
     },      
@@ -114,6 +122,10 @@ Ext.define('RM.controller.ContactDetailC', {
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
 			function (data) {                
+                this.formattedNoteValue = data.Notes;
+                // Strip newlines and display the notes unformatted in the textbox
+                data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
+                
                 var contactForm =  this.getContactForm();                
                 contactForm.setValues(data);
                 this.loadFieldsData(data);
@@ -173,6 +185,13 @@ Ext.define('RM.controller.ContactDetailC', {
             return isValid;
         }
         
+        if (vals.Web !== '' && !RM.AppMgr.validateURL(vals.Web)) {             
+            this.getWeb().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidURLMsg();
+            return isValid;
+        }
+        
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
         }
@@ -200,6 +219,9 @@ Ext.define('RM.controller.ContactDetailC', {
         vals.IsCustomer = this.detailsData.IsCustomer;
         vals.IsSupplier = this.detailsData.IsSupplier;  
         vals.IsActive = true;                             //Set this to field value when contact state field is added back to contact detail form
+        
+        // Save the fully formatted notes value, not the unformatted one displayed in the textbox
+        vals.Notes = this.formattedNoteValue;
         
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;
@@ -243,6 +265,23 @@ Ext.define('RM.controller.ContactDetailC', {
             this.goBack();
         }    
     },
+    
+    showNotes: function(){
+        
+        RM.Selectors.showNoteText(
+            'Notes',
+            this.isEditable && !this.getContactForm().addEditDenied,
+            'SAVE',
+            this.formattedNoteValue,
+            function(noteText){
+                RM.ViewMgr.back();
+                this.formattedNoteValue = noteText;
+                this.getNotesFld().setValue(noteText.replace(/(\r\n|\n|\r)/g, ' '));
+            },
+            this
+        );
+        
+    }, 
     
     onCustomerOrSupplierSelect: function() {
         
@@ -323,7 +362,9 @@ Ext.define('RM.controller.ContactDetailC', {
         this.getSuburb().setHidden(val);
         this.getState().setHidden(val);
         this.getPostcode().setHidden(val);
-        this.getCountry().setHidden(val);        
+        this.getCountry().setHidden(val); 
+        this.getAbn().setHidden(val);
+        this.getWeb().setHidden(val);
     }    
 
 });

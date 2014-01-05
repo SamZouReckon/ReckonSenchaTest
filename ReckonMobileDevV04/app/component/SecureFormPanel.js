@@ -23,6 +23,7 @@ Ext.define('RM.component.SecureFormPanel', {
         // If there is a editAction specified, make sure the user has access to it, otherwise make all fields readonly
         var actionTarget = this.getPermissionFor();
         if(actionTarget && !RM.core.PermissionsMgr.canAddEdit(actionTarget)) {
+            this.addEditDenied = true;
             // Iterate over all form fields and make them ReadOnly, and remove any placeholder text
             this.getFieldsArray().forEach(function(field) {
                 if(field.setReadOnly) { field.setReadOnly(true); }

@@ -122,6 +122,12 @@ Ext.define('RM.view.ContactDetail', {
                         hidden: true, 
                         border: '1 0 1 0'
 					},{
+						name: 'ABN',                                       
+						label: 'ABN',
+                        maxLength: 30,
+                        hidden: true, 
+                        border: '1 0 1 0'
+					},{
                         xtype: 'container',
                         itemId: 'phoneContainer',                                        
                         layout: 'hbox',
@@ -187,7 +193,20 @@ Ext.define('RM.view.ContactDetail', {
                         hidden: true,
 						label: 'Email',
                         labelWidth: '4em'
+					},{                        
+						name: 'Web',  
+                        hidden: true,
+						label: 'Web',
+                        maxLength: 100,
+                        labelWidth: '4em'
 					},{
+    					xtype: 'exttextfield',
+    					name: 'Notes',
+    					label: 'Notes',
+                        labelWidth: 110,
+    					cls: 'rm-flatfield',                       
+                        readOnly: true
+				    },{
                         xtype: 'component',                                        
                         itemId: 'addressHeader',
                         hidden: true,

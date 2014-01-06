@@ -25,6 +25,11 @@ Ext.define('RM.view.CashBooks', {
 				xtype: 'list',
 				store: 'CashBooks',
                 loadingText: null,
+                emptyText: '<div class = "rm-list-emptytext">No books found.</div></br>'+
+                            '<div>'+
+                                 '<img src= "resources/images/rm-emptylist-arrow.svg" class= "rm-list-emptytext-img" align = "center"></img>'+
+                                 '<span class= "rm-list-emptytext-desc">Pull down to refresh</span>'+
+                            '</div>',
 				grouped: true,				
                 itemTpl: new Ext.XTemplate(        
         

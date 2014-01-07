@@ -1,9 +1,8 @@
 Ext.define('RM.view.Projects', {
    extend: 'Ext.Panel',
 	xtype: 'projects',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
-    config: {
-		
+    requires: 'RM.component.RMList',
+    config: {		
 		layout: 'fit',
 		items:[{
                 xtype: 'toolbar',                
@@ -24,7 +23,7 @@ Ext.define('RM.view.Projects', {
 				xtype: 'sortsearchbar',				
 				docked: 'top'
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Projects',
                 grouped: true,
                 loadingText: null,
@@ -40,18 +39,7 @@ Ext.define('RM.view.Projects', {
 							}
 							return ret;
 						}
-				}),					
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
+				})
 				
 			}
         ] 

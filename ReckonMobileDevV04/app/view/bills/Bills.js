@@ -1,7 +1,7 @@
 Ext.define('RM.view.bills.Bills', {
    extend: 'Ext.Panel',
 	xtype: 'bills',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		
 		layout: 'fit',
@@ -24,7 +24,7 @@ Ext.define('RM.view.bills.Bills', {
 					{text: 'Due date',  value: 'duedate'}
 				]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Bills',
                 loadingText: null,
 				grouped: true,                
@@ -60,19 +60,7 @@ Ext.define('RM.view.bills.Bills', {
                                     return due_days+" days"
                                 }
                             }
-                        }),
-
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
+                        })
 			}
         ] 
     }

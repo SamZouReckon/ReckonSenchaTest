@@ -1,7 +1,7 @@
 Ext.define('RM.view.ItemsAmounts', {
    extend: 'Ext.Panel',
 	xtype: 'itemsamounts',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		
 		layout: 'vbox',
@@ -56,7 +56,7 @@ Ext.define('RM.view.ItemsAmounts', {
                     '</table>';
         
         this.add({
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Items',
                 loadingText: null,
 				grouped: true,
@@ -73,18 +73,7 @@ Ext.define('RM.view.ItemsAmounts', {
 							}
 							return ret;
 						}
-				}),				
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
+				})
 			});
         
     }

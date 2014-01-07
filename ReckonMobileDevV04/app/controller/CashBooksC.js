@@ -70,14 +70,7 @@ Ext.define('RM.controller.CashBooksC', {
                     RM.AppMgr.showOkMsgBox('You do not have any books to select.', RM.AppMgr.lock, RM.AppMgr);
                 }
             },
-            this,
-            null,
-            null,
-            function(){
-                //prevent app getting stranded on Cashbook select screen if an error loading the cashbooks list
-                 RM.AppMgr.login();
-            }
-        
+            this
         );
     },
 

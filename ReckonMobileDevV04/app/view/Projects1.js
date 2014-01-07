@@ -1,8 +1,8 @@
 xt.define('RM.view.Projects1', {
    extend: 'Ext.Panel',
 	xtype: 'projects1',
-    config: {
-		
+    requires: 'RM.component.RMList',
+    config: {		
 		layout: 'fit',
 		items:[{
                 xtype: 'toolbar',                
@@ -51,14 +51,9 @@ xt.define('RM.view.Projects1', {
                     }
                 ]
             },{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Projects',
-                itemTpl: '<div>{Name} - {CustomerName}</div>',
-				
-				plugins: [{
-						xclass: 'Ext.plugin.ListPaging'
-					}
-				]
+                itemTpl: '<div>{Name} - {CustomerName}</div>'
 			},{
 				xtype: 'toolbar',
 				

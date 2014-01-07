@@ -1,7 +1,7 @@
 Ext.define('RM.view.budgets.LineItems', {
 	extend: 'Ext.Panel',
 	xtype: 'budgetlineitems',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
 	config: {
 		
 		layout: 'fit',
@@ -39,7 +39,7 @@ Ext.define('RM.view.budgets.LineItems', {
 					}
 				]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
                 disableSelection: true,
 				cls: 'rmbudgetlist',
 				store: 'BudgetLineItems',
@@ -64,20 +64,8 @@ Ext.define('RM.view.budgets.LineItems', {
 					calculateTotal: function(forecast, actual) {
 						var totalValue = forecast - actual;						
 						return RM.AppMgr.formatCurrency(totalValue, 2, true);
-					}
-                            
-				}),
-				
-				plugins: [
-                    {
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },					
-					{
-						type: 'listpaging',
-						autoPaging: true                        
-					}
-				]
-
+					}                            
+				})
 			}
 		]
 	}

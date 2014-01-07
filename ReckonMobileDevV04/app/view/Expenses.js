@@ -1,7 +1,7 @@
 Ext.define('RM.view.Expenses', {
 	extend: 'Ext.Panel',
 	xtype: 'expenses',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
 	config: {
 		
 		layout: 'fit',
@@ -28,7 +28,7 @@ Ext.define('RM.view.Expenses', {
 				xtype: 'sortsearchbar',				
 				docked: 'top'
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Expenses',
                 grouped: true,
                 loadingText: null,
@@ -83,17 +83,8 @@ Ext.define('RM.view.Expenses', {
                         else return itemName;                        
                     }
                 }
-                ),                
+                )                
 				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
 			}
 		] 
 	}

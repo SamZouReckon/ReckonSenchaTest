@@ -12,23 +12,18 @@ Ext.define('RM.controller.ContactDetailC', {
             businessOrIndividual: 'contactdetail #businessOrIndividual',            
             addressHeader: 'contactdetail #addressHeader',
             detailHeader: 'contactdetail #detailHeader',
-            businessName: 'contactdetail textfield[name=BusinessName]',
-            branchName: 'contactdetail textfield[name=BranchName]',  
-            abn: 'contactdetail textfield[name=ABN]',  
-            firstName: 'contactdetail textfield[name=FirstName]',
-            surname: 'contactdetail textfield[name=Surname]',
+            businessName: 'contactdetail field[name=BusinessName]',
+            branchName: 'contactdetail field[name=BranchName]',  
+            abn: 'contactdetail field[name=ABN]',  
+            firstName: 'contactdetail field[name=FirstName]',
+            surname: 'contactdetail field[name=Surname]',
             phoneContainer: 'contactdetail #phoneContainer',
             faxContainer: 'contactdetail #faxContainer',
-            email: 'contactdetail textfield[name=Email]',
-            web: 'contactdetail textfield[name=Web]',
-            notesFld: 'contactdetail textfield[name=Notes]',
-            address1: 'contactdetail textfield[name=Address1]',
-            address2: 'contactdetail textfield[name=Address2]',
-            suburb: 'contactdetail textfield[name=Suburb]',
-            state: 'contactdetail textfield[name=State]',
-            postcode: 'contactdetail textfield[name=PostCode]',
-            country: 'contactdetail textfield[name=Country]'
-            
+            email: 'contactdetail field[name=Email]',
+            web: 'contactdetail field[name=Web]',
+            notesFld: 'contactdetail field[name=Notes]',
+            postalAddress: 'contactdetail #postalAddress',
+            businessAddress: 'contactdetail #businessAddress'            
         },
         control: {
             'contactdetail': {
@@ -100,7 +95,6 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsPerson = null;
                 this.detailsData.IsCustomer = null;
                 this.detailsData.IsSupplier = null;
-                this.hideFields(true);
                 this.initialFormValues = contactForm.getValues();
             }
 
@@ -126,8 +120,10 @@ Ext.define('RM.controller.ContactDetailC', {
                 // Strip newlines and display the notes unformatted in the textbox
                 data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
                 
-                var contactForm =  this.getContactForm();                
+                var contactForm =  this.getContactForm();          
                 contactForm.setValues(data);
+                this.setNestedPropertyValues(this.getBusinessAddress(), data, 'BusinessAddress');
+                this.setNestedPropertyValues(this.getPostalAddress(), data, 'PostalAddress');
                 this.loadFieldsData(data);
                 this.initialFormValues = contactForm.getValues();
                 if(Ext.isDefined(data.SaveSupport) && !data.SaveSupport){
@@ -223,6 +219,10 @@ Ext.define('RM.controller.ContactDetailC', {
         // Save the fully formatted notes value, not the unformatted one displayed in the textbox
         vals.Notes = this.formattedNoteValue;
         
+        // Some fernagling to get the address fields populated properly
+        this.unFlattenProperty(vals, 'BusinessAddress');
+        this.unFlattenProperty(vals, 'PostalAddress');
+            
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;
             delete vals.BusinessOrIndividual;
@@ -303,13 +303,10 @@ Ext.define('RM.controller.ContactDetailC', {
     
     onBusinessOrIndividualSelect: function() {
         var selection = this.getBusinessOrIndividual().getValue();
-        
-        this.hideFields(false);
-        
+              
         if(selection == 'Business'){   
             this.detailsData.IsPerson = false;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS DETAILS</h3>');
-            this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
             this.getBusinessName().setHidden(false);
             this.getBranchName().setHidden(false);
             this.getFirstName().setHidden(true);
@@ -318,12 +315,13 @@ Ext.define('RM.controller.ContactDetailC', {
         else{            
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
-            this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
             this.getBusinessName().setHidden(true);
             this.getBranchName().setHidden(true);
             this.getFirstName().setHidden(false);
             this.getSurname().setHidden(false);            
         }
+        
+        this.getContactDetail().showDetailsFields();
     },
     
     loadFieldsData: function(data){
@@ -351,20 +349,40 @@ Ext.define('RM.controller.ContactDetailC', {
         
     },
     
-    hideFields: function(val){        
-        this.getDetailHeader().setHidden(val);
-        this.getAddressHeader().setHidden(val);        
-        this.getPhoneContainer().setHidden(val);
-        this.getFaxContainer().setHidden(val);
-        this.getEmail().setHidden(val);
-        this.getAddress1().setHidden(val);
-        this.getAddress2().setHidden(val);
-        this.getSuburb().setHidden(val);
-        this.getState().setHidden(val);
-        this.getPostcode().setHidden(val);
-        this.getCountry().setHidden(val); 
-        this.getAbn().setHidden(val);
-        this.getWeb().setHidden(val);
-    }    
+    // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object
+    // e.g. parentProperty.Address1, parentProperty.Address2 etc, using the field name as the binding identifier
+    setNestedPropertyValues: function(container, valuesObject, parentProperty){        
+        var fieldName, childProperty, containerItems, field;
+        var dottedProperty = parentProperty + '.';
+        
+        containerItems = container.getItems().items;
+        containerItems.forEach(function(item) {
+            // Make sure this item is a field that has a Name getter
+            fieldName = item.getName ? item.getName() : null;
+            
+            // It also has to be bound to a child property of parentProperty
+            if(!fieldName || fieldName.indexOf(dottedProperty) !== 0) return;
+            
+            // We have a winner, set the field value accordingly
+            childProperty = fieldName.replace(dottedProperty, '');
+            item.setValue(valuesObject[parentProperty][childProperty]);                     
+        });
+    },
+    
+    // Find all properties on the object that start with "propertyName." and hydrate 
+    // them into an object literal property of the same name
+    unFlattenProperty: function(object, propertyName) {
+        var property, dottedName;
+        dottedName = propertyName + ".";
+        
+        object[propertyName] = object[propertyName] || {};        
+        for(property in object) {            
+            if(property.indexOf(dottedName) === 0) {
+                object[propertyName][property.replace(dottedName,'')] = object[property];
+                delete object[property];
+            }
+        }        
+        
+    }
 
 });

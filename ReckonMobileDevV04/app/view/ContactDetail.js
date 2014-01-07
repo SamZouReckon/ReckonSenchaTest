@@ -63,16 +63,7 @@ Ext.define('RM.view.ContactDetail', {
                         autoSelect: false,                                        
 						ui:'plain',
                         placeHolder: 'choose'
-					},/* Set this field's value in controller class whenever its added back to form
-                        {
-                        xtype: 'rmtogglefield',
-                        onText: 'Active',
-                        offText: 'Inactive',
-						label: 'Contact state',
-                        name: 'IsActive',                        
-                        placeHolder: '',
-                        toggleState: true
-					},*/
+					},
                     {
 						xtype: 'extselectfield',
                         name: 'BusinessOrIndividual',
@@ -91,161 +82,199 @@ Ext.define('RM.view.ContactDetail', {
                         border: '1 0 1 0',
                         style: 'border-color: #DBDBDB; border-style: solid;'
 			        },{
-                        xtype: 'component',
-                        itemId: 'detailHeader',    
-                        hidden: true,
-                        html: '<h3 class="rm-m-1 rm-hearderbg">DETAILS</h3>'
-					},{
-						name: 'FirstName',
-						label: 'First name',
-                        maxLength: 100,
-                        rmmandatory: true,                        
-                        hidden: true,
-                        border: '0 0 1 0'
-					},{
-						name: 'Surname',                                       
-						label: 'Surname',
-                        maxLength: 100,
-                        rmmandatory: true,
-                        hidden: true
-					},{
-						name: 'BusinessName',
-						label: 'Business name',
-                        maxLength: 100,
-                        border: '0 0 1 0',
-                        rmmandatory: true,
-                        hidden: true                        
-					},{
-						name: 'BranchName',                                       
-						label: 'Branch name',
-                        maxLength: 100,
-                        hidden: true, 
-                        border: '1 0 1 0'
-					},{
-						name: 'ABN',                                       
-						label: 'ABN',
-                        maxLength: 30,
-                        hidden: true, 
-                        border: '1 0 1 0'
-					},{
                         xtype: 'container',
-                        itemId: 'phoneContainer',                                        
-                        layout: 'hbox',
-                        hidden: true,
-                        items: [{                            
-                            html: 'Phone',
-                            flex: 1.5,
-                            cls: 'x-form-label',
-                            style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
-                        },{
-                            xtype: 'rmphonefield',                             
-                            cls: 'rm-flatfield',                             
-                            name: 'PhoneAreaCode',						    
-                            placeHolder: 'area code',                            
-                            flex: 2.2,
-                            clearIcon: false,
-                            border: '0 1 0 1 ',
-                            style: 'border-color: #DBDBDB; border-style: solid;'
-                        },
+                        itemId: 'detailsFields',
+                        defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},
+                        hidden:true,
+                        items: [{
+                            xtype: 'component',
+                            itemId: 'detailHeader',    
+                            html: '<h3 class="rm-m-1 rm-hearderbg">DETAILS</h3>'
+    					},{
+    						name: 'FirstName',
+    						label: 'First name',
+                            maxLength: 100,
+                            rmmandatory: true,                        
+                            hidden: true,
+                            border: '0 0 1 0'
+    					},{
+    						name: 'Surname',                                       
+    						label: 'Surname',
+                            maxLength: 100,
+                            rmmandatory: true,
+                            hidden: true
+    					},{
+    						name: 'BusinessName',
+    						label: 'Business name',
+                            maxLength: 100,
+                            border: '0 0 1 0',
+                            rmmandatory: true,
+                            hidden: true                        
+    					},{
+    						name: 'BranchName',                                       
+    						label: 'Branch name',
+                            maxLength: 100,
+                            hidden: true, 
+                            border: '1 0 1 0'
+    					},{
+    						name: 'ABN',                                       
+    						label: 'ABN',
+                            maxLength: 30,
+                            border: '1 0 1 0'
+    					},{
+                            xtype: 'container',
+                            itemId: 'phoneContainer',                                        
+                            layout: 'hbox',
+                            items: [{                            
+                                html: 'Phone',
+                                flex: 1.5,
+                                cls: 'x-form-label',
+                                style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
+                            },{
+                                xtype: 'rmphonefield',                             
+                                cls: 'rm-flatfield',                             
+                                name: 'PhoneAreaCode',						    
+                                placeHolder: 'area code',                            
+                                flex: 2.2,
+                                clearIcon: false,
+                                border: '0 1 0 1 ',
+                                style: 'border-color: #DBDBDB; border-style: solid;'
+                            },
+                            {
+                                xtype: 'rmphonefield', 
+                                cls: 'rm-flatfield', 
+                                placeHolder: 'enter',
+                                name: 'Phone',
+                                flex: 3.5,
+                                clearIcon: false,
+                                border: '0 0 0 0 '                            
+                            }]
+    						
+    					},{
+                            xtype: 'container',
+                            itemId: 'faxContainer',                                        
+                            layout: 'hbox',
+                            items: [{                            
+                                html: 'Fax',
+                                flex: 1.5,
+                                cls: 'x-form-label',  
+                                style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
+                            },{
+                                xtype: 'rmphonefield',                             
+                                cls: 'rm-flatfield',                             
+                                name: 'FaxAreaCode',						    
+                                placeHolder: 'area code',
+                                flex: 2.2,
+                                clearIcon: false,
+                                border: '0 1 0 1 ',
+                                style: 'border-color: #DBDBDB; border-style: solid;'
+                            },
+                            {
+                                xtype: 'rmphonefield', 
+                                cls: 'rm-flatfield', 
+                                placeHolder: 'enter',
+                                name: 'Fax',
+                                flex: 3.5,
+                                clearIcon: false,
+                                border: '0 0 0 0 '                            
+                            }]
+    						
+    					},{
+                            xtype: 'extemailfield',
+    						name: 'Email',  
+    						label: 'Email',
+                            labelWidth: '4em'
+    					},{                        
+    						name: 'Web',  
+    						label: 'Web',
+                            maxLength: 100,
+                            labelWidth: '4em'
+    					},{
+        					xtype: 'exttextfield',
+        					name: 'Notes',
+        					label: 'Notes',
+                            labelWidth: 110,
+        					cls: 'rm-flatfield',                       
+                            readOnly: true
+    				    },
+                        
                         {
-                            xtype: 'rmphonefield', 
-                            cls: 'rm-flatfield', 
-                            placeHolder: 'enter',
-                            name: 'Phone',
-                            flex: 3.5,
-                            clearIcon: false,
-                            border: '0 0 0 0 '                            
-                        }]
-						
-					},{
-                        xtype: 'container',
-                        itemId: 'faxContainer',                                        
-                        layout: 'hbox',
-                        hidden: true,
-                        items: [{                            
-                            html: 'Fax',
-                            flex: 1.5,
-                            cls: 'x-form-label',  
-                            style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
-                        },{
-                            xtype: 'rmphonefield',                             
-                            cls: 'rm-flatfield',                             
-                            name: 'FaxAreaCode',						    
-                            placeHolder: 'area code',
-                            flex: 2.2,
-                            clearIcon: false,
-                            border: '0 1 0 1 ',
-                            style: 'border-color: #DBDBDB; border-style: solid;'
-                        },
+                            xtype: 'container',
+                            itemId: 'postalAddress',                             
+                            defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},
+                            items: [{                            
+                                    xtype: 'component',                                        
+                                    itemId: 'addressHeader',
+                                    layout: 'vbox',
+                                    html: '<h3 class="rm-m-1 rm-hearderbg">Postal Address</h3>'
+                                },{
+                                    name: 'PostalAddress.Address1',                                        
+                                    label: 'Street1',
+                                    maxLength: 100,
+                                    border: '0 0 1 0'
+                                },{
+                                    name: 'PostalAddress.Address2', 
+                                    label: 'Street2',
+                                    maxLength: 100
+                                },{
+            						name: 'PostalAddress.Suburb',   
+            						label: 'Suburb',
+                                    maxLength: 100
+            					},{
+            						name: 'PostalAddress.State',  
+            						label: 'State'
+            					},{
+            						name: 'PostalAddress.PostCode',
+            						label: 'Postcode',
+                                    maxLength: 100
+            					},{
+            						name: 'PostalAddress.Country', 
+            						label: 'Country',
+                                    maxLength: 100,
+                                    border: '1 0 1 0'
+            					}]    						
+    					},
                         {
-                            xtype: 'rmphonefield', 
-                            cls: 'rm-flatfield', 
-                            placeHolder: 'enter',
-                            name: 'Fax',
-                            flex: 3.5,
-                            clearIcon: false,
-                            border: '0 0 0 0 '                            
+                            xtype: 'container',
+                            itemId: 'businessAddress',   
+                            defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},
+                            items: [{                            
+                                xtype: 'component',                                        
+                                itemId: 'addressHeader',                         
+                                html: '<h3 class="rm-m-1 rm-hearderbg">Business Address</h3>'
+                                },
+                                {
+                                    name: 'BusinessAddress.Address1',                                        
+                                    label: 'Street1',
+                                    maxLength: 100,
+                                    border: '0 0 1 0'
+                                },{
+                                    name: 'BusinessAddress.Address2', 
+                                    label: 'Street2',
+                                    maxLength: 100
+                                },{
+            						name: 'BusinessAddress.Suburb',   
+            						label: 'Suburb',
+                                    maxLength: 100
+            					},{
+            						name: 'BusinessAddress.State',  
+            						label: 'State'
+            					},{
+            						name: 'BusinessAddress.PostCode',
+            						label: 'Postcode',
+                                    maxLength: 100
+            					},{
+            						name: 'BusinessAddress.Country', 
+            						label: 'Country',
+                                    maxLength: 100,
+                                    border: '1 0 1 0'
+            					}]
                         }]
-						
-					},{
-                        xtype: 'extemailfield',
-						name: 'Email',  
-                        hidden: true,
-						label: 'Email',
-                        labelWidth: '4em'
-					},{                        
-						name: 'Web',  
-                        hidden: true,
-						label: 'Web',
-                        maxLength: 100,
-                        labelWidth: '4em'
-					},{
-    					xtype: 'exttextfield',
-    					name: 'Notes',
-    					label: 'Notes',
-                        labelWidth: 110,
-    					cls: 'rm-flatfield',                       
-                        readOnly: true
-				    },{
-                        xtype: 'component',                                        
-                        itemId: 'addressHeader',
-                        hidden: true,
-                        html: '<h3 class="rm-m-1 rm-hearderbg">ADDRESS</h3>'
-					},{
-                        name: 'Address1',                                        
-                        label: 'Street1',
-                        maxLength: 100,
-                        hidden: true,
-                        border: '0 0 1 0'
-                    },{
-                        name: 'Address2', 
-                        hidden: true,
-                        label: 'Street2',
-                        maxLength: 100
-                    },{
-						name: 'Suburb',   
-                        hidden: true,
-						label: 'Suburb',
-                        maxLength: 100
-					},{
-						name: 'State',  
-                        hidden: true,
-						label: 'State'
-					},{
-						name: 'PostCode',
-                        hidden: true,
-						label: 'Postcode',
-                        maxLength: 100
-					},{
-						name: 'Country', 
-                        hidden: true,
-						label: 'Country',
-                        maxLength: 100,
-                        border: '1 0 1 0',
-                        style: 'border-color: #DBDBDB; border-style: solid;'
-					}              
-				]
-			}
-		]
-	}
+                    }]
+            }]
+    },
+    
+    showDetailsFields: function() {       
+        this.down('#detailsFields').setHidden(false);        
+    }
 });

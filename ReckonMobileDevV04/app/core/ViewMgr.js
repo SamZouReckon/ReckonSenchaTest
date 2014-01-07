@@ -234,6 +234,10 @@ Ext.define('RM.core.ViewMgr', {
 		//Ext.Viewport.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});	
         this.mainView.setMasked({ xtype: 'loadmask', message: msg ? msg : 'Loading...'});
 	},
+    
+    showMask: function(){        
+        this.mainView.setMasked({ xtype: 'mask'});
+    },
 	
 	hideLoadingMask: function(){
 		//Ext.Viewport.setMasked(false);

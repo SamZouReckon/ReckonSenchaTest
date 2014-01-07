@@ -4,7 +4,8 @@ Ext.define('RM.controller.ContactsC', {
     config: {
         refs: {
             contacts: 'contacts',
-            contactsList: 'contacts list'
+            contactsList: 'contacts list',
+            sortSearchBar: 'contacts sortsearchbar'
         },
         control: {
 			'contacts': {
@@ -39,12 +40,13 @@ Ext.define('RM.controller.ContactsC', {
 
     init: function () {
         this.getApplication().addListener('itemupdated', 'onItemUpdated', this);
-        this.contactTypeFilter = 'customersuppliers';
+        this.getApplication().addListener('rm-activeviewchanged', 'onActiveViewChanged', this);
+        this.contactTypeFilter = 'customersuppliers';        
     },
 	
 	onShow: function(){        
 		this.getContactsList().getStore().getProxy().setUrl(RM.AppMgr.getApiUrl('Contacts'));
-        this.loadList();
+        this.reloadOnNextActivation = true;
     },
 
     onSort: function(val){
@@ -54,10 +56,19 @@ Ext.define('RM.controller.ContactsC', {
     
     onItemUpdated: function (itemType) {
         if (itemType == 'contact' && this.getContacts()) {
-            this.loadList();
+            this.reloadOnNextActivation = true;
         }
     },
-
+    
+    onActiveViewChanged: function(newView) {
+        if(!this.reloadOnNextActivation) return;
+        
+        if(newView.xtype === this.getContacts().xtype) {
+            this.reloadOnNextActivation = false;
+            this.clearSearchLoadList();
+        }
+    },    
+    
 	onItemSelect: function(list, rec){
 
 		// Delay the selection clear so get a flash of the selection
@@ -65,11 +76,11 @@ Ext.define('RM.controller.ContactsC', {
 		RM.ContactsMgr.showContactDetail(false, rec.data,
 			function(closeType, data){
 				if(closeType == 'save')
-					this.loadList();				
+					this.loadList();
+                
 			}, 
 			this
 		);
-
     },	
 	
 	add: function(){
@@ -84,9 +95,14 @@ Ext.define('RM.controller.ContactsC', {
 	
 	},	
 
+    clearSearchLoadList: function(){
+        this.getSortSearchBar().hideSearch(true);
+        delete this.searchFilter;
+        this.loadList();        
+    },    
+    
     loadList: function () {
         var store = this.getContactsList().getStore();
-        
         store.removeAll(); //prevents an error that occurs if scrolled to say group S in suppliers and then change to Customers which has no group S
         
         store.clearFilter();

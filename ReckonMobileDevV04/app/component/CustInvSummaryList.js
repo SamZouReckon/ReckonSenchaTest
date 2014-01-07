@@ -20,6 +20,7 @@ Ext.define('RM.component.CustInvSummaryList', {
 				xtype: 'rmlist',
 				store: 'CustomerInvoices',
                 loadingText: null,
+                emptyText: 'No invoices found.',
 				grouped: true,
 				itemTpl: '<div class="rm-nextgrayarrow rm-ml5 rm-mr5">{CustomerName}' + '<span class="rm-customerinvoices-invoicecount">' + ' ({InvoiceCount}) ' + '</span>' +
                                 '<tpl if=" 0< InvoiceOverdueCount">' +                                

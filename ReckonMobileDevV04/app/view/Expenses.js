@@ -32,6 +32,7 @@ Ext.define('RM.view.Expenses', {
 				store: 'Expenses',
                 grouped: true,
                 loadingText: null,
+                emptyText: 'No expenses found.',
                 itemTpl: new Ext.XTemplate(
                 '<tpl if="ExpenseId == \'00000000-0000-0000-0000-000000000000\'">',
                     '<div class="rm-invoicelineitem-add" style = "padding-left: 0; font-weight: normal;">Add an expense</div>',

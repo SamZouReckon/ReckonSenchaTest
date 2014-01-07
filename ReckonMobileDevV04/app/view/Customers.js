@@ -32,6 +32,7 @@ Ext.define('RM.view.Customers', {
 				xtype: 'rmlist',
 				store: 'Contacts',
                 loadingText: null,
+                emptyText: 'No customers found.',
                 itemTpl: '<div>{Description} </div>',                
                 flex: 1				
 			}

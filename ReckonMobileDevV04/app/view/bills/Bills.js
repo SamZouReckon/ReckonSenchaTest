@@ -27,6 +27,7 @@ Ext.define('RM.view.bills.Bills', {
 				xtype: 'rmlist',
 				store: 'Bills',
                 loadingText: null,
+                emptyText: 'No bills found.',
 				grouped: true,                
                 disableSelection: true,				
 				itemTpl: new Ext.XTemplate(

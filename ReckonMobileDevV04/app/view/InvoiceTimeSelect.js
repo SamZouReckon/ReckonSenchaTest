@@ -39,6 +39,7 @@ Ext.define('RM.view.InvoiceTimeSelect', {
 				xtype: 'rmlist',
 				store: 'InvoiceTimeSelect',
                 loadingText: null,
+                emptyText: 'No time entries found.',
 				disableSelection: true,
 				grouped: true,
                 itemTpl: new Ext.XTemplate(

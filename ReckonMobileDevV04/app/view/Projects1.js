@@ -53,6 +53,7 @@ xt.define('RM.view.Projects1', {
             },{
 				xtype: 'rmlist',
 				store: 'Projects',
+                emptyText: 'No projects found.',
                 itemTpl: '<div>{Name} - {CustomerName}</div>'
 			},{
 				xtype: 'toolbar',

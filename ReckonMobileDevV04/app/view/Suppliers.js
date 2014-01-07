@@ -27,6 +27,7 @@ Ext.define('RM.view.Suppliers', {
 			},{
 				xtype: 'rmlist',
 				store: 'Suppliers',
+                emptyText: 'No suppliers found.',
                 itemTpl: '<div>{Name}</div>'
 			}
         ] 

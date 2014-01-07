@@ -27,6 +27,7 @@ Ext.define('RM.view.Items', {
 			},{
 				xtype: 'rmlist',
 				store: 'Items',
+                emptyText: 'No items found.',
 				grouped: true,
 				itemTpl: new Ext.XTemplate(        
 					'<span>{[this.accessLevel(values.Level)]}</span> {Name}',					

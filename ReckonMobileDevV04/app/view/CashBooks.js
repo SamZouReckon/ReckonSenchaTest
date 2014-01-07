@@ -26,7 +26,8 @@ Ext.define('RM.view.CashBooks', {
             },{
                 xtype: 'rmlist',
                 store: 'CashBooks',
-                loadingText: null,                
+                loadingText: null,  
+                emptyText: 'No books found.',
                 grouped: true,				
                 itemTpl: new Ext.XTemplate(
         

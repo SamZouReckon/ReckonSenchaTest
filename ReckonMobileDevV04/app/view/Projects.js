@@ -27,6 +27,7 @@ Ext.define('RM.view.Projects', {
 				store: 'Projects',
                 grouped: true,
                 loadingText: null,
+                emptyText: 'No projects found.',
 				itemTpl: new Ext.XTemplate(        
 					'<span>{[this.accessLevel(values.Level)]}</span> {Name}',					
 					{

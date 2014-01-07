@@ -34,6 +34,7 @@ Ext.define('RM.component.InvoicesList', {
 			xtype: 'rmlist',
 			store: 'Invoices',
             loadingText: null,
+            emptyText: 'No invoices found.',
 			disableSelection: true,
 			grouped: groupDueDate,
 			itemTpl: this.getTemplate()			

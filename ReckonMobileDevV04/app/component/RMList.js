@@ -4,11 +4,7 @@ Ext.define('RM.component.RMList', {
     requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],    
     
     config: {
-        emptyText: '<div class = "rm-list-emptytext">No books found.</div></br>' +
-                   '<div>' +
-                   '<img src= "resources/images/rm-emptylist-arrow.svg" class= "rm-list-emptytext-img" align = "center"></img>' +
-                   '<span class= "rm-list-emptytext-desc">Pull down to refresh</span>' +
-                   '</div>',	
+        
         plugins: [
             {
                 xclass: 'RM.component.RMPullRefresh',                        
@@ -18,5 +14,17 @@ Ext.define('RM.component.RMList', {
                 noMoreRecordsText: ''
             }
         ]       
+    },
+    
+    initialize: function () {        
+        this.callParent(arguments);        
+        if (!this.config.emptyText) {
+            this.config.emptyText = "No data found."; 
+        }  
+        this.setEmptyText('<div class = "rm-list-emptytext">' + this.config.emptyText + '</div></br>' +
+                          '<div>' +
+                          '<img src= "resources/images/rm-emptylist-arrow.svg" class= "rm-list-emptytext-img" align = "center"></img>' +
+                          '<span class= "rm-list-emptytext-desc">Pull down to refresh</span>' +
+                          '</div>'); 
     }
 });

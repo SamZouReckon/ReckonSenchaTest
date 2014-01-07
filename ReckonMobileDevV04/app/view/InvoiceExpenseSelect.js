@@ -39,6 +39,7 @@ Ext.define('RM.view.InvoiceExpenseSelect', {
 				xtype: 'rmlist',
 				store: 'InvoiceExpenseSelect',
                 loadingText: null,
+                emptyText: 'No expense entries found.',
 				grouped: true,
 				disableSelection: true,
                 itemTpl: new Ext.XTemplate(

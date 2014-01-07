@@ -39,7 +39,8 @@ Ext.define('RM.view.History', {
             xtype: 'rmlist',
             store: 'Histories',
             disableSelection: true,
-            loadingText: null,
+            loadingText: null,            
+            emptyText: 'No history entries found.',
             itemTpl: new Ext.XTemplate(
                         '<table width="100%" class="rm-tablelayout">' +
                         '<tr>' +

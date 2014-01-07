@@ -44,6 +44,7 @@ Ext.define('RM.view.budgets.LineItems', {
 				cls: 'rmbudgetlist',
 				store: 'BudgetLineItems',
                 loadingText: null,
+                emptyText: 'No items found.',
 				itemTpl: new Ext.XTemplate(
 					'<tpl if="AcctCatName == \'TOTAL\'">' +
 					'<div class="rmbudgetlistcoloredbg">' +

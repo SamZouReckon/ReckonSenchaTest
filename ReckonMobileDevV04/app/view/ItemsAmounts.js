@@ -59,6 +59,7 @@ Ext.define('RM.view.ItemsAmounts', {
 				xtype: 'rmlist',
 				store: 'Items',
                 loadingText: null,
+                emptyText: 'No items found.',
 				grouped: true,
                 flex: 1,
 				itemTpl: new Ext.XTemplate( 

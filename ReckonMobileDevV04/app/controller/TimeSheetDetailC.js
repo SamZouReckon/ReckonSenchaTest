@@ -97,7 +97,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     },
     
     onHide: function(){
-        RM.ViewMgr.deRegFormBackHandler();
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },    
     
     isFormDirty: function(){        

@@ -109,7 +109,7 @@ Ext.define('RM.controller.ContactDetailC', {
     },
     
     onHide: function(){
-        RM.ViewMgr.deRegFormBackHandler();
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },        
     
     setEditable: function(editable){

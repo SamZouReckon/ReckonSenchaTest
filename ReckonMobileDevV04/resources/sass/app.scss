@@ -2110,6 +2110,12 @@ rm-emailinvoicebackground{
            color: #C0C9D2;   
            font-weight: normal;       	     
         }
+
+        .x-component-outer {
+            &:after {                         
+              display: none;        
+            }
+        }
 }
 
 .rm-flatfield-disabled-pt0{

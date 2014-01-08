@@ -1,7 +1,7 @@
 Ext.define('RM.view.Customers', {
    extend: 'Ext.Panel',
 	xtype: 'customers',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		
 		layout: 'vbox',
@@ -29,23 +29,12 @@ Ext.define('RM.view.Customers', {
                 itemId: 'createCustomer',
                 cls: 'rm-createitembtn'
             },{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Contacts',
                 loadingText: null,
+                emptyText: 'No customers found.',
                 itemTpl: '<div>{Description} </div>',                
-                flex: 1,
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
-				
+                flex: 1				
 			}
         ] 
     }

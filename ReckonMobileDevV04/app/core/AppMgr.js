@@ -566,6 +566,7 @@ Ext.define('RM.core.AppMgr', {
                     itemId: btnArray[i].itemId,
                     handler: function(btn){
     				    msgBox.hide();
+                        RM.ViewMgr.deRegBackHandler();
                         if(cb && cbs){
                             cb.call(cbs, btn.getItemId());
                         }
@@ -576,6 +577,13 @@ Ext.define('RM.core.AppMgr', {
         }
         RM.ViewMgr.hideKeyPad();
         msgBox.show();
+        RM.ViewMgr.regBackHandler(
+            function(){
+                msgBox.hide();
+                RM.ViewMgr.deRegBackHandler();
+            }, 
+            this
+        );
         
     },
     

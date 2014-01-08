@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceExpenseSelect', {
 	extend: 'Ext.Panel',
 	xtype: 'invoiceexpenseselect',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		
 		layout: 'fit',
@@ -36,9 +36,10 @@ Ext.define('RM.view.InvoiceExpenseSelect', {
 							{text: 'Employee',  value: 'EmployeeName'}
 				]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'InvoiceExpenseSelect',
                 loadingText: null,
+                emptyText: 'No expense entries found.',
 				grouped: true,
 				disableSelection: true,
                 itemTpl: new Ext.XTemplate(
@@ -83,18 +84,7 @@ Ext.define('RM.view.InvoiceExpenseSelect', {
                                 '<div class="rm-floatr rm-notelink rm-alignr rm-pt5">History</div>',
                             '</div>',
                         '</div>'
-                        ),		
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]		
+                        )						
 			}
         ] 
     },

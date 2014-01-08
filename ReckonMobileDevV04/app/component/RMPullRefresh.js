@@ -12,16 +12,21 @@ Ext.define('RM.component.RMPullRefresh', {
     //Override fetchLatest() behaviour so that lists are reloaded instead of default of inserting new records at the start
     //The deafult behaviour had issues with grouping and new records in web app not appearing immediately in mobile
     fetchLatest: function(){
+        
+        RM.ViewMgr.showMask();
         this.getList().getStore().loadPage(1, {
-            callback: function (recs, operation, success) {
-               if(success) { 
-                    this.setState("loaded");
+            callback: function (recs, operation, success) {               
+                
+                if(success) { 
+                    this.lastUpdated = new Date();
                     this.fireEvent('latestfetched', this, recs);
-                    if (this.getAutoSnapBack()) {
-                        this.snapBack();
-                    }                   
-                   
-               } 
+                }
+                this.setState("loaded");
+                if (this.getAutoSnapBack()) {
+                    this.snapBack();
+                }
+                RM.ViewMgr.hideLoadingMask();
+                
             },
             scope: this
         });

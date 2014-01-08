@@ -1,6 +1,6 @@
 Ext.define('RM.component.CustInvSummaryList', {
     extend: 'Ext.Panel',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     xtype: 'custinvsummarylist',    
     config:{
         layout: 'fit',
@@ -17,27 +17,16 @@ Ext.define('RM.component.CustInvSummaryList', {
         
         
 		this.add({
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'CustomerInvoices',
                 loadingText: null,
+                emptyText: 'No invoices found.',
 				grouped: true,
 				itemTpl: '<div class="rm-nextgrayarrow rm-ml5 rm-mr5">{CustomerName}' + '<span class="rm-customerinvoices-invoicecount">' + ' ({InvoiceCount}) ' + '</span>' +
                                 '<tpl if=" 0< InvoiceOverdueCount">' +                                
                                 "<span class='rm-reddot'></span>" +
                                 '</tpl>'+
-                         '</div>',                         
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
-			}
+                         '</div>'}
         );
         
         var store = Ext.data.StoreManager.lookup('CustomerInvoices');

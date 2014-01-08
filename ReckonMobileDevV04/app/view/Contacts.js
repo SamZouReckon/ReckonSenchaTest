@@ -1,7 +1,7 @@
 Ext.define('RM.view.Contacts', {
    extend: 'RM.component.SecurePanel',
 	xtype: 'contacts',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
+    requires: ['RM.component.RMList', 'RM.component.SecureButton'],
     config: {
 		permissionFor: 'Contacts',
 		layout: 'fit',
@@ -31,23 +31,12 @@ Ext.define('RM.view.Contacts', {
 					{text: 'Suppliers',  value: 'Suppliers'}
 				]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Contacts',
                 grouped: true,
                 loadingText: null,
-                itemTpl: '<div class="rm-nextgrayarrow rm-orgnametext rm-mr5">{Description} </div>',                
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
-				
+                emptyText: 'No contacts found.',
+                itemTpl: '<div class="rm-nextgrayarrow rm-orgnametext rm-mr5">{Description} </div>'  				
 			}
         ] 
     }

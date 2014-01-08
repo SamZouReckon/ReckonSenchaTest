@@ -45,7 +45,8 @@ Ext.define('RM.controller.InvoicesC', {
             this.dataLoaded = true;
         }
         else{
-             this.activeList.reload();
+             //this.activeList.reload();
+            this.reloadOnNextActivation = true;
         }
     },
 
@@ -61,7 +62,7 @@ Ext.define('RM.controller.InvoicesC', {
                 
         if(newView.xtype === this.getInvoices().xtype) {                       
             this.reloadOnNextActivation = false; 
-            this.activeList.reload();
+            this.clearSearchLoadList();
             RM.Log.debug('invoices list reloaded');
         }
     },
@@ -86,6 +87,11 @@ Ext.define('RM.controller.InvoicesC', {
     onSearchClear: function(){
         this.activeList.clearSearch();
     },
+    
+    clearSearchLoadList: function(){
+        this.getSortSearchBar().hideSearch(true);
+        this.activeList.clearSearch();       
+    },      
     
     add: function () {
         RM.InvoicesMgr.showInvoiceDetail(true, null,

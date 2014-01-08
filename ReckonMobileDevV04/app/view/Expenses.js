@@ -1,7 +1,7 @@
 Ext.define('RM.view.Expenses', {
 	extend: 'Ext.Panel',
 	xtype: 'expenses',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
 	config: {
 		
 		layout: 'fit',
@@ -28,10 +28,11 @@ Ext.define('RM.view.Expenses', {
 				xtype: 'sortsearchbar',				
 				docked: 'top'
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Expenses',
                 grouped: true,
                 loadingText: null,
+                emptyText: 'No expenses found.',
                 itemTpl: new Ext.XTemplate(
                 '<tpl if="ExpenseId == \'00000000-0000-0000-0000-000000000000\'">',
                     '<div class="rm-invoicelineitem-add" style = "padding-left: 0; font-weight: normal;">Add an expense</div>',
@@ -83,17 +84,8 @@ Ext.define('RM.view.Expenses', {
                         else return itemName;                        
                     }
                 }
-                ),                
+                )                
 				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
 			}
 		] 
 	}

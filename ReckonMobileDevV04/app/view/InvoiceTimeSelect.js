@@ -1,7 +1,7 @@
 Ext.define('RM.view.InvoiceTimeSelect', {
    extend: 'RM.component.SecurePanel',
 	xtype: 'invoicetimeselect',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		permissionFor: 'Invoices',
 		layout: 'fit',
@@ -36,9 +36,10 @@ Ext.define('RM.view.InvoiceTimeSelect', {
 							{text: 'Employee',  value: 'EmployeeName'}
 				]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'InvoiceTimeSelect',
                 loadingText: null,
+                emptyText: 'No time entries found.',
 				disableSelection: true,
 				grouped: true,
                 itemTpl: new Ext.XTemplate(
@@ -97,18 +98,7 @@ Ext.define('RM.view.InvoiceTimeSelect', {
 
                                 return output;
                             }
-                        }),		
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
+                        })
 			}
         ] 
     },

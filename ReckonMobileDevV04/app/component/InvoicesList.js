@@ -1,6 +1,6 @@
 Ext.define('RM.component.InvoicesList', {
     extend: 'Ext.Panel',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     xtype: 'invoiceslist',    
     config:{
         layout: 'fit',
@@ -31,24 +31,14 @@ Ext.define('RM.component.InvoicesList', {
         this.loadList();
         
 		this.add({
-			xtype: 'list',
+			xtype: 'rmlist',
 			store: 'Invoices',
             loadingText: null,
+            emptyText: 'No invoices found.',
 			disableSelection: true,
 			grouped: groupDueDate,
-			itemTpl: this.getTemplate(),
-			plugins: [
-				{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-                {
-					type: 'listpaging',
-					autoPaging: true,
-					noMoreRecordsText: ''
-				}
-			]
+			itemTpl: this.getTemplate()			
 		});        
-        
     },
     
     onItemTap: function (list, index, target, rec, e, eOpts) {

@@ -2110,6 +2110,18 @@ rm-emailinvoicebackground{
            color: #C0C9D2;   
            font-weight: normal;       	     
         }
+
+        .x-component-outer {
+            &:after {                         
+              display: none;        
+            }
+        }
+}
+
+.rm-flatfield-disabled-pt0{
+    .x-input-el{
+        padding-top: 0 !important;
+    }
 }
 
 .rm-mask-obscured {
@@ -2128,3 +2140,20 @@ rm-emailinvoicebackground{
      strong { font-weight:bold;}
 }
 
+.rm-list-emptytext{
+    color: #969696;
+    font-weight: normal;
+    font-size: 115%;
+}
+
+.rm-list-emptytext-desc{
+    color: #969696;
+    font-weight: normal;
+    font-size: 84%; 
+    margin-left: 0.9em;   
+}
+
+.rm-list-emptytext-img{    
+    width: 22.39px;
+    height: 47.79px;    
+}

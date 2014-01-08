@@ -106,7 +106,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getAddBtn().setHidden(!this.isEditable);
         this.getAddBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
         this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);
-        
+        if(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit){
+            this.getTax().setCls('rm-flatfield-disabled rm-flatfield-disabled-pt0');
+        }
         if(!this.isEditable) { this.makeViewReadonly(); }
         
         if(!this.initShow){

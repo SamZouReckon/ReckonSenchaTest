@@ -1,7 +1,7 @@
 Ext.define('RM.view.Suppliers', {
    extend: 'Ext.Panel',
 	xtype: 'suppliers',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		
 		layout: 'fit',
@@ -25,21 +25,10 @@ Ext.define('RM.view.Suppliers', {
 				docked: 'top',
 				sortfields: [{text:'Name', value:'name'}]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Suppliers',
-                itemTpl: '<div>{Name}</div>',
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
-				
+                emptyText: 'No suppliers found.',
+                itemTpl: '<div>{Name}</div>'
 			}
         ] 
     }

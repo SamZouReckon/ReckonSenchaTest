@@ -1,7 +1,7 @@
 Ext.define('RM.view.History', {
     extend: 'Ext.Panel',
     xtype: 'history',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging', 'RM.component.SecureButton'],
+    requires: ['RM.component.RMList', 'RM.component.SecureButton'],
     config: {
         
         layout: {
@@ -36,10 +36,11 @@ Ext.define('RM.view.History', {
             permissionFor: 'Invoices'
 
         }, {
-            xtype: 'list',
+            xtype: 'rmlist',
             store: 'Histories',
             disableSelection: true,
-            loadingText: null,
+            loadingText: null,            
+            emptyText: 'No history entries found.',
             itemTpl: new Ext.XTemplate(
                         '<table width="100%" class="rm-tablelayout">' +
                         '<tr>' +
@@ -63,19 +64,8 @@ Ext.define('RM.view.History', {
                                return text.replace(/(\r\n|\n|\r)/g,"<br/>");
                            }
                         }
-                        ),
-            
-            flex: 1,
-            plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-					    type: 'listpaging',
-					    autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
+                        ),            
+            flex: 1            
         }
         ]
     }

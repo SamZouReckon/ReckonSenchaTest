@@ -133,7 +133,8 @@ Ext.define('RM.view.ContactDetail', {
                                 xtype: 'rmphonefield',                             
                                 cls: 'rm-flatfield',                             
                                 name: 'PhoneAreaCode',						    
-                                placeHolder: 'area code',                            
+                                placeHolder: 'area code', 
+                                maxLength: 20,
                                 flex: 2.2,
                                 clearIcon: false,
                                 border: '0 1 0 1 ',
@@ -143,6 +144,7 @@ Ext.define('RM.view.ContactDetail', {
                                 xtype: 'rmphonefield', 
                                 cls: 'rm-flatfield', 
                                 placeHolder: 'enter',
+                                maxLength: 20,
                                 name: 'Phone',
                                 flex: 3.5,
                                 clearIcon: false,
@@ -163,6 +165,7 @@ Ext.define('RM.view.ContactDetail', {
                                 cls: 'rm-flatfield',                             
                                 name: 'FaxAreaCode',						    
                                 placeHolder: 'area code',
+                                maxLength: 20,
                                 flex: 2.2,
                                 clearIcon: false,
                                 border: '0 1 0 1 ',
@@ -172,6 +175,7 @@ Ext.define('RM.view.ContactDetail', {
                                 xtype: 'rmphonefield', 
                                 cls: 'rm-flatfield', 
                                 placeHolder: 'enter',
+                                maxLength: 20,
                                 name: 'Fax',
                                 flex: 3.5,
                                 clearIcon: false,
@@ -182,6 +186,7 @@ Ext.define('RM.view.ContactDetail', {
                             xtype: 'extemailfield',
     						name: 'Email',  
     						label: 'Email',
+                            maxLength: 100,
                             labelWidth: '4em'
     					},{                        
     						name: 'Web',  
@@ -209,26 +214,27 @@ Ext.define('RM.view.ContactDetail', {
                                 },{
                                     name: 'PostalAddress.Address1',                                        
                                     label: 'Street1',
-                                    maxLength: 100
+                                    maxLength: 80
                                 },{
                                     name: 'PostalAddress.Address2', 
                                     label: 'Street2',
-                                    maxLength: 100
+                                    maxLength: 80
                                 },{
             						name: 'PostalAddress.Suburb',   
             						label: 'Suburb',
-                                    maxLength: 100
+                                    maxLength: 80
             					},{
             						name: 'PostalAddress.State',  
-            						label: 'State'
+            						label: 'State',
+                                    maxLength: 80
             					},{
             						name: 'PostalAddress.PostCode',
             						label: 'Postcode',
-                                    maxLength: 100
+                                    maxLength: 30
             					},{
             						name: 'PostalAddress.Country', 
             						label: 'Country',
-                                    maxLength: 100,
+                                    maxLength: 30,
                                     border: '1 0 1 0'
             					}]    						
     					},
@@ -252,26 +258,27 @@ Ext.define('RM.view.ContactDetail', {
                                 {
                                     name: 'BusinessAddress.Address1',                                        
                                     label: 'Street1',
-                                    maxLength: 100
+                                    maxLength: 80
                                 },{
                                     name: 'BusinessAddress.Address2', 
                                     label: 'Street2',
-                                    maxLength: 100
+                                    maxLength: 80
                                 },{
             						name: 'BusinessAddress.Suburb',   
             						label: 'Suburb',
-                                    maxLength: 100
+                                    maxLength: 80
             					},{
             						name: 'BusinessAddress.State',  
-            						label: 'State'
+            						label: 'State',
+                                    maxLength: 80
             					},{
             						name: 'BusinessAddress.PostCode',
             						label: 'Postcode',
-                                    maxLength: 100
+                                    maxLength: 30
             					},{
             						name: 'BusinessAddress.Country', 
             						label: 'Country',
-                                    maxLength: 100,
+                                    maxLength: 30,
                                     border: '1 0 1 0'
             					}]
                         }]

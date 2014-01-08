@@ -1,7 +1,7 @@
 Ext.define('RM.view.Items', {
    extend: 'Ext.Panel',
 	xtype: 'items',
-    requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging'],
+    requires: 'RM.component.RMList',
     config: {
 		
 		layout: 'fit',
@@ -25,8 +25,9 @@ Ext.define('RM.view.Items', {
 				docked: 'top',
 				sortfields: [{text: 'Name', value: 'name'}]
 			},{
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'Items',
+                emptyText: 'No items found.',
 				grouped: true,
 				itemTpl: new Ext.XTemplate(        
 					'<span>{[this.accessLevel(values.Level)]}</span> {Name}',					
@@ -40,18 +41,7 @@ Ext.define('RM.view.Items', {
 							}
 							return ret;
 						}
-				}),				
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },
-					{
-						type: 'listpaging',
-						autoPaging: true,
-                        noMoreRecordsText: ''
-					}
-				]
+				})
 			}
         ] 
     }

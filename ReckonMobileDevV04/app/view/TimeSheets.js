@@ -1,7 +1,7 @@
 Ext.define('RM.view.TimeSheets', {
 	extend: 'Ext.Panel',
 	xtype: 'timesheets',
-	requires: ['RM.component.RMPullRefresh', 'Ext.plugin.ListPaging','RM.view.TimeSheetsCalendar'],
+	requires: ['RM.component.RMList','RM.view.TimeSheetsCalendar'],
 	config: {
 		
 		layout: 'fit',
@@ -97,10 +97,11 @@ Ext.define('RM.view.TimeSheets', {
 					}
 				}
 			}, {
-				xtype: 'list',
+				xtype: 'rmlist',
 				store: 'TimeEntries',
 				grouped: true,
                 loadingText: null,
+                emptyText: 'No timesheets found.',
 				itemTpl: new Ext.XTemplate(
 					'<tpl if="TimeEntryId == \'00000000-0000-0000-0000-000000000000\'">',
 					'<div class="rm-invoicelineitem-add" style = "padding-left: 0; font-weight: normal;">Add time for today</div>',
@@ -153,17 +154,7 @@ Ext.define('RM.view.TimeSheets', {
                             else return itemName;                        
                         }
                     }					
-					),
-				
-				plugins: [
-					{
-                        xclass: 'RM.component.RMPullRefresh',                        
-                    },{
-						type: 'listpaging',
-						autoPaging: true,
-						noMoreRecordsText: ''
-					}
-				]
+					)
 			}]);
         
 	}    

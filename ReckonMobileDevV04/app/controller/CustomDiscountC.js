@@ -11,10 +11,7 @@ Ext.define('RM.controller.CustomDiscountC', {
         control: {
             'customdiscount': {
                 show: 'onShow'
-            },
-            /*'customdiscount exttextfield': {
-                tap: 'onFieldTap'
-            },*/
+            },            
             'customdiscount rmamountfield': {
                 focus: 'onFieldFocus'
             },            
@@ -25,15 +22,13 @@ Ext.define('RM.controller.CustomDiscountC', {
                 tap: 'save'
             }
         }
-
     },
 
     showView: function (discVal, cb, cbs) {
         this.discVal = discVal;
         this.selectCb = cb;
-        this.selectCbs = cbs;
+        this.selectCbs = cbs;      
         
-        console.log('CustomDiscount showView');
         var view = this.getCustomDiscount();
         if (!view)
             view = { xtype: 'customdiscount' };
@@ -57,15 +52,9 @@ Ext.define('RM.controller.CustomDiscountC', {
                 this.currentField = absDiscount;
             }
         }
-    },
-
-    /*onFieldTap: function (tf) {        
-        this.currentField = tf;
-        this.clearFields();        
-    },*/
+    },    
     
-    onFieldFocus: function(tf){
-        console.log('focus');
+    onFieldFocus: function(tf){        
         this.currentField = tf;
         this.clearFields();
     },
@@ -74,33 +63,17 @@ Ext.define('RM.controller.CustomDiscountC', {
         this.getPercentDiscount().setValue('');
         this.getAbsoluteDiscount().setValue('');
     },
-    /*
-    onCalcKeyTap: function (key) {
-        
-        var valStr = this.currentField.getValue();
-        if (key == 'backspace') {
-            if (valStr.length > 0) {
-                valStr = valStr.slice(0, -1)
-            }
-        }        
-        else if ((key != '.' && (valStr.length < valStr.indexOf('.') + (this.currentField.getItemId() == 'percentDiscount' ? 5 : 3 ) )) || valStr.indexOf('.') < 0) {
-            if(valStr == '0' && key != '.') valStr = '';
-            valStr += key;
-        }
-        this.currentField.setValue(valStr);
-
-    },*/
     
-     validateForm: function(){  
-         console.log('validateForm')
+    
+    validateForm: function(){          
          var isValid = true;         
          var val1 = this.getPercentDiscount().getValue();
          var val2 = this.getAbsoluteDiscount().getValue();         
-         if(val1 == '' && val2 == ''){
+         if(!val1 && !val2){
              isValid = false;
          }         
          if(!isValid){            
-            RM.AppMgr.showErrorMsgBox('Please enter percent or absolute discount value');
+            RM.AppMgr.showErrorMsgBox('Please enter a % discount or $ discount non-zero value');
          }         
          return isValid;
      },

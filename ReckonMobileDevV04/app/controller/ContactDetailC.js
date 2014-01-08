@@ -313,7 +313,7 @@ Ext.define('RM.controller.ContactDetailC', {
               
         if(selection == 'Business'){   
             this.detailsData.IsPerson = false;
-            this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS DETAILS</h3>');
+            this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">Business details</h3>');
             this.getBusinessName().setHidden(false);
             this.getBranchName().setHidden(false);
             this.getFirstName().setHidden(true);
@@ -321,7 +321,7 @@ Ext.define('RM.controller.ContactDetailC', {
         }
         else{            
             this.detailsData.IsPerson = true;
-            this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
+            this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">Individual details</h3>');
             this.getBusinessName().setHidden(true);
             this.getBranchName().setHidden(true);
             this.getFirstName().setHidden(false);

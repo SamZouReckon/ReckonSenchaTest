@@ -23,7 +23,8 @@ Ext.define('RM.controller.ContactDetailC', {
             web: 'contactdetail field[name=Web]',
             notesFld: 'contactdetail field[name=Notes]',
             postalAddress: 'contactdetail #postalAddress',
-            businessAddress: 'contactdetail #businessAddress'            
+            businessAddress: 'contactdetail #businessAddress',
+            sameAddress: 'contactdetail field[name=SameAddress]'
         },
         control: {
             'contactdetail': {
@@ -42,8 +43,14 @@ Ext.define('RM.controller.ContactDetailC', {
             'contactdetail #businessOrIndividual': {
                 change: 'onBusinessOrIndividualSelect'
             },
-            notesFld : {
+            notesFld: {
                 tap: 'showNotes'
+            },
+            sameAddress: {
+                change: 'sameAddressChanged'
+            },
+            'contactdetail #postalAddress field': {
+                change: 'onPostalAddressChanged'
             }
         }
 
@@ -86,8 +93,7 @@ Ext.define('RM.controller.ContactDetailC', {
             if (!this.isCreate) {
                 this.loadFormData();
             }
-            else {
-                               
+            else {                               
                 var data = {};                             
                 contactForm.setValues(data);
                 this.getCustomerOrSupplier().setValue(null);
@@ -96,9 +102,8 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsCustomer = null;
                 this.detailsData.IsSupplier = null;
                 this.initialFormValues = contactForm.getValues();
-            }
-
-            this.dataLoaded = true;
+                this.dataLoaded = true;
+            }            
         }        
         
     },
@@ -132,6 +137,8 @@ Ext.define('RM.controller.ContactDetailC', {
                 if(data.ViewNotice){
                     RM.AppMgr.showOkMsgBox(data.ViewNotice);
                 }                
+                
+                this.dataLoaded = true;
 			},
 			this,
             function(eventMsg){
@@ -324,6 +331,38 @@ Ext.define('RM.controller.ContactDetailC', {
         this.getContactDetail().showDetailsFields();
     },
     
+    sameAddressChanged: function(field, sameAddress) {
+        var enableFields = true;
+        if(sameAddress == 'Yes') {
+            // Copy all the postal address fields into the business ones
+            this.copyPostalToBusiness();
+            enableFields = false;
+        }
+        
+        this.getBusinessAddress().getItems().items.forEach(function(item) {
+            if(item.getName && item.getName().indexOf('BusinessAddress.') === 0) {
+                item.setReadOnly(!enableFields);
+                item.setPlaceHolder(enableFields ? 'enter' : '');                
+            }
+        });
+    },
+    
+    onPostalAddressChanged: function() {
+        if(this.getSameAddress().getValue()) {
+            this.copyPostalToBusiness();
+        }
+    },
+    
+    copyPostalToBusiness: function() {
+        var contactDetail = this.getContactDetail();
+        contactDetail.down('field[name=BusinessAddress.Address1]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address1]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Address2]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address2]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Suburb]').setValue(this.getContactDetail().down('field[name=PostalAddress.Suburb]').getValue());
+        contactDetail.down('field[name=BusinessAddress.State]').setValue(this.getContactDetail().down('field[name=PostalAddress.State]').getValue());
+        contactDetail.down('field[name=BusinessAddress.PostCode]').setValue(this.getContactDetail().down('field[name=PostalAddress.PostCode]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Country]').setValue(this.getContactDetail().down('field[name=PostalAddress.Country]').getValue());
+    },
+    
     loadFieldsData: function(data){
         
         if(data.IsCustomer == true && data.IsSupplier == true){
@@ -347,12 +386,23 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBranchName().setValue(data.FirstNameBranchName);
         }
         
+        // Check if the two address properties are equivalent
+        var addressesEqual = true, property;
+        if(data.BusinessAddress && data.PostalAddress) {
+            for(property in data.PostalAddress) {
+                if(data.PostalAddress.hasOwnProperty(property) && data.PostalAddress[property] !== data.BusinessAddress[property]) {
+                    addressesEqual = false;
+                    break;
+                }
+            }            
+            this.getSameAddress().setValue(addressesEqual);
+        }       
     },
     
     // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object
     // e.g. parentProperty.Address1, parentProperty.Address2 etc, using the field name as the binding identifier
     setNestedPropertyValues: function(container, valuesObject, parentProperty){        
-        var fieldName, childProperty, containerItems, field;
+        var fieldName, childProperty, containerItems;
         var dottedProperty = parentProperty + '.';
         
         containerItems = container.getItems().items;

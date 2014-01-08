@@ -1,6 +1,6 @@
 Ext.define('RM.view.ContactDetail', {
 	extend: 'RM.component.SecurePanel',
-    requires: ['RM.component.SecureFormPanel','RM.component.SecureButton','RM.component.RMPhoneField'],
+    requires: ['RM.component.SecureFormPanel','RM.component.SecureButton','RM.component.RMPhoneField','RM.component.RMToggleField'],
 	xtype: 'contactdetail',
     
 	config: {		
@@ -85,6 +85,7 @@ Ext.define('RM.view.ContactDetail', {
                         xtype: 'container',
                         itemId: 'detailsFields',
                         defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},
+                        border: '0 0 0 0',
                         hidden:true,
                         items: [{
                             xtype: 'component',
@@ -95,8 +96,7 @@ Ext.define('RM.view.ContactDetail', {
     						label: 'First name',
                             maxLength: 100,
                             rmmandatory: true,                        
-                            hidden: true,
-                            border: '0 0 1 0'
+                            hidden: true
     					},{
     						name: 'Surname',                                       
     						label: 'Surname',
@@ -107,7 +107,6 @@ Ext.define('RM.view.ContactDetail', {
     						name: 'BusinessName',
     						label: 'Business name',
                             maxLength: 100,
-                            border: '0 0 1 0',
                             rmmandatory: true,
                             hidden: true                        
     					},{
@@ -210,8 +209,7 @@ Ext.define('RM.view.ContactDetail', {
                                 },{
                                     name: 'PostalAddress.Address1',                                        
                                     label: 'Street1',
-                                    maxLength: 100,
-                                    border: '0 0 1 0'
+                                    maxLength: 100
                                 },{
                                     name: 'PostalAddress.Address2', 
                                     label: 'Street2',
@@ -242,12 +240,19 @@ Ext.define('RM.view.ContactDetail', {
                                 xtype: 'component',                                        
                                 itemId: 'addressHeader',                         
                                 html: '<h3 class="rm-m-1 rm-hearderbg">Business Address</h3>'
+                                },{
+                                    xtype: 'rmtogglefield',
+                                    onText: 'Yes',
+                                    offText: 'No',
+                                    label: 'Same as Postal',
+                                    name: 'SameAddress',
+                                    placeHolder: '',
+                                    toggleState: false
                                 },
                                 {
                                     name: 'BusinessAddress.Address1',                                        
                                     label: 'Street1',
-                                    maxLength: 100,
-                                    border: '0 0 1 0'
+                                    maxLength: 100
                                 },{
                                     name: 'BusinessAddress.Address2', 
                                     label: 'Street2',

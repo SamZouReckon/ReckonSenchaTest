@@ -465,6 +465,10 @@ Ext.define('RM.core.AppMgr', {
         this.showErrorMsgBox('Please enter a valid email address.');
     },
     
+    showInvalidURLMsg: function() {
+        this.showErrorMsgBox('Please enter a valid Url, with no spaces or quotes.');
+    },
+    
     isFormValsEqual: function(formVals1, formVals2){        
         return Ext.encode(formVals1) == Ext.encode(formVals2);
         //see http://www.sencha.com/forum/showthread.php?59240-Compare-javascript-objects
@@ -742,6 +746,10 @@ Ext.define('RM.core.AppMgr', {
         else {   
             return false; 
         }
+    },
+    
+    validateURL: function(inputVal) {	
+        return inputVal.indexOf('.') > -1 && inputVal.indexOf('"') === -1 && inputVal.indexOf(' ') == -1;
     },
     
     startUpTest: function(){

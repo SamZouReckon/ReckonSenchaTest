@@ -12,20 +12,19 @@ Ext.define('RM.controller.ContactDetailC', {
             businessOrIndividual: 'contactdetail #businessOrIndividual',            
             addressHeader: 'contactdetail #addressHeader',
             detailHeader: 'contactdetail #detailHeader',
-            businessName: 'contactdetail textfield[name=BusinessName]',
-            branchName: 'contactdetail textfield[name=BranchName]',              
-            firstName: 'contactdetail textfield[name=FirstName]',
-            surname: 'contactdetail textfield[name=Surname]',
+            businessName: 'contactdetail field[name=BusinessName]',
+            branchName: 'contactdetail field[name=BranchName]',  
+            abn: 'contactdetail field[name=ABN]',  
+            firstName: 'contactdetail field[name=FirstName]',
+            surname: 'contactdetail field[name=Surname]',
             phoneContainer: 'contactdetail #phoneContainer',
             faxContainer: 'contactdetail #faxContainer',
-            email: 'contactdetail textfield[name=Email]',
-            address1: 'contactdetail textfield[name=Address1]',
-            address2: 'contactdetail textfield[name=Address2]',
-            suburb: 'contactdetail textfield[name=Suburb]',
-            state: 'contactdetail textfield[name=State]',
-            postcode: 'contactdetail textfield[name=PostCode]',
-            country: 'contactdetail textfield[name=Country]'
-            
+            email: 'contactdetail field[name=Email]',
+            web: 'contactdetail field[name=Web]',
+            notesFld: 'contactdetail field[name=Notes]',
+            postalAddress: 'contactdetail #postalAddress',
+            businessAddress: 'contactdetail #businessAddress',
+            sameAddress: 'contactdetail field[name=SameAddress]'
         },
         control: {
             'contactdetail': {
@@ -43,6 +42,15 @@ Ext.define('RM.controller.ContactDetailC', {
             },
             'contactdetail #businessOrIndividual': {
                 change: 'onBusinessOrIndividualSelect'
+            },
+            notesFld: {
+                tap: 'showNotes'
+            },
+            sameAddress: {
+                change: 'sameAddressChanged'
+            },
+            'contactdetail #postalAddress field': {
+                change: 'onPostalAddressChanged'
             }
         }
 
@@ -50,6 +58,7 @@ Ext.define('RM.controller.ContactDetailC', {
 	
 	showView: function(isCreate, data, cb, cbs){
         this.isCreate = isCreate;
+        this.isEditable = true;
         this.detailsData = data ? data : {};
         this.detailsCb = cb;
         this.detailsCbs = cbs;
@@ -84,8 +93,7 @@ Ext.define('RM.controller.ContactDetailC', {
             if (!this.isCreate) {
                 this.loadFormData();
             }
-            else {
-                               
+            else {                               
                 var data = {};                             
                 contactForm.setValues(data);
                 this.getCustomerOrSupplier().setValue(null);
@@ -93,11 +101,9 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsPerson = null;
                 this.detailsData.IsCustomer = null;
                 this.detailsData.IsSupplier = null;
-                this.hideFields(true);
                 this.initialFormValues = contactForm.getValues();
-            }
-
-            this.dataLoaded = true;
+                this.dataLoaded = true;
+            }            
         }        
         
     },
@@ -107,6 +113,7 @@ Ext.define('RM.controller.ContactDetailC', {
     },        
     
     setEditable: function(editable){
+        this.isEditable = editable;
         this.getSaveBtn().setHidden(!editable);
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getContactForm()); }        
     },      
@@ -114,8 +121,14 @@ Ext.define('RM.controller.ContactDetailC', {
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
 			function (data) {                
-                var contactForm =  this.getContactForm();                
+                this.formattedNoteValue = data.Notes;
+                // Strip newlines and display the notes unformatted in the textbox
+                data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
+                
+                var contactForm =  this.getContactForm();          
                 contactForm.setValues(data);
+                this.setNestedPropertyValues(this.getBusinessAddress(), data, 'BusinessAddress');
+                this.setNestedPropertyValues(this.getPostalAddress(), data, 'PostalAddress');
                 this.loadFieldsData(data);
                 this.initialFormValues = contactForm.getValues();
                 if(Ext.isDefined(data.SaveSupport) && !data.SaveSupport){
@@ -124,6 +137,8 @@ Ext.define('RM.controller.ContactDetailC', {
                 if(data.ViewNotice){
                     RM.AppMgr.showOkMsgBox(data.ViewNotice);
                 }                
+                
+                this.dataLoaded = true;
 			},
 			this,
             function(eventMsg){
@@ -173,6 +188,13 @@ Ext.define('RM.controller.ContactDetailC', {
             return isValid;
         }
         
+        if (vals.Web !== '' && !RM.AppMgr.validateURL(vals.Web)) {             
+            this.getWeb().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidURLMsg();
+            return isValid;
+        }
+        
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
         }
@@ -201,6 +223,13 @@ Ext.define('RM.controller.ContactDetailC', {
         vals.IsSupplier = this.detailsData.IsSupplier;  
         vals.IsActive = true;                             //Set this to field value when contact state field is added back to contact detail form
         
+        // Save the fully formatted notes value, not the unformatted one displayed in the textbox
+        vals.Notes = this.formattedNoteValue;
+        
+        // Some fernagling to get the address fields populated properly
+        this.unFlattenProperty(vals, 'BusinessAddress');
+        this.unFlattenProperty(vals, 'PostalAddress');
+            
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;
             delete vals.BusinessOrIndividual;
@@ -244,6 +273,23 @@ Ext.define('RM.controller.ContactDetailC', {
         }    
     },
     
+    showNotes: function(){
+        
+        RM.Selectors.showNoteText(
+            'Notes',
+            this.isEditable && !this.getContactForm().addEditDenied,
+            'SAVE',
+            this.formattedNoteValue,
+            function(noteText){
+                RM.ViewMgr.back();
+                this.formattedNoteValue = noteText;
+                this.getNotesFld().setValue(noteText.replace(/(\r\n|\n|\r)/g, ' '));
+            },
+            this
+        );
+        
+    }, 
+    
     onCustomerOrSupplierSelect: function() {
         
         var selection = this.getCustomerOrSupplier().getValue();
@@ -264,13 +310,10 @@ Ext.define('RM.controller.ContactDetailC', {
     
     onBusinessOrIndividualSelect: function() {
         var selection = this.getBusinessOrIndividual().getValue();
-        
-        this.hideFields(false);
-        
+              
         if(selection == 'Business'){   
             this.detailsData.IsPerson = false;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS DETAILS</h3>');
-            this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
             this.getBusinessName().setHidden(false);
             this.getBranchName().setHidden(false);
             this.getFirstName().setHidden(true);
@@ -279,12 +322,45 @@ Ext.define('RM.controller.ContactDetailC', {
         else{            
             this.detailsData.IsPerson = true;
             this.getDetailHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">INDIVIDUAL DETAILS</h3>');
-            this.getAddressHeader().setHtml('<h3 class="rm-m-1 rm-hearderbg">BUSINESS ADDRESS</h3>');
             this.getBusinessName().setHidden(true);
             this.getBranchName().setHidden(true);
             this.getFirstName().setHidden(false);
             this.getSurname().setHidden(false);            
         }
+        
+        this.getContactDetail().showDetailsFields();
+    },
+    
+    sameAddressChanged: function(field, sameAddress) {
+        var enableFields = true;
+        if(sameAddress == 'Yes') {
+            // Copy all the postal address fields into the business ones
+            this.copyPostalToBusiness();
+            enableFields = false;
+        }
+        
+        this.getBusinessAddress().getItems().items.forEach(function(item) {
+            if(item.getName && item.getName().indexOf('BusinessAddress.') === 0) {
+                item.setReadOnly(!enableFields);
+                item.setPlaceHolder(enableFields ? 'enter' : '');                
+            }
+        });
+    },
+    
+    onPostalAddressChanged: function() {
+        if(this.getSameAddress().getValue()) {
+            this.copyPostalToBusiness();
+        }
+    },
+    
+    copyPostalToBusiness: function() {
+        var contactDetail = this.getContactDetail();
+        contactDetail.down('field[name=BusinessAddress.Address1]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address1]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Address2]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address2]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Suburb]').setValue(this.getContactDetail().down('field[name=PostalAddress.Suburb]').getValue());
+        contactDetail.down('field[name=BusinessAddress.State]').setValue(this.getContactDetail().down('field[name=PostalAddress.State]').getValue());
+        contactDetail.down('field[name=BusinessAddress.PostCode]').setValue(this.getContactDetail().down('field[name=PostalAddress.PostCode]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Country]').setValue(this.getContactDetail().down('field[name=PostalAddress.Country]').getValue());
     },
     
     loadFieldsData: function(data){
@@ -308,22 +384,44 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBusinessOrIndividual().setValue('Business');
             this.getBusinessName().setValue(data.SurnameBusinessName);
             this.getBranchName().setValue(data.FirstNameBranchName);
-        }
-        
+        }       
+               
     },
     
-    hideFields: function(val){        
-        this.getDetailHeader().setHidden(val);
-        this.getAddressHeader().setHidden(val);        
-        this.getPhoneContainer().setHidden(val);
-        this.getFaxContainer().setHidden(val);
-        this.getEmail().setHidden(val);
-        this.getAddress1().setHidden(val);
-        this.getAddress2().setHidden(val);
-        this.getSuburb().setHidden(val);
-        this.getState().setHidden(val);
-        this.getPostcode().setHidden(val);
-        this.getCountry().setHidden(val);        
-    }    
+    // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object
+    // e.g. parentProperty.Address1, parentProperty.Address2 etc, using the field name as the binding identifier
+    setNestedPropertyValues: function(container, valuesObject, parentProperty){        
+        var fieldName, childProperty, containerItems;
+        var dottedProperty = parentProperty + '.';
+        
+        containerItems = container.getItems().items;
+        containerItems.forEach(function(item) {
+            // Make sure this item is a field that has a Name getter
+            fieldName = item.getName ? item.getName() : null;
+            
+            // It also has to be bound to a child property of parentProperty
+            if(!fieldName || fieldName.indexOf(dottedProperty) !== 0) return;
+            
+            // We have a winner, set the field value accordingly
+            childProperty = fieldName.replace(dottedProperty, '');
+            item.setValue(valuesObject[parentProperty][childProperty]);                     
+        });
+    },
+    
+    // Find all properties on the object that start with "propertyName." and hydrate 
+    // them into an object literal property of the same name
+    unFlattenProperty: function(object, propertyName) {
+        var property, dottedName;
+        dottedName = propertyName + ".";
+        
+        object[propertyName] = object[propertyName] || {};        
+        for(property in object) {            
+            if(property.indexOf(dottedName) === 0) {
+                object[propertyName][property.replace(dottedName,'')] = object[property];
+                delete object[property];
+            }
+        }        
+        
+    }
 
 });

@@ -1,4 +1,3 @@
-
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -5502,9 +5501,6 @@ body.x-desktop {
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-list-pullrefresh;*/
-.x-field-input {
-  overflow: hidden; }
-
 .x-android .x-input-el {
   -webkit-text-fill-color: #787878 !important; }
 .x-android .x-input-el .rm-togglefield-off .x-field-input {

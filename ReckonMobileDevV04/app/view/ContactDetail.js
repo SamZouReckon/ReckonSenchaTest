@@ -213,15 +213,15 @@ Ext.define('RM.view.ContactDetail', {
                                     html: '<h3 class="rm-m-1 rm-hearderbg">Postal address</h3>'
                                 },{
                                     name: 'PostalAddress.Address1',                                        
-                                    label: 'Street1',
+                                    label: 'Address',
                                     maxLength: 80
                                 },{
                                     name: 'PostalAddress.Address2', 
-                                    label: 'Street2',
+                                    label: '',
                                     maxLength: 80
                                 },{
             						name: 'PostalAddress.Suburb',   
-            						label: 'Suburb',
+            						label: 'Town/Suburb',
                                     maxLength: 80
             					},{
             						name: 'PostalAddress.State',  
@@ -257,15 +257,15 @@ Ext.define('RM.view.ContactDetail', {
                                 },
                                 {
                                     name: 'BusinessAddress.Address1',                                        
-                                    label: 'Street1',
+                                    label: 'Address',
                                     maxLength: 80
                                 },{
                                     name: 'BusinessAddress.Address2', 
-                                    label: 'Street2',
+                                    label: '',
                                     maxLength: 80
                                 },{
             						name: 'BusinessAddress.Suburb',   
-            						label: 'Suburb',
+            						label: 'Town/Suburb',
                                     maxLength: 80
             					},{
             						name: 'BusinessAddress.State',  

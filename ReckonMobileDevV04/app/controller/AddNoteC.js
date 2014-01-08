@@ -57,7 +57,7 @@ Ext.define('RM.controller.AddNoteC', {
     },
         
     onHide: function() {
-        RM.ViewMgr.deRegFormBackHandler();
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },
 
     isFormDirty: function(){        

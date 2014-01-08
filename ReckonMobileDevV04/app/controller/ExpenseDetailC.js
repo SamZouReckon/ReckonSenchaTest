@@ -106,7 +106,7 @@ Ext.define('RM.controller.ExpenseDetailC', {
     },
     
     onHide: function(){
-        RM.ViewMgr.deRegFormBackHandler();
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },    
 
     isFormDirty: function(){        

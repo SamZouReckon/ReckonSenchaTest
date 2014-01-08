@@ -43,6 +43,7 @@ Ext.define('RM.view.CustomDiscount', {
                     clearIcon: false,   
                     //cursorSimulate: true,
                     //readOnly: true,
+                    minValue: 0,
                     maxValue: 100,
                     cls: 'rm-flatfield',
 					placeHolder: 'enter'
@@ -55,6 +56,7 @@ Ext.define('RM.view.CustomDiscount', {
                     clearIcon: false,   
                     //cursorSimulate: true,
                     //readOnly: true,
+                    minValue: 0,
                     cls: 'rm-flatfield',
 					placeHolder: 'enter',
                     border: '1 0 1 0',

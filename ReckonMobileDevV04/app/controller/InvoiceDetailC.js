@@ -157,7 +157,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     onHide: function(){
-        RM.ViewMgr.deRegFormBackHandler();
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },
     
     onItemUpdated: function (itemType) {

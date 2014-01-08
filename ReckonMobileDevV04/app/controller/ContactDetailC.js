@@ -384,19 +384,8 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBusinessOrIndividual().setValue('Business');
             this.getBusinessName().setValue(data.SurnameBusinessName);
             this.getBranchName().setValue(data.FirstNameBranchName);
-        }
-        
-        // Check if the two address properties are equivalent
-        var addressesEqual = true, property;
-        if(data.BusinessAddress && data.PostalAddress) {
-            for(property in data.PostalAddress) {
-                if(data.PostalAddress.hasOwnProperty(property) && data.PostalAddress[property] !== data.BusinessAddress[property]) {
-                    addressesEqual = false;
-                    break;
-                }
-            }            
-            this.getSameAddress().setValue(addressesEqual);
         }       
+               
     },
     
     // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object

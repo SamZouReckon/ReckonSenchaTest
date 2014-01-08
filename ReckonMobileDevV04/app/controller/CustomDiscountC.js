@@ -73,7 +73,7 @@ Ext.define('RM.controller.CustomDiscountC', {
              isValid = false;
          }         
          if(!isValid){            
-            RM.AppMgr.showErrorMsgBox('Please enter a % discount or $ discount non-zero value');
+            RM.AppMgr.showErrorMsgBox('Please enter a % discount or $ discount value greater than 0.');
          }         
          return isValid;
      },

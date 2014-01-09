@@ -157,7 +157,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
 
     onHide: function(){
-        RM.ViewMgr.deRegFormBackHandler();
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },
     
     onItemUpdated: function (itemType) {
@@ -296,6 +296,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     			);
             }
             else if (fldName == 'Discount') {
+                RM.ViewMgr.hideKeyPad();
                 var oldVal = tf.getValue();
     
                 RM.InvoicesMgr.showChooseDiscountPopup(

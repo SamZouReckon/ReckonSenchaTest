@@ -51,12 +51,12 @@ Ext.define('RM.view.ContactDetail', {
                         xtype: 'extselectfield',
                         name: 'CustomerOrSupplier',
 						itemId: 'customerOrSupplier',
-						label: 'Customer or supplier',
+						label: 'Type of contact',
                         labelWidth: '10em',                        
                         options: [                            
                             {text: 'Customer', value: 'Customers'},
                             {text: 'Supplier',  value: 'Suppliers'},
-                            {text: 'Customer and Supplier',  value: 'CustomerSuppliers'}
+                            {text: 'Customer and supplier',  value: 'CustomerSuppliers'}
                         ],
                         rmmandatory: true,
                         usePicker: true,						
@@ -90,7 +90,7 @@ Ext.define('RM.view.ContactDetail', {
                         items: [{
                             xtype: 'component',
                             itemId: 'detailHeader',    
-                            html: '<h3 class="rm-m-1 rm-hearderbg">DETAILS</h3>'
+                            html: '<h3 class="rm-m-1 rm-hearderbg">Details</h3>'
     					},{
     						name: 'FirstName',
     						label: 'First name',
@@ -210,18 +210,18 @@ Ext.define('RM.view.ContactDetail', {
                                     xtype: 'component',                                        
                                     itemId: 'addressHeader',
                                     layout: 'vbox',
-                                    html: '<h3 class="rm-m-1 rm-hearderbg">Postal Address</h3>'
+                                    html: '<h3 class="rm-m-1 rm-hearderbg">Postal address</h3>'
                                 },{
                                     name: 'PostalAddress.Address1',                                        
-                                    label: 'Street1',
+                                    label: 'Address',
                                     maxLength: 80
                                 },{
                                     name: 'PostalAddress.Address2', 
-                                    label: 'Street2',
+                                    label: '',
                                     maxLength: 80
                                 },{
             						name: 'PostalAddress.Suburb',   
-            						label: 'Suburb',
+            						label: 'Town/Suburb',
                                     maxLength: 80
             					},{
             						name: 'PostalAddress.State',  
@@ -245,27 +245,27 @@ Ext.define('RM.view.ContactDetail', {
                             items: [{                            
                                 xtype: 'component',                                        
                                 itemId: 'addressHeader',                         
-                                html: '<h3 class="rm-m-1 rm-hearderbg">Business Address</h3>'
+                                html: '<h3 class="rm-m-1 rm-hearderbg">Business address</h3>'
                                 },{
                                     xtype: 'rmtogglefield',
                                     onText: 'Yes',
                                     offText: 'No',
-                                    label: 'Same as Postal',
+                                    label: 'Same as postal',
                                     name: 'SameAddress',
                                     placeHolder: '',
                                     toggleState: false
                                 },
                                 {
                                     name: 'BusinessAddress.Address1',                                        
-                                    label: 'Street1',
+                                    label: 'Address',
                                     maxLength: 80
                                 },{
                                     name: 'BusinessAddress.Address2', 
-                                    label: 'Street2',
+                                    label: '',
                                     maxLength: 80
                                 },{
             						name: 'BusinessAddress.Suburb',   
-            						label: 'Suburb',
+            						label: 'Town/Suburb',
                                     maxLength: 80
             					},{
             						name: 'BusinessAddress.State',  

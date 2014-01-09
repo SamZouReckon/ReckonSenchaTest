@@ -131,9 +131,11 @@ Ext.define('RM.core.ViewMgr', {
         this.formBackHandlerScope = scope;        
     },
 
-    deRegFormBackHandler: function(){
-        this.formBackHandler = null;
-        this.formBackHandlerScope = null;
+    deRegFormBackHandler: function(handler){
+        if(handler == this.formBackHandler){
+            this.formBackHandler = null;
+            this.formBackHandlerScope = null;
+        }  
     },        
     
     showCoreSettings: function(){

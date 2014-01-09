@@ -14,7 +14,8 @@ Ext.define('RM.controller.AcceptPaymentC', {
         },
         control: {
             'acceptpayment': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },
             'acceptpayment #back': {
                 tap: 'onBack'
@@ -50,9 +51,14 @@ Ext.define('RM.controller.AcceptPaymentC', {
     
     onShow: function(){
         var form = this.getAcceptPaymentForm();
+        RM.ViewMgr.regFormBackHandler(this.onBack, this);
         //form.reset();        
         form.setValues({AmountPaid: this.fullAmount});
     },
+    
+    onHide: function(){
+        RM.ViewMgr.deRegFormBackHandler(this.onBack);
+    },    
     
     loadSelectFields: function(){
         

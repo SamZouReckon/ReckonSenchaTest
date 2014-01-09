@@ -170,6 +170,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     onFieldTap: function (tf) {
         if(this.isEditable){
     		if (tf.getName() == 'Discount') {
+                RM.ViewMgr.hideKeyPad();                
                 var discVal = tf.getValue();
     		    RM.InvoicesMgr.showChooseDiscountPopup(
                     'None' ? 0 : discVal,

@@ -65,18 +65,23 @@ Ext.define('RM.controller.CustomDiscountC', {
     },
     
     
-    validateForm: function(){          
-         var isValid = true;         
-         var val1 = this.getPercentDiscount().getValue();
-         var val2 = this.getAbsoluteDiscount().getValue();         
-         if(!val1 && !val2){
-             isValid = false;
-         }         
-         if(!isValid){            
-            RM.AppMgr.showErrorMsgBox('Please enter a % discount or $ discount value greater than 0.');
-         }         
-         return isValid;
-     },
+    validateForm: function() {          
+        var isValid = true;         
+        var val1 = this.getPercentDiscount().getValue();
+        var val2 = this.getAbsoluteDiscount().getValue();         
+        if (!val1 && !val2) {
+            isValid = false;
+        }  
+        if (val1 && val1 > 100) {
+            isValid = false;            
+            RM.AppMgr.showErrorMsgBox('% discount cannot be greater than 100.');            
+            return isValid;
+        }
+        if (!isValid) {            
+            RM.AppMgr.showErrorMsgBox('Please enter a % discount or $ discount value greater than 0.');            
+        }         
+        return isValid;
+    },
 
     save: function () {         
         if(this.validateForm()){             

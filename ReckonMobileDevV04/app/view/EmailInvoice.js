@@ -99,7 +99,7 @@ Ext.define('RM.view.EmailInvoice', {
 					{
 						xtype: 'container',
 						layout: 'hbox',
-						height: 100,
+						height: 110,
 						cls: 'rm-emailpositivepanel',
 						items: [
 							{
@@ -125,7 +125,7 @@ Ext.define('RM.view.EmailInvoice', {
 					{
 						xtype: 'container',
 						layout: 'hbox',
-						height: 120,
+						height: 130,
 						cls: 'rm-emailnegativepanel',
 						items: [
 							{

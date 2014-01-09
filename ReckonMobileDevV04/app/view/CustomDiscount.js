@@ -1,7 +1,7 @@
 Ext.define('RM.view.CustomDiscount', {
     extend: 'Ext.Panel',
     xtype: 'customdiscount',
-	requires: ['RM.component.DataEntryKeypad','RM.component.RMAmountField'],
+	requires: ['RM.component.RMAmountField'],
     config: {
         
         layout: 'fit',
@@ -44,7 +44,7 @@ Ext.define('RM.view.CustomDiscount', {
                     //cursorSimulate: true,
                     //readOnly: true,
                     minValue: 0,
-                    maxValue: 100,
+                    //maxValue: 100,
                     cls: 'rm-flatfield',
 					placeHolder: 'enter'
 				},{

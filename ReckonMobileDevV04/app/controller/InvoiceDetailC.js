@@ -296,6 +296,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     			);
             }
             else if (fldName == 'Discount') {
+                RM.ViewMgr.hideKeyPad();
                 var oldVal = tf.getValue();
     
                 RM.InvoicesMgr.showChooseDiscountPopup(

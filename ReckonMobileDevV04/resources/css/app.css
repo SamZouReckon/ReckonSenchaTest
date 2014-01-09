@@ -5504,16 +5504,9 @@ body.x-desktop {
 @include sencha-list-pullrefresh;*/
 .x-android .x-input-el {
   -webkit-text-fill-color: #787878 !important; }
-.x-android .x-input-el .rm-togglefield-off .x-field-input {
-  padding-top: 1em !important; }
-.x-android .x-input-el .rm-togglefield-on .x-field-input {
-  padding-top: 1em !important; }
 
-.x-android .rm-togglefield-off .x-input-el {
-  padding-top: 1.1em !important; }
-
-.x-android .rm-togglefield-on .x-input-el {
-  padding-top: 1.1em !important; }
+.x-android .rm-flatfield-disabled .x-input-el {
+  padding-bottom: 0.7em !important; }
 
 .x-toolbar-rm-sortsearch-topbar {
   background-image: none;
@@ -6917,6 +6910,7 @@ rm-emailinvoicebackground {
   background-size: 18px;
   position: absolute;
   right: 10px;
+  padding-top: 0.85em;
   padding-bottom: 0.9em; }
 
 .rm-togglefield-off .x-input-el {
@@ -6931,6 +6925,7 @@ rm-emailinvoicebackground {
   background-size: 14px;
   position: absolute;
   right: 10px;
+  padding-top: 0.85em;
   padding-bottom: 0.9em; }
 
 .x-loading-spinner {

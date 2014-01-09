@@ -182,7 +182,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         var taxPrefs = RM.CashbookMgr.getTaxPreferences();
         amounts.setReadOnly(!this.isEditable() || !taxPrefs.AllowTaxEdit);
         if(!this.isEditable() || !taxPrefs.AllowTaxEdit){
-            amounts.setCls('rm-flatfield-disabled rm-flatfield-disabled-pt0');
+            amounts.setCls('rm-flatfield-disabled');
         }
         if(this.isCreate) {
             // New invoice behaviour

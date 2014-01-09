@@ -108,7 +108,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					label: 'Amount',
     					value: 0,
                         readOnly: true,
-    					cls: 'rm-flatfield-disabled rm-flatfield-disabled-pt0',                        
+    					cls: 'rm-flatfield-disabled-pt0 rm-flatfield-disabled',                        
                         decimalPlaces: 2,
                         prefix: '$'
     				},{

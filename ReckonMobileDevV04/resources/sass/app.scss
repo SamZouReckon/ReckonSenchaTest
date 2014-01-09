@@ -1259,6 +1259,7 @@ rm-emailinvoicebackground{
 		color: #FFFFFF;		
 	}
     padding: 20px 10px;
+    word-wrap: break-word;
 }
 
 .rm-emailcrossmark{	
@@ -1274,7 +1275,8 @@ rm-emailinvoicebackground{
 	.x-innerhtml {		
 		color: #FFFFFF;		
 	}
-	padding: 20px 10px;	
+	padding: 20px 10px;
+    word-wrap: break-word;	
 }
 
 .rm-paymenttype-btn-bg{	

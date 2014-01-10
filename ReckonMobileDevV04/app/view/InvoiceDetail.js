@@ -97,7 +97,7 @@ Ext.define('RM.view.InvoiceDetail', {
                     labelWidth: '8.5em'
 				},{
 					xtype: 'extselectfield',
-					label: 'Gross / Net',
+					label: 'Gross/Net',
 					usePicker: true,
 					name: 'AmountTaxStatus',
                     labelWidth: 140,

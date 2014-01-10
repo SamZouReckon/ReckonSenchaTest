@@ -290,6 +290,12 @@ Ext.define('RM.core.ViewMgr', {
         } catch(e) { }
     },
     
+    showKeyPad: function() {
+        try {
+            if(cordova) cordova.plugins.SoftKeyboard.show();
+        } catch(e) { }
+    },
+    
     ifKeypadVisible: function(thenCb, elseCb) {
         var safeThen = thenCb || function() {};
         var safeElse = elseCb || function() {};

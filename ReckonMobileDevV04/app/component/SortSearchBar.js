@@ -11,8 +11,7 @@ Ext.define('RM.component.SortSearchBar', {
 			},
 			'textfield': {			
 				keyup: 'onSearchKeyUp',
-				clearicontap: 'onClearIconTap',
-                blur: 'onSearchBlur'
+				clearicontap: 'onClearIconTap'
 			},
 			'button': {			
 				tap: 'onSearchToggle'
@@ -30,6 +29,7 @@ Ext.define('RM.component.SortSearchBar', {
 				options: this.config.sortfields
 			},{
 				xtype: 'textfield',
+                itemId: 'searchText',
 				hidden: true,
 				width: '80%',
                 clearIcon: false
@@ -64,7 +64,6 @@ Ext.define('RM.component.SortSearchBar', {
     },
 	
 	onSearchToggle: function(){
-        
 		var search = this.getComponent(1);       
 
         if(search.isHidden())
@@ -79,36 +78,23 @@ Ext.define('RM.component.SortSearchBar', {
         
 	},
     
-    showSearch: function(){        
-        var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);
-        
-        
+    showSearch: function(){   
+        var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);        
         btn.setIcon('resources/images/icons/rm-cross.svg');        
         sort.setHidden(true);
         search.setHidden(false);
-        search.focus();
-        this.needForceFocus = true;
-        /*if (this.focusTimer) {
-            clearTimeout(this.focusTimer);
-            this.focusTimer = null;
+        if(Ext.os.is.Android) {        
+            setTimeout(function() { 
+                search.focus();
+                RM.ViewMgr.showKeyPad();
+            }, 
+            500);
         }
-        this.focusTimer = Ext.defer(this.focusSearch, 1000, this);*/
+        else {
+            search.focus();
+        }
+    },
         
-    },
-    
-    /*focusSearch: function(){        
-        this.getComponent(1).focus();        
-    }, */
-    
-    onSearchBlur: function() { 
-        if (Ext.os.is('Android')) {
-            if (this.needForceFocus) {
-                this.getComponent(1).focus();
-                this.needForceFocus = false;              
-            }
-        }           
-    },
-    
     hideSearch: function(supressEvent){
         var search = this.getComponent(1), btn = this.getComponent(3), sort = this.getComponent(0);
         search.blur();

@@ -167,7 +167,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
     },
     
     onSave: function(button) {
-        this.save();  
+        if(this.isFormDirty()){
+            this.save();    
+        }
+        else{
+            this.goBack();            
+        }
     },
     
     applyViewEditableRules: function(){

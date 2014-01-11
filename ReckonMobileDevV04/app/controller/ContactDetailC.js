@@ -35,7 +35,7 @@ Ext.define('RM.controller.ContactDetailC', {
                 tap: 'back'
             },            
             'contactdetail #save': {
-                tap: 'save'
+                tap: 'onSave'
             },
             'contactdetail #customerOrSupplier': {
                 change: 'onCustomerOrSupplierSelect'
@@ -111,6 +111,15 @@ Ext.define('RM.controller.ContactDetailC', {
     onHide: function(){
         RM.ViewMgr.deRegFormBackHandler(this.back);
     },        
+    
+    onSave: function(button) {
+        if(this.isFormDirty()){
+            this.save();    
+        }
+        else{
+            this.goBack();            
+        }
+    },    
     
     setEditable: function(editable){
         this.isEditable = editable;

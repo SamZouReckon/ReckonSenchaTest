@@ -7,7 +7,9 @@ Ext.define('RM.component.ExtDatePickerField', {
         this.callParent(arguments);        
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
-        }        
+        } 
+        
+        this.resetPickerConfig();
     },    
 
     onClearIconTap: function() {        
@@ -27,23 +29,7 @@ Ext.define('RM.component.ExtDatePickerField', {
     
     onFocus: function() {
         if(!this.clearing) {            
-            
-            // workaround to delay the picker display because of the slow keyboard dismissal on android in Sencha 2.3
-            if(Ext.os.is.Android && !this.focusDelayed) {
-                this.focusDelayed = true;
-                var that = this;
-                var args = arguments;
-                RM.Log.debug('Delaying DatePicker focus so keypad can be dismissed');
-                setTimeout(function() {
-                    RM.Log.debug('DatePicker focus resumed');
-                    that.onFocus.apply(that, args);
-                    that.focusDelayed = false;
-                }, 600);
-            }
-            else {
-                this.callParent(arguments);
-            }
-                        
+            this.callParent(arguments);                        
         }
     },
     
@@ -74,7 +60,15 @@ Ext.define('RM.component.ExtDatePickerField', {
         return me;
     },    
     
-    resetPicker: function(){
+    resetPicker: function() {
+        this.getPicker().setValue({
+				day: new Date().getDate(),
+				month: new Date().getMonth() + 1,
+				year: new Date().getFullYear()
+			});
+    },
+    
+    resetPickerConfig: function(){
         var that = this;
         this.setPicker({
 			slotOrder: ['day', 'month',  'year'],

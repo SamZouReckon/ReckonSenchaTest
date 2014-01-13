@@ -101,11 +101,11 @@ Ext.define('RM.controller.AcceptPaymentC', {
     
      validateForm: function(vals){        
         var isValid = true;
-        
-        if(!vals.AmountPaid){
+        console.log('AcceptPaymentC validation');
+        if( vals.AmountPaid === undefined || vals.AmountPaid === null || vals.AmountPaid === ''){
             this.getAmountPaid().showValidation(false);
             isValid = false;
-        } 
+        }        
         
         if(!vals.BankAccountId){
             this.getBankAccount().showValidation(false);
@@ -121,6 +121,12 @@ Ext.define('RM.controller.AcceptPaymentC', {
             RM.AppMgr.showInvalidFormMsg();
             return false;
         }
+         
+         if (vals.AmountPaid <= 0) {
+            this.getAmountPaid().showValidation(false);
+            RM.AppMgr.showErrorMsgBox('Please enter amount value greater than 0');  
+            isValid = false;
+        } 
          
         if(vals.AmountPaid > this.fullAmount){
             this.getAmountPaid().showValidation(false);

@@ -37,19 +37,19 @@ Ext.define('RM.view.AddNote', {
                 //cls: 'rm-flatfield rm-inputel-alignl',
                 border: '1 0 1 0',
                 style: 'border-color: #DBDBDB; border-style: solid;',                
-                maxRows: 10,
-                listeners: {    
-                    focus: function(field) {                                        
-                        var numOfRows = field.getValue().split("\n").length;                                       
-                        field.setMaxRows(numOfRows+2);
-                    },
-                    keyup: function(field) {
-                        var numOfRows = field.getValue().split("\n").length;                                          
-                        field.setMaxRows(numOfRows+2);
-                    }
-                }
+                maxRows: 10
             }]               
         }
         ]
+    },
+    
+    initialize: function() {
+        this.down('#notetext').on(['focus','keyup'], this.setTextAreaRows, this);
+    },    
+
+    setTextAreaRows: function() {
+        var field = this.down('#notetext');
+        var numOfRows = field.getValue().split("\n").length;                                          
+        field.setMaxRows(Math.max(numOfRows+2, field.getMaxRows()));
     }
 });

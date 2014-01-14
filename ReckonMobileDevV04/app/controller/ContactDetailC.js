@@ -288,7 +288,7 @@ Ext.define('RM.controller.ContactDetailC', {
             'Notes',
             this.isEditable && !this.getContactForm().addEditDenied,
             'SAVE',
-            this.formattedNoteValue,
+            this.formattedNoteValue || '',
             function(noteText){
                 RM.ViewMgr.back();
                 this.formattedNoteValue = noteText;

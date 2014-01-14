@@ -130,7 +130,7 @@ Ext.define('RM.controller.ContactDetailC', {
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
 			function (data) {                
-                this.formattedNoteValue = data.Notes || '';
+                this.formattedNoteValue = data.Notes;
                 // Strip newlines and display the notes unformatted in the textbox
                 data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
                 
@@ -288,7 +288,7 @@ Ext.define('RM.controller.ContactDetailC', {
             'Notes',
             this.isEditable && !this.getContactForm().addEditDenied,
             'SAVE',
-            this.formattedNoteValue,
+            this.formattedNoteValue || '',
             function(noteText){
                 RM.ViewMgr.back();
                 this.formattedNoteValue = noteText;

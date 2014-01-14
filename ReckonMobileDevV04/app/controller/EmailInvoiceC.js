@@ -14,7 +14,8 @@ Ext.define('RM.controller.EmailInvoiceC', {
         },
         control: {
             'emailinvoice': {
-                show: 'onShow'
+                show: 'onShow',
+                hide: 'onHide'
             },            
             'emailinvoice #back': {
                 tap: 'back'

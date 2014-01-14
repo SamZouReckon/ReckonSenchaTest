@@ -5505,9 +5505,6 @@ body.x-desktop {
 .x-android .x-input-el {
   -webkit-text-fill-color: #787878 !important; }
 
-.x-android .rm-flatfield-disabled .x-input-el {
-  padding-bottom: 0.7em !important; }
-
 .x-toolbar-rm-sortsearch-topbar {
   background-image: none;
   background-color: #4e4e4e;

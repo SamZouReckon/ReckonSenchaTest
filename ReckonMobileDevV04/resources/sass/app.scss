@@ -121,13 +121,6 @@ $include-list-highlights: none;
     -webkit-text-fill-color: $rm-default-color !important;    
 }
 
-.x-android .rm-flatfield-disabled { 
-    .x-input-el {
-          padding-bottom: 0.7em !important; 
-    }
-}
-
-
 //For TextFields with flat look and white bg color in label and field, also icon on right side using bg image
 @mixin rm_flatfield($img){	
 		background: white;
@@ -2096,7 +2089,7 @@ rm-emailinvoicebackground{
             font-size: 0.8em;
             font-weight: bold;
             padding-top: 0.9em;	
-            padding-right: 0.6em;
+            padding-right: 0.6em;            
 		}	
         
         input::-webkit-input-placeholder {

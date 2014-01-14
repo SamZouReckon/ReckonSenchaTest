@@ -296,7 +296,8 @@ Ext.define('RM.view.ContactDetail', {
             						label: 'Country',
                                     maxLength: 30,
                                     border: '1 0 1 0',
-                                    labelWidth: '5em'
+                                    labelWidth: '5em',
+                                    cls: ['rm-flatfield', 'rm-flatfield-last']
             					}]
                         }]
                     }]

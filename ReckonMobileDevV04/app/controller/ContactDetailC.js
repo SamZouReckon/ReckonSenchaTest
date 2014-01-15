@@ -69,6 +69,7 @@ Ext.define('RM.controller.ContactDetailC', {
 		if(!view){
 			view = {xtype:'contactdetail'};
         }
+        this.formattedNoteValue = null; //prevent showing note text from last contact
         
 		RM.ViewMgr.showPanel(view);		
 	},

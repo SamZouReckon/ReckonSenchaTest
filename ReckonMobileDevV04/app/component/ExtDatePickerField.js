@@ -12,8 +12,9 @@ Ext.define('RM.component.ExtDatePickerField', {
         this.resetPickerConfig();
     },    
 
-    onClearIconTap: function() {        
-        this.callParent(arguments); 
+    onClearIconTap: function() {  
+        this.overrideReturnNull = true;
+        this.callParent(arguments);
         
         // This is a workaround for the DatePicker>Select>TextInput>Input default behaviour of (for android) focusing in on the field
         // immediately after clearing it, which is undesirable for this control.
@@ -25,6 +26,11 @@ Ext.define('RM.component.ExtDatePickerField', {
                 me.blur();
             }, 50);
         }
+    },
+    
+    onDoneButtonTap: function() {
+        this.overrideReturnNull = false;
+        this.callParent(arguments);
     },
     
     onFocus: function() {
@@ -60,14 +66,6 @@ Ext.define('RM.component.ExtDatePickerField', {
         return me;
     },    
     
-    resetPicker: function() {
-        this.getPicker().setValue({
-				day: new Date().getDate(),
-				month: new Date().getMonth() + 1,
-				year: new Date().getFullYear()
-			});
-    },
-    
     resetPickerConfig: function(){
         var that = this;
         this.setPicker({
@@ -86,7 +84,16 @@ Ext.define('RM.component.ExtDatePickerField', {
                         //add clear button in toolbar
                         this.addClearButton(picker);
                         this.clearButton.setHidden(!that.getValue());
-                    }                    
+                    }   
+
+                    if (!picker.getValue()) {
+                        picker.setValue({
+            				day: new Date().getDate(),
+            				month: new Date().getMonth() + 1,
+            				year: new Date().getFullYear()
+            			});
+                    }
+                    
                     RM.ViewMgr.regBackHandler(picker.hide, picker);
                 },
                 hide: function(){
@@ -97,16 +104,10 @@ Ext.define('RM.component.ExtDatePickerField', {
 		});        
     },
     
-    updateValue: function(newValue) {
+    setValue: function(newValue) {
         this.callParent(arguments);
-        if(newValue == null){
-            this.resetPicker(); //show picker next time starting with today's date
-        }
-        //this[valueValid && this.isDirty() ? 'showClearIcon' : 'hideClearIcon']();
-        //this.syncEmptyCls();
-        //this[this.isDirty() ? 'showClearIcon' : 'hideClearIcon']();
-    },    
-    
+        this.overrideReturnNull = !newValue;       
+    },
     
     showValidation: function(valid){        
          this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');
@@ -114,7 +115,13 @@ Ext.define('RM.component.ExtDatePickerField', {
     
     getValue: function(){        
         this.showValidation(true);
-        return this.callParent(arguments);      
+        
+        if(this.overrideReturnNull) {
+            return null;
+        }
+        else {
+            return this.callParent(arguments);      
+        }
     },
     
     addClearButton: function(picker) {
@@ -126,6 +133,7 @@ Ext.define('RM.component.ExtDatePickerField', {
             xtype: 'button',
             handler: function(button, event) {
                 var picker = button.up('datepicker');
+                this.overrideReturnNull = true;
                 picker.fireEvent('change', picker, null);
                 picker.hide();
             },            

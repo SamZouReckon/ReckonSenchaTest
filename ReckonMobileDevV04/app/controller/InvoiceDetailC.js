@@ -116,11 +116,9 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.getInvoiceDetail().setActionsHidden(this.isCreate);    
         
         if (!this.dataLoaded) {
-            this.getDueDateFld().resetPicker();
-            dateField.resetPicker();
             
             if (!this.isCreate) {                
-                this.loadFormData();
+                this.loadFormData();               
             }
             else {                
                 this.loadNewInvCode();
@@ -232,6 +230,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 
                 data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : ''; //ensures new lines will be shown as spaces as Notes on form is previewed in one line. newlines entered in mobile seem to use \n where as entered in web app seem to use \r
                 invoiceForm.setValues(data);
+                
                 this.applyTaxRules();
                 this.previousAmountTaxStatus = data.AmountTaxStatus;
                 

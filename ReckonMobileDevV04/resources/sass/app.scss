@@ -2074,40 +2074,19 @@ rm-emailinvoicebackground{
 
 //rm-flatfield disabled class for readonly fields
 .rm-flatfield-disabled{
-        background: white;
-		border-top: 1px solid #DBDBDB;			
-		.x-form-label{			
-			color: #C3C2C2;
-			background-color: inherit;			
+    @include rm_flatfield("");
+    	.x-form-label{			
+			color: #C3C2C2;	
 		}     
         
 		.x-input-el{
-			text-align: right;	
 			color: #C3C2C2 !important;
-            -webkit-text-fill-color: #C3C2C2 !important;
-            background-color: inherit;
-            font-size: 0.8em;
-            font-weight: bold;
-            padding-top: 0.9em;	
-            padding-right: 0.6em;            
+            -webkit-text-fill-color: #C3C2C2 !important;        
 		}	
         
         input::-webkit-input-placeholder {
-           color: #C0C9D2;   
-           font-weight: normal;       	     
+           color: #C0C9D2;           
         }
-
-        .x-component-outer {
-            &:after {                         
-              display: none;        
-            }
-        }
-}
-
-.rm-flatfield-disabled-pt0{
-    .x-input-el{
-        padding-top: 0 !important;
-    }
 }
 
 .rm-mask-obscured {

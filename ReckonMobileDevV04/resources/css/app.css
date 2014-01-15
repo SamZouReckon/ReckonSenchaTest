@@ -1,4 +1,3 @@
-
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -7208,25 +7207,29 @@ rm-emailinvoicebackground {
   background: white;
   border-top: 1px solid #DBDBDB; }
 .rm-flatfield-disabled .x-form-label {
-  color: #C3C2C2;
+  color: #646464;
   background-color: inherit; }
 .rm-flatfield-disabled .x-input-el {
   text-align: right;
-  color: #C3C2C2 !important;
-  -webkit-text-fill-color: #C3C2C2 !important;
+  color: #787878;
+  -webkit-text-fill-color: #787878;
   background-color: inherit;
   font-size: 0.8em;
+  min-height: 3.2em;
   font-weight: bold;
-  padding-top: 0.9em;
   padding-right: 0.6em; }
 .rm-flatfield-disabled input::-webkit-input-placeholder {
-  color: #C0C9D2;
+  color: #A0A0A0;
   font-weight: normal; }
 .rm-flatfield-disabled .x-component-outer:after {
   display: none; }
-
-.rm-flatfield-disabled-pt0 .x-input-el {
-  padding-top: 0 !important; }
+.rm-flatfield-disabled .x-form-label {
+  color: #C3C2C2; }
+.rm-flatfield-disabled .x-input-el {
+  color: #C3C2C2 !important;
+  -webkit-text-fill-color: #C3C2C2 !important; }
+.rm-flatfield-disabled input::-webkit-input-placeholder {
+  color: #C0C9D2; }
 
 .rm-mask-obscured {
   background: #323232; }

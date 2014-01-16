@@ -69,6 +69,7 @@ Ext.define('RM.controller.ContactDetailC', {
 		if(!view){
 			view = {xtype:'contactdetail'};
         }
+        this.formattedNoteValue = null; //prevent showing note text from last contact
         
 		RM.ViewMgr.showPanel(view);		
 	},
@@ -288,7 +289,7 @@ Ext.define('RM.controller.ContactDetailC', {
             'Notes',
             this.isEditable && !this.getContactForm().addEditDenied,
             'SAVE',
-            this.formattedNoteValue,
+            this.formattedNoteValue || '',
             function(noteText){
                 RM.ViewMgr.back();
                 this.formattedNoteValue = noteText;

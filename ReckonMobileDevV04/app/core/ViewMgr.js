@@ -1,7 +1,7 @@
 Ext.define('RM.core.ViewMgr', {
     alternateClassName: 'RM.ViewMgr',
     singleton: true, 
-	requires: ['RM.view.Main', 'RM.view.MainNavContainer', 'RM.view.Modules', 'RM.component.RMMsgPopup'],
+	requires: ['RM.view.Main', 'RM.view.MainNavContainer', 'RM.view.Modules', 'RM.component.RMMsgPopup', 'RM.util.Device'],
     defaultBackAnimation : { type: 'slide', direction: 'right'},
 	
     init: function (application) {
@@ -200,7 +200,7 @@ Ext.define('RM.core.ViewMgr', {
 		//this.showBackStack('showPanel');
         if (!anim)
             anim = { type: 'slide', direction: 'left' };
-        this.mainView.getLayout().setAnimation(anim);
+        this.mainView.getLayout().setAnimation(RM.Device.supportsAnimations() ? anim : null);
         this.mainView.setActiveItem(p);
     },
 	
@@ -212,9 +212,8 @@ Ext.define('RM.core.ViewMgr', {
 		//this.showBackStack('showPanel');
         if (!anim)
             anim = { type: 'slide', direction: 'left' };
-        this.mainView.getLayout().setAnimation(anim);
-        this.mainView.setActiveItem(p);	
-	
+        this.mainView.getLayout().setAnimation(RM.Device.supportsAnimations() ? anim : null);
+        this.mainView.setActiveItem(p);		
 	},
 	
     clearBackStack: function(){

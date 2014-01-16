@@ -124,7 +124,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
          
          if (vals.AmountPaid <= 0) {
             this.getAmountPaid().showValidation(false);
-            RM.AppMgr.showErrorMsgBox('Please enter amount value greater than 0');  
+            RM.AppMgr.showErrorMsgBox('Please enter payment amount greater than $0.00');  
             isValid = false;
         } 
          

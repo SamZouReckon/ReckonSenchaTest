@@ -1,6 +1,6 @@
 Ext.define('RM.view.TestScreen', {
 	extend: 'Ext.Panel',
-    requires: ['RM.component.RMAmountField','RM.component.RMPhoneField'],
+    requires: ['RM.component.RMAmountField','RM.component.RMPhoneField', 'RM.component.SecureFormPanel'],
 	xtype: 'testscreen',
     
 	config: {		
@@ -24,7 +24,7 @@ Ext.define('RM.view.TestScreen', {
 					}
 				]
 			},{
-             xtype: 'formpanel',
+             xtype: 'secureformpanel',
              itemId: 'testScreenForm',
              defaults: {cls: 'rm-flatfield', clearIcon: false},
              items: [{

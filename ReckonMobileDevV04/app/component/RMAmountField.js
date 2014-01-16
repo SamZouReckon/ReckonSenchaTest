@@ -23,7 +23,7 @@ Ext.define('RM.component.RMAmountField', {
 
         this.inputEl = this.element.down('input');
         this.displayEl = this.inputEl.insertHtml('afterEnd', '<div class="x-input-el x-form-field rm-field-input-formatted"></div>', true);        
-        this.displayEl.on('tap', this.focus, this);
+        this.displayEl.on('tap', this.onDisplayValueTap, this);
         
         this.mixins.visibleOnFocus.constructor.call(this);
         
@@ -66,6 +66,15 @@ Ext.define('RM.component.RMAmountField', {
        if(!this.getReadOnly()){
            this.displayEl.hide();           
         }           
+    },
+    
+    onDisplayValueTap: function() {        
+        // Madness - the tap on the display element will be fired twice on ios in Sencha, causing a 'ghost-click' in the same location
+        // shortly after this one. So we throw up a transparent mask to 'catch' the ghost-click and prevent the focus from shifting to any
+        // other fields that may move into the current tap location when the keypad shifts the display.
+        if(Ext.os.is.ios) RM.ViewMgr.blockUIFor(350);
+        
+        this.focus();        
     },
     
     //Override method in Ext.field.Text

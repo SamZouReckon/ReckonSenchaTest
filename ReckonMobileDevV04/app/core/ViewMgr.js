@@ -360,5 +360,21 @@ Ext.define('RM.core.ViewMgr', {
             } 
             catch(e) { }
         }
+    },
+    
+    blockUI: function() {
+        Ext.Viewport.mask({transparent:true});
+    },
+    
+    unblockUI: function() {
+        Ext.Viewport.unmask();
+    },
+    
+    blockUIFor: function(timeoutMs) {
+        var me = this;
+        me.blockUI();
+        setTimeout(function() {
+            me.unblockUI();
+        }, timeoutMs);
     }
 });

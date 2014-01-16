@@ -36,7 +36,7 @@ Ext.define('RM.view.Contacts', {
                 grouped: true,
                 loadingText: null,
                 emptyText: 'No contacts found.',
-                itemTpl: '<div class="rm-nextgrayarrow rm-orgnametext rm-mr5">{Description} </div>'  				
+                itemTpl: '<div class="rm-nextgrayarrow rm-orgnametext rm-textlimit rm-mr5">{Description} </div>'  				
 			}
         ] 
     }

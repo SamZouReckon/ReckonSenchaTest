@@ -72,7 +72,8 @@ Ext.define('RM.component.RMAmountField', {
         // Madness - the tap on the display element will be fired twice on ios in Sencha, causing a 'ghost-click' in the same location
         // shortly after this one. So we throw up a transparent mask to 'catch' the ghost-click and prevent the focus from shifting to any
         // other fields that may move into the current tap location when the keypad shifts the display.
-        if(Ext.os.is.ios) RM.ViewMgr.blockUIFor(350);
+        var nuffMillisForAGhostToClick = 350;
+        if(Ext.os.is.ios) RM.ViewMgr.blockUIFor(nuffMillisForAGhostToClick);
         
         this.focus();        
     },

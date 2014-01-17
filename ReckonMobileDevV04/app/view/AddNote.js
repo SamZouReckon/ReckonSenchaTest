@@ -2,7 +2,7 @@ Ext.define('RM.view.AddNote', {
     extend: 'Ext.Panel',
     xtype: 'addnote',
     config: {
-        layout: 'fit',
+        layout: 'fit',  
         items: [{
             xtype: 'toolbar',
             docked: 'top',
@@ -32,24 +32,25 @@ Ext.define('RM.view.AddNote', {
                 xtype: 'textareafield',
     			itemId: 'notetext',            
                 clearIcon: false,
-                //placeHolder: 'enter', //is set in controller depending on whether is editable or not
-                cls: 'rm-addnotefield',
-                //cls: 'rm-flatfield rm-inputel-alignl',
-                border: '1 0 1 0',
-                style: 'border-color: #DBDBDB; border-style: solid;',                
-                maxRows: 10
+                cls: 'rm-addnotefield'
+                //cls: 'rm-flatfield rm-inputel-alignl',                
             }]               
         }
         ]
     },
     
     initialize: function() {
-        this.down('#notetext').on(['focus','keyup'], this.setTextAreaRows, this);
+        var field = this.down('#notetext'); 
+        field.on(['keyup'], this.setTextAreaHeight, this);  
+        field.element.down('textarea').setStyle('padding-bottom', (Ext.Viewport.element.getHeight() / 1.5) + 'px');                
     },    
 
-    setTextAreaRows: function() {
-        var field = this.down('#notetext');
-        var numOfRows = field.getValue().split("\n").length;                                          
-        field.setMaxRows(Math.max(numOfRows+2, field.getMaxRows()));
+    setTextAreaHeight: function() {
+        var field = this.down('#notetext');                
+        var textArea = field.element.down('textarea');
+        var viewportHeight = Ext.Viewport.element.getHeight();
+        var height = Math.max(viewportHeight, textArea.dom.scrollHeight);
+        textArea.setHeight(height);         
     }
+       
 });

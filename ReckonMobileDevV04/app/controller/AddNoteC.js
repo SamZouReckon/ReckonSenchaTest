@@ -50,10 +50,10 @@ Ext.define('RM.controller.AddNoteC', {
             noteText.setValue(this.noteText);
             noteText.setReadOnly(!this.isEditable);
             noteText.setPlaceHolder(this.isEditable ? 'enter' : ''); 
-            this.getAddNote().setTextAreaRows();            
+            this.getAddNote().setTextAreaHeight();  
             this.viewInitialized = true;
-        }        
-
+        }                
+        
         RM.ViewMgr.regFormBackHandler(this.back, this);
     },
         

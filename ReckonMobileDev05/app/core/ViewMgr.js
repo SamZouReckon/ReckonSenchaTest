@@ -273,7 +273,7 @@ Ext.define('RM.core.ViewMgr', {
 	},	
     
 	showMainNavContainer: function(title, subtitle, anim){
-        this.mainNavContainer.list.getComponent(0).setTitle('<div style="margin-top: -5px;">'+title+'</div> <div style="font-size: 13px; margin-top: -25px; float: left; ">' + subtitle + '</div>');        
+        this.mainNavContainer.list.getComponent(0).setTitle('<div class="rm-slidenav-menu-title">' + title + '</div> <div class="rm-slidenav-menu-subtitle">' + subtitle + '</div>');        
 		RM.ViewMgr.showPanel(this.mainNavContainer, anim);
         this.clearBackStack();
 	},    

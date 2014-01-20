@@ -77,12 +77,13 @@ Ext.define('RM.core.AppMgr', {
                 localStorage.getItem('RmDisplayName'),
 				function (loginDto) {
                     this.doAfterLogin(loginDto);
-                    if (RM.CashbookMgr.getCashbookId()) {
+                    /*if (RM.CashbookMgr.getCashbookId()) {
                          RM.ViewMgr.back();
                     }                    
                     else {
                         RM.CashbookMgr.selectCashBook();
-                    }
+                    }*/
+                    this.selectModule();
 				},
 				this,
                 function(){
@@ -113,7 +114,8 @@ Ext.define('RM.core.AppMgr', {
                 this.doAfterLogin(loginDto);
 			    RM.ViewMgr.showCreatePin(
                     function () {                           
-                        RM.CashbookMgr.selectCashBook();
+                        //RM.CashbookMgr.selectCashBook();
+                        this.selectModule();
                     },
                     this
                 );

@@ -99,19 +99,16 @@ Ext.define('RM.component.InvoiceLineItems', {
 			items: [
 				{
 					xtype: 'container',                        
-					layout: 'hbox',                       
-					width: '100%',    
+					layout: 'hbox',					
+                    scrollable: 'none',
 					items:[
 						{
 							xtype: 'container',
-							layout: {
-								type: 'vbox',
-								pack: 'strech'
-							},
+							layout:'vbox',				
 							items: [
 								{
 									xtype: 'component',
-									cls:'rm-invoiceitemtext',                
+									cls:'rm-invoiceitemtext',                               
 									//html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + (item.ItemPath ? item.ItemPath : item.ItemName),
                                     html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + (item.LineText || item.Description || item.ItemName),
 									listeners: {

@@ -40,6 +40,21 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.gstVal = 10;
     },
     
+    showView: function (data, cb, cbs) {
+        this.data = data;
+        this.selectCb = cb;
+        this.selectCbs = cbs;
+
+        var view = this.getPayAmountInput();
+        if (!view){
+            view = { xtype: 'payamountinput' };
+        }
+        
+        RM.ViewMgr.clearBackStack();
+        RM.ViewMgr.showPanel(view);
+
+    },  
+    
     onCalcKeyTap: function (key) {       
         
         if (key == 'back') {
@@ -88,7 +103,14 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     onChargeBtnTap: function(){
-        alert('charge tapped');
+        
+        var data = {
+            Amount: 50.54,
+            GST: 2.45,
+            Surcharge: 2.40,
+            Total: 54.67,
+        };
+        RM.PayMgr.showScreen('PayTransTypeSelect', data);
     },
     
     clear: function(){

@@ -1,6 +1,6 @@
-Ext.define('RM.view.PayTypeCash',{
+Ext.define('RM.view.PayRecvCash',{
      extend: 'RM.component.SecurePanel',
-     xtype: 'payamountinput',
+     xtype: 'payrecvcash',
      config: {
         cls: 'rm-whitebg',
         items: [{

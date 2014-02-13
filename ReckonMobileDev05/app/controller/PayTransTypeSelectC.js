@@ -3,7 +3,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     requires: ['RM.view.PayTransTypeSelect'],
     config: {
         refs: {
-            
+            payTransTypeSelect: 'paytranstypeselect'
         },
         control: {
             'paytranstypeselect #details': {
@@ -15,8 +15,23 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
         }
     },
     
+    showView: function (data, cb, cbs) {
+        this.data = data;
+        this.selectCb = cb;
+        this.selectCbs = cbs;
+
+        var view = this.getPayTransTypeSelect();
+        if (!view){
+            view = { xtype: 'paytranstypeselect' };
+        }
+        
+        RM.ViewMgr.clearBackStack();
+        RM.ViewMgr.showPanel(view);
+
+    },  
+    
     onDetailsTap: function(){
-        alert('Details');
+        RM.PayMgr.showScreen('PayAmountDetails', this.data);
     },
     
     back: function () {

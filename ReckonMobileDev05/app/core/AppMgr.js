@@ -4,7 +4,7 @@ Ext.define('RM.core.AppMgr', {
     requires: ['RM.view.TestScreen', 'RM.core.PermissionsMgr', 'RM.core.EventMgr', 'RM.core.ViewMgr', 
     'RM.core.Selectors', 'RM.core.HomeSettingsMgr', 'RM.core.CashbookMgr', 'RM.core.ContactsMgr', 
     'RM.core.TimeSheetsMgr', 'RM.core.ExpensesMgr', 'RM.core.InvoicesMgr', 'RM.util.MathHelpers',
-    'RM.core.SessionManager'],
+    'RM.core.SessionManager', 'RM.core.PayMgr'],
 
     init: function (application) {
         this.application = application;        
@@ -29,9 +29,10 @@ Ext.define('RM.core.AppMgr', {
         RM.TimeSheetsMgr.init(application);
         RM.ExpensesMgr.init(application);
         RM.InvoicesMgr.init(application);
+        RM.PayMgr.init(application);
         
         this.addDeviceListeners();
-        RM.HomeSettingsMgr.load();        
+        RM.HomeSettingsMgr.load();
         
     },
     
@@ -106,7 +107,13 @@ Ext.define('RM.core.AppMgr', {
             this
         
         );     
+    },
+    
+    showScreen: function (screenName, screenData, callBack, callBackScope) {
+        alert('RM.controller.' + screenName + 'C');
+        RM.AppMgr.getAppControllerInstance('RM.controller.' + screenName + 'C').showView(screenData, callBack, callBackScope);
     },    
+    
 
     loginUserName: function () {
         RM.ViewMgr.showEnterUsername(

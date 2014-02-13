@@ -5940,6 +5940,12 @@ body.x-desktop {
 .rm-whitebg {
   background-color: #FFFFFF !important; }
 
+.rm-border-top {
+  border-top: 1px solid #f7f7f7 !important; }
+
+.rm-border-left {
+  border-left: 1px solid #f7f7f7 !important; }
+
 .rm-dropdown {
   background: #4D4D4D;
   color: #FFFFFF;
@@ -6259,6 +6265,12 @@ body.x-desktop {
 .rm-fontsize98 {
   font-size: 98%; }
 
+.rm-fontsize70 {
+  font-size: 70%; }
+
+.rm-fontsize80 {
+  font-size: 80%; }
+
 .rm-p5 {
   padding: 5px; }
 
@@ -6276,6 +6288,9 @@ body.x-desktop {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
+
+.rm-btn-iconsize {
+  background-size: 25px; }
 
 .rm-alignr {
   text-align: right !important; }
@@ -7271,3 +7286,44 @@ rm-emailinvoicebackground {
 .rm-list-emptytext-img {
   width: 22.39px;
   height: 47.79px; }
+
+.rm-white-flatbtn {
+  border: 0;
+  border-radius: 0;
+  background-color: #FFF !important; }
+
+.rm-pay-graytext {
+  color: #a0a0a0 !important; }
+
+.rm-pay-gstbtn {
+  background-image: url("../images/icons/rm-photo.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px; }
+
+.rm-pay-camerabtn {
+  background-image: url("../images/icons/rm-photo.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px; }
+
+.rm-pay-inputclearbtn {
+  background-image: url("../images/icons/rm-fieldclear.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px; }
+
+.rm-pay-currencyprefix {
+  font-size: 225%;
+  color: #c8c8c8;
+  padding-top: 9px;
+  margin-left: 10px; }
+
+.rm-pay-amount {
+  color: #646464;
+  font-size: 275%; }
+
+.rm-pay-amountinputtext {
+  color: #c8c8c8;
+  padding-top: 9px;
+  margin: 0px 5px 5px 10px; }

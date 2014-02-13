@@ -105,6 +105,14 @@ Ext.define('RM.controller.ModulesC', {
 		
         var data = rec.data;
         
+        //alert(JSON.stringify(data));
+        
+        if(data.ModuleCode == "reckonpay")
+        {
+            //show reckon pay and load new pay menu
+            RM.ViewMgr.mainNavContainer.reloadItems(data.ModuleCode);
+        }
+               
         if(!data.Activated){
 			//(target left + target midpoint - arrow midpoint) whenever there is a change in arrow image, change midpoint value
             this.showInfoSheet(data, (e.target.offsetLeft + e.target.clientWidth / 2) - 22);   

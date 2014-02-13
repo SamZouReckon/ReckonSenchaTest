@@ -49,6 +49,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
          * can define the order of the items by defining an 'order' parameter.
          */        
         items: [],
+        itemsPay: [],
         
         /**
          * @cfg {Object} groups Mapping of group name to order.  For example,
@@ -66,6 +67,8 @@ Ext.define('Ext.ux.slidenavigation.View', {
          *  By default groups are ordered by their name.
          */
         groups: {},
+        onegroups: {},
+        paygroups: {},
         
         /**
          * @cfg {Object} defaults An object of default values to apply to any Ext
@@ -109,6 +112,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
         var me = this;
         
         me._indexCount = 0;
+        me.groups = this.onegroups;
         
         /**
          *  Create the store.
@@ -126,6 +130,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
          *  Add the items into the list.
          */
         me.addItems(me.config.items || []);
+        
         delete me.config.items;
         
         me.callParent(arguments);
@@ -177,6 +182,23 @@ Ext.define('Ext.ux.slidenavigation.View', {
         // TODO: Make this optional, perhaps by defining
         // "selected: true" in the items list
         this.list.select(0);
+    },
+    
+    reloadItems: function(type)
+    {
+        var me = this;
+        me.store.data.clear();
+        
+        if (type == "reckonpay")
+        {
+            this.groups = this.paygroups;
+            me.addItems(me.config.itemsPay || []);
+        }
+        else
+        {
+            this.groups = this.onegroups;
+            me.addItems(me.config.items || []);   
+        }
     },
     
     /**

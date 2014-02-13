@@ -70,14 +70,10 @@ Ext.define('RM.view.MainNavContainer', {
 
         },
 
-        groups: {
-			'GENERAL':1,
-            'RECKON ONE': 2,
-            'SETTINGS': 3
-        },
-
+        groups: {},
+        onegroups: {'GENERAL':1,'RECKON ONE': 2,'SETTINGS': 3},
+        paygroups: {'GENERAL':1,'RECKON PAY': 2,'SETTINGS': 3},
         
-
         items: [/*{
             title: 'Module home',
             activated: true,
@@ -212,7 +208,49 @@ Ext.define('RM.view.MainNavContainer', {
             slideButton: {
                 selector: 'toolbar'
             }
-        }*/]/*,
+        }*/],
+        itemsPay: [{
+            title: 'LockPay',
+            activated: true,
+            handler: function () {
+                RM.AppMgr.lock();
+            },
+			group: 'GENERAL'
+        },{           
+            title: 'Logout',
+            activated: true,
+            handler: function () {
+                RM.AppMgr.logout();
+            },
+			group: 'GENERAL'
+        },{
+            index: 'Cashbooks',
+            title: 'Recieve Payment',
+            activated: true,            
+            group: 'RECKON PAY',
+            handler: function () {
+                RM.CashbookMgr.selectCashBook();
+            }
+        },{
+            index: 'Dashboard',
+            xtype: 'dashboard',
+            title: 'Sales History',
+            activated: true,
+            group: 'RECKON PAY',
+            slideButton: {
+                selector: 'toolbar'  //to insert at left of toolbar, have changed source code of slidenavigation\View.js  line 206 changed return parent.add(Ext.merge(me.slideButtonDefaults, config)); to return parent.insert(0, Ext.merge(me.slideButtonDefaults, config));
+            }
+        },
+        {
+            xtype: 'about',
+            title: 'About',
+            activated: true,
+            group: 'SETTINGS',
+            slideButton: {
+                selector: 'toolbar'
+            }
+        }]
+        /*,
 
         listeners: {
             painted: function () {

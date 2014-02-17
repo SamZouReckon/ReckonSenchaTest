@@ -100,8 +100,14 @@ Ext.define('RM.core.AppMgr', {
     selectModule: function(){
         RM.ViewMgr.showModules(
             function(moduleData){
-                if(moduleData.ModuleCode == 'reckonone'){                    
+                //alert(moduleData);
+                if(moduleData.ModuleCode == 'reckonone'){    
                     RM.CashbookMgr.selectCashBook();                    
+                }
+                else
+                {
+                    //RM.PayMgr.showScreen("PayAmountInput");
+                    RM.ViewMgr.showPay();
                 }
             },
             this
@@ -110,7 +116,7 @@ Ext.define('RM.core.AppMgr', {
     },
     
     showScreen: function (screenName, screenData, callBack, callBackScope) {
-        alert('RM.controller.' + screenName + 'C');
+        //alert('RM.controller.' + screenName + 'C');
         RM.AppMgr.getAppControllerInstance('RM.controller.' + screenName + 'C').showView(screenData, callBack, callBackScope);
     },    
     

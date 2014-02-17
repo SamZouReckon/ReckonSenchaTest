@@ -49,6 +49,8 @@ Ext.define('Ext.ux.slidenavigation.View', {
          * can define the order of the items by defining an 'order' parameter.
          */        
         items: [],
+        itemsPay: [],
+        oneitems: [],
         
         /**
          * @cfg {Object} groups Mapping of group name to order.  For example,
@@ -66,6 +68,8 @@ Ext.define('Ext.ux.slidenavigation.View', {
          *  By default groups are ordered by their name.
          */
         groups: {},
+        onegroups: {},
+        paygroups: {},
         
         /**
          * @cfg {Object} defaults An object of default values to apply to any Ext
@@ -109,6 +113,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
         var me = this;
         
         me._indexCount = 0;
+        me.groups = this.onegroups;
         
         /**
          *  Create the store.
@@ -125,7 +130,8 @@ Ext.define('Ext.ux.slidenavigation.View', {
         /**
          *  Add the items into the list.
          */
-        me.addItems(me.config.items || []);
+        me.addItems(me.config.oneitems || []);
+        
         delete me.config.items;
         
         me.callParent(arguments);
@@ -179,10 +185,32 @@ Ext.define('Ext.ux.slidenavigation.View', {
         this.list.select(0);
     },
     
+    reloadItems: function(type)
+    {
+        //alert(type);
+        
+        var me = this;
+        me.store.data.clear();
+        
+        if (type == "reckonpay")
+        {
+            this.config.groups = this.config.paygroups;
+            me.addItems(me.config.itemsPay || []);
+        }
+        else
+        {
+            this.config.groups = this.config.onegroups;
+            me.addItems(me.config.oneitems || []);   
+        }
+    },
+    
     /**
      *  Adds an array of items (or a single item) into the list.
      */
     addItems: function(items) {
+        
+        //alert(JSON.stringify(items));
+        
         var me = this,
             items = Ext.isArray(items) ? items : [items],
             groups = me.config.groups;

@@ -34,6 +34,8 @@ Ext.define('RM.controller.AcceptPaymentC', {
 
     showView: function (invoiceData) {
         //console.log(Ext.encode(invoiceData));
+        
+        this.customerName = invoiceData.CustomerName;
         this.invoiceId = invoiceData.InvoiceId;
         this.fullAmount = invoiceData.BalanceDue;
         this.accountsReceivableCategoryId = invoiceData.AccountsReceivableCategoryId;
@@ -145,17 +147,28 @@ Ext.define('RM.controller.AcceptPaymentC', {
         vals.AccountsReceivableCategoryId = this.accountsReceivableCategoryId;
         vals.CustomerSupplierId = this.customerId;
 
+        //alert(JSON.stringify(vals));
         if(this.validateForm(vals)){ 
-            RM.AppMgr.saveServerRec('AcceptPayment', true, vals,
-    		    function () {                    
-    		        this.showMsg();
-    		        RM.AppMgr.itemUpdated('invoice');
-    		    },
-    		    this,
-                function(recs, eventMsg){
-                    RM.AppMgr.showOkMsgBox(eventMsg);
-                }
-    	    );
+            
+            if (vals.PaymentMethodId == "56dc8f56-2c78-4f0f-9dc6-cd0e2844ae69")
+            {
+                localStorage.setItem('RmPayeeName', this.customerName);
+                localStorage.setItem('RmPayeeAmount', vals.AmountPaid);
+                RM.ViewMgr.showPay();
+            }
+            else
+            {
+                RM.AppMgr.saveServerRec('AcceptPayment', true, vals,
+        		    function () {                    
+        		        this.showMsg();
+        		        RM.AppMgr.itemUpdated('invoice');
+        		    },
+        		    this,
+                    function(recs, eventMsg){
+                        RM.AppMgr.showOkMsgBox(eventMsg);
+                    }
+        	    );
+            }
         }            
         
     },

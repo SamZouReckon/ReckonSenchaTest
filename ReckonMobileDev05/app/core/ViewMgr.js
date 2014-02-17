@@ -164,6 +164,15 @@ Ext.define('RM.core.ViewMgr', {
         this.showPanel(this.mainNavContainer, anim);
     },
     
+    showPay: function(anim){
+        this.mainNavContainer.reloadItems("reckonpay");
+        this.mainNavContainer.list.getComponent(0).setTitle('<div class="rm-slidenav-menu-title">Reckon Pay</div> <div class="rm-slidenav-menu-subtitle"></div>');   
+        this.mainNavContainer.setSelectedItem('PayAmountInput');
+        
+        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputC').showView();
+        this.showPanel(this.mainNavContainer, anim);
+    },
+    
     isDashboardShowing: function(){
         return this.mainNavContainer.isItemSelected('Dashboard');
     },

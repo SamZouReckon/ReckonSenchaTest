@@ -104,23 +104,15 @@ Ext.define('RM.controller.ModulesC', {
     onItemTap: function (dataView, index, target, rec, e, eOpts) {
 		
         var data = rec.data;
-        
-        //alert(JSON.stringify(data));
-        
-        if(data.ModuleCode == "reckonpay")
-        {
-            //show reckon pay and load new pay menu
-            RM.ViewMgr.mainNavContainer.reloadItems(data.ModuleCode);
-        }
-               
-        if(!data.Activated){
+            
+        /*if(!data.Activated){
 			//(target left + target midpoint - arrow midpoint) whenever there is a change in arrow image, change midpoint value
             this.showInfoSheet(data, (e.target.offsetLeft + e.target.clientWidth / 2) - 22);   
         }
-        else {
+        else {*/
             this.hideInfoSheet();          
             this.selectCb.call(this.selectCbs, data);
-        }
+        //}
      
     },
     

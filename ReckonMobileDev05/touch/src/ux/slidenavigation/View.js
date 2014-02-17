@@ -50,6 +50,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
          */        
         items: [],
         itemsPay: [],
+        oneitems: [],
         
         /**
          * @cfg {Object} groups Mapping of group name to order.  For example,
@@ -129,7 +130,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
         /**
          *  Add the items into the list.
          */
-        me.addItems(me.config.items || []);
+        me.addItems(me.config.oneitems || []);
         
         delete me.config.items;
         
@@ -186,18 +187,20 @@ Ext.define('Ext.ux.slidenavigation.View', {
     
     reloadItems: function(type)
     {
+        //alert(type);
+        
         var me = this;
         me.store.data.clear();
         
         if (type == "reckonpay")
         {
-            this.groups = this.paygroups;
+            this.config.groups = this.config.paygroups;
             me.addItems(me.config.itemsPay || []);
         }
         else
         {
-            this.groups = this.onegroups;
-            me.addItems(me.config.items || []);   
+            this.config.groups = this.config.onegroups;
+            me.addItems(me.config.oneitems || []);   
         }
     },
     
@@ -205,6 +208,9 @@ Ext.define('Ext.ux.slidenavigation.View', {
      *  Adds an array of items (or a single item) into the list.
      */
     addItems: function(items) {
+        
+        //alert(JSON.stringify(items));
+        
         var me = this,
             items = Ext.isArray(items) ? items : [items],
             groups = me.config.groups;

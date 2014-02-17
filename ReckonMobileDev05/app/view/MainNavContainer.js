@@ -16,7 +16,9 @@ Ext.define('RM.view.MainNavContainer', {
 		'RM.view.Expenses',
         'RM.view.Contacts',
 		//'RM.view.settings.MyPreferences',
-        'RM.view.About'
+        'RM.view.About',
+        'RM.view.PayAmountInput',
+        'RM.view.Modules'
 		//'RM.view.settings.LinkBankAccount'
 		//,'RM.view.settings.CompanySettings'
     ],
@@ -74,8 +76,17 @@ Ext.define('RM.view.MainNavContainer', {
         onegroups: {'GENERAL':1,'RECKON ONE': 2,'SETTINGS': 3},
         paygroups: {'GENERAL':1,'RECKON PAY': 2,'SETTINGS': 3},
         
-        items: [/*{
-            title: 'Module home',
+        items: [],
+        oneitems: [{
+            title: 'Lock',
+            activated: true,
+            handler: function () {
+                RM.AppMgr.lock();
+            },
+			group: 'GENERAL'
+        },
+        {
+            title: 'Product selection',
             activated: true,
             handler: function () {
                 if(RM.AppMgr.isLoggedIn()){ //otherwise the select module screen flashes up at the start before login or enter pin
@@ -83,14 +94,8 @@ Ext.define('RM.view.MainNavContainer', {
                 }   
             },
 			group: 'GENERAL'
-        },*/{
-            title: 'Lock',
-            activated: true,
-            handler: function () {
-                RM.AppMgr.lock();
-            },
-			group: 'GENERAL'
-        },{           
+        },
+        {           
             title: 'Logout',
             activated: true,
             handler: function () {
@@ -209,8 +214,20 @@ Ext.define('RM.view.MainNavContainer', {
                 selector: 'toolbar'
             }
         }*/],
-        itemsPay: [{
-            title: 'LockPay',
+        itemsPay: [
+        {
+            title: 'Product selection',
+            activated: true,
+			group: 'GENERAL',
+            handler: function () {
+                if(RM.AppMgr.isLoggedIn()){ //otherwise the select module screen flashes up at the start before login or enter pin
+                    RM.ViewMgr.mainNavContainer.reloadItems("reckonone");
+                    RM.AppMgr.selectModule();
+                }   
+            }
+        },
+        {
+            title: 'Lock',
             activated: true,
             handler: function () {
                 RM.AppMgr.lock();
@@ -224,16 +241,17 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },{
-            index: 'Cashbooks',
+            index: 'PayAmountInput',
+            xtype: 'payamountinput',
             title: 'Recieve Payment',
             activated: true,            
             group: 'RECKON PAY',
-            handler: function () {
-                RM.CashbookMgr.selectCashBook();
+            slideButton: {
+                selector: 'toolbar'  //to insert at left of toolbar, have changed source code of slidenavigation\View.js  line 206 changed return parent.add(Ext.merge(me.slideButtonDefaults, config)); to return parent.insert(0, Ext.merge(me.slideButtonDefaults, config));
             }
         },{
-            index: 'Dashboard',
-            xtype: 'dashboard',
+            index: 'PaySalesHistory',
+            xtype: 'paysaleshistory',
             title: 'Sales History',
             activated: true,
             group: 'RECKON PAY',
@@ -270,6 +288,9 @@ Ext.define('RM.view.MainNavContainer', {
     
     setSelectedItem: function (key) {
       var keyIndex = this.store.getData().indexOfKey(key);
+        
+      //alert(key);
+      //alert(keyIndex);
       if(keyIndex > 0)  {
           this.list.select(keyIndex);
       }

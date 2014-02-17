@@ -1,40 +1,54 @@
 Ext.define('RM.view.PayAmountInput', {
-	extend: 'RM.component.SecurePanel',
+	extend: 'Ext.Panel',
     xtype: 'payamountinput',
     requires: ['RM.component.CalcKeypad'],
-    
     config: {
-        cls: 'rm-whitebg',
-        scrollable: 'vertical',
+        //cls: 'rm-whitebg',
+        //scrollable: 'vertical',
+        //layout: 'fit',
 		items:[{
-                xtype: 'toolbar',                
-                docked: 'top'               
-            },{
+                xtype: 'toolbar',
+                docked: 'top',				
+                items: [
+                    {
+                        xtype: 'component',
+                        html: '',
+                        cls: 'rm-topbartitle',
+                        itemId: 'toolbarTitle'
+                    }
+                ]             
+            },
+{
+    xtype: 'container',
+    scrollable: 'vertical',
+    items: [
+        
+        /*{
                 
                 xtype: 'container',
                 layout: 'hbox',
-                scrollable: 'horizontal',
                 items: [
                         {
                             xtype: 'component',
                             itemId: 'calcinput',
+                            html: '',
                             cls: 'rm-pay-amountinputtext'                            
                         },{
                             xtype: 'button',
                             itemId: 'clear',
                             docked: 'right',
                             height: 20,
-                            width: 20,                    
+                            width: 20,                  
                             cls: ['rm-white-flatbtn', 'rm-pay-inputclearbtn']                            
                         }
                 ]                                
-            },{
+            },*/{
                 xtype: 'container',
                 cls: 'rm-whitebg',
                 layout: 'hbox',
                 items: [{
                             xtype: 'component',
-                            html: '$',
+                            html: '',
                             cls: 'rm-pay-currencyprefix'
                         },{
                             xtype: 'component',
@@ -87,7 +101,8 @@ Ext.define('RM.view.PayAmountInput', {
                 text: 'CHARGE',
                 cls: 'rm-loginbtn'
                   
-            },{
+            }
+    ]},{
                 xtype: 'calckeypad',
                 docked: 'bottom'  
             }

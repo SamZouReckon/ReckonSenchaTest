@@ -5,7 +5,8 @@ Ext.define('RM.controller.PayAmountInputC', {
         refs: {
             payAmountInput: 'payamountinput',
             calcInput: 'payamountinput #calcinput',
-            amount: 'payamountinput #amount',            
+            amount: 'payamountinput #amount',   
+            toolbarTitle: 'payamountinput #toolbarTitle',
             totalWithGst: 'payamountinput #totalwithgstfield',
             description: 'payamountinput #descriptionfield'            
         },
@@ -41,18 +42,23 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     showView: function (data, cb, cbs) {
-        this.data = data;
+        /*this.data = data;
         this.selectCb = cb;
         this.selectCbs = cbs;
 
         var view = this.getPayAmountInput();
         if (!view){
             view = { xtype: 'payamountinput' };
-        }
+        }*/
         
-        RM.ViewMgr.clearBackStack();
-        RM.ViewMgr.showPanel(view);
-
+        
+        //RM.ViewMgr.clearBackStack();
+        //RM.ViewMgr.showPanel(view);
+        var amountToPay = RM.AppMgr.formatCurrency(parseFloat(localStorage.getItem('RmPayeeAmount')), 0);
+        
+        this.getToolbarTitle().setHtml(localStorage.getItem('RmPayeeName'));
+        this.getAmount().setHtml(amountToPay);
+        this.getTotalWithGst().setHtml("Total with GST " + amountToPay);
     },  
     
     onCalcKeyTap: function (key) {       

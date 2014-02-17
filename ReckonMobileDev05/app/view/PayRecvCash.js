@@ -23,7 +23,7 @@ Ext.define('RM.view.PayRecvCash',{
 				},{
     				text: 'DETAILS',
     				itemId: 'details', 
-                    width: '5em',
+                    width: '6em',
     				ui: 'rm_topbarbuttonright'
     			}
             ]
@@ -50,8 +50,12 @@ Ext.define('RM.view.PayRecvCash',{
 			
 		},{
             xtype: 'exttextfield',
-            cls: ['rm-flatfield', 'rm-flatfield-last'],
+            cls: 'rm-flatfield',
             label: 'Change'
+        },{
+            xtype: 'button',
+            text: 'TENDER CASH',
+            cls: 'rm-loginbtn'
         }
          ]
      }

@@ -15,19 +15,13 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
         }
     },
     
-    showView: function (data, cb, cbs) {
+    showView: function (data) {
         this.data = data;
-        this.selectCb = cb;
-        this.selectCbs = cbs;
-
         var view = this.getPayTransTypeSelect();
         if (!view){
             view = { xtype: 'paytranstypeselect' };
-        }
-        
-        RM.ViewMgr.clearBackStack();
+        }       
         RM.ViewMgr.showPanel(view);
-
     },  
     
     onDetailsTap: function(){
@@ -37,5 +31,4 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     back: function () {
         RM.ViewMgr.back();
     }
-
 });

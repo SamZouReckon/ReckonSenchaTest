@@ -6247,6 +6247,12 @@ body.x-desktop {
 .rm-pl0 {
   padding-left: 0px !important; }
 
+.rm-p10 {
+  padding: 10px !important; }
+
+.rm-pt5 {
+  padding-top: 5px; }
+
 .rm-pr5 {
   padding-right: 5px; }
 
@@ -7295,6 +7301,11 @@ rm-emailinvoicebackground {
 .rm-pay-graytext {
   color: #a0a0a0 !important; }
 
+.rm-pay-grayheadertext {
+  font-weight: bold;
+  color: #646464;
+  padding: 25px 10px; }
+
 .rm-pay-gstbtn {
   background-image: url("../images/icons/rm-photo.svg") !important;
   background-repeat: no-repeat;
@@ -7327,3 +7338,7 @@ rm-emailinvoicebackground {
   color: #c8c8c8;
   padding-top: 9px;
   margin: 0px 5px 5px 10px; }
+
+.rm-iconsize25 {
+  background-size: 25px !important;
+  background-position: center !important; }

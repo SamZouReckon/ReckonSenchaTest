@@ -9,7 +9,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             'paytranstypeselect #details': {
                 tap: 'onDetailsTap'
             },
-            'pattranstypeselect #back': {
+            'paytranstypeselect #back': {
                 tap: 'back'
             }
         }

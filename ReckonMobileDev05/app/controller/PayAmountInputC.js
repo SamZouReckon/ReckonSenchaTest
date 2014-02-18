@@ -116,6 +116,7 @@ Ext.define('RM.controller.PayAmountInputC', {
             Surcharge: 2.40,
             Total: 54.67,
         };
+        
         RM.PayMgr.showScreen('PayTransTypeSelect', data);
     },
     

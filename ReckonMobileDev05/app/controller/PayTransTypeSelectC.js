@@ -9,7 +9,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             'paytranstypeselect #details': {
                 tap: 'onDetailsTap'
             },
-            'pattranstypeselect #back': {
+            'paytranstypeselect #back': {
                 tap: 'back'
             }
         }
@@ -25,7 +25,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             view = { xtype: 'paytranstypeselect' };
         }
         
-        RM.ViewMgr.clearBackStack();
+        //RM.ViewMgr.clearBackStack();
         RM.ViewMgr.showPanel(view);
 
     },  

@@ -44,7 +44,7 @@ Ext.define('RM.view.MainNavContainer', {
                             '{[this.switchBgColor(values.title, values.activated)]}',
 							{
 								switchBgColor: function(titleText, activated){									
-									if(titleText == 'Module home' || titleText == 'Lock' || titleText == 'Logout') {
+									if(titleText == 'Product selection' || titleText == 'Lock' || titleText == 'Logout') {
                                         return '<div class="rm-slidenav-menuitem">'+titleText+'</div>';
                                     }                       
 									
@@ -77,11 +77,20 @@ Ext.define('RM.view.MainNavContainer', {
         paygroups: {'GENERAL':1,'RECKON PAY': 2,'SETTINGS': 3},
         
         items: [],
-        oneitems: [{
+        oneitems: [
+        {
             title: 'Lock',
             activated: true,
             handler: function () {
                 RM.AppMgr.lock();
+            },
+			group: 'GENERAL'
+        },
+        {           
+            title: 'Logout',
+            activated: true,
+            handler: function () {
+                RM.AppMgr.logout();
             },
 			group: 'GENERAL'
         },
@@ -95,14 +104,7 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },
-        {           
-            title: 'Logout',
-            activated: true,
-            handler: function () {
-                RM.AppMgr.logout();
-            },
-			group: 'GENERAL'
-        },{
+        {
             index: 'Cashbooks',
             title: 'Choose book',
             activated: true,            
@@ -216,17 +218,6 @@ Ext.define('RM.view.MainNavContainer', {
         }*/],
         itemsPay: [
         {
-            title: 'Product selection',
-            activated: true,
-			group: 'GENERAL',
-            handler: function () {
-                if(RM.AppMgr.isLoggedIn()){ //otherwise the select module screen flashes up at the start before login or enter pin
-                    RM.ViewMgr.mainNavContainer.reloadItems("reckonone");
-                    RM.AppMgr.selectModule();
-                }   
-            }
-        },
-        {
             title: 'Lock',
             activated: true,
             handler: function () {
@@ -240,7 +231,19 @@ Ext.define('RM.view.MainNavContainer', {
                 RM.AppMgr.logout();
             },
 			group: 'GENERAL'
-        },{
+        },
+        {
+            title: 'Product selection',
+            activated: true,
+			group: 'GENERAL',
+            handler: function () {
+                if(RM.AppMgr.isLoggedIn()){ //otherwise the select module screen flashes up at the start before login or enter pin
+                    RM.ViewMgr.mainNavContainer.reloadItems("reckonone");
+                    RM.AppMgr.selectModule();
+                }   
+            }
+        },
+        {
             index: 'PayAmountInput',
             xtype: 'payamountinput',
             title: 'Recieve Payment',

@@ -166,7 +166,7 @@ Ext.define('RM.view.PayTransTerminal',{
                                             },{
                                                 xtype: 'component',
                                                 html: 'Transaction<br>Successful',
-                                                cls: ['rm-colorgreen', 'rm-fontsize120', 'rm-fontweightbold', 'rm-lineheight90'],
+                                                cls: ['rm-colorgreen', 'rm-fontsize120', 'rm-fontweightbold'],
                                                 margin: 15
                                             }
                                         ]

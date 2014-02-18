@@ -31,7 +31,10 @@ Ext.define('RM.view.PayTransTerminal',{
             },{
                 xtype: 'container',
                 layout: 'card',
-                activeItem: 2,
+                activeItem: 4,
+                defaults: {
+                    cls: 'rm-paybg'
+                },
                 items: [
                             {
                             xtype: 'container',                            
@@ -123,6 +126,55 @@ Ext.define('RM.view.PayTransTerminal',{
                                 cls: ['rm-alignc', 'rm-pay-text-big' ]
                             }
                             
+                            ]
+                        },{
+                            xtype: 'container',
+                            items: [{
+                                    xtype: 'img',
+                                    src: 'resources/images/icons/rm-update-icon.svg',
+                                    height: 70,
+                                    width: 70,
+                                    margin: '25px auto 15px auto'  
+                            },{
+                                xtype: 'component',
+                                html: 'You have entered your PIN<br>incorrectly too many times',
+                                cls: ['rm-alignc' ]
+                            },{
+                                xtype: 'button',
+                                text: 'EXIT',
+                                cls: 'rm-loginbtn',
+                                docked: 'bottom'                                
+                            },{
+                                xtype: 'button',
+                                text: 'CHANGE PAYMENT TYPE',
+                                cls: 'rm-loginbtn',
+                                docked: 'bottom'
+                            }]
+                        },{
+                            xtype: 'container',
+                            items: [{
+                                        xtype: 'container',
+                                        layout: 'hbox',
+                                        items: [
+                                                {                                    
+                                                xtype: 'img',
+                                                src: 'resources/images/icons/rm-update-icon.svg',
+                                                height: 70,
+                                                width: 70,
+                                                margin: ''    
+                                                                          
+                                            },{
+                                                xtype: 'component',
+                                                html: 'Transaction<br>Successful',
+                                                cls: ['rm-colorgreen', 'rm-fontsize120', 'rm-fontweightbold', 'rm-lineheight90'],
+                                                margin: 15
+                                            }
+                                        ]
+                                    },{
+                                                xtype: 'component',
+                                                html: 'Please remove the card',
+                                                cls: ['rm-alignc', 'rm-pay-text-big' ]
+                                    }
                             ]
                         }
                 ]

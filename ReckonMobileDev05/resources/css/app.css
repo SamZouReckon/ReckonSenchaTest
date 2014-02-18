@@ -5943,6 +5943,9 @@ body.x-desktop {
 .rm-greybg {
   background-color: #515151 !important; }
 
+.rm-paybg {
+  background-color: #f7f7f7 !important; }
+
 .rm-border-top {
   border-top: 1px solid #f7f7f7 !important; }
 
@@ -6271,6 +6274,9 @@ body.x-desktop {
 .rm-fontsize100 {
   font-size: 100%; }
 
+.rm-fontsize120 {
+  font-size: 120%; }
+
 .rm-fontsize98 {
   font-size: 98%; }
 
@@ -6279,6 +6285,12 @@ body.x-desktop {
 
 .rm-fontsize80 {
   font-size: 80%; }
+
+.rm-fontweightbold {
+  font-weight: bold; }
+
+.rm-lineheight190 {
+  line-height: 190%; }
 
 .rm-p5 {
   padding: 5px; }
@@ -6326,7 +6338,10 @@ body.x-desktop {
   right: 15px; }
 
 .rm-colorred {
-  color: red; }
+  color: red !important; }
+
+.rm-colorgreen {
+  color: #A2D079; }
 
 .rm-orgnametext {
   color: #646464;

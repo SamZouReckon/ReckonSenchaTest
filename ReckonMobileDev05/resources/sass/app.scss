@@ -462,6 +462,10 @@ $include-list-highlights: none;
     background-color: #515151 !important;
 }
 
+.rm-paybg{
+    background-color: #f7f7f7 !important;
+}
+
 .rm-border-top{
     border-top: 1px solid #f7f7f7 !important;
 }
@@ -879,6 +883,9 @@ $include-list-highlights: none;
     }
     .rm-fontsize100{
         font-size: 100%;
+    }
+    .rm-fontsize120{
+        font-size: 120%;    
     }  
     .rm-fontsize98{
         font-size: 98%;
@@ -888,6 +895,12 @@ $include-list-highlights: none;
     } 
     .rm-fontsize80{
         font-size: 80%;
+    }
+    .rm-fontweightbold{
+        font-weight: bold;
+    }
+    .rm-lineheight190{
+        line-height: 190%;
     }
     .rm-p5{
         padding: 5px;
@@ -915,6 +928,8 @@ $include-list-highlights: none;
     .rm-floatr { float: right !important;}
     .rm-floatr15 { position: absolute; right: 15px;}
     .rm-colorred {color: red !important;}
+    .rm-colorgreen {color: #A2D079;}
+
 
 //cashbook.scss
 .rm-orgnametext{

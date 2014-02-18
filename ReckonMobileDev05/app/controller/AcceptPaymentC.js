@@ -146,15 +146,13 @@ Ext.define('RM.controller.AcceptPaymentC', {
         vals.InvoiceId = this.invoiceId;
         vals.AccountsReceivableCategoryId = this.accountsReceivableCategoryId;
         vals.CustomerSupplierId = this.customerId;
-
-        //alert(JSON.stringify(vals));
+        vals.customerName = this.customerName;
+        
         if(this.validateForm(vals)){ 
             
             if (vals.PaymentMethodId == "56dc8f56-2c78-4f0f-9dc6-cd0e2844ae69")
             {
-                localStorage.setItem('RmPayeeName', this.customerName);
-                localStorage.setItem('RmPayeeAmount', vals.AmountPaid);
-                RM.ViewMgr.showPay();
+                RM.ViewMgr.showPay(null, vals);
             }
             else
             {

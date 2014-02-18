@@ -5940,6 +5940,9 @@ body.x-desktop {
 .rm-whitebg {
   background-color: #FFFFFF !important; }
 
+.rm-greybg {
+  background-color: #515151 !important; }
+
 .rm-border-top {
   border-top: 1px solid #f7f7f7 !important; }
 
@@ -6304,6 +6307,9 @@ body.x-desktop {
 .rm-alignl {
   text-align: left !important; }
 
+.rm-alignc {
+  text-align: center !important; }
+
 .rm-inputel-alignl .x-input-el {
   text-align: left;
   margin-left: 5px;
@@ -6318,6 +6324,9 @@ body.x-desktop {
 .rm-floatr15 {
   position: absolute;
   right: 15px; }
+
+.rm-colorred {
+  color: red; }
 
 .rm-orgnametext {
   color: #646464;
@@ -7342,3 +7351,14 @@ rm-emailinvoicebackground {
 .rm-iconsize25 {
   background-size: 25px !important;
   background-position: center !important; }
+
+.rm-pay-text-big {
+  font-size: 130%;
+  font-weight: normal;
+  text-align: center;
+  color: #878787; }
+
+.rm-pay-amount-text {
+  font-size: 130%;
+  font-weight: bold;
+  color: #636363; }

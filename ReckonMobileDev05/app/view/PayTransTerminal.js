@@ -41,14 +41,14 @@ Ext.define('RM.view.PayTransTerminal',{
                                 {
                                     xtype: 'img',
                                     src: 'resources/images/icons/rm-update-icon.svg',
-                                    height: 40,
-                                    width: 40,
-                                    margin: '25px auto'                        
+                                    height: 70,
+                                    width: 70,
+                                    margin: '60px auto 15px auto'                        
                                 },{
                                     xtype: 'component',
                                     html: 'No device detected', 
-                                    cls: 'rm-update-title', 
-                                    margin: '-8 0 5 0'
+                                    cls: 'rm-pay-text-big', 
+                                    margin: '10 0 10 0'
                                 },{
                                     xtype: 'component',
                                     html: 'No Reckon Pay device detected. <br>Please insert a device and try again.',
@@ -64,29 +64,45 @@ Ext.define('RM.view.PayTransTerminal',{
                                 {
                                     xtype: 'img',
                                     src: 'resources/images/icons/rm-update-icon.svg',
-                                    height: 40,
-                                    width: 40,
-                                    margin: '25px auto'                        
+                                    height: 70,
+                                    width: 70,
+                                    margin: '30px auto 15px auto'                        
                                 },{
                                     xtype: 'component',
                                     html: 'Insert Chip', 
-                                    cls: 'rm-update-title', 
-                                    margin: '-8 0 5 0'
+                                    cls: 'rm-pay-text-big'                                    
                                 },{
                                     xtype: 'component',
-                                    html: 'OR',
-                                    style: 'text-align: center;'  
+                                    html: 'OR',                                   
+                                    style: 'text-align: center; color: #D4D4D4;',
+                                    margin: '10px 0px 0px 0px' 
+                                    
                                 },{
                                     xtype: 'img',
                                     src: 'resources/images/icons/rm-update-icon.svg',
-                                    height: 40,
-                                    width: 40,
-                                    margin: '25px auto'                        
+                                    height: 70,
+                                    width: 70,
+                                    margin: '25px auto 15px auto'                  
                                 },{
                                     xtype: 'component',
                                     html: 'Swipe Card',
-                                    cls: 'rm-update-msg',  
-                                    margin: '0 0 25 0'
+                                    cls: 'rm-pay-text-big'                                    
+                                },{
+                                    xtype: 'container',
+                                    layout: 'hbox',
+                                    cls: 'rm-greybg',
+                                    items: [{
+                                        xtype: 'img',
+                                        src: 'resources/images/icons/rm-update-icon.svg',
+                                        height: 70,
+                                        width: 70,
+                                        margin: '15px 10px'
+                                    },{
+                                        xtype: 'component',
+                                        html: 'Tap for payment if <br>supported by your device',
+                                        style: 'color: #FFF;',
+                                        margin: '25px 0 25px 0'
+                                    }]
                                 }             
                             ]   
                         },{
@@ -94,15 +110,17 @@ Ext.define('RM.view.PayTransTerminal',{
                             items: [{
                                 xtype: 'component',
                                 html: 'Total amount',
-                                cls: ['rm-alignc']
+                                cls: ['rm-alignc', 'rm-pay-text-big'],
+                                margin: '80 0 10 0'
                             },{
                                 xtype: 'component',
                                 html: '$14.60',
-                                cls: ['rm-alignc']
+                                cls: ['rm-alignc', 'rm-pay-amount-text'],
+                                margin: '20 0 80 0'
                             },{
                                 xtype: 'component',
                                 html: 'Please enter your PIN<br>to confirm payment',
-                                cls: ['rm-alignc']
+                                cls: ['rm-alignc', 'rm-pay-text-big' ]
                             }
                             
                             ]

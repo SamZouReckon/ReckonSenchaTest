@@ -23,7 +23,7 @@ Ext.define('RM.view.PayAmountInput', {
     scrollable: 'vertical',
     items: [
         
-        /*{
+        {
                 
                 xtype: 'container',
                 layout: 'hbox',
@@ -42,7 +42,7 @@ Ext.define('RM.view.PayAmountInput', {
                             cls: ['rm-white-flatbtn', 'rm-pay-inputclearbtn']                            
                         }
                 ]                                
-            },*/{
+            },{
                 xtype: 'container',
                 cls: 'rm-whitebg',
                 layout: 'hbox',

@@ -18,6 +18,7 @@ Ext.define('RM.view.MainNavContainer', {
 		//'RM.view.settings.MyPreferences',
         'RM.view.About',
         'RM.view.PayAmountInput',
+        'RM.view.PaySalesHistory',
         'RM.view.Modules'
 		//'RM.view.settings.LinkBankAccount'
 		//,'RM.view.settings.CompanySettings'

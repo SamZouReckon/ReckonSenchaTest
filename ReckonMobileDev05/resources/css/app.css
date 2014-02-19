@@ -5940,6 +5940,12 @@ body.x-desktop {
 .rm-whitebg {
   background-color: #FFFFFF !important; }
 
+.rm-greybg {
+  background-color: #515151 !important; }
+
+.rm-paybg {
+  background-color: #f7f7f7 !important; }
+
 .rm-border-top {
   border-top: 1px solid #f7f7f7 !important; }
 
@@ -6247,6 +6253,12 @@ body.x-desktop {
 .rm-pl0 {
   padding-left: 0px !important; }
 
+.rm-p10 {
+  padding: 10px !important; }
+
+.rm-pt5 {
+  padding-top: 5px; }
+
 .rm-pr5 {
   padding-right: 5px; }
 
@@ -6262,6 +6274,9 @@ body.x-desktop {
 .rm-fontsize100 {
   font-size: 100%; }
 
+.rm-fontsize120 {
+  font-size: 120%; }
+
 .rm-fontsize98 {
   font-size: 98%; }
 
@@ -6270,6 +6285,9 @@ body.x-desktop {
 
 .rm-fontsize80 {
   font-size: 80%; }
+
+.rm-fontweightbold {
+  font-weight: bold; }
 
 .rm-p5 {
   padding: 5px; }
@@ -6298,6 +6316,9 @@ body.x-desktop {
 .rm-alignl {
   text-align: left !important; }
 
+.rm-alignc {
+  text-align: center !important; }
+
 .rm-inputel-alignl .x-input-el {
   text-align: left;
   margin-left: 5px;
@@ -6312,6 +6333,12 @@ body.x-desktop {
 .rm-floatr15 {
   position: absolute;
   right: 15px; }
+
+.rm-colorred {
+  color: red !important; }
+
+.rm-colorgreen {
+  color: #A2D079; }
 
 .rm-orgnametext {
   color: #646464;
@@ -7295,6 +7322,11 @@ rm-emailinvoicebackground {
 .rm-pay-graytext {
   color: #a0a0a0 !important; }
 
+.rm-pay-grayheadertext {
+  font-weight: bold;
+  color: #646464;
+  padding: 25px 10px; }
+
 .rm-pay-gstbtn {
   background-image: url("../images/icons/rm-photo.svg") !important;
   background-repeat: no-repeat;
@@ -7327,3 +7359,18 @@ rm-emailinvoicebackground {
   color: #c8c8c8;
   padding-top: 9px;
   margin: 0px 5px 5px 10px; }
+
+.rm-iconsize25 {
+  background-size: 25px !important;
+  background-position: center !important; }
+
+.rm-pay-text-big {
+  font-size: 130%;
+  font-weight: normal;
+  text-align: center;
+  color: #878787; }
+
+.rm-pay-amount-text {
+  font-size: 130%;
+  font-weight: bold;
+  color: #636363; }

@@ -31,6 +31,7 @@ Ext.define('RM.view.PayTransTypeSelect', {
         },{
 			xtype: 'button',
 			text: 'Credit card <span class="rm-pay-graytext rm-fontsize70">(using a Pay device)</span>',
+            itemId: 'creditcard',
 			cls: ['rm-arrowimgbtn', 'rm-paymenttype-btn-bg'],
             icon: 'resources/images/icons/rm-credit.svg',
             iconCls: 'rm-btn-iconsize',
@@ -39,6 +40,7 @@ Ext.define('RM.view.PayTransTypeSelect', {
 		},{
 			xtype: 'button',
 			text: 'Cash',
+            itemId: 'cash',
 			cls: ['rm-arrowimgbtn', 'rm-paymenttype-btn-bg'],			
 			icon: 'resources/images/icons/rm-cash.svg',
             iconCls: 'rm-btn-iconsize',
@@ -47,6 +49,7 @@ Ext.define('RM.view.PayTransTypeSelect', {
 		},{
 			xtype: 'button',
 			text: 'Cheque',
+            itemId: 'cheque',
 			cls: ['rm-arrowimgbtn', 'rm-paymenttype-btn-bg'],		
 			icon: 'resources/images/icons/rm-cheque.svg',
             iconCls: 'rm-btn-iconsize',
@@ -55,6 +58,7 @@ Ext.define('RM.view.PayTransTypeSelect', {
 		},{
 			xtype: 'button',
 			text: 'Other credit transaction',
+            itemId: 'other',
 			cls: ['rm-arrowimgbtn', 'rm-paymenttype-btn-bg'],	
 			icon: 'resources/images/icons/rm-cheque.svg',
             iconCls: 'rm-btn-iconsize',

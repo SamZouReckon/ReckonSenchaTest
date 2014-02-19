@@ -11,31 +11,52 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             },
             'paytranstypeselect #back': {
                 tap: 'back'
+            },
+            'paytranstypeselect #creditcard':{
+                tap: 'onCreditCardTap'
+            },
+            'paytranstypeselect #cash':{
+                tap: 'onCashTap'
+            },
+            'paytranstypeselect #cheque':{
+                tap: 'onChequeTap'
+            },
+            'paytranstypeselect #other':{
+                tap: 'onOtherTap'
             }
         }
     },
     
-    showView: function (data, cb, cbs) {
+    showView: function (data) {
         this.data = data;
-        this.selectCb = cb;
-        this.selectCbs = cbs;
-
         var view = this.getPayTransTypeSelect();
         if (!view){
             view = { xtype: 'paytranstypeselect' };
-        }
-        
-        //RM.ViewMgr.clearBackStack();
+        }       
         RM.ViewMgr.showPanel(view);
-
     },  
     
     onDetailsTap: function(){
         RM.PayMgr.showScreen('PayAmountDetails', this.data);
     },
     
+    onCreditCardTap: function(){
+        RM.PayMgr.showScreen('PayTransTerminal', this.data);
+    },
+    
+    onCashTap: function(){
+        RM.PayMgr.showScreen('PayRecvCash', this.data);
+    },
+    
+    onChequeTap: function(){
+        RM.PayMgr.showScreen('PayRecvCheque', this.data);
+    },
+    
+    onOtherTap: function(){
+        RM.PayMgr.showScreen('PayRecvManualCard', this.data);
+    },
+    
     back: function () {
         RM.ViewMgr.back();
     }
-
 });

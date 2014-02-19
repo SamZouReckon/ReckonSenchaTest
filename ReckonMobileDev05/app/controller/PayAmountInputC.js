@@ -8,7 +8,7 @@ Ext.define('RM.controller.PayAmountInputC', {
             amount: 'payamountinput #amount',   
             toolbarTitle: 'payamountinput #toolbarTitle',
             totalWithGst: 'payamountinput #totalwithgstfield',
-            description: 'payamountinput #descriptionfield'            
+            descriptionFld: 'payamountinput #descriptionfield'            
         },
         control: {            
             
@@ -73,7 +73,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         else {           
             this.valStr += key;
         }
-        console.log(this.valStr);
+        //console.log(this.valStr);
         
         this.getCalcInput().setHtml(this.valStr);
 
@@ -136,7 +136,7 @@ Ext.define('RM.controller.PayAmountInputC', {
             function(noteText){
                 RM.ViewMgr.back();
                 this.noteText = noteText;
-                this.getNotesFld().setValue(noteText.replace(/(\r\n|\n|\r)/g, ' '));
+                this.getDescriptionFld().setValue(noteText.replace(/(\r\n|\n|\r)/g, ' '));
             },
             this
         );

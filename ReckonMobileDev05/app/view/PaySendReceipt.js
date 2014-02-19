@@ -41,12 +41,12 @@ Ext.define('RM.view.PaySendReceipt',{
                     },{
 						xtype: 'button',
 						text: 'SEND RECEIPT',
-						itemId: 'send',
+						itemId: 'sendreceipt',
 						cls: 'rm-emailscreenbtn'
 					},{
 						xtype: 'button',
 						text: 'DON\'T SEND RECEIPT',
-						itemId: 'dontsend',
+						itemId: 'dontsendreceipt',
 						cls: 'rm-emailscreenbtn'
 					}
 				]

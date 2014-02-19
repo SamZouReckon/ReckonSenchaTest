@@ -55,6 +55,7 @@ Ext.define('RM.view.PayRecvCheque',{
             cls: 'rm-flatfield'
         },{
             xtype: 'button',
+            itemId: 'charge',
             text: 'CHARGE',
             cls: 'rm-loginbtn'
         }

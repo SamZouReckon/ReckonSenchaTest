@@ -48,6 +48,7 @@ Ext.define('RM.view.PayRecvManualCard',{
             cls: 'rm-flatfield'
         },{
             xtype: 'button',
+            itemId: 'recordtransaction',
             text: 'RECORD TRANSACTION',
             cls: 'rm-loginbtn'
         }

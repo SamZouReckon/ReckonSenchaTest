@@ -23,7 +23,7 @@ Ext.define('RM.view.PayTransTerminal',{
         					xtype:'spacer'
         				},{
             				text: 'DETAILS',
-            				itemId: 'return', 
+            				itemId: 'details', 
                             width: '6em',
             				ui: 'rm_topbarbuttonright'
             			}
@@ -31,7 +31,7 @@ Ext.define('RM.view.PayTransTerminal',{
             },{
                 xtype: 'container',
                 layout: 'card',
-                activeItem: 4,
+                activeItem: 0,
                 defaults: {
                     cls: 'rm-paybg'
                 },

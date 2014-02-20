@@ -42,23 +42,22 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     showView: function (data, cb, cbs) {
-        /*this.data = data;
+        this.data = data;
         this.selectCb = cb;
         this.selectCbs = cbs;
 
         var view = this.getPayAmountInput();
         if (!view){
             view = { xtype: 'payamountinput' };
-        }*/
+        }
         
-        
-        //RM.ViewMgr.clearBackStack();
-        //RM.ViewMgr.showPanel(view);
-        var amountToPay = RM.AppMgr.formatCurrency(parseFloat(localStorage.getItem('RmPayeeAmount')), 0);
-        
-        this.getToolbarTitle().setHtml(localStorage.getItem('RmPayeeName'));
-        this.getAmount().setHtml(amountToPay);
-        this.getTotalWithGst().setHtml("Total with GST " + amountToPay);
+        var amountToPay = typeof data == "undefined" ? 0 : parseFloat(data.AmountPaid);
+        var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
+        var customerName = typeof data == "undefined" ? "" : data.customerName;
+
+        this.getToolbarTitle().setHtml(customerName);
+        this.getAmount().setHtml(formattedAmount);
+        this.getTotalWithGst().setHtml("Total with GST " + formattedAmount);
     },  
     
     onCalcKeyTap: function (key) {       

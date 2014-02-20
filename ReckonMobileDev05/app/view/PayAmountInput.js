@@ -49,7 +49,7 @@ Ext.define('RM.view.PayAmountInput', {
                         items: [
                             {
                                 xtype: 'component',
-                                html: '$',
+                                html: '',
                                 cls: 'rm-pay-currencyprefix'
                             },{
                                 xtype: 'component',

@@ -39,15 +39,15 @@ Ext.define('RM.view.PaySendReceipt',{
                         labelWidth: '6.5em',
                         placeHolder: 'enter'
                     },{
-						xtype: 'button',
-						text: 'SEND RECEIPT',
+						xtype: 'button',						
 						itemId: 'sendreceipt',
-						cls: 'rm-emailscreenbtn'
+						text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
+                        cls: 'rm-photopreviewbtn',
 					},{
-						xtype: 'button',
-						text: 'DON\'T SEND RECEIPT',
+						xtype: 'button',						
 						itemId: 'dontsendreceipt',
-						cls: 'rm-emailscreenbtn'
+						text: '<span class="rm-btn-arrow">DON\'T SEND RECEIPT</span>',
+                        cls: 'rm-photopreviewbtn'
 					}
 				]
 			},{
@@ -73,9 +73,11 @@ Ext.define('RM.view.PaySendReceipt',{
 							
 					},{
 						xtype: 'button',
-						text: 'DONE',
-						itemId: 'done',
-						cls: 'rm-emailscreenbtn'
+                        itemId: 'done',
+						text: '<span class="rm-btn-arrow">DONE</span>',
+                        cls: 'rm-photopreviewbtn'
+						
+						
 					}
 				]
             }

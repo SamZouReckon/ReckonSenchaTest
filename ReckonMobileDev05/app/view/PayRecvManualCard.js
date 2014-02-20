@@ -44,13 +44,14 @@ Ext.define('RM.view.PayRecvManualCard',{
             cls: 'rm-flatfield'
         },{
             xtype: 'extdatepickerfield',
+            dateFormat : 'jS M Y',
             label: 'Date',
             cls: 'rm-flatfield'
         },{
             xtype: 'button',
             itemId: 'recordtransaction',
-            text: 'RECORD TRANSACTION',
-            cls: 'rm-loginbtn'
+            text: '<span class="rm-btn-arrow">RECORD TRANSACTION</span>',
+            cls: 'rm-photopreviewbtn',
         }
         ]
     }    

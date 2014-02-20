@@ -68,7 +68,7 @@ Ext.define('RM.view.PayAmountInput', {
                                 xtype: 'component',
                                 itemId: 'totalwithgstfield',
                                 html: 'Total with GST $0.00',
-                                style: 'padding-left: 10px; padding-top: 14px; color: #c8c8c8;',
+                                cls: 'rm-pay-gsttext',
                                 flex: 1
                             },{
                                 xtype: 'button',
@@ -87,6 +87,7 @@ Ext.define('RM.view.PayAmountInput', {
                                 xtype: 'exttextfield',
                                 itemId: 'descriptionfield',
                                 cls: 'rm-ml5',
+                                inputCls: 'rm-pay-description',
                                 clearIcon: false,
                                 readOnly: true,
                                 placeHolder: 'Add optional description',
@@ -101,8 +102,8 @@ Ext.define('RM.view.PayAmountInput', {
                     },{
                         xtype: 'button',
                         itemId: 'charge',
-                        text: 'CHARGE',
-                        cls: 'rm-loginbtn'
+                        text: '<span class="rm-btn-arrow">CHARGE</span>',
+                        cls: 'rm-photopreviewbtn',
                   
                     }
                 ]

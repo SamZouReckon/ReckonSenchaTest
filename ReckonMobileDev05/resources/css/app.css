@@ -6262,6 +6262,9 @@ body.x-desktop {
 .rm-pr5 {
   padding-right: 5px; }
 
+.rm-margin-auto10 {
+  margin: auto 10px; }
+
 .rm-ml5 {
   margin-left: 5px; }
 
@@ -6342,6 +6345,12 @@ body.x-desktop {
 
 .rm-colorgreen {
   color: #A2D079; }
+
+.rm-colorblue {
+  color: #5095E1; }
+
+.rm-border1px {
+  border-top: 1px solid #DBDBDB; }
 
 .rm-orgnametext {
   color: #646464;
@@ -7392,4 +7401,8 @@ rm-emailinvoicebackground {
   background-position: right;
   background-repeat: no-repeat;
   background-size: 10px;
-  padding-right: 22px; }
+  padding-right: 22px;
+  padding-top: 2px; }
+
+.rm-pay-noimagebg {
+  background: #ECECEC !important; }

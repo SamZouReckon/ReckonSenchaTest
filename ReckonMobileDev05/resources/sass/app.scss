@@ -2280,6 +2280,6 @@ rm-emailinvoicebackground{
 }
 
 .rm-paypreferences-leftalign{
-    position: absolute;
+    position: absolute !important;
     left: 15px;
 }

@@ -7406,3 +7406,7 @@ rm-emailinvoicebackground {
 
 .rm-pay-noimagebg {
   background: #ECECEC !important; }
+
+.rm-paypreferences-leftalign {
+  position: absolute !important;
+  left: 15px; }

@@ -96,7 +96,7 @@ Ext.define('RM.view.MainNavContainer', {
 			group: 'GENERAL'
         },
         {
-            title: 'Product selection',
+            title: 'Reckon home',
             activated: true,
             handler: function () {
                 if(RM.AppMgr.isLoggedIn()){ //otherwise the select module screen flashes up at the start before login or enter pin
@@ -234,7 +234,7 @@ Ext.define('RM.view.MainNavContainer', {
 			group: 'GENERAL'
         },
         {
-            title: 'Product selection',
+            title: 'Reckon home',
             activated: true,
 			group: 'GENERAL',
             handler: function () {

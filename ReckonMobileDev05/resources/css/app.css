@@ -6262,6 +6262,9 @@ body.x-desktop {
 .rm-pr5 {
   padding-right: 5px; }
 
+.rm-margin-auto10 {
+  margin: auto 10px; }
+
 .rm-ml5 {
   margin-left: 5px; }
 
@@ -6288,6 +6291,9 @@ body.x-desktop {
 
 .rm-fontweightbold {
   font-weight: bold; }
+
+.rm-lineheight180 {
+  line-height: 180% !important; }
 
 .rm-p5 {
   padding: 5px; }
@@ -6339,6 +6345,12 @@ body.x-desktop {
 
 .rm-colorgreen {
   color: #A2D079; }
+
+.rm-colorblue {
+  color: #5095E1; }
+
+.rm-border1px {
+  border-top: 1px solid #DBDBDB; }
 
 .rm-orgnametext {
   color: #646464;
@@ -7135,7 +7147,8 @@ rm-emailinvoicebackground {
   color: #646464;
   border-radius: 0;
   border: 0;
-  height: 2.6em; }
+  height: 2.6em;
+  border-bottom: 2px solid #DBDBDB; }
 .rm-photopreviewbtn .x-button-label, .rm-photopreviewbtn .x-badge {
   text-overflow: ellipsis;
   text-align: center !important;
@@ -7355,6 +7368,14 @@ rm-emailinvoicebackground {
   color: #646464;
   font-size: 275%; }
 
+.rm-pay-gsttext {
+  padding-left: 10px;
+  padding-top: 14px;
+  color: #c8c8c8; }
+
+.rm-pay-description {
+  color: #c8c8c8; }
+
 .rm-pay-amountinputtext {
   color: #c8c8c8;
   padding-top: 9px;
@@ -7374,3 +7395,14 @@ rm-emailinvoicebackground {
   font-size: 130%;
   font-weight: bold;
   color: #636363; }
+
+.rm-btn-arrow {
+  background-image: url("../images/icons/rm-btn-arrow.svg");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 10px;
+  padding-right: 22px;
+  padding-top: 2px; }
+
+.rm-pay-noimagebg {
+  background: #ECECEC !important; }

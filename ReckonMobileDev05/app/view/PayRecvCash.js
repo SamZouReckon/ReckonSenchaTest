@@ -53,10 +53,10 @@ Ext.define('RM.view.PayRecvCash',{
             cls: 'rm-flatfield',
             label: 'Change'
         },{
-            xtype: 'button',
-            text: 'TENDER CASH',
-            itemId: 'tendercash',
-            cls: 'rm-loginbtn'
+            xtype: 'button',            
+            itemId: 'tendercash',            
+            text: '<span class="rm-btn-arrow">TENDER CASH</span>',
+            cls: 'rm-photopreviewbtn'
         }
          ]
      }

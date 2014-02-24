@@ -55,7 +55,7 @@ Ext.define('RM.view.PayTransTerminal',{
                                 },{
                                     xtype: 'component',
                                     html: 'No Reckon Pay device detected. <br>Please insert a device and try again.',
-                                    cls: 'rm-update-msg',  
+                                    cls: ['rm-update-msg', 'rm-lineheight180'],  
                                     margin: '0 0 25 0'
                                 }             
                             ]                  
@@ -141,19 +141,20 @@ Ext.define('RM.view.PayTransTerminal',{
                                 cls: ['rm-alignc' ]
                             },{
                                 xtype: 'button',
-                                text: 'EXIT',
-                                cls: 'rm-loginbtn',
+                                text: '<span>EXIT</span>',
+                                cls: 'rm-photopreviewbtn',
                                 docked: 'bottom'                                
                             },{
                                 xtype: 'button',
-                                text: 'CHANGE PAYMENT TYPE',
-                                cls: 'rm-loginbtn',
+                                text: '<span class="rm-btn-arrow">CHANGE PAYMENT TYPE</span>',
+                                cls: 'rm-photopreviewbtn',
                                 docked: 'bottom'
                             }]
                         },{
                             xtype: 'container',
                             items: [{
                                         xtype: 'container',
+                                        margin: '70px 50px',
                                         layout: 'hbox',
                                         items: [
                                                 {                                    
@@ -161,13 +162,13 @@ Ext.define('RM.view.PayTransTerminal',{
                                                 src: 'resources/images/icons/rm-update-icon.svg',
                                                 height: 70,
                                                 width: 70,
-                                                margin: ''    
+                                                  
                                                                           
                                             },{
                                                 xtype: 'component',
                                                 html: 'Transaction<br>Successful',
-                                                cls: ['rm-colorgreen', 'rm-fontsize120', 'rm-fontweightbold'],
-                                                margin: 15
+                                                cls: ['rm-colorgreen', 'rm-fontsize120', 'rm-fontweightbold', 'rm-lineheight180'],
+                                                margin: '-5 15 15 15'                                                
                                             }
                                         ]
                                     },{

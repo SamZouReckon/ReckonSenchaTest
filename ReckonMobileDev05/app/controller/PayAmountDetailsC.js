@@ -22,7 +22,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
         var view = this.getPayAmountDetails();
         if (!view)
             view = { xtype: 'payamountdetails' };
-        RM.ViewMgr.showPanel(view);
+        RM.ViewMgr.showPanel(view, 'flip');
     },
     
     onShow: function () {
@@ -50,7 +50,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
     },
     
     onReturn: function(){
-        RM.ViewMgr.back();
+        RM.ViewMgr.back('flip');
     }
     
 });

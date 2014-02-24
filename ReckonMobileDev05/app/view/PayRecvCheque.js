@@ -51,13 +51,14 @@ Ext.define('RM.view.PayRecvCheque',{
             cls: 'rm-flatfield'
         },{
             xtype: 'extdatepickerfield',
+            dateFormat : 'jS M Y',
             label: 'Date',
             cls: 'rm-flatfield'
         },{
             xtype: 'button',
             itemId: 'charge',
-            text: 'CHARGE',
-            cls: 'rm-loginbtn'
+            text: '<span class="rm-btn-arrow">CHARGE</span>',
+            cls: 'rm-photopreviewbtn',
         }
         ]
     }    

@@ -9,7 +9,8 @@
 // Examples of using the icon mixin:
 // @include icon('user');
 
-$base-color: #F82C2C;				//Global theme color used for theming app
+//$base-color: #F82C2C;				//Global theme color used for theming app
+$base-color: #333333;
 
 $rm-default-color: #787878;
 $rm-warning-color: #8e6c09;
@@ -278,7 +279,7 @@ $include-list-highlights: none;
   .x-toolbar .x-button.x-button-rm_topbarbuttonleft{
     @include rm_topbarbuttonstyle;
 	//border-right: 1px solid #000000;
-    background: url(../images/rm-topbar-border.svg) repeat-y right top;
+    //background: url(../images/rm-topbar-border.svg) repeat-y right top;
 	margin-left: -5px;
     margin-right: 5px;
     padding-left: 7px;
@@ -294,7 +295,7 @@ $include-list-highlights: none;
   .x-toolbar .x-button.x-button-rm_topbarbuttonright {
     @include rm_topbarbuttonstyle;
 	//border-left: 1px solid #000000;
-    background: url(../images/rm-topbar-border.svg) repeat-y left top;
+    //background: url(../images/rm-topbar-border.svg) repeat-y left top;
 	margin-left: 5px;
     margin-right: -5px;
     width: 3.4em;
@@ -460,6 +461,10 @@ $include-list-highlights: none;
 
 .rm-greybg{
     background-color: #515151 !important;
+}
+
+.rm-lightgreenbg{
+    background-color: #E5F7F0 !important;
 }
 
 .rm-paybg{
@@ -2280,6 +2285,6 @@ rm-emailinvoicebackground{
 }
 
 .rm-paypreferences-leftalign{
-    position: absolute;
+    position: absolute !important;
     left: 15px;
 }

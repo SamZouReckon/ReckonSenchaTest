@@ -167,6 +167,9 @@ Ext.define('RM.controller.PayAmountInputC', {
         
         var data = {
             Amount: 50.54,
+            Description: "Test Description",
+            PayerName: "Travis Beesley",
+            PaymentMethodId: 2,
             GST: 2.45,
             Surcharge: 2.40,
             Total: 54.67,

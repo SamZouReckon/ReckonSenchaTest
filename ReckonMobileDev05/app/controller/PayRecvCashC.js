@@ -32,9 +32,9 @@ Ext.define('RM.controller.PayRecvCashC',{
     },
     
     tenderCash: function(){
-        RM.PayMgr.createTransaction(this.data, function(){
+        //RM.PayMgr.createTransaction(this.data, function(){
             RM.PayMgr.showScreen('PaySendReceipt');  
-        },this);
+        //},this);
     },
         
     back: function () {

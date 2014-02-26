@@ -26,7 +26,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
     
     done: function() {
        console.log('done'); 
-       RM.PayMgr.showScreen('PayAmountInput'); 
+       RM.ViewMgr.showPay();
     },
     
     sendReceipt: function () {

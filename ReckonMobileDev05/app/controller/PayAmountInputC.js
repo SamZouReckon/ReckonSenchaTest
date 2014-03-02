@@ -103,7 +103,8 @@ Ext.define('RM.controller.PayAmountInputC', {
             }            
         }        
         console.log(this.inputArray);
-        this.getAmount().setHtml(this.inputStr);
+        //this.getAmount().setHtml(this.inputStr);
+        this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
     },
     
     addToInputHistory: function(){
@@ -121,7 +122,25 @@ Ext.define('RM.controller.PayAmountInputC', {
         if(this.inputStr === '=' || this.inputStr === '=undefined' || this.inputStr === '=NaN') {
             this.inputStr = '';
         }
-        this.getAmount().setHtml(this.inputStr);                  
+        //this.getAmount().setHtml(this.inputStr); 
+        this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
+    },
+    
+    showCurrencyPrefix: function(val){        
+        if(val.indexOf('=') >= 0){
+            val = val.replace('=','<span class = "rm-pay-currencyprefix">=$</span>');
+        }
+        return val;
+    },
+    
+    styleOperators: function(val){
+        if(val.indexOf('+') >= 0){
+            val = val.replace('+','<span class = "rm-pay-currencyprefix">+</span>');
+        }
+        if(val.indexOf('*') >= 0){
+            val = val.replace('*','<span class = "rm-pay-currencyprefix">*</span>');
+        }
+        return val;
     },
     
     calculateTotal: function(){
@@ -231,6 +250,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                     xtype: 'component', 
                     docked: 'right',   
                     margin: '2 5 2 5',
+                    //html: me.styleOperators(this.inputArray[i]),
                     html: this.inputArray[i],
                     styleHtmlContent: true,
                     styleHtmlCls: ['rm-fontsize120', 'rm-pay-graytext', 'rm-lineheight180', 'rm-pr5'],
@@ -253,7 +273,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                 xtype: 'container',
                 layout: 'hbox',  
                 margin: 1,
-                itemId: 'res',
+                itemId: 'resultrow',
                 items: [{
                     xtype: 'button',                    
                     ui: 'plain', 

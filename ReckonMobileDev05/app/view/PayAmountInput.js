@@ -4,8 +4,7 @@ Ext.define('RM.view.PayAmountInput', {
         requires: ['RM.component.CalcKeypad'],
         config: {
         cls: 'rm-whitebg',
-        scrollable: 'vertical',
-        //layout: 'fit',
+        scrollable: 'vertical',        
         items:[
              {
                     xtype: 'toolbar',
@@ -22,23 +21,26 @@ Ext.define('RM.view.PayAmountInput', {
             {
                                         xtype: 'container',
                                         docked: 'top',
+                                        scrollable: 'horizontal',
+                                        height: '3em',
                                         cls: 'rm-whitebg',
                                         layout: 'hbox',
                                         items: [
                                             {
-                                                    xtype: 'button',
-                                                    text: '<',
-                                                    cls: 'rm-white-flatbtn',
-                                                    itemId: 'historyshowbtn'
+                                                xtype: 'button',
+                                                text: '<',
+                                                cls: 'rm-white-flatbtn',
+                                                itemId: 'historyshowbtn',
+                                                docked: 'left'
                                             },
                                             {
                                                 xtype: 'component',
-                                                html: '',
+                                                html: '',                                                
                                                 cls: 'rm-pay-currencyprefix'
                                             },{
                                                 xtype: 'component',
                                                 html: '0.00',
-                                                itemId: 'amount',
+                                                itemId: 'amount',                                               
                                                 height: '1.1em',
                                                 cls: 'rm-pay-amount'
                                             },{
@@ -48,8 +50,7 @@ Ext.define('RM.view.PayAmountInput', {
                                                 ui: 'plain', 
                                                 iconCls: 'rm-btn-iconsize',
                                                 icon: 'resources/images/icons/rm-fieldclear.svg',
-                                                docked: 'right'            
-                                                
+                                                docked: 'right'                                        
                                             },{
                                                 xtype: 'button',
                                                 text: '>',

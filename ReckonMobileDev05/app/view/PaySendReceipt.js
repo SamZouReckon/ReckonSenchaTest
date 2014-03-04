@@ -40,12 +40,12 @@ Ext.define('RM.view.PaySendReceipt',{
                         placeHolder: 'enter'
                     },{
 						xtype: 'button',						
-						itemId: 'sendreceipt',
+						itemId: 'sendreceiptbtn',
 						text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
                         cls: 'rm-photopreviewbtn',
 					},{
 						xtype: 'button',						
-						itemId: 'dontsendreceipt',
+						itemId: 'dontsendreceiptbtn',
 						text: '<span class="rm-btn-arrow">DON\'T SEND RECEIPT</span>',
                         cls: 'rm-photopreviewbtn'
 					}

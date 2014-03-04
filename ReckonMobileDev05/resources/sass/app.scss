@@ -2211,6 +2211,20 @@ rm-emailinvoicebackground{
     background-size: 20px 20px;
 }
 
+.rm-payamountinput-arrow{
+    background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 20px;
+}
+
+.rm-payamountinput-back-arrow{
+    background-image: url("../images/icons/rm-btn-back-arrow.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 20px;
+}
+
 .rm-pay-camerabtn{
     background-image: url("../images/icons/rm-photo.svg") !important;
 	background-repeat: no-repeat;

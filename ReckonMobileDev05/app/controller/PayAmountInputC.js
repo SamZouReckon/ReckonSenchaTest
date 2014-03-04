@@ -11,7 +11,8 @@ Ext.define('RM.controller.PayAmountInputC', {
             inputAndHistoryContainer: 'payamountinput #inputandhistorycontainer',
             amount: 'payamountinput #amount',   
             toolbarTitle: 'payamountinput #toolbarTitle',
-            totalWithGst: 'payamountinput #totalwithgstfield',
+            //totalWithGst: 'payamountinput #totalwithgstfield',
+            discount: 'payamountinput #discount',
             descriptionFld: 'payamountinput #descriptionfield'            
         },
         control: {            
@@ -26,7 +27,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                 tap: 'showOrHideHistory'
             },
             'payamountinput #clearinputbtn': {
-                tap: 'clearInputField'
+                tap: 'clearInputFieldAndHistory'
             },
             'payamountinput #gstbtn': {
                 tap: 'onGstBtnTap'
@@ -37,7 +38,9 @@ Ext.define('RM.controller.PayAmountInputC', {
             'payamountinput #charge': {
                 tap: 'onChargeBtnTap'
             },
-            
+            'payamountinput #discount': {
+                tap: 'onDiscountFldTap'
+            },
             'payamountinput #descriptionfield':{
                 tap: 'showNotes'
             }
@@ -46,13 +49,12 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     init: function(){
-        this.callParent(arguments);
-        
+        this.callParent(arguments);        
         this.inputStr = '';
         this.inputArray = new Array();
         this.inputArrayIndex = 0;
         this.noteText = '',
-        this.gstVal = 10;
+        //this.gstVal = 10;
         this.history = false;
     },
     
@@ -60,23 +62,24 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.data = data;
         this.selectCb = cb;
         this.selectCbs = cbs;
-
+        
         var view = this.getPayAmountInput();
         if (!view){
             view = { xtype: 'payamountinput' };
         }
-        
+        this.clearInputFieldAndHistory();
         var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountPaid);
         var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
         var customerName = typeof data === "undefined" ? "" : data.customerName;
 
-        this.getToolbarTitle().setHtml(customerName);
+        //this.getToolbarTitle().setHtml(customerName);
+        this.getToolbarTitle().setHtml('Joe Plumber');
         this.getAmount().setHtml(formattedAmount);
-        this.getTotalWithGst().setHtml("Total with GST " + formattedAmount);
+        //this.getTotalWithGst().setHtml("Total with GST " + formattedAmount);
     },  
     
     onCalcKeyTap: function (key) {       
-        
+        var pointIndex = this.inputStr.indexOf('.');        
         if (key === 'back') {
             if (this.inputStr.length > 0 && (this.inputStr.indexOf('=') === -1 )) {               
                 this.inputStr = this.inputStr.slice(0, -1); 
@@ -99,20 +102,26 @@ Ext.define('RM.controller.PayAmountInputC', {
         }
         else {           
             if(this.inputStr.indexOf('=') === -1 ){
+                if(key === '.' && pointIndex !== -1){
+                    return;
+                }
+                if(pointIndex !== -1 && (this.inputStr.length - pointIndex) >= 3){
+                    return;
+                }
                 this.inputStr += key;
             }            
         }        
-        console.log(this.inputArray);
+        //console.log(this.inputArray);
         //this.getAmount().setHtml(this.inputStr);
         this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
     },
     
     addToInputHistory: function(){
-        if(this.inputStr === '+' || this.inputStr === '*' || this.inputStr === '='){
+        if(this.inputStr === '+' || this.inputStr === '*' || this.inputStr === '=' || this.inputStr === ''){
             this.inputStr = ''
             return;
-        } 
-        this.inputArray[this.inputArrayIndex] = this.inputStr;
+        }         
+        this.inputArray[this.inputArrayIndex] = this.formatNumber(this.inputStr);
         this.inputArrayIndex += 1; 
         this.inputStr = '';
     },
@@ -121,13 +130,13 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.inputStr = '=' + this.calculateTotal();  
         if(this.inputStr === '=' || this.inputStr === '=undefined' || this.inputStr === '=NaN') {
             this.inputStr = '';
-        }
-        //this.getAmount().setHtml(this.inputStr); 
+        }        
         this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
     },
     
-    showCurrencyPrefix: function(val){        
-        if(val.indexOf('=') >= 0){
+    showCurrencyPrefix: function(val){         
+        if(val.indexOf('=') >= 0){  
+            val = this.formatNumber(val);
             val = val.replace('=','<span class = "rm-pay-currencyprefix">=$</span>');
         }
         return val;
@@ -165,19 +174,19 @@ Ext.define('RM.controller.PayAmountInputC', {
         }
         return '';
     },
-    
+    /*
     calculateTotalWithGst: function(){
-        //var total = this.calculateTotal();
-        //if(total){
-        //   return total + this.gstVal;
-        //}
-       // return '';
+        var total = this.calculateTotal();
+        if(total){
+           return total + this.gstVal;
+        }
+        return '';
     },
     
     onGstBtnTap: function(){
         //this.getTotalWithGst().setHtml(this.calculateTotalWithGst());
     },
-    
+    */
     onCameraBtnTap: function(){
         alert('camera btn tapped');
     },
@@ -189,15 +198,16 @@ Ext.define('RM.controller.PayAmountInputC', {
             Description: "Test Description",
             PayerName: "Travis Beesley",
             PaymentMethodId: 2,
-            GST: 2.45,
+            Discount: 2.45,
             Surcharge: 2.40,
             Total: 54.67,
         };
-        
+        data.Discount = this.getDiscount().getValue();
+        data.Amount = this.formatNumber(this.inputStr.slice(1));
         RM.PayMgr.showScreen('PayTransTypeSelect', data);
     },
     
-    clearInputField: function(){
+    clearInputFieldAndHistory: function(){
         this.inputStr = '';
         this.inputArray = new Array();
         this.inputArrayIndex = 0;
@@ -248,25 +258,37 @@ Ext.define('RM.controller.PayAmountInputC', {
                     }
                 },{
                     xtype: 'component', 
-                    docked: 'right',   
+                    docked: 'right',
+                    itemId: 'rowcontent',
                     margin: '2 5 2 5',
                     //html: me.styleOperators(this.inputArray[i]),
                     html: this.inputArray[i],
                     styleHtmlContent: true,
-                    styleHtmlCls: ['rm-fontsize120', 'rm-pay-graytext', 'rm-lineheight180', 'rm-pr5'],
-                    listeners: {
+                    styleHtmlCls: ['rm-fontsize120', 'rm-pay-graytext', 'rm-lineheight180', 'rm-pr5']
+                    /*listeners: {
     								tap: {
     									element: 'element',                    
     									fn: function () {
-                                            if(this.getHtml().indexOf('=') === -1){
+                                           if(this.getHtml().indexOf('=') === -1){
                                                 this.getParent().addCls('rm-lightgreenbg');                                            
     										    this.getParent().child('#deletebtn').setHidden(false);  
-                                            }                                                                                      
+                                            }                                                                          
     									}
     								}
-								}
+								}*/
                 }
-                ]
+                ],
+                listeners: {
+                    tap: {
+							element: 'element',                    
+							fn: function () {
+                                   if(this.child('#rowcontent').getHtml().indexOf('=') === -1){
+                                        this.addCls('rm-lightgreenbg');                                            
+									    this.child('#deletebtn').setHidden(false);  
+                                    } 
+                            }
+                    }
+                }
             });
         }
         historyContainer.add({
@@ -311,5 +333,37 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.getHistoryHideBtn().setHidden(!this.history);
         this.getClearInputBtn().setHidden(this.history);
         this.getHistoryShowBtn().setHidden(this.history);        
+    },
+    
+    onDiscountFldTap: function(){
+        RM.ViewMgr.hideKeyPad(); 
+        var discountFld = this.getDiscount();
+        var oldVal = discountFld.getValue();
+        RM.InvoicesMgr.showChooseDiscountPopup(
+            oldVal == 'None' ? 0 : oldVal,
+			function (disc) {
+                var newVal = (disc == 0 ? 'None' : disc);
+                if(newVal != oldVal){                        
+				    discountFld.setValue(newVal);
+                    oldVal = newVal;                    
+                }
+			},
+			this
+		);
+    },
+    
+    formatNumber: function(val){
+        if(!val){
+            return '';
+        }
+        var operator = '';
+        var result = val;
+        if(val.indexOf('+') !== -1 || val.indexOf('*') !== -1 || val.indexOf('=') !== -1) {
+            operator = val.slice(0,1);
+            val = val.slice(1);          
+        } 
+        result = parseFloat(val);
+        result = operator + result.toFixed(2);    
+        return result;       
     }
 });

@@ -27,9 +27,8 @@ Ext.define('RM.view.PayAmountInput', {
                                         layout: 'hbox',
                                         items: [
                                             {
-                                                xtype: 'button',
-                                                text: '<',
-                                                cls: 'rm-white-flatbtn',
+                                                xtype: 'button',                                                
+                                                cls: ['rm-white-flatbtn', 'rm-payamountinput-back-arrow'],
                                                 itemId: 'historyshowbtn',
                                                 docked: 'left'
                                             },
@@ -52,9 +51,8 @@ Ext.define('RM.view.PayAmountInput', {
                                                 icon: 'resources/images/icons/rm-fieldclear.svg',
                                                 docked: 'right'                                        
                                             },{
-                                                xtype: 'button',
-                                                text: '>',
-                                                cls: 'rm-white-flatbtn',
+                                                xtype: 'button',                                                
+                                                cls: ['rm-white-flatbtn', 'rm-payamountinput-arrow'],
                                                 itemId: 'historyhidebtn',
                                                 hidden: true,
                                                 docked: 'right'
@@ -79,13 +77,21 @@ Ext.define('RM.view.PayAmountInput', {
                                     height: '2.5em',
                                     layout: 'hbox',
                                     items: [
-                                        {
+                                        /*{
                                             xtype: 'component',
                                             itemId: 'totalwithgstfield',
                                             html: 'Total with GST $0.00',
                                             cls: 'rm-pay-gsttext',
                                             flex: 1
-                                        },{
+                                        }*/{
+                        				    xtype: 'exttextfield', 
+                                            itemId: 'discount',
+                                            readOnly: true,                        					
+                        					cls: 'rm-flatfield',
+                                            border: 0,
+                                            clearIcon: false,                            
+                                            flex: 1
+                        				},{
                                             xtype: 'button',
                                             itemId: 'gstbtn',
                                             width: 72,

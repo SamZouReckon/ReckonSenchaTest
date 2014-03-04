@@ -34,7 +34,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                     '<div class="rm-balance-breakdown-row"><span>Amount</span><span class="rm-balance-breakdown-amount">${0}</span></div>' +
                 '</tr>' +
                 '<tr>' +
-                    '<div class="rm-balance-breakdown-row"><span>GST</span><span class="rm-balance-breakdown-amount">${1}</span></div>' +
+                    '<div class="rm-balance-breakdown-row"><span>Discount</span><span class="rm-balance-breakdown-amount">{1}</span></div>' +
                 '</tr>' +                
                 '<tr>'+
                     '<div class="rm-balance-breakdown-row"><span>Surcharge</span><span class="rm-balance-breakdown-amount">${2}</span></div>' +
@@ -44,7 +44,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                 '</tr>' + 
              '</table>', 
             data.Amount, 
-            data.GST, 
+            data.Discount, 
             data.Surcharge, 
             data.Total));
     },

@@ -6,8 +6,11 @@ Ext.define('RM.controller.PaySendReceiptC',{
             paySendReceipt: 'paysendreceipt'
         },
         control: {            
-            'paysendreceipt #sendreceipt': {
+            'paysendreceipt #sendreceiptbtn': {
                 tap: 'sendReceipt'
+            },
+            'paysendreceipt #dontsendreceiptbtn': {
+                tap: 'done'
             },
             'paysendreceipt #done': {
                 tap: 'done'
@@ -22,10 +25,10 @@ Ext.define('RM.controller.PaySendReceiptC',{
             view = { xtype: 'paysendreceipt' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.getPaySendReceipt().setActiveItem(0);
     },   
     
-    done: function() {
-       console.log('done'); 
+    done: function() {       
        RM.ViewMgr.showPay();
     },
     

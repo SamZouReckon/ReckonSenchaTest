@@ -74,7 +74,7 @@ Ext.define('RM.view.PayAmountInput', {
                                 {
                                     xtype: 'container',
                                     cls: ['rm-whitebg', 'rm-border-top'],
-                                    height: '2.5em',
+                                    height: '2.6em',
                                     layout: 'hbox',
                                     items: [
                                         /*{
@@ -89,11 +89,12 @@ Ext.define('RM.view.PayAmountInput', {
                                             readOnly: true,                        					
                         					cls: 'rm-flatfield',
                                             border: 0,
-                                            clearIcon: false,                            
+                                            clearIcon: false,  
+                                            placeHolder: 'enter',
                                             flex: 1
                         				},{
                                             xtype: 'button',
-                                            itemId: 'gstbtn',
+                                            itemId: 'discountbtn',
                                             width: 72,
                                             cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-gstbtn']
                                         }                
@@ -101,18 +102,20 @@ Ext.define('RM.view.PayAmountInput', {
                             },{                                                            
                                     xtype: 'container',                                    
                                     scrollable: 'vertical',
-                                    cls: ['rm-whitebg', 'rm-border-top'],
-                                    height: '2.5em',
+                                    cls: ['rm-border-bottom','rm-whitebg', 'rm-border-top'],
+                                    height: '2.6em',
                                     layout: 'hbox',
                                     items: [
                                         {
                                             xtype: 'exttextfield',
                                             itemId: 'descriptionfield',
-                                            cls: 'rm-ml5',
-                                            inputCls: 'rm-pay-description',
+                                            cls: 'rm-flatfield',
+                                            border: 0,
+                                            //cls: ['rm-ml5'],
+                                            //inputCls: 'rm-pay-description',
                                             clearIcon: false,
                                             readOnly: true,
-                                            placeHolder: 'Add optional description',
+                                            placeHolder: 'add optional description',
                                             flex: 1
                                         },{
                                             xtype: 'button',
@@ -121,15 +124,16 @@ Ext.define('RM.view.PayAmountInput', {
                                             cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-camerabtn']
                                         }                        
                                     ]
+                        },{
+                                    xtype: 'calckeypad',
+                                    docked: 'bottom'  
                         },{                    
                                     xtype: 'button',
                                     itemId: 'charge',
                                     text: '<span class="rm-btn-arrow">CHARGE</span>',
                                     cls: 'rm-photopreviewbtn',
+                                    docked: 'bottom'
                               
-                        },{
-                            xtype: 'calckeypad',
-                            docked: 'bottom'  
                         }
                 ]
             }

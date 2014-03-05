@@ -10,8 +10,7 @@ Ext.define('RM.controller.PayAmountInputC', {
             historyContainer: 'payamountinput #historycontainer',
             inputAndHistoryContainer: 'payamountinput #inputandhistorycontainer',
             amount: 'payamountinput #amount',   
-            toolbarTitle: 'payamountinput #toolbarTitle',
-            //totalWithGst: 'payamountinput #totalwithgstfield',
+            toolbarTitle: 'payamountinput #toolbarTitle',            
             discount: 'payamountinput #discount',
             descriptionFld: 'payamountinput #descriptionfield'            
         },
@@ -29,8 +28,8 @@ Ext.define('RM.controller.PayAmountInputC', {
             'payamountinput #clearinputbtn': {
                 tap: 'clearInputFieldAndHistory'
             },
-            'payamountinput #gstbtn': {
-                tap: 'onGstBtnTap'
+            'payamountinput #discountbtn': {
+                tap: 'onDiscountFldTap'
             },
             'payamountinput #camerabtn': {
                 tap: 'onCameraBtnTap'
@@ -174,19 +173,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         }
         return '';
     },
-    /*
-    calculateTotalWithGst: function(){
-        var total = this.calculateTotal();
-        if(total){
-           return total + this.gstVal;
-        }
-        return '';
-    },
-    
-    onGstBtnTap: function(){
-        //this.getTotalWithGst().setHtml(this.calculateTotalWithGst());
-    },
-    */
+   
     onCameraBtnTap: function(){
         alert('camera btn tapped');
     },
@@ -202,9 +189,13 @@ Ext.define('RM.controller.PayAmountInputC', {
             Surcharge: 2.40,
             Total: 54.67,
         };
+        
         data.Discount = this.getDiscount().getValue();
         data.Amount = this.formatNumber(this.inputStr.slice(1));
-        RM.PayMgr.showScreen('PayTransTypeSelect', data);
+        
+        if(this.validateForm(data)){ 
+            RM.PayMgr.showScreen('PayTransTypeSelect', data);
+        }        
     },
     
     clearInputFieldAndHistory: function(){
@@ -365,5 +356,27 @@ Ext.define('RM.controller.PayAmountInputC', {
         result = parseFloat(val);
         result = operator + result.toFixed(2);    
         return result;       
+    },
+    
+    validateForm: function(vals){        
+        var isValid = true;
+        
+        if( vals.Amount === undefined || vals.Amount === null || vals.Amount === ''){
+            RM.AppMgr.showErrorMsgBox('Please enter payment amount');
+            isValid = false;
+        }       
+        else if (vals.Amount <= 0) {
+            RM.AppMgr.showErrorMsgBox('Please enter payment amount greater than $0.00');  
+            isValid = false;
+        } 
+        else if (this.getAmount().getHtml().indexOf('=') === -1){
+            RM.AppMgr.showErrorMsgBox('Please complete calculation and press =');  
+            isValid = false;
+        }
+        else if(vals.Discount === undefined || vals.Discount === null || vals.Discount === ''){
+            RM.AppMgr.showErrorMsgBox('Please enter discount');            
+            isValid = false;
+        }        
+        return isValid;
     }
 });

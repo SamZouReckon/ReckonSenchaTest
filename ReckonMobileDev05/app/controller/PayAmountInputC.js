@@ -373,10 +373,10 @@ Ext.define('RM.controller.PayAmountInputC', {
             RM.AppMgr.showErrorMsgBox('Please complete calculation and press =');  
             isValid = false;
         }
-        else if(vals.Discount === undefined || vals.Discount === null || vals.Discount === ''){
+        /*else if(vals.Discount === undefined || vals.Discount === null || vals.Discount === ''){
             RM.AppMgr.showErrorMsgBox('Please enter discount');            
             isValid = false;
-        }        
+        }   */     
         return isValid;
     }
 });

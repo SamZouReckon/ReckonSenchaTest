@@ -96,7 +96,7 @@ Ext.define('RM.view.PayAmountInput', {
                                             xtype: 'button',
                                             itemId: 'discountbtn',
                                             width: 72,
-                                            cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-gstbtn']
+                                            cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-discountbtn']
                                         }                
                                     ]
                             },{                                                            

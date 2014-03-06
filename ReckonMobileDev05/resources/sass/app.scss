@@ -285,7 +285,7 @@ $include-list-highlights: none;
     padding-left: 7px;
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
     
   }
@@ -302,7 +302,7 @@ $include-list-highlights: none;
 
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
 
   }
@@ -318,7 +318,7 @@ $include-list-highlights: none;
     
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
     
   }
@@ -335,7 +335,7 @@ $include-list-highlights: none;
 
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
 
   }
@@ -2208,8 +2208,8 @@ rm-emailinvoicebackground{
     padding: 25px 10px;
 }
 
-.rm-pay-gstbtn{
-    background-image: url("../images/icons/rm-photo.svg") !important;
+.rm-pay-discountbtn{
+    background-image: url("../images/icons/rm-discount.png") !important;
 	background-repeat: no-repeat;
     background-position: center;
     background-size: 20px 20px;

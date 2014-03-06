@@ -1,3 +1,4 @@
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -5723,7 +5724,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-button.x-button-rm_topbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .x-button.x-button-rm_topbarbuttonright, .x-toolbar .x-button.x-button-rm_topbarbuttonright {
   background: none;
@@ -5748,7 +5749,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_topbarbuttonright .x-button-label, .x-button.x-button-rm_topbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .x-button.x-button-rm_maintopbarbuttonleft, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft {
   background: none;
@@ -5773,7 +5774,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-button.x-button-rm_maintopbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .x-button.x-button-rm_maintopbarbuttonright, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright {
   background: none;
@@ -5799,7 +5800,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-button.x-button-rm_maintopbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .rm-flatselectfield.x-field-select .x-component-outer::after {
   background: none;
@@ -7343,8 +7344,8 @@ rm-emailinvoicebackground {
   color: #646464;
   padding: 25px 10px; }
 
-.rm-pay-gstbtn {
-  background-image: url("../images/icons/rm-photo.svg") !important;
+.rm-pay-discountbtn {
+  background-image: url("../images/icons/rm-discount.png") !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px 20px; }

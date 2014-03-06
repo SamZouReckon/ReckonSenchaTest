@@ -21,7 +21,7 @@ Ext.define('RM.view.PayRecvCheque',{
                 },{
 					xtype:'spacer'
 				},{
-    				text: 'DETAILS',
+    				text: 'Details',
     				itemId: 'details', 
                     width: '5em',
     				ui: 'rm_topbarbuttonright'

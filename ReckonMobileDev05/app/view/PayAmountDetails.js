@@ -14,7 +14,7 @@ Ext.define('RM.view.PayAmountDetails',{
                         },{
         					xtype:'spacer'
         				},{
-            				text: 'RETURN',
+            				text: 'Return',
             				itemId: 'return', 
                             width: '6em',
             				ui: 'rm_topbarbuttonright'

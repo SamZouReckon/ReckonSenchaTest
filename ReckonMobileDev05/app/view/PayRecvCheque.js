@@ -3,6 +3,7 @@ Ext.define('RM.view.PayRecvCheque',{
     xtype: 'payrecvcheque',
     config:{
         cls: 'rm-whitebg',
+        layout: 'fit',
         items: [{
             xtype: 'toolbar',
             docked: 'top',            
@@ -28,37 +29,47 @@ Ext.define('RM.view.PayRecvCheque',{
     			}
             ]
         },{
-            xtype: 'exttextfield',
-            label: 'Cheque number',
-            placeHolder: 'enter',
-            labelWidth: '12em',
-            cls: 'rm-flatfield'
-        },{
-            xtype: 'exttextfield',
-            label: 'BSB',
-            placeHolder: 'enter',
-            cls: 'rm-flatfield'
-        },{
-            xtype: 'exttextfield',
-            label: 'Account number',
-            labelWidth: '9em',
-            placeHolder: 'enter',
-            cls: 'rm-flatfield'
-        },{
-            xtype: 'exttextfield',
-            label: 'Drawer',
-            placeHolder: 'enter',
-            cls: 'rm-flatfield'
-        },{
-            xtype: 'extdatepickerfield',
-            dateFormat : 'jS M Y',
-            label: 'Date',
-            cls: 'rm-flatfield'
-        },{
-            xtype: 'button',
-            itemId: 'charge',
-            text: '<span class="rm-btn-arrow">CHARGE</span>',
-            cls: 'rm-photopreviewbtn',
+            xtype: 'formpanel',
+            itemId: 'payrecvchequeform',
+            items: [
+                    {
+                        xtype: 'exttextfield',
+                        label: 'Cheque number',
+                        placeHolder: 'enter',
+                        labelWidth: '12em',
+                        cls: 'rm-flatfield'
+                    },{
+                        xtype: 'exttextfield',
+                        label: 'BSB',
+                        placeHolder: 'enter',
+                        cls: 'rm-flatfield'
+                    },{
+                        xtype: 'exttextfield',
+                        label: 'Account number',
+                        labelWidth: '9em',
+                        placeHolder: 'enter',
+                        cls: 'rm-flatfield'
+                    },{
+                        xtype: 'exttextfield',
+                        label: 'Drawer',
+                        itemId: 'drawer',
+                        name: 'Drawer',
+                        placeHolder: 'enter',
+                        cls: 'rm-flatfield'
+                    },{
+                        xtype: 'extdatepickerfield',
+                        itemId: 'date',
+                        name: 'Date',
+                        dateFormat : 'jS M Y',
+                        label: 'Date',
+                        cls: 'rm-flatfield'
+                    },{
+                        xtype: 'button',
+                        itemId: 'charge',
+                        text: '<span class="rm-btn-arrow">CHARGE</span>',
+                        cls: 'rm-photopreviewbtn',
+                    }
+            ]
         }
         ]
     }    

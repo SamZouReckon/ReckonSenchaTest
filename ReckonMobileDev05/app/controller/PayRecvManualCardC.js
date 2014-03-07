@@ -3,7 +3,11 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     requires: 'RM.view.PayRecvManualCard',
      config: {
         refs: {
-            payRecvManualCard: 'payrecvmanualcard'
+            payRecvManualCard: 'payrecvmanualcard',
+            payRecvManualCardTitle: 'payrecvmanualcard #title',
+            payRecvManualCardForm: 'payrecvmanualcard #payrecvmanualcardform',
+            cardTypeFld: 'payrecvmanualcard textfield[name=CardType]',
+            dateFld: 'payrecvmanualcard textfield[name=Date]'
         },
         control: {
             'payrecvmanualcard #back': {
@@ -25,6 +29,7 @@ Ext.define('RM.controller.PayRecvManualCardC',{
             view = { xtype: 'payrecvmanualcard' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.getPayRecvManualCardTitle().setHtml('$'+data.Amount);
     },
     
     onDetailsTap: function(){
@@ -32,12 +37,39 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     },
     
     recordTransaction: function() {
+        
+        var vals = this.getPayRecvManualCardForm().getValues();
+        
         //RM.PayMgr.createTransaction(this.data, function(){
-            RM.PayMgr.showScreen('PaySendReceipt');  
+            if(this.validateForm(vals)){
+                RM.PayMgr.showScreen('PaySendReceipt');      
+            }            
         //},this); 
     },
     
     back: function () {
         RM.ViewMgr.back();
-    }   
+    },   
+    
+    validateForm: function(vals){        
+        var isValid = true;
+        
+        if( vals.CardType === undefined || vals.CardType === null || vals.CardType === ''){
+            //RM.AppMgr.showErrorMsgBox('Please choose credit card type');
+            this.getCardTypeFld().showValidation(false);
+            isValid = false;
+        }       
+        
+        if( vals.Date === undefined || vals.Date === ''){
+            //RM.AppMgr.showErrorMsgBox('Please enter a date for transaction');
+            this.getDateFld().showValidation(false);
+            isValid = false;
+        } 
+        
+        if(!isValid){            
+            RM.AppMgr.showInvalidFormMsg();
+        }
+        
+        return isValid;
+    }
 });

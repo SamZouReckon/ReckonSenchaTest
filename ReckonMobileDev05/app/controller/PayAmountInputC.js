@@ -189,8 +189,8 @@ Ext.define('RM.controller.PayAmountInputC', {
             Surcharge: 2.40,
             Total: 54.67,
         };
-        
-        data.Discount = this.getDiscount().getValue();
+        var discVal = this.getDiscount().getValue();
+        data.Discount = discVal ? discVal : '$0.00';
         data.Amount = this.formatNumber(this.inputStr.slice(1));
         
         if(this.validateForm(data)){ 

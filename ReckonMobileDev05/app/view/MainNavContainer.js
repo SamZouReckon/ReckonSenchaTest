@@ -45,7 +45,7 @@ Ext.define('RM.view.MainNavContainer', {
                             '{[this.switchBgColor(values.title, values.activated)]}',
 							{
 								switchBgColor: function(titleText, activated){									
-									if(titleText == 'Product selection' || titleText == 'Lock' || titleText == 'Logout') {
+									if(titleText == 'Reckon home' || titleText == 'Lock' || titleText == 'Logout') {
                                         return '<div class="rm-slidenav-menuitem">'+titleText+'</div>';
                                     }                       
 									

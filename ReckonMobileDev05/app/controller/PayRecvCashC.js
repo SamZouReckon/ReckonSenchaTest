@@ -32,6 +32,7 @@ Ext.define('RM.controller.PayRecvCashC',{
         }       
         RM.ViewMgr.showPanel(view);
         this.getPayRecvCashTitle().setHtml('$'+data.Amount);
+        this.getCashFld().setValue('');
     },
     
     onDetailsTap: function(){
@@ -39,7 +40,12 @@ Ext.define('RM.controller.PayRecvCashC',{
     },
     
     onCashFldChange: function() {
-        this.validateForm();      
+        if(this.getCashFld().getValue()){
+           this.validateForm();       
+        }
+        else{
+            this.getChangeFld().setValue('');                      
+        }
     },
     
     validateForm: function(){
@@ -55,24 +61,20 @@ Ext.define('RM.controller.PayRecvCashC',{
                  isValid = false;                
             }
             else {
-                this.getChangeFld().setValue('$' + change);
+                this.getChangeFld().setValue(change);
             }            
         }
-        else{
-            this.getChangeFld().setValue('');
-            if(cashFldVal != ''){
-                RM.AppMgr.showErrorMsgBox('Please enter a valid cash value'); 
-                isValid = false;
-            }            
-        }
-        
+        else if(!cashFldVal){
+            RM.AppMgr.showErrorMsgBox('Please enter cash received'); 
+            isValid = false;
+        }        
         return isValid;
     },
     
     tenderCash: function(){
         //RM.PayMgr.createTransaction(this.data, function(){
-            if(this.validateForm()){
-                RM.PayMgr.showScreen('PaySendReceipt');      
+            if(this.validateForm()){                
+                RM.PayMgr.showScreen('PaySendReceipt', this.data);      
             }            
         //},this);
     },

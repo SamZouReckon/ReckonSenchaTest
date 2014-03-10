@@ -45,8 +45,19 @@ Ext.define('RM.controller.PayAmountDetailsC',{
              '</table>', 
             data.Amount, 
             data.Discount, 
-            data.Surcharge, 
-            data.Total));
+            this.formatNumber(data.Surcharge), 
+            this.formatNumber(data.Total)));
+    },
+    
+    formatNumber: function(val, decimalPlaces){        
+        if(!val){
+            return '';
+        } 
+        decimalPlaces ? decimalPlaces = decimalPlaces : decimalPlaces = 2;
+        var result = val;        
+        result = parseFloat(val);
+        result = result.toFixed(decimalPlaces);    
+        return result;       
     },
     
     onReturn: function(){

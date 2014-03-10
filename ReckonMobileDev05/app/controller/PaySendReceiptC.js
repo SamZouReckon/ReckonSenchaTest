@@ -3,7 +3,11 @@ Ext.define('RM.controller.PaySendReceiptC',{
     requires: 'RM.view.PaySendReceipt',
      config: {
         refs: {
-            paySendReceipt: 'paysendreceipt'
+            paySendReceipt: 'paysendreceipt',
+            paySendReceiptTitle: 'paysendreceipt #title',
+            smsFld: 'paysendreceipt textfield[name=SMS]',
+            emailFld: 'paysendreceipt textfield[name=Email]',
+            sentCont: 'paysendreceipt #sentcont'
         },
         control: {            
             'paysendreceipt #sendreceiptbtn': {
@@ -26,6 +30,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
         }       
         RM.ViewMgr.showPanel(view);
         this.getPaySendReceipt().setActiveItem(0);
+        this.getPaySendReceiptTitle().setHtml('$' + data.Amount + ' charged');
     },   
     
     done: function() {       
@@ -33,6 +38,49 @@ Ext.define('RM.controller.PaySendReceiptC',{
     },
     
     sendReceipt: function () {
-        this.getPaySendReceipt().setActiveItem(1);
-    }    
+        var vals = {};
+        vals.SMS = this.getSmsFld().getValue();
+        vals.Email = this.getEmailFld().getValue();
+        if(this.validateForm(vals)){
+            this.setReceiptContent(vals)
+            this.getPaySendReceipt().setActiveItem(1);
+        }
+        
+    },
+    
+    setReceiptContent: function(vals){
+        var msg = '';
+        if(vals.SMS && vals.Email) {
+            msg = 'SMS and Email sent';
+        }
+        else if(vals.SMS) {
+            msg = 'SMS sent';
+        }
+        else if(vals.Email) {
+            msg = 'Email sent';
+        }
+        this.getSentCont().setHtml(msg);
+    },
+    
+     validateForm: function(vals){        
+        var isValid = true;
+        
+        if( !vals.SMS && !vals.Email ){
+            RM.AppMgr.showErrorMsgBox('Please enter Phone number or Email or both for receipt');            
+            isValid = false;
+        } 
+         
+        if (vals.Email !== '' && !RM.AppMgr.validateEmail(vals.Email)) {             
+            this.getEmailFld().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidEmailMsg();
+            return isValid;
+        } 
+        
+        /*if(!isValid){            
+            RM.AppMgr.showInvalidFormMsg();
+        }*/
+        
+        return isValid;
+    }
 });

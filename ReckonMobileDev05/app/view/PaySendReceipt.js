@@ -19,7 +19,7 @@ Ext.define('RM.view.PaySendReceipt',{
 								cls: ['rm-emailcheckmark','rm-iconsize25'],
 								flex:1
 							},{
-								itemId: 'sentcont',
+								itemId: 'title',
                                 cls: 'rm-pt5',
                                 html: '',
 								flex:5
@@ -28,12 +28,19 @@ Ext.define('RM.view.PaySendReceipt',{
 							
 					},{
                         xtype: 'exttextfield',
+                        name: 'SMS',
+                        clearIcon: false,
                         cls: 'rm-flatfield',
                         label: 'SMS receipt',
+                        component : {
+                            type : 'tel'
+                        },
                         labelWidth: '6.5em',
                         placeHolder: 'enter'
                     },{
                         xtype: 'exttextfield',
+                        name: 'Email',
+                        clearIcon: false,
                         cls: 'rm-flatfield',
                         label: 'Email receipt',
                         labelWidth: '6.5em',
@@ -42,7 +49,7 @@ Ext.define('RM.view.PaySendReceipt',{
 						xtype: 'button',						
 						itemId: 'sendreceiptbtn',
 						text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
-                        cls: 'rm-photopreviewbtn',
+                        cls: 'rm-photopreviewbtn'
 					},{
 						xtype: 'button',						
 						itemId: 'dontsendreceiptbtn',

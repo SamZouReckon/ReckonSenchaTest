@@ -171,8 +171,8 @@ $include-list-highlights: none;
 //Toolbar UI for gray toolbar used for sort search component
 @include sencha-toolbar-ui('rm-sortsearch-topbar', #4E4E4E, 'none');
 @include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
-@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
-
+//@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
+@include sencha-toolbar-ui('rm-slidenav-topbar',#333333,'matte'); //toolbar for slidenav menu toolbar
 
 
 //List item selection cls with white background when tapped
@@ -1431,15 +1431,15 @@ rm-emailinvoicebackground{
 
 //Used for first three items of slide nave menu class
 .rm-slidenav-menuitem{    
-    color: #B4B4B4;
-    background: #686868;
+    color: #DCDCDC;         //#B4B4B4;
+    background: #475460;        //#686868;
     //margin-top: -0.7em; 
     //margin-bottom: -0.65em; 
     //margin-left: -0.8em;
     //margin-right: -0.8em;
-    margin: -0.8em;
-    padding: 0.8em;    
-    border-top: 1px solid #818181;
+    margin: -1em;    //-0.8em;
+    padding: 0.9em;    //0.8em;
+    //border-top: 1px solid #818181;
 }
 
 //Used for slidenav menu items with not activated text
@@ -1477,7 +1477,7 @@ rm-emailinvoicebackground{
 
 .x-list.x-slidenavigation-list{  
        
-        background : #3D3D3D; 
+        background : #EFEFEF;            //#3D3D3D; 
 	    
         .x-title{
             font-weight: normal;
@@ -1485,22 +1485,22 @@ rm-emailinvoicebackground{
         }
 
         .x-list-item{		
-            color: #969696;
-			background : #3D3D3D;            	                     
+            color: #787878;            //#969696;
+			background : #EFEFEF;     //#3D3D3D;            	                     
         }   
 
         .x-list-item.x-list-item-tpl, 
         .x-list-item .x-dock-horizontal {
-              border-top: 1px solid #4F4F4F; 
+              //border-top: 1px solid #4F4F4F; 
         }
         
         .x-list-item.x-list-item-tpl.x-list-footer-wrap, 
         .x-list-item.x-list-footer-wrap .x-dock-horizontal {
-              border-bottom: 1px solid #4F4F4F; 
+              //border-bottom: 1px solid #4F4F4F; 
         }             
 		
 		.x-list-header{
-                background : #131313;
+                background : #333333;        //#131313;
                 padding: 0.5em 1em;
                 line-height: 1.2em !important;
 				border: none;
@@ -1512,8 +1512,8 @@ rm-emailinvoicebackground{
         
         .x-list-item.x-item-selected .x-dock-horizontal, 
         .x-list-item.x-item-selected.x-list-item-tpl {
-                color: #FFFFFF;	
-    			background : #3E3E3E; 					
+                color: #323232;               //#FFFFFF;	
+    			background : #FFFFFF;        //#3E3E3E; 					
     			font-weight: bold;
                 text-shadow: none;
                 margin-bottom: -1px

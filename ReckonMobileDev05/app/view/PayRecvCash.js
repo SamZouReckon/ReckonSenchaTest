@@ -47,16 +47,16 @@ Ext.define('RM.view.PayRecvCash',{
                 docked: 'right',
                 flex: 1
             }*/{
-                xtype: 'exttextfield',
+                xtype: 'rmamountfield',
                 cls: 'rm-flatfield',
                 itemId: 'cashfld',
-                
+                clearIcon: false,
                 flex: 1,
                 placeHolder: 'cash received'
             }]
 			
 		},{
-            xtype: 'exttextfield',
+            xtype: 'rmamountfield',
             cls: 'rm-flatfield',
             itemId: 'changefld',            
             label: 'Change',

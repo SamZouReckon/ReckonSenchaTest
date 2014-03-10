@@ -37,23 +37,27 @@ Ext.define('RM.view.PayRecvCheque',{
                         label: 'Cheque number',
                         placeHolder: 'enter',
                         labelWidth: '12em',
+                        clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
                         xtype: 'exttextfield',
                         label: 'BSB',
                         placeHolder: 'enter',
+                        clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
                         xtype: 'exttextfield',
                         label: 'Account number',
                         labelWidth: '9em',
                         placeHolder: 'enter',
+                        clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
                         xtype: 'exttextfield',
                         label: 'Drawer',
                         itemId: 'drawer',
                         name: 'Drawer',
+                        clearIcon: false,
                         placeHolder: 'enter',
                         cls: 'rm-flatfield'
                     },{

@@ -343,10 +343,11 @@ Ext.define('RM.controller.PayAmountInputC', {
 		);
     },
     
-    formatNumber: function(val){
+    formatNumber: function(val, decimalPlaces){        
         if(!val){
             return '';
         }
+        decimalPlaces ? decimalPlaces = decimalPlaces : decimalPlaces = 2;
         var operator = '';
         var result = val;
         if(val.indexOf('+') !== -1 || val.indexOf('*') !== -1 || val.indexOf('=') !== -1) {
@@ -354,7 +355,7 @@ Ext.define('RM.controller.PayAmountInputC', {
             val = val.slice(1);          
         } 
         result = parseFloat(val);
-        result = operator + result.toFixed(2);    
+        result = operator + result.toFixed(decimalPlaces);    
         return result;       
     },
     

@@ -37,7 +37,7 @@ Ext.define('RM.view.MainNavContainer', {
             items: [{
                 xtype: 'toolbar',
                 docked: 'top',
-				ui: 'rm-slidenav-topbar'
+				//ui: 'rm-slidenav-topbar'
                 
             }],            
 			itemTpl: new Ext.XTemplate(	
@@ -247,7 +247,7 @@ Ext.define('RM.view.MainNavContainer', {
         {
             index: 'PayAmountInput',
             xtype: 'payamountinput',
-            title: 'Recieve Payment',
+            title: 'Receive payment',
             activated: true,            
             group: 'RECKON PAY',
             slideButton: {
@@ -256,11 +256,19 @@ Ext.define('RM.view.MainNavContainer', {
         },{
             index: 'PaySalesHistory',
             xtype: 'paysaleshistory',
-            title: 'Sales History',
+            title: 'Sales history',
             activated: true,
             group: 'RECKON PAY',
             slideButton: {
                 selector: 'toolbar'  //to insert at left of toolbar, have changed source code of slidenavigation\View.js  line 206 changed return parent.add(Ext.merge(me.slideButtonDefaults, config)); to return parent.insert(0, Ext.merge(me.slideButtonDefaults, config));
+            }
+        },{
+            xtype: 'paypreferences',
+            title: 'Preferences',
+            activated: true,
+            group: 'SETTINGS',
+            slideButton: {
+                selector: 'toolbar'
             }
         },
         {

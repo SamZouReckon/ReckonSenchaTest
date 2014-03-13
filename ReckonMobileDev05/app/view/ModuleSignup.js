@@ -6,7 +6,7 @@ Ext.define('RM.view.ModuleSignup', {
 			{
 				xtype: 'toolbar',
 				docked: 'top',
-				ui: 'rm-main-topbar',
+				//ui: 'rm-main-topbar',
 				items: [
 					{
 						ui: 'rm_maintopbarbuttonleft',

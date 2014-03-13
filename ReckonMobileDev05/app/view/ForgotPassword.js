@@ -17,7 +17,7 @@ Ext.define('RM.view.ForgotPassword', {
 				items:[{
 						xtype: 'toolbar',
 						docked: 'top',
-                        ui: 'rm-main-topbar',
+                        //ui: 'rm-main-topbar',
 						items: [{								
 								ui: 'rm_maintopbarbuttonleft',
 								icon: 'resources/images/icons/rm-back.svg',

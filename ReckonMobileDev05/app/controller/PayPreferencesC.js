@@ -4,12 +4,7 @@ Ext.define('RM.controller.PayPreferencesC',{
     config: {
         refs: {
             payPreferences: 'paypreferences'
-        },
-        control: {              
-            'paypreferences #back': {
-                tap: 'back'
-            }
-        }
+        },        
      },
     
     showView: function () {
@@ -19,9 +14,7 @@ Ext.define('RM.controller.PayPreferencesC',{
             view = { xtype: 'paypreferences' };
         }       
         RM.ViewMgr.showPanel(view);
-    },   
+    } 
         
-    back: function () {
-        RM.ViewMgr.back();
-    }     
+       
 });

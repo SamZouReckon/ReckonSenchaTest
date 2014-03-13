@@ -52,6 +52,11 @@ Ext.define('RM.view.PaySendReceipt',{
                         cls: 'rm-photopreviewbtn'
 					},{
 						xtype: 'button',						
+						itemId: 'sendreceiptbtn2',
+						text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
+                        cls: 'rm-photopreviewbtn'
+					},{
+						xtype: 'button',						
 						itemId: 'dontsendreceiptbtn',
 						text: '<span class="rm-btn-arrow">DON\'T SEND RECEIPT</span>',
                         cls: 'rm-photopreviewbtn'

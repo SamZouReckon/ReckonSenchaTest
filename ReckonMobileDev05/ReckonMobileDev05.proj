@@ -17,6 +17,7 @@
     <AndroidVersionCode>1</AndroidVersionCode>
     <CorePlugins>org.apache.cordova.inappbrowser</CorePlugins>
     <FrameworkVersion>3.2.0</FrameworkVersion>
+    <DisplayName />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />
 </Project>

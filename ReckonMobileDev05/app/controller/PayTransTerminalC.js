@@ -3,7 +3,8 @@ Ext.define('RM.controller.PayTransTerminalC',{
     requires: 'RM.view.PayTransTerminal',
      config: {
         refs: {
-            payTransTerminal: 'paytransterminal'
+            payTransTerminal: 'paytransterminal',
+            payTransTerminalTitle: 'paytransterminal #title'
         },
         control: {
             'paytransterminal #back': {
@@ -22,6 +23,7 @@ Ext.define('RM.controller.PayTransTerminalC',{
             view = { xtype: 'paytransterminal' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.getPayTransTerminalTitle().setHtml('$' + data.Total);
     },
     
     onDetailsTap: function(){

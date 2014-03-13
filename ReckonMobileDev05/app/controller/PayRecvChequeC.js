@@ -29,7 +29,7 @@ Ext.define('RM.controller.PayRecvChequeC',{
             view = { xtype: 'payrecvcheque' };
         }       
         RM.ViewMgr.showPanel(view);
-        this.getPayRecvChequeTitle().setHtml('$'+data.Amount);
+        this.getPayRecvChequeTitle().setHtml('$'+data.Total);
     },
     
     onDetailsTap: function(){

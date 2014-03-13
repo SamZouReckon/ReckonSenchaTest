@@ -35,7 +35,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             view = { xtype: 'paytranstypeselect' };
         }       
         RM.ViewMgr.showPanel(view);
-        this.getPayTransTypeSelectTitle().setHtml('$'+data.Amount);
+        this.getPayTransTypeSelectTitle().setHtml('$'+data.Total);
     },  
     
     onDetailsTap: function(){

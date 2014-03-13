@@ -31,7 +31,7 @@ Ext.define('RM.controller.PayRecvCashC',{
             view = { xtype: 'payrecvcash' };
         }       
         RM.ViewMgr.showPanel(view);
-        this.getPayRecvCashTitle().setHtml('$'+data.Amount);
+        this.getPayRecvCashTitle().setHtml('$'+data.Total);
         this.getCashFld().setValue('');
     },
     
@@ -57,7 +57,7 @@ Ext.define('RM.controller.PayRecvCashC',{
         var change = cash - total;
         if (Ext.isNumber(cash)) {
             if(change < 0){
-                 RM.AppMgr.showErrorMsgBox('Cash received cannot be less than total amount');   
+                 RM.AppMgr.showErrorMsgBox('Cash received cannot be less than the total amount');   
                  isValid = false;                
             }
             else {

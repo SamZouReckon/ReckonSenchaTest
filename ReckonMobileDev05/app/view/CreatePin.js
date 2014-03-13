@@ -7,7 +7,7 @@ Ext.define('RM.view.CreatePin', {
         items: [{
             xtype: 'toolbar',
             docked: 'top',
-			ui:'rm-main-topbar',            
+			//ui:'rm-main-topbar',            
             items: [{
                     xtype: 'button',
                     itemId: 'back',

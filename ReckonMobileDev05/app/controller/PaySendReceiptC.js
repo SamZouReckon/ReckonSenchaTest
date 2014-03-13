@@ -13,6 +13,9 @@ Ext.define('RM.controller.PaySendReceiptC',{
             'paysendreceipt #sendreceiptbtn': {
                 tap: 'sendReceipt'
             },
+            'paysendreceipt #sendreceiptbtn2': {
+                tap: 'sendReceiptUsingSmsUri'
+            },
             'paysendreceipt #dontsendreceiptbtn': {
                 tap: 'done'
             },
@@ -30,7 +33,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
         }       
         RM.ViewMgr.showPanel(view);
         this.getPaySendReceipt().setActiveItem(0);
-        this.getPaySendReceiptTitle().setHtml('$' + data.Amount + ' charged');
+        this.getPaySendReceiptTitle().setHtml('$' + data.Total + ' charged');
     },   
     
     done: function() {       
@@ -42,10 +45,33 @@ Ext.define('RM.controller.PaySendReceiptC',{
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
         if(this.validateForm(vals)){
+            this.sendSMS(vals.SMS);
             this.setReceiptContent(vals)
             this.getPaySendReceipt().setActiveItem(1);
         }
         
+    },
+    
+    sendSMS: function(phoneNumber) {
+        var number = phoneNumber;
+        alert('sending SMS using Cordova plugin' + phoneNumber);
+        var message = 'Test msg';
+        var intent = "INTENT"; //leave empty for sending sms using default intent
+        var success = function () { alert('Message sent successfully'); };
+        var error = function (e) { alert('Message Failed:' + e); };
+        sms.send(number, message, intent, success, error);        
+    },
+    
+    sendReceiptUsingSmsUri: function(phoneNumber) {        
+        var vals = {};
+        vals.SMS = this.getSmsFld().getValue();
+        vals.Email = this.getEmailFld().getValue();
+        if(this.validateForm(vals)){
+            alert('sending SMS using SMS Uri' + phoneNumber);                    
+            window.location.href = "sms:" + phoneNumber + "?body=Test msg" ; 
+            this.setReceiptContent(vals)
+            this.getPaySendReceipt().setActiveItem(1);
+        }        
     },
     
     setReceiptContent: function(vals){

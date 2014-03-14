@@ -20,45 +20,45 @@ Ext.define('RM.view.PayAmountInput', {
                          ]             
             },
             {
-                                        xtype: 'container',
-                                        docked: 'top',
-                                        cls: 'rm-whitebg',
-                                        layout: 'hbox',
-                                        items: [
-                                            {
-                                                    xtype: 'button',
-                                                    text: '<',
-                                                    cls: 'rm-white-flatbtn',
-                                                    itemId: 'historyshowbtn'
-                                            },
-                                            {
-                                                xtype: 'component',
-                                                html: '',
-                                                cls: 'rm-pay-currencyprefix'
-                                            },{
-                                                xtype: 'component',
-                                                html: '0.00',
-                                                itemId: 'amount',
-                                                height: '1.1em',
-                                                cls: 'rm-pay-amount'
-                                            },{
-                                                xtype: 'button',
-                                                itemId: 'clearinputbtn',
-                                                margin: 9,
-                                                ui: 'plain', 
-                                                iconCls: 'rm-btn-iconsize',
-                                                icon: 'resources/images/icons/rm-fieldclear.svg',
-                                                docked: 'right'            
-                                                
-                                            },{
-                                                xtype: 'button',
-                                                text: '>',
-                                                cls: 'rm-white-flatbtn',
-                                                itemId: 'historyhidebtn',
-                                                hidden: true,
-                                                docked: 'right'
-                                            }                
-                                        ]
+                xtype: 'container',
+                docked: 'top',
+                cls: 'rm-whitebg',
+                layout: 'hbox',
+                items: [
+                    {
+                            xtype: 'button',
+                            text: '<',
+                            cls: 'rm-white-flatbtn',
+                            itemId: 'historyshowbtn'
+                    },
+                    {
+                        xtype: 'component',
+                        html: '$',
+                        cls: 'rm-pay-currencyprefix'
+                    },{
+                        xtype: 'component',
+                        html: '0.00',
+                        itemId: 'amount',
+                        height: '1.1em',
+                        cls: 'rm-pay-amount'
+                    },{
+                        xtype: 'button',
+                        itemId: 'clearinputbtn',
+                        margin: 9,
+                        ui: 'plain', 
+                        iconCls: 'rm-btn-iconsize',
+                        icon: 'resources/images/icons/rm-fieldclear.svg',
+                        docked: 'right'            
+                        
+                    },{
+                        xtype: 'button',
+                        text: '>',
+                        cls: 'rm-white-flatbtn',
+                        itemId: 'historyhidebtn',
+                        hidden: true,
+                        docked: 'right'
+                    }                
+                ]
             },
             {
                 xtype: 'container',

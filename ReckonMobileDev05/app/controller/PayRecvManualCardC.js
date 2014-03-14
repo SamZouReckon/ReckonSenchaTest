@@ -3,7 +3,8 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     requires: 'RM.view.PayRecvManualCard',
      config: {
         refs: {
-            payRecvManualCard: 'payrecvmanualcard'
+            payRecvManualCard: 'payrecvmanualcard',
+            cardType: 'payrecvmanualcard extselectfield[name=CardTypeId]',
         },
         control: {
             'payrecvmanualcard #back': {
@@ -23,8 +24,21 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         var view = this.getPayRecvManualCard();
         if (!view){
             view = { xtype: 'payrecvmanualcard' };
-        }       
+        }      
+        
+        this.loadSelectFields();
+        
         RM.ViewMgr.showPanel(view);
+    },
+    
+    loadSelectFields: function(){
+        
+        var cardTypeStore = Ext.data.StoreManager.lookup('CardTypes');
+        cardTypeStore.getProxy().setUrl(RM.AppMgr.getApiUrl('CardType'));        
+        RM.AppMgr.loadStore(cardTypeStore,
+            function(){},
+            this
+        );
     },
     
     onDetailsTap: function(){
@@ -32,9 +46,9 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     },
     
     recordTransaction: function() {
-        //RM.PayMgr.createTransaction(this.data, function(){
+        RM.PayMgr.createTransaction(this.data, function(){
             RM.PayMgr.showScreen('PaySendReceipt');  
-        //},this); 
+        },this); 
     },
     
     back: function () {

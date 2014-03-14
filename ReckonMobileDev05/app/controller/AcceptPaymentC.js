@@ -149,24 +149,16 @@ Ext.define('RM.controller.AcceptPaymentC', {
         vals.customerName = this.customerName;
         
         if(this.validateForm(vals)){ 
-            
-            if (vals.PaymentMethodId == "56dc8f56-2c78-4f0f-9dc6-cd0e2844ae69")
-            {
-                RM.ViewMgr.showPay(null, vals);
-            }
-            else
-            {
-                RM.AppMgr.saveServerRec('AcceptPayment', true, vals,
-        		    function () {                    
-        		        this.showMsg();
-        		        RM.AppMgr.itemUpdated('invoice');
-        		    },
-        		    this,
-                    function(recs, eventMsg){
-                        RM.AppMgr.showOkMsgBox(eventMsg);
-                    }
-        	    );
-            }
+            RM.AppMgr.saveServerRec('AcceptPayment', true, vals,
+    		    function () {                    
+    		        this.showMsg();
+    		        RM.AppMgr.itemUpdated('invoice');
+    		    },
+    		    this,
+                function(recs, eventMsg){
+                    RM.AppMgr.showOkMsgBox(eventMsg);
+                }
+    	    );
         }            
         
     },

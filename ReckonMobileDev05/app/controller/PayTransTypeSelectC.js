@@ -34,6 +34,8 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             view = { xtype: 'paytranstypeselect' };
         }       
         RM.ViewMgr.showPanel(view);
+        
+        alert(JSON.stringify(this.data));
     },  
     
     onDetailsTap: function(){
@@ -41,7 +43,16 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     },
     
     onCreditCardTap: function(){
-        RM.PayMgr.showScreen('PayTransTerminal', this.data);
+        //RM.PayMgr.showScreen('PayTransTerminal', this.data
+        cordova.exec(function (data) {
+            //alert(JSON.stringify(data));
+            //Success
+            
+        }, function (data) {
+            //alert(JSON.stringify(data));
+            //Failure
+            
+        }, "PayDevice", "doTransaction", [this.data.Amount]);
     },
     
     onCashTap: function(){

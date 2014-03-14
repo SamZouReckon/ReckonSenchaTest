@@ -46,7 +46,16 @@ Ext.define('RM.view.InvoiceActions', {
             iconAlign: 'left'	
             			
         },{
-			text: 'Email customer',
+			text: 'Receive payment with Pay',
+			itemId: 'payApp',
+			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
+            icon: 'resources/images/icons/rm-receive.svg',
+            iconCls: 'rm-invoiceactioniconcls',
+            iconAlign: 'left'	
+            			
+        }
+        ,{
+			text: 'Email customer with ',
 			itemId: 'email',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
             icon: 'resources/images/icons/rm-email.svg',

@@ -19,7 +19,6 @@ Ext.define('RM.controller.AboutC', {
 			view = {xtype:'about'};
         }
 		RM.ViewMgr.showPanel(view);		
-		
 	},
     
     onShow: function() {

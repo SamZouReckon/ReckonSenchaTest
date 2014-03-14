@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:rim="http://www.blackberry.com/ns/widgets"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="org.apache.cordova.statusbar"
+    version="0.1.2">
+    <name>PayDevice</name>
+    <description>Cordova PayDevice Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,paydevice</keywords>
+
+	<engines>
+		<engine name="cordova" version=">=3.0.0" />
+	</engines>
+
+    <js-module src="www/paydevice.js" name="PayDevice">
+    	<clobbers target="cordova.PayDevice" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="PayDevice">
+                <param name="ios-package" value="PayDevice" onload="true" />
+            </feature>
+        </config-file>
+        
+        <header-file src="src/ios/PayDevice.h" />
+        <source-file src="src/ios/PayDevice.m" />
+        
+        <framework src="libsqlite3.0.dylib"/>
+        <framework src="libstdc++.dylib"/>
+        <framework src="Foundation.framework"/>
+        <framework src="UIKit.framework"/>
+        <framework src="OpenGLES.framework"/>
+        <framework src="GLKit.framework"/>
+        <framework src="CoreLocation.framework"/>
+        <framework src="SystemConfiguration.framework"/>
+        <framework src="MobileCoreServices.framework"/>
+        <framework src="CoreGraphics.framework"/>
+        <framework src="QuartzCore.framework"/>
+        <framework src="ExternalAccessory.framework"/>
+        <framework src="MediaPlayer.framework"/>
+        <framework src="AVFoundation.framework"/>
+        <framework src="AudioToolbox.framework"/>
+        <framework src="MessageUI.framework"/>
+
+        <header-file src="src/ios/MPEAPI.h"/>
+        <source-file framework="true" src="src/ios/libMPEAPI.a"/>
+    </platform>
+
+</plugin>

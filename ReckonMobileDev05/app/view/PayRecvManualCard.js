@@ -31,13 +31,25 @@ Ext.define('RM.view.PayRecvManualCard',{
             xtype: 'component',
             html: 'A credit card transaction will be created but payment won\'t be processed.',            
             cls: ['rm-fontsize80', 'rm-pay-grayheadertext']
-        },{
-            xtype: 'exttextfield',
-            label: 'Credit card type',
-            placeHolder: 'choose',
-            labelWidth: '12em',
-            cls: 'rm-flatfield'
-        },{
+        },
+        {
+			xtype: 'extselectfield',
+			label: 'Credit card type',
+            rmmandatory: true,
+            labelWidth: '9em',
+			usePicker: true,
+			name: 'CardTypeId',
+			store: 'CardTypes',
+			displayField: 'Description',
+			valueField: 'CardTypeId',
+            autoSelect: false,
+			placeHolder: 'Select',
+			cls: 'rm-flatfield',
+			ui: 'plain',
+            border: '1 0 1 0',
+            style: 'border-color: #DBDBDB; border-style: solid;'	                    
+		},
+        {
             xtype: 'exttextfield',
             label: 'Amount',
             placeHolder: 'enter',

@@ -66,13 +66,13 @@ Ext.define('RM.controller.PayAmountInputC', {
             view = { xtype: 'payamountinput' };
         }
         
-        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountPaid);
-        var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
-        var customerName = typeof data === "undefined" ? "" : data.customerName;
+        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
+        //var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
+        var customerName = typeof data === "undefined" ? "" : data.CustomerName;
 
         this.getToolbarTitle().setHtml(customerName);
-        this.getAmount().setHtml(formattedAmount);
-        this.getTotalWithGst().setHtml("Total with GST " + formattedAmount);
+        this.getAmount().setHtml(amountToPay);
+        this.getTotalWithGst().setHtml("Total with GST " + amountToPay);
     },  
     
     onCalcKeyTap: function (key) {       
@@ -102,7 +102,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                 this.inputStr += key;
             }            
         }        
-        console.log(this.inputArray);
+        console.log(this.inputStr);
         this.getAmount().setHtml(this.inputStr);
     },
     
@@ -166,13 +166,13 @@ Ext.define('RM.controller.PayAmountInputC', {
     onChargeBtnTap: function(){
         
         var data = {
-            Amount: 50.54,
-            Description: "Test Description",
-            PayerName: "Travis Beesley",
-            PaymentMethodId: 2,
-            GST: 2.45,
-            Surcharge: 2.40,
-            Total: 54.67,
+            Amount: this.getAmount().getHtml(),
+            Description: this.getDescriptionFld().getHtml(),
+            PayerName: this.getToolbarTitle().getHtml(),
+            PaymentMethodId: "",
+            GST: "",
+            Surcharge: "",
+            Total: this.getAmount().getHtml(),
         };
         
         RM.PayMgr.showScreen('PayTransTypeSelect', data);

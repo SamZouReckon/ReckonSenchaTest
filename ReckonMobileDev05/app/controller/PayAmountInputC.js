@@ -141,11 +141,17 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     styleOperators: function(val){
-        if(val.indexOf('+') >= 0){
-            val = val.replace('+','<span class = "rm-pay-currencyprefix">+</span>');
+        if(val.indexOf('$') > -1){
+            val = val.replace('$', '= $');
         }
-        if(val.indexOf('*') >= 0){
-            val = val.replace('*','<span class = "rm-pay-currencyprefix">*</span>');
+        else if(val.indexOf('=') > -1){
+            val = val.replace('=', '<span class = "rm-pay-currencyprefix">= $</span>');
+        }
+        else if(val.indexOf('+') >= 0){
+            val = val.replace('+', '<span class = "rm-pay-currencyprefix">+ </span>');
+        }
+        else if(val.indexOf('*') >= 0){
+            val = val.replace('*', '<span class = "rm-pay-currencyprefix">* </span>');
         }
         return val;
     },
@@ -217,7 +223,9 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.inputStr = '';
         this.inputArray = new Array();
         this.inputArrayIndex = 0;
-        this.getAmount().setHtml('');        
+        this.getAmount().setHtml('');
+        var historyContainer = this.getHistoryContainer();
+        historyContainer.removeAll(true,true);
     },
     
     showDescription: function(){        
@@ -247,7 +255,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                 xtype: 'container',
                 layout: 'hbox',  
                 margin: 1,
-                itemId: i,
+                itemId: 'row'+i,
                 items: [{
                     xtype: 'button',                    
                     ui: 'plain', 
@@ -257,7 +265,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                     margin: 5,
                     hidden: true,                    
                     handler: function(btn){                        
-                        me.removeInputItem(this.getParent().getItemId());
+                        me.removeInputItem(parseInt(this.getParent().getItemId().replace('row','')));
                         me.displayTotal();
                         me.addRowsToInputHistory();
                     }
@@ -266,10 +274,10 @@ Ext.define('RM.controller.PayAmountInputC', {
                     docked: 'right',
                     itemId: 'rowcontent',
                     margin: '2 5 2 5',
-                    //html: me.styleOperators(this.inputArray[i]),
-                    html: this.inputArray[i],
+                    html: me.styleOperators(this.inputArray[i]),
+                    //html: this.inputArray[i],
                     styleHtmlContent: true,
-                    styleHtmlCls: ['rm-fontsize120', 'rm-pay-graytext', 'rm-lineheight180', 'rm-pr5']
+                    styleHtmlCls: ['rm-fontsize180', 'rm-payhistoryrowtextcolor', 'rm-pr5']
                     /*listeners: {
     								tap: {
     									element: 'element',                    
@@ -287,9 +295,11 @@ Ext.define('RM.controller.PayAmountInputC', {
                     tap: {
 							element: 'element',                    
 							fn: function () {
-                                   if(this.child('#rowcontent').getHtml().indexOf('=') === -1){
-                                        this.addCls('rm-lightgreenbg');                                            
-									    this.child('#deletebtn').setHidden(false);  
+                                	console.log(parseInt(this.getItemId().replace('row','')));
+                                    if(me.inputArray[parseInt(this.getItemId().replace('row',''))].indexOf('=') === -1)
+                                    {
+                                            this.addCls('rm-lightgreenbg');                                            
+    									    this.child('#deletebtn').setHidden(false);  
                                     } 
                             }
                     }
@@ -313,9 +323,10 @@ Ext.define('RM.controller.PayAmountInputC', {
                     xtype: 'component', 
                     docked: 'right',   
                     margin: '2 5 2 5',
-                    html: this.getAmount().getHtml(),
+                    html: me.styleOperators(this.getAmount().getHtml()),
+                    //html: this.getAmount().getHtml(),
                     styleHtmlContent: true,
-                    styleHtmlCls: ['rm-fontsize120', 'rm-pay-graytext', 'rm-lineheight180', 'rm-pr5']                    
+                    styleHtmlCls: ['rm-fontsize180', 'rm-payhistoryrowtextcolor', 'rm-pr5']                    
                 }
                 ]
             });            

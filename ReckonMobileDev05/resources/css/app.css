@@ -6199,6 +6199,9 @@ body.x-desktop {
 .rm-fontsize120 {
   font-size: 120%; }
 
+.rm-fontsize180 {
+  font-size: 180%; }
+
 .rm-fontsize98 {
   font-size: 98%; }
 
@@ -7253,6 +7256,12 @@ rm-emailinvoicebackground {
 .rm-pay-graytext {
   color: #a0a0a0 !important; }
 
+.rm-payhistoryrowtextcolor {
+  color: #646464 !important; }
+
+.rm-payhistoryrowprefixcolor {
+  color: #C8C8C8 !important; }
+
 .rm-pay-grayheadertext {
   font-weight: bold;
   color: #646464;
@@ -7289,9 +7298,9 @@ rm-emailinvoicebackground {
   background-size: 20px 20px; }
 
 .rm-pay-currencyprefix {
-  font-size: 80%;
+  font-size: 90%;
   color: #c8c8c8;
-  padding-top: 9px;
+  padding-top: 5px;
   margin-left: 10px; }
 
 .rm-pay-amount {

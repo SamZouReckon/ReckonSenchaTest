@@ -170,9 +170,9 @@ $include-list-highlights: none;
 
 //Toolbar UI for gray toolbar used for sort search component
 @include sencha-toolbar-ui('rm-sortsearch-topbar', #4E4E4E, 'none');
-@include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
-@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
-
+//@include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
+//@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
+//@include sencha-toolbar-ui('rm-slidenav-topbar',#333333,'matte'); //toolbar for slidenav menu toolbar
 
 
 //List item selection cls with white background when tapped
@@ -285,7 +285,7 @@ $include-list-highlights: none;
     padding-left: 7px;
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
     
   }
@@ -302,7 +302,7 @@ $include-list-highlights: none;
 
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
 
   }
@@ -312,13 +312,13 @@ $include-list-highlights: none;
   .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft{
     @include rm_topbarbuttonstyle;
 	//border-right: 1px solid #000000;
-    background: url(../images/rm-maintopbar-border.svg) repeat-y right top;
+    //background: url(../images/rm-maintopbar-border.svg) repeat-y right top;
 	margin-left: -5px;
     margin-right: 5px;
     
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
     
   }
@@ -328,14 +328,14 @@ $include-list-highlights: none;
   .x-toolbar .x-button.x-button-rm_maintopbarbuttonright {
     @include rm_topbarbuttonstyle;
 	//border-left: 1px solid #000000;
-    background: url(../images/rm-maintopbar-border.svg) repeat-y left top;
+    //background: url(../images/rm-maintopbar-border.svg) repeat-y left top;
 	margin-left: 5px;
     margin-right: -5px;
     width: 3.4em;
 
     .x-button-label{
         font-size: 85%;
-        font-weight: bold;
+        font-weight: normal;
     }
 
   }
@@ -473,6 +473,10 @@ $include-list-highlights: none;
 
 .rm-border-top{
     border-top: 1px solid #f7f7f7 !important;
+}
+
+.rm-border-bottom{
+    border-bottom: 1px solid #f7f7f7 !important;
 }
 
 .rm-border-left{
@@ -617,7 +621,6 @@ $include-list-highlights: none;
  //To get white font in toolbar title
 .rm-topbartitle {
 	color: #FFFFFF;
-    padding-left: 9px;    
     font-size: 115%;
 }
 
@@ -1427,15 +1430,20 @@ rm-emailinvoicebackground{
 
 //Used for first three items of slide nave menu class
 .rm-slidenav-menuitem{    
-    color: #B4B4B4;
-    background: #686868;
+    color: #DCDCDC;         //#B4B4B4;
+    background: #475460;        //#686868;
     //margin-top: -0.7em; 
     //margin-bottom: -0.65em; 
     //margin-left: -0.8em;
     //margin-right: -0.8em;
-    margin: -0.8em;
-    padding: 0.8em;    
-    border-top: 1px solid #818181;
+    margin: -1em;    //-0.8em;
+    padding: 0.9em;    //0.8em;
+    //border-top: 1px solid #818181;
+}
+
+.rm-slidenav-menuicon{     
+    width: 3.5em !important;
+    margin-left: -1em;
 }
 
 //Used for slidenav menu items with not activated text
@@ -1473,7 +1481,7 @@ rm-emailinvoicebackground{
 
 .x-list.x-slidenavigation-list{  
        
-        background : #3D3D3D; 
+        background : #EFEFEF;            //#3D3D3D; 
 	    
         .x-title{
             font-weight: normal;
@@ -1481,22 +1489,22 @@ rm-emailinvoicebackground{
         }
 
         .x-list-item{		
-            color: #969696;
-			background : #3D3D3D;            	                     
+            color: #787878;            //#969696;
+			background : #EFEFEF;     //#3D3D3D;            	                     
         }   
 
         .x-list-item.x-list-item-tpl, 
         .x-list-item .x-dock-horizontal {
-              border-top: 1px solid #4F4F4F; 
+              //border-top: 1px solid #4F4F4F; 
         }
         
         .x-list-item.x-list-item-tpl.x-list-footer-wrap, 
         .x-list-item.x-list-footer-wrap .x-dock-horizontal {
-              border-bottom: 1px solid #4F4F4F; 
+              //border-bottom: 1px solid #4F4F4F; 
         }             
 		
 		.x-list-header{
-                background : #131313;
+                background : #333333;        //#131313;
                 padding: 0.5em 1em;
                 line-height: 1.2em !important;
 				border: none;
@@ -1508,8 +1516,8 @@ rm-emailinvoicebackground{
         
         .x-list-item.x-item-selected .x-dock-horizontal, 
         .x-list-item.x-item-selected.x-list-item-tpl {
-                color: #FFFFFF;	
-    			background : #3E3E3E; 					
+                color: #323232;               //#FFFFFF;	
+    			background : #FFFFFF;        //#3E3E3E; 					
     			font-weight: bold;
                 text-shadow: none;
                 margin-bottom: -1px
@@ -2204,11 +2212,25 @@ rm-emailinvoicebackground{
     padding: 25px 10px;
 }
 
-.rm-pay-gstbtn{
-    background-image: url("../images/icons/rm-photo.svg") !important;
+.rm-pay-discountbtn{
+    background-image: url("../images/icons/rm-discount.png") !important;
 	background-repeat: no-repeat;
     background-position: center;
     background-size: 20px 20px;
+}
+
+.rm-payamountinput-arrow{
+    background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 20px;
+}
+
+.rm-payamountinput-back-arrow{
+    background-image: url("../images/icons/rm-btn-back-arrow.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 20px;
 }
 
 .rm-pay-camerabtn{
@@ -2226,7 +2248,7 @@ rm-emailinvoicebackground{
 }
 
 .rm-pay-currencyprefix{
-    font-size: 225%; 
+    font-size: 80%;
     color: #c8c8c8; 
     padding-top: 9px; 
     margin-left: 10px;
@@ -2286,5 +2308,5 @@ rm-emailinvoicebackground{
 
 .rm-paypreferences-leftalign{
     position: absolute !important;
-    left: 15px;
+    left: 5px;
 }

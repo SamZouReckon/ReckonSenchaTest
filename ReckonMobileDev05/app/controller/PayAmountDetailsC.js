@@ -34,7 +34,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                     '<div class="rm-balance-breakdown-row"><span>Amount</span><span class="rm-balance-breakdown-amount">${0}</span></div>' +
                 '</tr>' +
                 '<tr>' +
-                    '<div class="rm-balance-breakdown-row"><span>GST</span><span class="rm-balance-breakdown-amount">${1}</span></div>' +
+                    '<div class="rm-balance-breakdown-row"><span>Discount</span><span class="rm-balance-breakdown-amount">{1}</span></div>' +
                 '</tr>' +                
                 '<tr>'+
                     '<div class="rm-balance-breakdown-row"><span>Surcharge</span><span class="rm-balance-breakdown-amount">${2}</span></div>' +
@@ -44,9 +44,20 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                 '</tr>' + 
              '</table>', 
             data.Amount, 
-            data.GST, 
-            data.Surcharge, 
-            data.Total));
+            data.Discount, 
+            this.formatNumber(data.Surcharge), 
+            this.formatNumber(data.Total)));
+    },
+    
+    formatNumber: function(val, decimalPlaces){        
+        if(!val){
+            return '';
+        } 
+        decimalPlaces ? decimalPlaces = decimalPlaces : decimalPlaces = 2;
+        var result = val;        
+        result = parseFloat(val);
+        result = result.toFixed(decimalPlaces);    
+        return result;       
     },
     
     onReturn: function(){

@@ -4,7 +4,7 @@ Ext.define('RM.controller.PayTransTerminalC',{
      config: {
         refs: {
             payTransTerminal: 'paytransterminal',
-            terminalContainer: 'paytransterminal #terminalContainer'
+            payTransTerminalTitle: 'paytransterminal #title'
         },
         control: {
             'paytransterminal #back': {
@@ -16,36 +16,6 @@ Ext.define('RM.controller.PayTransTerminalC',{
         }
      },
     
-    init: function() {      
-       RM.AppMgr.application.on( {'reckonpay-devicedetected' : this.showDevice, scope : this} );  
-       RM.AppMgr.application.on( {'reckonpay-cardinserted' : this.showPin, scope : this} );
-       RM.AppMgr.application.on( {'reckonpay-incorrectpin' : this.incorrectPin, scope : this} );
-       RM.AppMgr.application.on( {'reckonpay-correctpin' : this.correctPin, scope : this} );
-       RM.AppMgr.application.on( {'reckonpay-removecard' : this.removeCard, scope : this} );
-        
-       //RM.AppMgr.application.fireEvent('reckonpay-devicedetected'); 
-    },
-    
-    showDevice: function(){
-        this.getTerminalContainer().setActiveItem(1);
-    },
-    
-    showPin: function(){
-        this.getTerminalContainer().setActiveItem(2);
-    },
-    
-    removeCard: function(){
-        RM.ViewMgr.showPay();
-    },
-    
-    incorrectPin: function(){
-        this.getTerminalContainer().setActiveItem(3);
-    },
-    
-    correctPin: function(){
-        this.getTerminalContainer().setActiveItem(4);
-    },
-    
     showView: function (data) {
         this.data = data;
         var view = this.getPayTransTerminal();
@@ -53,6 +23,7 @@ Ext.define('RM.controller.PayTransTerminalC',{
             view = { xtype: 'paytransterminal' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.getPayTransTerminalTitle().setHtml('$' + data.Total);
     },
     
     onDetailsTap: function(){

@@ -6,7 +6,7 @@ Ext.define('RM.view.settings.CoreSettings', {
         style: 'background: #FFFFFF',
         items: [{
             xtype: 'toolbar',
-            ui: 'rm-main-topbar',
+            //ui: 'rm-main-topbar',
             docked: 'top',            
             items: [{
 				ui: 'rm_maintopbarbuttonleft',
@@ -62,7 +62,7 @@ Ext.define('RM.view.settings.CoreSettings', {
             ]
         },{
             xtype: 'toolbar',
-            ui: 'rm-main-topbar',
+            //ui: 'rm-main-topbar',
             docked: 'bottom',
             items: [{
                 xtype: 'spacer'

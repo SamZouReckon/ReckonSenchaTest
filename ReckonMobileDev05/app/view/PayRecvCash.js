@@ -21,7 +21,7 @@ Ext.define('RM.view.PayRecvCash',{
                 },{
 					xtype:'spacer'
 				},{
-    				text: 'DETAILS',
+    				text: 'Details',
     				itemId: 'details', 
                     width: '6em',
     				ui: 'rm_topbarbuttonright'
@@ -39,19 +39,28 @@ Ext.define('RM.view.PayRecvCash',{
                 width: 40,
                 margin: 12,
                 docked: 'left'
-            },{
+            },/*{
                 xtype: 'component',
                 cls: ['rm-whitebg', 'rm-pay-graytext', 'rm-fontsize80'],
                 html: 'Cash received',
                 margin: 15,
                 docked: 'right',
                 flex: 1
+            }*/{
+                xtype: 'rmamountfield',
+                cls: 'rm-flatfield',
+                itemId: 'cashfld',
+                clearIcon: false,
+                flex: 1,
+                placeHolder: 'cash received'
             }]
 			
 		},{
-            xtype: 'exttextfield',
+            xtype: 'rmamountfield',
             cls: 'rm-flatfield',
-            label: 'Change'
+            itemId: 'changefld',            
+            label: 'Change',
+            readOnly: true
         },{
             xtype: 'button',            
             itemId: 'tendercash',            

@@ -1,3 +1,4 @@
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -5541,88 +5542,6 @@ body.x-desktop {
   color: white;
   text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0; }
 
-.x-toolbar-rm-main-topbar {
-  background-image: none;
-  background-color: #2c2c2c;
-  border-color: black; }
-.x-toolbar-rm-main-topbar .x-title {
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0; }
-.x-toolbar-rm-main-topbar.x-docked-top {
-  border-bottom-color: black; }
-.x-toolbar-rm-main-topbar.x-docked-bottom {
-  border-top-color: black; }
-.x-toolbar-rm-main-topbar.x-docked-left {
-  border-right-color: black; }
-.x-toolbar-rm-main-topbar.x-docked-right {
-  border-left-color: black; }
-.x-toolbar-rm-main-topbar .x-button, .x-toolbar .x-toolbar-rm-main-topbar .x-button, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer {
-  border: 1px solid black;
-  border-top-color: black;
-  background-color: #1f1f1f;
-  color: #f8f8f8; }
-.x-toolbar-rm-main-topbar .x-button.x-button-back:before, .x-toolbar-rm-main-topbar .x-button.x-button-forward:before, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-back:before, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-forward:before, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-back:before, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-back:before, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-forward:before {
-  background: black; }
-.x-toolbar-rm-main-topbar .x-button, .x-toolbar-rm-main-topbar .x-button.x-button-back:after, .x-toolbar-rm-main-topbar .x-button.x-button-forward:after, .x-toolbar .x-toolbar-rm-main-topbar .x-button, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-back:after, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-forward:after, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-back:after, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-back:after, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-forward:after {
-  background-image: none;
-  background-color: #1f1f1f; }
-.x-toolbar-rm-main-topbar .x-button.x-button-pressing, .x-toolbar-rm-main-topbar .x-button.x-button-pressing:after, .x-toolbar-rm-main-topbar .x-button.x-button-pressed, .x-toolbar-rm-main-topbar .x-button.x-button-pressed:after, .x-toolbar-rm-main-topbar .x-button.x-button-active, .x-toolbar-rm-main-topbar .x-button.x-button-active:after, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-pressing, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-pressed, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-active, .x-toolbar .x-toolbar-rm-main-topbar .x-button.x-button-active:after, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressing, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressed, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-active, .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-active:after, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressing, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressed, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-active, .x-toolbar .x-toolbar-rm-main-topbar .x-field-select .x-component-outer.x-button-active:after {
-  background-image: none;
-  background-color: #181818;
-  background-image: -webkit-linear-gradient(top, #000000, #0b0b0b 10%, #181818 65%, #191919);
-  background-image: -moz-linear-gradient(top, #000000, #0b0b0b 10%, #181818 65%, #191919);
-  background-image: -o-linear-gradient(top, #000000, #0b0b0b 10%, #181818 65%, #191919);
-  background-image: linear-gradient(top, #000000, #0b0b0b 10%, #181818 65%, #191919); }
-.x-toolbar-rm-main-topbar .x-label, .x-toolbar-rm-main-topbar .x-form-label {
-  font-weight: bold;
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0; }
-
-.x-toolbar-rm-slidenav-topbar {
-  background-image: none;
-  background-color: #3e3e3e;
-  background-image: -webkit-linear-gradient(top, #646464, #4b4b4b 3%, #313131);
-  background-image: -moz-linear-gradient(top, #646464, #4b4b4b 3%, #313131);
-  background-image: -o-linear-gradient(top, #646464, #4b4b4b 3%, #313131);
-  background-image: linear-gradient(top, #646464, #4b4b4b 3%, #313131);
-  border-color: black; }
-.x-toolbar-rm-slidenav-topbar .x-title {
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0; }
-.x-toolbar-rm-slidenav-topbar.x-docked-top {
-  border-bottom-color: black; }
-.x-toolbar-rm-slidenav-topbar.x-docked-bottom {
-  border-top-color: black; }
-.x-toolbar-rm-slidenav-topbar.x-docked-left {
-  border-right-color: black; }
-.x-toolbar-rm-slidenav-topbar.x-docked-right {
-  border-left-color: black; }
-.x-toolbar-rm-slidenav-topbar .x-button, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer {
-  border: 1px solid black;
-  border-top-color: #0b0b0b;
-  background-color: #313131;
-  color: white; }
-.x-toolbar-rm-slidenav-topbar .x-button.x-button-back:before, .x-toolbar-rm-slidenav-topbar .x-button.x-button-forward:before, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-back:before, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-forward:before, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-back:before, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-back:before, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-forward:before {
-  background: black; }
-.x-toolbar-rm-slidenav-topbar .x-button, .x-toolbar-rm-slidenav-topbar .x-button.x-button-back:after, .x-toolbar-rm-slidenav-topbar .x-button.x-button-forward:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-back:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-forward:after, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-back:after, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-back:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-forward:after {
-  background-image: none;
-  background-color: #313131;
-  background-image: -webkit-linear-gradient(top, #585858, #3e3e3e 3%, #252525);
-  background-image: -moz-linear-gradient(top, #585858, #3e3e3e 3%, #252525);
-  background-image: -o-linear-gradient(top, #585858, #3e3e3e 3%, #252525);
-  background-image: linear-gradient(top, #585858, #3e3e3e 3%, #252525); }
-.x-toolbar-rm-slidenav-topbar .x-button.x-button-pressing, .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressing:after, .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressed, .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressed:after, .x-toolbar-rm-slidenav-topbar .x-button.x-button-active, .x-toolbar-rm-slidenav-topbar .x-button.x-button-active:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressing, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressing:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressed, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-pressed:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-active, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-button.x-button-active:after, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressing, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressed, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-active, .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-active:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressing, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressing:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressed, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-pressed:after, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-active, .x-toolbar .x-toolbar-rm-slidenav-topbar .x-field-select .x-component-outer.x-button-active:after {
-  background-image: none;
-  background-color: #2a2a2a;
-  background-image: -webkit-linear-gradient(top, #101010, #1d1d1d 10%, #2a2a2a 65%, #2b2b2b);
-  background-image: -moz-linear-gradient(top, #101010, #1d1d1d 10%, #2a2a2a 65%, #2b2b2b);
-  background-image: -o-linear-gradient(top, #101010, #1d1d1d 10%, #2a2a2a 65%, #2b2b2b);
-  background-image: linear-gradient(top, #101010, #1d1d1d 10%, #2a2a2a 65%, #2b2b2b); }
-.x-toolbar-rm-slidenav-topbar .x-label, .x-toolbar-rm-slidenav-topbar .x-form-label {
-  font-weight: bold;
-  color: white;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0; }
-
 .rm-listitemselection {
   background-color: #FFFFFF !important; }
 
@@ -5723,7 +5642,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-button.x-button-rm_topbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .x-button.x-button-rm_topbarbuttonright, .x-toolbar .x-button.x-button-rm_topbarbuttonright {
   background: none;
@@ -5748,7 +5667,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_topbarbuttonright .x-button-label, .x-button.x-button-rm_topbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .x-button.x-button-rm_maintopbarbuttonleft, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft {
   background: none;
@@ -5759,7 +5678,6 @@ body.x-desktop {
   height: 2.6em;
   margin: 0;
   border-radius: 0;
-  background: url(../images/rm-maintopbar-border.svg) repeat-y right top;
   margin-left: -5px;
   margin-right: 5px; }
 .x-button.x-button-rm_maintopbarbuttonleft > *, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft > * {
@@ -5773,7 +5691,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-button.x-button-rm_maintopbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .x-button.x-button-rm_maintopbarbuttonright, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright {
   background: none;
@@ -5784,7 +5702,6 @@ body.x-desktop {
   height: 2.6em;
   margin: 0;
   border-radius: 0;
-  background: url(../images/rm-maintopbar-border.svg) repeat-y left top;
   margin-left: 5px;
   margin-right: -5px;
   width: 3.4em; }
@@ -5799,7 +5716,7 @@ body.x-desktop {
   background-color: white; }
 .x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-button.x-button-rm_maintopbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-badge {
   font-size: 85%;
-  font-weight: bold; }
+  font-weight: normal; }
 
 .rm-flatselectfield.x-field-select .x-component-outer::after {
   background: none;
@@ -5949,6 +5866,9 @@ body.x-desktop {
 .rm-border-top {
   border-top: 1px solid #f7f7f7 !important; }
 
+.rm-border-bottom {
+  border-bottom: 1px solid #f7f7f7 !important; }
+
 .rm-border-left {
   border-left: 1px solid #f7f7f7 !important; }
 
@@ -6073,7 +5993,6 @@ body.x-desktop {
 
 .rm-topbartitle {
   color: #FFFFFF;
-  padding-left: 9px;
   font-size: 115%; }
 
 .rm-swipecontainer {
@@ -6772,11 +6691,14 @@ rm-emailinvoicebackground {
   top: -22px; }
 
 .rm-slidenav-menuitem {
-  color: #B4B4B4;
-  background: #686868;
-  margin: -0.8em;
-  padding: 0.8em;
-  border-top: 1px solid #818181; }
+  color: #DCDCDC;
+  background: #475460;
+  margin: -1em;
+  padding: 0.9em; }
+
+.rm-slidenav-menuicon {
+  width: 3.5em !important;
+  margin-left: -1em; }
 
 .rm-slidenav-menuitem-msg {
   width: 250px; }
@@ -6799,19 +6721,15 @@ rm-emailinvoicebackground {
   float: left; }
 
 .x-list.x-slidenavigation-list {
-  background: #3D3D3D; }
+  background: #EFEFEF; }
 .x-list.x-slidenavigation-list .x-title {
   font-weight: normal;
   position: absolute !important; }
 .x-list.x-slidenavigation-list .x-list-item {
-  color: #969696;
-  background: #3D3D3D; }
-.x-list.x-slidenavigation-list .x-list-item.x-list-item-tpl, .x-list.x-slidenavigation-list .x-list-item .x-dock-horizontal {
-  border-top: 1px solid #4F4F4F; }
-.x-list.x-slidenavigation-list .x-list-item.x-list-item-tpl.x-list-footer-wrap, .x-list.x-slidenavigation-list .x-list-item.x-list-footer-wrap .x-dock-horizontal {
-  border-bottom: 1px solid #4F4F4F; }
+  color: #787878;
+  background: #EFEFEF; }
 .x-list.x-slidenavigation-list .x-list-header {
-  background: #131313;
+  background: #333333;
   padding: 0.5em 1em;
   line-height: 1.2em !important;
   border: none;
@@ -6820,8 +6738,8 @@ rm-emailinvoicebackground {
   margin-top: -1px;
   margin-bottom: -1px; }
 .x-list.x-slidenavigation-list .x-list-item.x-item-selected .x-dock-horizontal, .x-list.x-slidenavigation-list .x-list-item.x-item-selected.x-list-item-tpl {
-  color: #FFFFFF;
-  background: #3E3E3E;
+  color: #323232;
+  background: #FFFFFF;
   font-weight: bold;
   text-shadow: none;
   margin-bottom: -1px; }
@@ -7340,11 +7258,23 @@ rm-emailinvoicebackground {
   color: #646464;
   padding: 25px 10px; }
 
-.rm-pay-gstbtn {
-  background-image: url("../images/icons/rm-photo.svg") !important;
+.rm-pay-discountbtn {
+  background-image: url("../images/icons/rm-discount.png") !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 20px 20px; }
+
+.rm-payamountinput-arrow {
+  background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 20px; }
+
+.rm-payamountinput-back-arrow {
+  background-image: url("../images/icons/rm-btn-back-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 20px; }
 
 .rm-pay-camerabtn {
   background-image: url("../images/icons/rm-photo.svg") !important;
@@ -7359,7 +7289,7 @@ rm-emailinvoicebackground {
   background-size: 20px 20px; }
 
 .rm-pay-currencyprefix {
-  font-size: 225%;
+  font-size: 80%;
   color: #c8c8c8;
   padding-top: 9px;
   margin-left: 10px; }
@@ -7409,4 +7339,4 @@ rm-emailinvoicebackground {
 
 .rm-paypreferences-leftalign {
   position: absolute !important;
-  left: 15px; }
+  left: 5px; }

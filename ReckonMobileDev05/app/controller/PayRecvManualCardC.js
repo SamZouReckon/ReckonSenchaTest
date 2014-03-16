@@ -4,7 +4,10 @@ Ext.define('RM.controller.PayRecvManualCardC',{
      config: {
         refs: {
             payRecvManualCard: 'payrecvmanualcard',
-            cardType: 'payrecvmanualcard extselectfield[name=CardTypeId]',
+            payRecvManualCardTitle: 'payrecvmanualcard #title',
+            payRecvManualCardForm: 'payrecvmanualcard #payrecvmanualcardform',
+            cardTypeFld: 'payrecvmanualcard textfield[name=CardType]',
+            dateFld: 'payrecvmanualcard textfield[name=Date]'
         },
         control: {
             'payrecvmanualcard #back': {
@@ -24,21 +27,9 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         var view = this.getPayRecvManualCard();
         if (!view){
             view = { xtype: 'payrecvmanualcard' };
-        }      
-        
-        this.loadSelectFields();
-        
+        }       
         RM.ViewMgr.showPanel(view);
-    },
-    
-    loadSelectFields: function(){
-        
-        var cardTypeStore = Ext.data.StoreManager.lookup('CardTypes');
-        cardTypeStore.getProxy().setUrl(RM.AppMgr.getApiUrl('CardType'));        
-        RM.AppMgr.loadStore(cardTypeStore,
-            function(){},
-            this
-        );
+        this.getPayRecvManualCardTitle().setHtml('$'+data.Total);
     },
     
     onDetailsTap: function(){
@@ -46,12 +37,42 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     },
     
     recordTransaction: function() {
-        RM.PayMgr.createTransaction(this.data, function(){
-            RM.PayMgr.showScreen('PaySendReceipt');  
-        },this); 
+        
+        var vals = this.getPayRecvManualCardForm().getValues();
+        
+        this.data.PaymentMethodId = 3;
+        
+        if(this.validateForm(vals)){
+        	RM.PayMgr.createTransaction(this.data, function(){
+            
+                RM.PayMgr.showScreen('PaySendReceipt', this.data);      
+            },this);            
+        }
     },
     
     back: function () {
         RM.ViewMgr.back();
-    }   
+    },   
+    
+    validateForm: function(vals){        
+        var isValid = true;
+        
+        if( vals.CardType === undefined || vals.CardType === null || vals.CardType === ''){
+            //RM.AppMgr.showErrorMsgBox('Please choose credit card type');
+            this.getCardTypeFld().showValidation(false);
+            isValid = false;
+        }       
+        
+        if( vals.Date === undefined || vals.Date === ''){
+            //RM.AppMgr.showErrorMsgBox('Please enter a date for transaction');
+            this.getDateFld().showValidation(false);
+            isValid = false;
+        } 
+        
+        if(!isValid){            
+            RM.AppMgr.showInvalidFormMsg();
+        }
+        
+        return isValid;
+    }
 });

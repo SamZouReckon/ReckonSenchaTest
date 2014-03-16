@@ -9,7 +9,7 @@ Ext.define('RM.view.EnterUsername', {
 			{
 				xtype: 'toolbar',                
 				docked: 'top',
-                ui: 'rm-main-topbar',
+                //ui: 'rm-main-topbar',
 				items: [
 					{
                         xtype: 'component',

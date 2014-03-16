@@ -20,7 +20,7 @@ Ext.define('RM.view.About', {
 				items:[
 					{
 						xtype: 'component',
-						html: 'Reckon Mobile',
+						html: 'Reckon',
 						cls: 'rm-about-product-name',
 						padding: '35 20 5 20'
 					},{

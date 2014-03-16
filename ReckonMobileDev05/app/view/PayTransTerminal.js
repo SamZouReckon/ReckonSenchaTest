@@ -22,7 +22,7 @@ Ext.define('RM.view.PayTransTerminal',{
                         },{
         					xtype:'spacer'
         				},{
-            				text: 'DETAILS',
+            				text: 'Details',
             				itemId: 'details', 
                             width: '6em',
             				ui: 'rm_topbarbuttonright'

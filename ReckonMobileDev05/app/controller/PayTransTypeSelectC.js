@@ -35,7 +35,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
         }       
         RM.ViewMgr.showPanel(view);
         
-        alert(JSON.stringify(this.data));
+        //alert(JSON.stringify(this.data));
     },  
     
     onDetailsTap: function(){

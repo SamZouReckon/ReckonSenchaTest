@@ -14,7 +14,7 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
         this.popup = Ext.create('RM.component.Popup', {
             items: [{
                 xtype: 'component',
-                html: 'Choose invoice discount',
+                html: 'Choose discount',
                 cls: 'rm-title'
             }, {
                 xtype: 'fieldset',

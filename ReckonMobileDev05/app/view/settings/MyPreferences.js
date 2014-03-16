@@ -6,7 +6,7 @@ Ext.define('RM.view.settings.MyPreferences', {
 			{
 				xtype: 'toolbar',
 				docked: 'top',
-                ui: 'rm-main-topbar',
+                //ui: 'rm-main-topbar',
 				items: [
 					{
 						ui: 'rm_maintopbarbuttonleft',
@@ -34,7 +34,7 @@ Ext.define('RM.view.settings.MyPreferences', {
 			},{
 				xtype: 'toolbar',
 				docked: 'bottom',
-                ui: 'rm-main-topbar',
+                //ui: 'rm-main-topbar',
 				items: [
 					{
 						xtype: 'spacer'

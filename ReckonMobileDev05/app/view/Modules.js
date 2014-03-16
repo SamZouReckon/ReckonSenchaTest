@@ -10,7 +10,7 @@ Ext.define('RM.view.Modules', {
 			{
 				xtype: 'toolbar',                
 				docked: 'top',
-                ui: 'rm-main-topbar',
+                //ui: 'rm-main-topbar',
 				items: [
 					{
                         xtype: 'component',
@@ -26,7 +26,7 @@ Ext.define('RM.view.Modules', {
 			},{
                 xtype: 'component',
                 padding: '28 10 28 10',
-                html: 'Your modules',
+                html: 'Your products',
                 cls: 'rm-intromsg'
             },{
                 xtype: 'dataview',

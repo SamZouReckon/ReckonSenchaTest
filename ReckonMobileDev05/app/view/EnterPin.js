@@ -8,7 +8,7 @@ Ext.define('RM.view.EnterPin', {
         items: [{
             xtype: 'toolbar',
             docked: 'top',
-            ui:'rm-main-topbar',
+            //ui:'rm-main-topbar',
             
             items: [
             {

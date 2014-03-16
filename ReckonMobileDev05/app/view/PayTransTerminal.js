@@ -31,6 +31,7 @@ Ext.define('RM.view.PayTransTerminal',{
             },{
                 xtype: 'container',
                 layout: 'card',
+                itemId: 'terminalContainer',
                 activeItem: 0,
                 defaults: {
                     cls: 'rm-paybg'

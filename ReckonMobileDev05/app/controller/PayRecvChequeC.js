@@ -38,10 +38,15 @@ Ext.define('RM.controller.PayRecvChequeC',{
     
     charge: function(){
        var vals = this.getPayRecvChequeForm().getValues(); 
-       //RM.PayMgr.createTransaction(this.data, function(){
-        if(this.validateForm(vals))
-            RM.PayMgr.showScreen('PaySendReceipt', this.data);  
-        //},this);   
+        
+       this.data.PaymentMethodId = 2;
+        
+       if(this.validateForm(vals)){
+        	RM.PayMgr.createTransaction(this.data, function(){
+            
+                RM.PayMgr.showScreen('PaySendReceipt', this.data);      
+            },this);            
+        } 
     },
     
     validateForm: function(vals){        

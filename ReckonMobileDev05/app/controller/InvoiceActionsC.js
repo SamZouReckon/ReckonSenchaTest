@@ -8,6 +8,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
             invStatus: 'invoiceactions #invoiceStatus',
             invApproveBtn: 'invoiceactions #approve',
             invPayBtn: 'invoiceactions #pay',
+            invPayAppBtn: 'invoiceactions #payApp',
             invEmailBtn: 'invoiceactions #email',
             warningMessage: 'invoiceactions #lockOffWarning'
         },
@@ -23,6 +24,9 @@ Ext.define('RM.controller.InvoiceActionsC', {
             },            
             'invoiceactions #pay': {
                 tap: 'onPay'
+            },
+            'invoiceactions #payApp': {
+                tap: 'onPayApp'
             },
             'invoiceactions #cancel': {
                 tap: 'onCancel'
@@ -91,6 +95,11 @@ Ext.define('RM.controller.InvoiceActionsC', {
     
     onPay: function () {
         RM.InvoicesMgr.showAcceptPayment(this.invoiceData);
+    },
+    
+    onPayApp: function () {
+        //alert(JSON.stringify(this.invoiceData));
+        RM.ViewMgr.showPay(null, this.invoiceData);
     },
 
     onEmail: function () {

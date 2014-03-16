@@ -3,8 +3,7 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     requires: ['RM.view.PayTransTypeSelect'],
     config: {
         refs: {
-            payTransTypeSelect: 'paytranstypeselect',
-            payTransTypeSelectTitle: 'paytranstypeselect #title'
+            payTransTypeSelect: 'paytranstypeselect'
         },
         control: {
             'paytranstypeselect #details': {
@@ -35,7 +34,8 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             view = { xtype: 'paytranstypeselect' };
         }       
         RM.ViewMgr.showPanel(view);
-        this.getPayTransTypeSelectTitle().setHtml('$'+data.Total);
+        
+        //alert(JSON.stringify(this.data));
     },  
     
     onDetailsTap: function(){
@@ -43,7 +43,16 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     },
     
     onCreditCardTap: function(){
-        RM.PayMgr.showScreen('PayTransTerminal', this.data);
+        //RM.PayMgr.showScreen('PayTransTerminal', this.data
+        cordova.exec(function (data) {
+            //alert(JSON.stringify(data));
+            //Success
+            
+        }, function (data) {
+            //alert(JSON.stringify(data));
+            //Failure
+            
+        }, "PayDevice", "doTransaction", [this.data.Amount]);
     },
     
     onCashTap: function(){

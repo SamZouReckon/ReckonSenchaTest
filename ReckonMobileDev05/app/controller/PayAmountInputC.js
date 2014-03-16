@@ -10,11 +10,12 @@ Ext.define('RM.controller.PayAmountInputC', {
             historyContainer: 'payamountinput #historycontainer',
             inputAndHistoryContainer: 'payamountinput #inputandhistorycontainer',
             amount: 'payamountinput #amount',   
-            toolbarTitle: 'payamountinput #toolbarTitle',            
+            toolbarTitle: 'payamountinput #toolbarTitle',
             discount: 'payamountinput #discount',
             descriptionFld: 'payamountinput #descriptionfield'            
         },
-        control: {         
+        control: {            
+            
             'payamountinput calckeypad': {
                 keytap: 'onCalcKeyTap'
             },
@@ -25,7 +26,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                 tap: 'showOrHideHistory'
             },
             'payamountinput #clearinputbtn': {
-                tap: 'clearInputFieldAndHistory'
+                tap: 'clearInputField'
             },
             'payamountinput #discountbtn': {
                 tap: 'onDiscountFldTap'
@@ -36,11 +37,8 @@ Ext.define('RM.controller.PayAmountInputC', {
             'payamountinput #charge': {
                 tap: 'onChargeBtnTap'
             },
-            'payamountinput #discount': {
-                tap: 'onDiscountFldTap'
-            },
             'payamountinput #descriptionfield':{
-                tap: 'showDescription'
+                tap: 'showNotes'
             }
         }
 
@@ -71,15 +69,18 @@ Ext.define('RM.controller.PayAmountInputC', {
             view = { xtype: 'payamountinput' };
         }
         this.clearInputFieldAndHistory();
-        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountPaid);
-        var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
-        var customerName = typeof data === "undefined" ? "" : data.customerName;
+        
+        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
+        //var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
+        //var customerName = typeof data === "undefined" ? "" : data.CustomerName;
+        
         this.getToolbarTitle().setHtml('Joe Plumber');
-        this.getAmount().setHtml(formattedAmount);
+        this.getAmount().setHtml(amountToPay);
+        //this.getTotalWithGst().setHtml("Total with GST " + amountToPay);
     },  
     
     onCalcKeyTap: function (key) {       
-        var pointIndex = this.inputStr.indexOf('.');        
+        
         if (key === 'back') {
             if (this.inputStr.length > 0 && (this.inputStr.indexOf('=') === -1 )) {               
                 this.inputStr = this.inputStr.slice(0, -1); 
@@ -102,16 +103,11 @@ Ext.define('RM.controller.PayAmountInputC', {
         }
         else {           
             if(this.inputStr.indexOf('=') === -1 ){
-                if(key === '.' && pointIndex !== -1){
-                    return;
-                }
-                if(pointIndex !== -1 && (this.inputStr.length - pointIndex) >= 3){
-                    return;
-                }
                 this.inputStr += key;
             }            
-        }         
-        this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
+        }        
+        console.log(this.inputStr);
+        this.getAmount().setHtml(this.inputStr);
     },
     
     addToInputHistory: function(){
@@ -184,19 +180,20 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     onChargeBtnTap: function(){
-        this.onCalcKeyTap('=');
+        
         this.data = {
-            Amount: 0,
+            Amount: this.getAmount().getHtml(),
             Description: "Test Description",
             PayerName: "Travis Beesley",
-            PaymentMethodId: 2,
             Discount: 0,
             Surcharge: 0,
-            Total: 0,
+            Total: this.getAmount().getHtml(),
         };
+        
         var discVal = this.getDiscount().getValue();
         this.data.Discount = discVal ? discVal : '$0.00';
-        this.data.Amount = this.formatNumber(this.inputStr.slice(1));        
+        //this.data.Amount = this.formatNumber(this.inputStr.slice(1));  
+        
         if(this.validateForm(this.data)){ 
             this.totalWithSurchargeAndDiscount();
             RM.PayMgr.showScreen('PayTransTypeSelect', this.data);

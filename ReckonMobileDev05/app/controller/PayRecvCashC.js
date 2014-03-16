@@ -72,11 +72,14 @@ Ext.define('RM.controller.PayRecvCashC',{
     },
     
     tenderCash: function(){
-        //RM.PayMgr.createTransaction(this.data, function(){
-            if(this.validateForm()){                
+        
+        this.data.PaymentMethodId = 1;
+        
+        if(this.validateForm()){
+        	RM.PayMgr.createTransaction(this.data, function(){
                 RM.PayMgr.showScreen('PaySendReceipt', this.data);      
-            }            
-        //},this);
+            },this);            
+        }
     },
         
     back: function () {

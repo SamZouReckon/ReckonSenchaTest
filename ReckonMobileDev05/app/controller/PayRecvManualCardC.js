@@ -40,11 +40,14 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         
         var vals = this.getPayRecvManualCardForm().getValues();
         
-        //RM.PayMgr.createTransaction(this.data, function(){
-            if(this.validateForm(vals)){
+        this.data.PaymentMethodId = 3;
+        
+        if(this.validateForm(vals)){
+        	RM.PayMgr.createTransaction(this.data, function(){
+            
                 RM.PayMgr.showScreen('PaySendReceipt', this.data);      
-            }            
-        //},this); 
+            },this);            
+        }
     },
     
     back: function () {

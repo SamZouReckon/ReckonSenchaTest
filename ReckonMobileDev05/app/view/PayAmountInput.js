@@ -32,16 +32,15 @@ Ext.define('RM.view.PayAmountInput', {
                                                 itemId: 'historyshowbtn',
                                                 docked: 'left'
                                             },
-                                            {
+                                            /*{
                                                 xtype: 'component',
                                                 html: '',                                                
                                                 cls: 'rm-pay-currencyprefix'
-                                            },{
+                                            },*/{
                                                 xtype: 'component',
                                                 html: '0.00',
-                                                itemId: 'amount',                                               
-                                                height: '1.1em',
-                                                cls: 'rm-pay-amount'
+                                                itemId: 'amount',                                    
+                                                cls: 'rm-pay-amount'                                                
                                             },{
                                                 xtype: 'button',
                                                 itemId: 'clearinputbtn',

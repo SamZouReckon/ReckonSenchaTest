@@ -51,7 +51,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
     
     formatNumber: function(val, decimalPlaces){        
         if(!val){
-            return '';
+            return '0.00';
         } 
         decimalPlaces ? decimalPlaces = decimalPlaces : decimalPlaces = 2;
         var result = val;        

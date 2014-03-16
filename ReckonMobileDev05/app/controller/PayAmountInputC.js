@@ -164,7 +164,7 @@ Ext.define('RM.controller.PayAmountInputC', {
                    if(this.inputArray[i].indexOf('=') !== -1){
                         calcInput = eval(calcInput);
                         calcInput = calcInput ? calcInput.toFixed(2) : calcInput;
-                        calcInput ? this.inputArray[i] = '=' + calcInput : this.inputArray[i] = '+' + 0;
+                        calcInput ? this.inputArray[i] = '=' + calcInput : this.inputArray[i] = '+0.00';
                         calcInput = this.inputArray[i].slice(1)
                     }
                     else{

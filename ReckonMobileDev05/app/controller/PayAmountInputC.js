@@ -93,8 +93,14 @@ Ext.define('RM.controller.PayAmountInputC', {
         //var customerName = typeof data === "undefined" ? "" : data.customerName;
         
         this.getToolbarTitle().setHtml('Joe Plumber');
-        
-        this.getAmount().setHtml(amountToPay);
+        if(amountToPay){
+            this.inputStr = '' + amountToPay.toFixed(2);
+        }
+        else{
+            this.inputStr = '';
+        }
+        this.getAmount().setHtml(this.inputStr);
+        this.getInputAndHistoryContainer().setActiveItem(0);
     },  
     
     onCalcKeyTap: function (key) {       

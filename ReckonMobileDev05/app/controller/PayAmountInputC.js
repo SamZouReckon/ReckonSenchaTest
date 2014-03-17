@@ -70,12 +70,31 @@ Ext.define('RM.controller.PayAmountInputC', {
         if (!view){
             view = { xtype: 'payamountinput' };
         }
+        
         this.clearInputFieldAndHistory();
-        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountPaid);
-        var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
-        var customerName = typeof data === "undefined" ? "" : data.customerName;
         this.getToolbarTitle().setHtml('Joe Plumber');
-        this.getAmount().setHtml(formattedAmount);
+    },  
+    
+    showViewFromOne: function (data, cb, cbs) {
+        this.data = data;
+        this.selectCb = cb;
+        this.selectCbs = cbs;
+          
+        var view = this.getPayAmountInput();
+        if (!view){
+            view = { xtype: 'payamountinput' };
+        }
+        
+        this.clearInputFieldAndHistory();
+        
+        //alert(data.AmountPaid);
+        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
+        //var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
+        //var customerName = typeof data === "undefined" ? "" : data.customerName;
+        
+        this.getToolbarTitle().setHtml('Joe Plumber');
+        
+        this.getAmount().setHtml(amountToPay);
     },  
     
     onCalcKeyTap: function (key) {       
@@ -185,6 +204,7 @@ Ext.define('RM.controller.PayAmountInputC', {
     
     onChargeBtnTap: function(){
         this.onCalcKeyTap('=');
+        
         this.data = {
             Amount: 0,
             Description: "Test Description",
@@ -194,9 +214,11 @@ Ext.define('RM.controller.PayAmountInputC', {
             Surcharge: 0,
             Total: 0,
         };
+        
         var discVal = this.getDiscount().getValue();
         this.data.Discount = discVal ? discVal : '$0.00';
-        this.data.Amount = this.formatNumber(this.inputStr.slice(1));        
+        this.data.Amount = this.formatNumber(this.inputStr.slice(1)); 
+        
         if(this.validateForm(this.data)){ 
             this.totalWithSurchargeAndDiscount();
             RM.PayMgr.showScreen('PayTransTypeSelect', this.data);

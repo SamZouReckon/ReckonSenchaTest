@@ -877,6 +877,9 @@ $include-list-highlights: none;
     .rm-pt5{
         padding-top: 5px;
     }
+	.rm-pb5{
+		padding-bottom: 5px;
+	}
     .rm-pr5{
         padding-right: 5px;
     }
@@ -886,6 +889,9 @@ $include-list-highlights: none;
     .rm-ml5{
         margin-left: 5px;
     }
+	.rm-mb5{
+		margin-bottom: 5px;
+	}
     .rm-mr5{
         margin-right: 5px;
     }
@@ -904,6 +910,9 @@ $include-list-highlights: none;
     .rm-fontsize98{
         font-size: 98%;
     } 
+	.rm-fontsize90{
+		font-size: 90%;
+	}
     .rm-fontsize70{
         font-size: 70%;
     } 
@@ -1146,19 +1155,19 @@ $include-list-highlights: none;
 }
 
 .rm-checkbox-on{	
-	background-image: url("../images/icons/checkbox-on.svg"); 
+	background-image: url("../images/icons/rm-checkbox-on.svg"); 
 }
 
 .rm-checkbox-off{	
-	background-image: url("../images/icons/checkbox-off.svg"); 
+	background-image: url("../images/icons/rm-checkbox-off.svg"); 
 }
 
 .rm-checkbox{
 	background-position: center; 
     background-repeat: no-repeat;
-    background-size: 21px;
-	width: 23px;
-	height: 23px;    
+    background-size: 26px;
+	width: 30px;
+	height: 30px;    
 }
 
 .rm-checkbox-label{

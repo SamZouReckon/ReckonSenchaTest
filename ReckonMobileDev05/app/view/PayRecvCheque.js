@@ -35,19 +35,22 @@ Ext.define('RM.view.PayRecvCheque',{
                     {
                         xtype: 'exttextfield',
                         label: 'Cheque number',
+                        name: 'ChequeNumber',
                         placeHolder: 'enter',
                         labelWidth: '12em',
                         clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
-                        xtype: 'exttextfield',
+                        xtype: 'extnumberfield',
                         label: 'BSB',
+                        name: 'BSB',
                         placeHolder: 'enter',
                         clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
-                        xtype: 'exttextfield',
+                        xtype: 'extnumberfield',
                         label: 'Account number',
+                        name: 'AccountNumber',
                         labelWidth: '9em',
                         placeHolder: 'enter',
                         clearIcon: false,

@@ -44,9 +44,19 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                 '</tr>' + 
              '</table>', 
             data.Amount, 
-            data.Discount, 
+            this.formatDiscountValue(), 
             this.formatNumber(data.Surcharge), 
             this.formatNumber(data.Total)));
+    },
+    
+    formatDiscountValue: function(){
+        var amount = parseFloat(this.details.Amount.replace('$', ''));
+        var discount = this.details.Discount
+        if(discount.indexOf('%') > -1){            
+            discount = (parseFloat(discount.replace('%', ''))/100) * amount;
+            discount = '(' + this.details.Discount + ')' + ' $' + discount.toFixed(2);
+        }
+        return discount;
     },
     
     formatNumber: function(val, decimalPlaces){        

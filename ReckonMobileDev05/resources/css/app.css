@@ -6187,6 +6187,9 @@ body.x-desktop {
 .rm-ml5 {
   margin-left: 5px; }
 
+.rm-mb5 {
+  margin-bottom: 5px !important; }
+
 .rm-mr5 {
   margin-right: 5px; }
 
@@ -6204,6 +6207,9 @@ body.x-desktop {
 
 .rm-fontsize98 {
   font-size: 98%; }
+
+.rm-fontsize90 {
+  font-size: 90%; }
 
 .rm-fontsize70 {
   font-size: 70%; }
@@ -6436,17 +6442,17 @@ body.x-desktop {
   margin-left: 9px; }
 
 .rm-checkbox-on {
-  background-image: url("../images/icons/checkbox-on.svg"); }
+  background-image: url("../images/icons/rm-checkbox-on.svg"); }
 
 .rm-checkbox-off {
-  background-image: url("../images/icons/checkbox-off.svg"); }
+  background-image: url("../images/icons/rm-checkbox-off.svg"); }
 
 .rm-checkbox {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 21px;
-  width: 23px;
-  height: 23px; }
+  background-size: 26px;
+  width: 30px;
+  height: 30px; }
 
 .rm-checkbox-label {
   color: #969696;

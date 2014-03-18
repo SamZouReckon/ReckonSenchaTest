@@ -7,7 +7,9 @@ Ext.define('RM.controller.PayRecvChequeC',{
             payRecvChequeTitle: 'payrecvcheque #title',
             payRecvChequeForm: 'payrecvcheque #payrecvchequeform',
             drawerFld: 'payrecvcheque textfield[name=Drawer]',
-            dateFld : 'payrecvcheque textfield[name=Date]'
+            dateFld : 'payrecvcheque textfield[name=Date]',
+            bSBFld: 'payrecvcheque numberfield[name = bsb]',
+            chequeNumberFld: 'payrecvcheque textfield[name = ChequeNumber]'
         },
         control: {
             'payrecvcheque #back': {
@@ -56,7 +58,12 @@ Ext.define('RM.controller.PayRecvChequeC',{
             //RM.AppMgr.showErrorMsgBox('Drawer cananot be blank');
             this.getDrawerFld().showValidation(false);
             isValid = false;
-        }       
+        } 
+        
+        if( !vals.ChequeNumber){
+            this.getChequeNumberFld().showValidation(false);
+            isValid = false;
+        }
         
         if( vals.Date === undefined || vals.Date === null || vals.Date === ''){
             //RM.AppMgr.showErrorMsgBox('Please enter a date for transaction');

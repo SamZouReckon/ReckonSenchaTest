@@ -62,13 +62,13 @@ Ext.define('RM.controller.PaySendReceiptC',{
         sms.send(number, message, intent, success, error);        
     },
     
-    sendReceiptUsingSmsUri: function(phoneNumber) {        
+    sendReceiptUsingSmsUri: function() {        
         var vals = {};
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
         if(this.validateForm(vals)){
-            alert('sending SMS using SMS Uri' + phoneNumber);                    
-            window.location.href = "sms:" + phoneNumber + "?body=Test msg" ; 
+            alert('sending SMS using SMS Uri' + vals.SMS);                    
+            window.location.href = "sms:" + vals.SMS + ";body=Test msg using Uri" ; 
             this.setReceiptContent(vals)
             this.getPaySendReceipt().setActiveItem(1);
         }        

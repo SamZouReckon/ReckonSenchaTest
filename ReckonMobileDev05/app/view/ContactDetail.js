@@ -26,7 +26,7 @@ Ext.define('RM.view.ContactDetail', {
 						xtype: 'spacer'
 					},{
                         xtype: 'securebutton',
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',	                        
 						ui: 'rm_topbarbuttonright',
                         permissionFor: 'Contacts'

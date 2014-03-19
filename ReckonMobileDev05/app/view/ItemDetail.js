@@ -22,7 +22,7 @@ Ext.define('RM.view.ItemDetail', {
 				},{
 					xtype: 'spacer'
 				},{
-					text: 'ADD',
+					text: 'Add',
 					itemId: 'add',                    
 					ui: 'rm_topbarbuttonright'	
 				}

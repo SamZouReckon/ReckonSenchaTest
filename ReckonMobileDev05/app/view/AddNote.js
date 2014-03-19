@@ -19,7 +19,7 @@ Ext.define('RM.view.AddNote', {
 				},{
 					xtype:'spacer'
 				},{
-					text: 'ADD',
+					text: 'Add',
 					itemId: 'add',                    
 					ui: 'rm_topbarbuttonright'
 

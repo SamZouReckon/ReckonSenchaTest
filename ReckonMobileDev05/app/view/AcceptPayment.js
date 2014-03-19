@@ -22,7 +22,7 @@ Ext.define('RM.view.AcceptPayment', {
             }, {
                 xtype: 'spacer'
             }, {
-                text: 'PAY',
+                text: 'Pay',
                 itemId: 'pay',                
                 ui: 'rm_topbarbuttonright'
             }

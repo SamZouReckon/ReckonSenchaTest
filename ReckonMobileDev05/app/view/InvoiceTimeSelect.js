@@ -21,7 +21,7 @@ Ext.define('RM.view.InvoiceTimeSelect', {
 					},{
 						xtype: 'spacer'
 					},{
-						text: 'ADD',
+						text: 'Add',
 						itemId: 'add',                        
 						ui: 'rm_topbarbuttonright'				
 					}

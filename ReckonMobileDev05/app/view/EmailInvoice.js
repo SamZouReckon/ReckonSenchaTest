@@ -28,7 +28,7 @@ Ext.define('RM.view.EmailInvoice', {
 							},{
 								xtype: 'spacer'							
 							},{
-								text: 'SEND',
+								text: 'Send',
 								itemId: 'send',                                
 								ui: 'rm_topbarbuttonright'
 							}

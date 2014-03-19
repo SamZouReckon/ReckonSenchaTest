@@ -18,7 +18,7 @@ Ext.define('RM.view.Expenses', {
 					},{
 						xtype: 'spacer'					
 					},{
-						text: 'ADD',
+						text: 'Add',
 						itemId: 'add',                        
 						ui: 'rm_topbarbuttonright',
 					

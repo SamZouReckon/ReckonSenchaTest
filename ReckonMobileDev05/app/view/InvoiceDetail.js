@@ -27,7 +27,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					ui: 'rm_topbarbuttonright',
                     width: '2.6em'
 				},{
-					text: 'SAVE',
+					text: 'Save',
 					itemId: 'save',                    
 					ui: 'rm_topbarbuttonright'                    
 				}

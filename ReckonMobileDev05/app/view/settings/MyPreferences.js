@@ -21,7 +21,7 @@ Ext.define('RM.view.settings.MyPreferences', {
 					}, {
 						xtype: 'spacer'
 					}, {
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',
                         ui: 'rm_maintopbarbuttonright'
 					}

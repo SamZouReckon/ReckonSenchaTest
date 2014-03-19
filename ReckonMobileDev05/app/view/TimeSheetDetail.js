@@ -25,7 +25,7 @@ Ext.define('RM.view.TimeSheetDetail', {
 					}, {
 						xtype: 'spacer'
 					}, {
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',                        
 						ui: 'rm_topbarbuttonright'
 					}

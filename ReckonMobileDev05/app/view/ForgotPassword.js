@@ -41,7 +41,7 @@ Ext.define('RM.view.ForgotPassword', {
 						itemId: 'username',
 						label: 'Username',
                         rmmandatory: true,
-                        labelWidth: '6em',
+                        labelWidth: '7em',
                         cls: 'rm-flatfield',
                         placeHolder: 'enter',
                         clearIcon: false
@@ -51,7 +51,7 @@ Ext.define('RM.view.ForgotPassword', {
 						label: 'Email',
 						itemId: 'email',
                         rmmandatory: true,
-                        labelWidth: '4em',                        
+                        labelWidth: '5em',                        
 						cls: 'rm-flatfield',                        
                         clearIcon: false, 
                         placeHolder: 'enter'             

@@ -46,14 +46,14 @@ Ext.define('RM.view.ContactDetail', {
 						name: 'Description',
 						label: 'Display name',
                         maxLength: 100,
-                        labelWidth: '7em',
+                        labelWidth: '8em',
                         rmmandatory: true
 					},{
                         xtype: 'extselectfield',
                         name: 'CustomerOrSupplier',
 						itemId: 'customerOrSupplier',
 						label: 'Type of contact',
-                        labelWidth: '7.9em',                        
+                        labelWidth: '9em',                        
                         options: [                            
                             {text: 'Customer', value: 'Customers'},
                             {text: 'Supplier',  value: 'Suppliers'},
@@ -70,7 +70,7 @@ Ext.define('RM.view.ContactDetail', {
                         name: 'BusinessOrIndividual',
                         itemId: 'businessOrIndividual',
 						label: 'Business or individual',
-                        labelWidth: '11em',
+                        labelWidth: '13em',
                         options: [
                             {text: 'Business',  value: 'Business'},
                             {text: 'Individual', value: 'Individual'}                            
@@ -110,14 +110,14 @@ Ext.define('RM.view.ContactDetail', {
     						name: 'BusinessName',
     						label: 'Business name',
                             maxLength: 100,
-                            labelWidth: '7.8em',
+                            labelWidth: '8em',
                             rmmandatory: true,
                             hidden: true                        
     					},{
     						name: 'BranchName',                                       
     						label: 'Branch name',
                             maxLength: 100,
-                            labelWidth: '6.5em',
+                            labelWidth: '7em',
                             hidden: true, 
                             border: '1 0 1 0'
     					},{
@@ -193,12 +193,12 @@ Ext.define('RM.view.ContactDetail', {
     						name: 'Email',  
     						label: 'Email',
                             maxLength: 100,
-                            labelWidth: '3.5em'
+                            labelWidth: '4.5em'
     					},{                        
     						name: 'Web',  
     						label: 'Web',
                             maxLength: 100,
-                            labelWidth: '3em'
+                            labelWidth: '4em'
     					},{
         					xtype: 'exttextfield',
         					name: 'Notes',
@@ -231,7 +231,7 @@ Ext.define('RM.view.ContactDetail', {
             						name: 'PostalAddress.Suburb',   
             						label: 'Town/Suburb',
                                     maxLength: 80,
-                                    labelWidth: '6.5em'
+                                    labelWidth: '7.5em'
             					},{
             						name: 'PostalAddress.State',  
             						label: 'State',
@@ -247,7 +247,7 @@ Ext.define('RM.view.ContactDetail', {
             						label: 'Country',
                                     maxLength: 30,
                                     border: '1 0 1 0',
-                                    labelWidth: '4.5em'
+                                    labelWidth: '5.5em'
             					}]    						
     					},
                         {
@@ -280,7 +280,7 @@ Ext.define('RM.view.ContactDetail', {
             						name: 'BusinessAddress.Suburb',   
             						label: 'Town/Suburb',
                                     maxLength: 80,
-                                    labelWidth: '6.5em'
+                                    labelWidth: '7.5em'
             					},{
             						name: 'BusinessAddress.State',  
             						label: 'State',

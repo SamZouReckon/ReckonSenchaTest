@@ -85,7 +85,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					cls: 'rm-flatfield-disabled', //cls: 'rm-flatfield',
                     clearIcon: false,
                     placeHolder: 'Auto-generated',
-                    labelWidth: '7.5em'
+                    labelWidth: '8em'
 				},{
 					xtype: 'exttextfield',
 					name: 'Ref',
@@ -100,7 +100,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					label: 'Gross/Net',
 					usePicker: true,
 					name: 'AmountTaxStatus',
-                    labelWidth: 140,
+                    labelWidth: '6em',
 					store: 'TaxStatuses',
 					displayField: 'Name',
 					valueField: 'TaxStatusId',
@@ -117,7 +117,7 @@ Ext.define('RM.view.InvoiceDetail', {
 					label: 'Invoice discount',
 					cls: 'rm-flatfield',
                     clearIcon: false,
-                    labelWidth: '8em'
+                    labelWidth: '9em'
                     
 				},{
 					xtype: 'exttextfield',

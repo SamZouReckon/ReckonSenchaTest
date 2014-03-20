@@ -45,7 +45,7 @@ Ext.define('RM.view.EmailInvoice', {
 								clearIcon: false,
 								placeHolder: 'enter',
                                 rmmandatory: true,
-                                labelWidth: '4em'                                
+                                labelWidth: '5em'                                
 							},{
 								xtype: 'exttextfield',
 								name: 'Subject',

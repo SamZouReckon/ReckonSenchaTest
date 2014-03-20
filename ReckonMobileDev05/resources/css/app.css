@@ -1,4 +1,10 @@
 
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), local("OpenSans"), url(../sass/stylesheets/fonts/open_sans/OpenSans.woff) format("woff"); }
+
 /**
  * @class Global_CSS
  * Global CSS variables and mixins of Sencha Touch's Default Theme.
@@ -2925,7 +2931,7 @@ input[type="search"]::-webkit-search-cancel-button {
  * See background-gradient mixin.
  */
 html, body {
-  font-family: "Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif; }
+  font-family: "Open Sans", sans-serif; }
 
 .x-ios.x-tablet .x-landscape * {
   -webkit-text-stroke: 1px transparent; }
@@ -3034,7 +3040,7 @@ body.x-desktop {
   animation-iteration-count: infinite; }
 
 html, body {
-  font-family: "Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif; }
+  font-family: "Open Sans", sans-serif; }
 
 .x-ios.x-tablet .x-landscape * {
   -webkit-text-stroke: 1px transparent; }
@@ -6178,6 +6184,9 @@ body.x-desktop {
 .rm-pt5 {
   padding-top: 5px; }
 
+.rm-pb5 {
+  padding-bottom: 5px; }
+
 .rm-pr5 {
   padding-right: 5px; }
 
@@ -6188,7 +6197,7 @@ body.x-desktop {
   margin-left: 5px; }
 
 .rm-mb5 {
-  margin-bottom: 5px !important; }
+  margin-bottom: 5px; }
 
 .rm-mr5 {
   margin-right: 5px; }
@@ -6207,6 +6216,9 @@ body.x-desktop {
 
 .rm-fontsize98 {
   font-size: 98%; }
+
+.rm-fontsize94 {
+  font-size: 94%; }
 
 .rm-fontsize90 {
   font-size: 90%; }

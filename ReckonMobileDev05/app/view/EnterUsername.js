@@ -40,6 +40,7 @@ Ext.define('RM.view.EnterUsername', {
 						xtype: 'textfield',
 						name: 'UserName',
 						label: 'Username',
+                        labelWidth: '6em',
                         cls: 'rm-flatfield',
                         placeHolder: 'enter',
                         clearIcon: false
@@ -47,6 +48,7 @@ Ext.define('RM.view.EnterUsername', {
 						xtype: 'passwordfield',
 						name: 'Password',
 						label: 'Password',
+                        labelWidth: '6em',
                         cls: 'rm-flatfield',
                         placeHolder: 'enter',
                         clearIcon: false

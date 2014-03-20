@@ -30,6 +30,7 @@ Ext.define('RM.view.PayPreferences',{
                         xtype: 'rmamountfield',
                         cls: ['rm-flatfield', 'rm-flatfield-last'],
                         label: 'Surcharge',
+                        labelWidth: '8em',
                         itemId: 'surcharge',            
                         clearIcon: false,            
                         placeHolder: 'enter'

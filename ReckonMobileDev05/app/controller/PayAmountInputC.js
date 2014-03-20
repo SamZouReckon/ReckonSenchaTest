@@ -77,20 +77,9 @@ Ext.define('RM.controller.PayAmountInputC', {
     
     showViewFromOne: function (data, cb, cbs) {
         this.data = data;
-        this.selectCb = cb;
-        this.selectCbs = cbs;
-          
-        var view = this.getPayAmountInput();
-        if (!view){
-            view = { xtype: 'payamountinput' };
-        }
-        
         this.clearInputFieldAndHistory();
         
-        //alert(data.AmountPaid);
         var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
-        //var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
-        //var customerName = typeof data === "undefined" ? "" : data.customerName;
         
         this.getToolbarTitle().setHtml('Joe Plumber');
         if(amountToPay){
@@ -99,6 +88,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         else{
             this.inputStr = '';
         }
+        
         this.getAmount().setHtml(this.inputStr);
         this.getInputAndHistoryContainer().setActiveItem(0);
     },  

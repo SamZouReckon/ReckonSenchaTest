@@ -59,37 +59,44 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.data = data;
         this.selectCb = cb;
         this.selectCbs = cbs;
-        
-        if(this.data) {
-            this.data.Amount = 0;
-            this.data.Total = 0;
-            this.data.Discount = 0;            
-        }
-                
+           
         var view = this.getPayAmountInput();
         if (!view){
             view = { xtype: 'payamountinput' };
         }
         
         this.clearInputFieldAndHistory();
+        this.getDiscount().setValue('None');
         this.getToolbarTitle().setHtml('Joe Plumber');
     },  
     
     showViewFromOne: function (data, cb, cbs) {
         this.data = data;
+        this.selectCb = cb;
+        this.selectCbs = cbs;
+          
+        var view = this.getPayAmountInput();
+        if (!view){
+            view = { xtype: 'payamountinput' };
+        }
+        
         this.clearInputFieldAndHistory();
         
+        //alert(data.AmountPaid);
         var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
+        //var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
+        //var customerName = typeof data === "undefined" ? "" : data.customerName;
         
         this.getToolbarTitle().setHtml('Joe Plumber');
+        
         if(amountToPay){
             this.inputStr = '' + amountToPay.toFixed(2);
         }
         else{
             this.inputStr = '';
         }
-        
-        this.getAmount().setHtml(this.inputStr);
+        this.getAmount().setHtml(this.inputStr);  
+        this.getDiscount().setValue('None');
         this.getInputAndHistoryContainer().setActiveItem(0);
     },  
     
@@ -203,7 +210,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         
         this.data = {
             Amount: 0,
-            Description: "Test Description",
+            Description: "",
             PayerName: "Travis Beesley",
             PaymentMethodId: 2,
             Discount: 0,
@@ -214,7 +221,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         var discVal = this.getDiscount().getValue();
         this.data.Discount = discVal ? discVal : '$0.00';
         this.data.Amount = this.formatNumber(this.inputStr.slice(1)); 
-        
+        this.data.Description = this.getDescriptionFld().getValue();
         if(this.validateForm(this.data)){ 
             this.totalWithSurchargeAndDiscount();
             RM.PayMgr.showScreen('PayTransTypeSelect', this.data);
@@ -415,8 +422,8 @@ Ext.define('RM.controller.PayAmountInputC', {
         }
         else if(vals.Discount.indexOf('$') > -1 && vals.Discount) {
             var discount = parseFloat(vals.Discount.replace('$', ''));
-            if(discount && discount > vals.Amount){
-                RM.AppMgr.showErrorMsgBox('Discount amount cannot be more than the total amount');  
+            if(discount && discount >= vals.Amount){
+                RM.AppMgr.showErrorMsgBox('Discount amount must be less than total amount');  
                 isValid = false; 
             }            
         }

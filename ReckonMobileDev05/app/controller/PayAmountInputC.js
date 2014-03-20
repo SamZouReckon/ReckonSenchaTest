@@ -84,10 +84,6 @@ Ext.define('RM.controller.PayAmountInputC', {
         
         //alert(data.AmountPaid);
         var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
-        //var formattedAmount = RM.AppMgr.formatCurrency(amountToPay, 0);
-        //var customerName = typeof data === "undefined" ? "" : data.customerName;
-        
-        this.getToolbarTitle().setHtml('Joe Plumber');
         
         if(amountToPay){
             this.inputStr = '' + amountToPay.toFixed(2);
@@ -95,6 +91,8 @@ Ext.define('RM.controller.PayAmountInputC', {
         else{
             this.inputStr = '';
         }
+        
+        this.getToolbarTitle().setHtml('Joe Plumber');
         this.getAmount().setHtml(this.inputStr);  
         this.getDiscount().setValue('None');
         this.getInputAndHistoryContainer().setActiveItem(0);

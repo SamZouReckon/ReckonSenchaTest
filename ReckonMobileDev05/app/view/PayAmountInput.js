@@ -4,12 +4,20 @@ Ext.define('RM.view.PayAmountInput', {
         requires: ['RM.component.CalcKeypad'],
         config: {
         cls: 'rm-whitebg',
-        scrollable: 'vertical',        
+        layout: 'vbox',    
+        //scrollable: 'vertical',        
         items:[
              {
                     xtype: 'toolbar',
                     docked: 'top',				
-                    items: [
+                    items: [{					
+        						itemId: 'back',
+        						ui: 'rm_topbarbuttonleft',
+        						icon: 'resources/images/icons/rm-back.svg',
+                                iconCls: 'rm-backbtniconcls',
+                        		hidden: true,
+                                width: '2.6em'						
+							},
                              {
                                 xtype: 'component',
                                 html: '',
@@ -61,6 +69,7 @@ Ext.define('RM.view.PayAmountInput', {
             {
                 xtype: 'container',
                 itemId: 'inputandhistorycontainer',
+                flex: '1',
                 layout: 'card',
                 activeItem: 0,               
                 items: [
@@ -99,8 +108,7 @@ Ext.define('RM.view.PayAmountInput', {
                                         }                
                                     ]
                             },{                                                            
-                                    xtype: 'container',                                    
-                                    scrollable: 'vertical',
+                                    xtype: 'container',                         
                                     cls: ['rm-border-bottom','rm-whitebg', 'rm-border-top'],
                                     height: '2.6em',
                                     layout: 'hbox',

@@ -1,9 +1,8 @@
 Ext.define('RM.model.TransactionHistory', {
     extend: 'Ext.data.Model', 
     config: {
-		idProperty: 'PaymentTransactionId',
+		idProperty: 'Id',
         fields: [
-            'PaymentTransactionId', 
             'Id', 
             {name:'TransactionHistoryTypeId', type:'int'},
             {name:'StatusBeforeId', type:'int'},

@@ -37,7 +37,15 @@ Ext.define('RM.core.PayMgr', {
     },
     
     sendReceipt: function(receipt, callBack, callBackScope){
-        
+        RM.AppMgr.saveServerRec('PayTransactionReceipt', true, receipt,
+		    function () {                    
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
     },
     
     createRefund: function(refund, callBack, callBackScope){

@@ -15,7 +15,7 @@ Ext.define('RM.view.Invoices', {
 					},{
 						xtype: 'spacer'					
 					},{
-						text: 'ADD',
+						text: 'Add',
 						itemId: 'add',
                         xtype: 'securebutton',
                         permissionFor: 'Invoices',

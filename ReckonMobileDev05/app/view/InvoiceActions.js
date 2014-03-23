@@ -55,7 +55,7 @@ Ext.define('RM.view.InvoiceActions', {
             			
         }
         ,{
-			text: 'Email customer with ',
+			text: 'Email customer',
 			itemId: 'email',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
             icon: 'resources/images/icons/rm-email.svg',

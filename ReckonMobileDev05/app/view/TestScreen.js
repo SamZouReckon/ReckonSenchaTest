@@ -18,7 +18,7 @@ Ext.define('RM.view.TestScreen', {
 						xtype: 'spacer'
 					},{
                         xtype: 'button',
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',	                        
 						ui: 'rm_topbarbuttonright'
 					}

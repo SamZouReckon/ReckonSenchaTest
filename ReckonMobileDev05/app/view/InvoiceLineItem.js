@@ -21,7 +21,7 @@ Ext.define('RM.view.InvoiceLineItem', {
 				},{
 					xtype: 'spacer'
 				},{
-					text: 'ADD',
+					text: 'Add',
 					itemId: 'add',                    
 					ui: 'rm_topbarbuttonright'	
 				}
@@ -69,7 +69,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     					xtype: 'exttextfield',
     					name: 'Description',                        
     					label: 'Description',
-                        labelWidth: 105,
+                        labelWidth: 120,
     					cls: 'rm-flatfield',
     					placeHolder: 'enter'
     				},{                        

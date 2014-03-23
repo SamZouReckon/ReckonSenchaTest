@@ -63,7 +63,7 @@ Ext.define('RM.controller.PayRecvManualCardC',{
             isValid = false;
         }       
         
-        if( vals.Date === undefined || vals.Date === ''){
+        if( ! vals.Date ){
             //RM.AppMgr.showErrorMsgBox('Please enter a date for transaction');
             this.getDateFld().showValidation(false);
             isValid = false;

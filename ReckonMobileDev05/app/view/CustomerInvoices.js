@@ -18,7 +18,7 @@ Ext.define('RM.view.CustomerInvoices', {
                                 iconCls: 'rm-backbtniconcls',
                                 align: 'left'
                             },{
-        						text: 'ADD',
+        						text: 'Add',
         						itemId: 'add',
                                     align: 'right',
                                 xtype: 'securebutton',

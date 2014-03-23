@@ -20,7 +20,7 @@ Ext.define('RM.view.settings.CoreSettings', {
             }, {
                 xtype: 'spacer'
             }, {
-                text: 'SAVE',
+                text: 'Save',
                 width: '4em',
                 itemId: 'save',
                 ui: 'rm_maintopbarbuttonright'
@@ -29,7 +29,7 @@ Ext.define('RM.view.settings.CoreSettings', {
         }, {
             xtype: 'formpanel',            
             itemId: 'settingsForm',
-            defaults: {labelWidth: 110},
+            defaults: {labelWidth: '6.5em'},
             padding: 0,
             items: [/*{
                     xtype: 'textfield',

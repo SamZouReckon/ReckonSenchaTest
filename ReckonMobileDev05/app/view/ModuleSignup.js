@@ -21,7 +21,7 @@ Ext.define('RM.view.ModuleSignup', {
 					}, {
 						xtype: 'spacer'
 					}, {
-						text: 'SIGN UP',
+						text: 'Sign up',
 						itemId: 'signup',
                         width: '5em',
 						ui: 'rm_maintopbarbuttonright'

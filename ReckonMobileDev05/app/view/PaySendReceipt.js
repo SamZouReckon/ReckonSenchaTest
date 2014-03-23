@@ -43,7 +43,7 @@ Ext.define('RM.view.PaySendReceipt',{
                         clearIcon: false,
                         cls: 'rm-flatfield',
                         label: 'Email receipt',
-                        labelWidth: '6.5em',
+                        labelWidth: '7.5em',
                         placeHolder: 'enter'
                     },{
 						xtype: 'button',						

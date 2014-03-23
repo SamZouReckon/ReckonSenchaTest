@@ -53,7 +53,7 @@ Ext.define('RM.controller.PayRecvCashC',{
         
         var cashFldVal = this.getCashFld().getValue();
         var cash = parseFloat(cashFldVal); 
-        var total = parseFloat(this.data.Amount);
+        var total = parseFloat(this.data.Total);
         var change = cash - total;
         if (Ext.isNumber(cash)) {
             if(change < 0){

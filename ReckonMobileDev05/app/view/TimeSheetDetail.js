@@ -25,7 +25,7 @@ Ext.define('RM.view.TimeSheetDetail', {
 					}, {
 						xtype: 'spacer'
 					}, {
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',                        
 						ui: 'rm_topbarbuttonright'
 					}
@@ -96,6 +96,7 @@ Ext.define('RM.view.TimeSheetDetail', {
 						name: 'Duration',
                         itemId: 'duration',
 						label: 'Duration <span style="color: #F00">*</span>',
+                        labelWidth: '8em',
 						cls: 'rm-flatfield',                
 						placeHolder: 'select',
                         

@@ -173,6 +173,10 @@ Ext.define('RM.core.ViewMgr', {
         this.showPanel(this.mainNavContainer, anim);
     },
     
+    showPayFromOne: function(anim, data){        
+        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputC').showView(data);
+    },
+    
     isDashboardShowing: function(){
         return this.mainNavContainer.isItemSelected('Dashboard');
     },

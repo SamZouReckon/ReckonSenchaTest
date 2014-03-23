@@ -26,7 +26,7 @@ Ext.define('RM.view.ExpenseDetail', {
 					},{
 						xtype: 'spacer'
 					},{
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',	                        
 						ui: 'rm_topbarbuttonright'	
 					}

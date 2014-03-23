@@ -4,12 +4,19 @@ Ext.define('RM.view.PayAmountInput', {
         requires: ['RM.component.CalcKeypad'],
         config: {
         cls: 'rm-whitebg',
-        scrollable: 'vertical',        
+        layout: 'vbox',            
         items:[
              {
                     xtype: 'toolbar',
                     docked: 'top',				
-                    items: [
+                    items: [{					
+        						itemId: 'back',
+        						ui: 'rm_topbarbuttonleft',
+        						icon: 'resources/images/icons/rm-back.svg',
+                                iconCls: 'rm-backbtniconcls',
+                        		hidden: true,
+                                width: '2.6em'						
+							},
                              {
                                 xtype: 'component',
                                 html: '',
@@ -32,11 +39,7 @@ Ext.define('RM.view.PayAmountInput', {
                                                 itemId: 'historyshowbtn',
                                                 docked: 'left'
                                             },
-                                            /*{
-                                                xtype: 'component',
-                                                html: '',                                                
-                                                cls: 'rm-pay-currencyprefix'
-                                            },*/{
+                                            {
                                                 xtype: 'component',
                                                 html: '0.00',
                                                 itemId: 'amount',                                    
@@ -61,6 +64,7 @@ Ext.define('RM.view.PayAmountInput', {
             {
                 xtype: 'container',
                 itemId: 'inputandhistorycontainer',
+                flex: '1',
                 layout: 'card',
                 activeItem: 0,               
                 items: [
@@ -76,13 +80,7 @@ Ext.define('RM.view.PayAmountInput', {
                                     height: '2.6em',
                                     layout: 'hbox',
                                     items: [
-                                        /*{
-                                            xtype: 'component',
-                                            itemId: 'totalwithgstfield',
-                                            html: 'Total with GST $0.00',
-                                            cls: 'rm-pay-gsttext',
-                                            flex: 1
-                                        }*/{
+                                        {
                         				    xtype: 'exttextfield', 
                                             itemId: 'discount',
                                             readOnly: true,                        					
@@ -99,8 +97,7 @@ Ext.define('RM.view.PayAmountInput', {
                                         }                
                                     ]
                             },{                                                            
-                                    xtype: 'container',                                    
-                                    scrollable: 'vertical',
+                                    xtype: 'container',                         
                                     cls: ['rm-border-bottom','rm-whitebg', 'rm-border-top'],
                                     height: '2.6em',
                                     layout: 'hbox',
@@ -109,9 +106,7 @@ Ext.define('RM.view.PayAmountInput', {
                                             xtype: 'exttextfield',
                                             itemId: 'descriptionfield',
                                             cls: 'rm-flatfield',
-                                            border: 0,
-                                            //cls: ['rm-ml5'],
-                                            //inputCls: 'rm-pay-description',
+                                            border: 0,                                            
                                             clearIcon: false,
                                             readOnly: true,
                                             placeHolder: 'add optional description',

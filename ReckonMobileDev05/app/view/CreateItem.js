@@ -23,7 +23,7 @@ Ext.define('RM.view.CreateItem', {
 					}, {
 						xtype: 'spacer'
 					}, {
-						text: 'SAVE',
+						text: 'Save',
 						itemId: 'save',                        
 						ui: 'rm_topbarbuttonright'
 					}

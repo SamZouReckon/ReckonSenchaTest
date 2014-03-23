@@ -418,6 +418,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         return result;       
     },
     
+    
     back: function () {
         RM.ViewMgr.back();
     },

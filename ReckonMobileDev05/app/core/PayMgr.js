@@ -36,6 +36,18 @@ Ext.define('RM.core.PayMgr', {
 	    );
     },
     
+    getTransactions: function(callBack, callBackScope){
+        RM.AppMgr.getServerRecs('PayTransaction', true, [],
+		    function () {                    
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
+    },
+    
     sendReceipt: function(receipt, callBack, callBackScope){
         RM.AppMgr.saveServerRec('PayTransactionReceipt', true, receipt,
 		    function () {                    
@@ -48,15 +60,39 @@ Ext.define('RM.core.PayMgr', {
 	    );
     },
     
-    createRefund: function(refund, callBack, callBackScope){
-        
+    createRefund: function(refundTransaction, callBack, callBackScope){
+        RM.AppMgr.saveServerRec('PayTransaction', true, refundTransaction,
+		    function () {                    
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
     },
     
     createTransactionHistory: function(transactionHistory, callBack, callBackScope){
-        
+        RM.AppMgr.saveServerRec('PayTransactionHistory', true, transactionHistory,
+		    function () {                    
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
     },
     
     readTransactionHistory: function(transactionHistoryId, callBack, callBackScope){
-        
+        RM.AppMgr.getServerRec('PayTransactionHistory', true, transactionHistoryId,
+		    function () {                    
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
     }
 });

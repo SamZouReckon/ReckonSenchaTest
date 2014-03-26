@@ -24,8 +24,10 @@ Ext.define('RM.controller.PayRecvChequeC',{
         }
      },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
         var view = this.getPayRecvCheque();
         if (!view){
             view = { xtype: 'payrecvcheque' };
@@ -44,9 +46,8 @@ Ext.define('RM.controller.PayRecvChequeC',{
        this.data.PaymentMethodId = 2;
         
        if(this.validateForm(vals)){
-        	RM.PayMgr.createTransaction(this.data, function(){
-            
-                RM.PayMgr.showScreen('PaySendReceipt', this.data);      
+        	RM.PayMgr.createTransaction(this.data, function(){            
+                RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
             },this);            
         } 
     },

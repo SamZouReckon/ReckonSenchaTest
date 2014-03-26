@@ -6,7 +6,7 @@ Ext.define('RM.view.PayAmountInput', {
         cls: 'rm-whitebg',
         layout: 'vbox',            
         items:[
-             {
+             /*{
                     xtype: 'toolbar',
                     docked: 'top',				
                     items: [{					
@@ -24,7 +24,7 @@ Ext.define('RM.view.PayAmountInput', {
                                 itemId: 'toolbarTitle'
                             }
                          ]             
-            },
+            },*/
             {
                                         xtype: 'container',
                                         docked: 'top',

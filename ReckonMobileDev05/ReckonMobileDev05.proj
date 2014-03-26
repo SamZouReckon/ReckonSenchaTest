@@ -6,7 +6,7 @@
     <AppIdentifier>com.reckon.ReckonMobileDev05</AppIdentifier>
     <ProjectName>ReckonMobileDev05</ProjectName>
     <IsRunnable>true</IsRunnable>
-    <AndroidPermissions>android.permission.CAMERA;android.permission.READ_PHONE_STATE;android.permission.INTERNET;android.permission.WRITE_EXTERNAL_STORAGE;android.permission.ACCESS_NETWORK_STATE</AndroidPermissions>
+    <AndroidPermissions>android.permission.ACCESS_NETWORK_STATE;android.permission.CAMERA;android.permission.INTERNET;android.permission.READ_PHONE_STATE;android.permission.WRITE_EXTERNAL_STORAGE</AndroidPermissions>
     <DeviceOrientations>Portrait;Landscape</DeviceOrientations>
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>true</AndroidHardwareAcceleration>
@@ -15,9 +15,18 @@
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
     <iOSBackgroundMode />
     <AndroidVersionCode>1</AndroidVersionCode>
-    <CorePlugins>org.apache.cordova.inappbrowser</CorePlugins>
+    <CorePlugins>org.apache.cordova.inappbrowser;org.apache.cordova.statusbar</CorePlugins>
     <FrameworkVersion>3.2.0</FrameworkVersion>
     <DisplayName />
+    <Author />
+    <Description>ReckonMobileDev05</Description>
+    <WP8Requirements />
+    <WP8Capabilities />
+    <WP8TileTitle />
+    <WP8ProductID>{ded88774-d691-4e8e-bd16-c1122722fc75}</WP8ProductID>
+    <WP8PublisherID>{7adb8492-802b-4eb4-a4dc-60ee700af357}</WP8PublisherID>
+    <WP8Publisher />
+    <WP8SupportedResolutions />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />
 </Project>

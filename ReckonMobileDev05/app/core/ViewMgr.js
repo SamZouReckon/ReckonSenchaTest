@@ -164,17 +164,17 @@ Ext.define('RM.core.ViewMgr', {
         this.showPanel(this.mainNavContainer, anim);
     },
     
-    showPay: function(anim, data){
+    showPayWithSlideNav: function(anim, data, cb, cbs){
         this.mainNavContainer.reloadItems("reckonpay");
         this.mainNavContainer.list.getComponent(0).setTitle('<div class="rm-slidenav-menu-title">Reckon Pay</div> <div class="rm-slidenav-menu-subtitle"></div>');   
         this.mainNavContainer.setSelectedItem('PayAmountInput');
         
-        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputC').showViewFromOne(data);
+        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputNavC').showView(data, cb, cbs);
         this.showPanel(this.mainNavContainer, anim);
     },
     
-    showPayFromOne: function(anim, data){        
-        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputC').showView(data);
+    showPayFromOne: function(anim, data, cb, cbs){        
+        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputBackC').showView(data, cb, cbs);
     },
     
     isDashboardShowing: function(){

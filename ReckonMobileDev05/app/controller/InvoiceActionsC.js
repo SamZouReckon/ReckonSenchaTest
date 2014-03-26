@@ -98,9 +98,9 @@ Ext.define('RM.controller.InvoiceActionsC', {
     },
     
     onPayApp: function () {
-        //alert(JSON.stringify(this.invoiceData));
-        //RM.ViewMgr.showPay(null, this.invoiceData);
-        RM.ViewMgr.showPayFromOne(null, this.invoiceData);
+        RM.ViewMgr.showPayFromOne(null, this.invoiceData, function(){
+            RM.ViewMgr.backTo('slidenavigationview');
+        }, this);
     },
 
     onEmail: function () {

@@ -25,8 +25,11 @@ Ext.define('RM.controller.PaySendReceiptC',{
         }
      },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
+        
         var view = this.getPaySendReceipt();
         if (!view){
             view = { xtype: 'paysendreceipt' };
@@ -34,10 +37,18 @@ Ext.define('RM.controller.PaySendReceiptC',{
         RM.ViewMgr.showPanel(view);
         this.getPaySendReceipt().setActiveItem(0);
         this.getPaySendReceiptTitle().setHtml('$' + data.Total + ' charged');
+        if(this.data.CustomerEmail){
+            this.getEmailFld().setValue(this.data.CustomerEmail);
+        }
     },   
     
-    done: function() {       
-       RM.ViewMgr.showPay();
+    done: function() {
+        if(this.callback){
+            this.callback.call(this.callbackScope);
+        }
+        else{
+            RM.ViewMgr.showPayWithSlideNav();
+        }
     },
     
     sendReceipt: function () {
@@ -49,7 +60,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
             this.setReceiptContent(vals)
             this.getPaySendReceipt().setActiveItem(1);
         }
-        
+        this.done();
     },
     
     sendSMS: function(phoneNumber) {
@@ -71,7 +82,8 @@ Ext.define('RM.controller.PaySendReceiptC',{
             window.location.href = "sms:" + vals.SMS + ";body=Test msg using Uri" ; 
             this.setReceiptContent(vals)
             this.getPaySendReceipt().setActiveItem(1);
-        }        
+        }  
+        this.done();
     },
     
     setReceiptContent: function(vals){

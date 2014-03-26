@@ -1,99 +1,227 @@
-Ext.define('RM.controller.PayAmountInputC', {
-    extend: 'Ext.app.Controller',
-    requires: ['RM.view.PayAmountInput'],
-    config: {
-        refs: {
-            payAmountInput: 'payamountinput',            
-            historyHideBtn: 'payamountinput #historyhidebtn',
-            historyShowBtn: 'payamountinput #historyshowbtn',            
-            clearInputBtn: 'payamountinput #clearinputbtn',
-            historyContainer: 'payamountinput #historycontainer',
-            inputAndHistoryContainer: 'payamountinput #inputandhistorycontainer',
-            amount: 'payamountinput #amount',   
-            //toolbarTitle: 'payamountinput #toolbarTitle',            
-            discount: 'payamountinput #discount',
-            descriptionFld: 'payamountinput #descriptionfield',
-            backBtn: 'payamountinput #back'
-        },
-        
+Ext.define('RM.component.PayAmountInputCalc', {
+    extend: 'Ext.Panel',
+    xtype: 'payamountinputcalc',
+	requires: ['RM.component.CalcKeypad'],
+    config: {      
         control: {         
-            'payamountinput calckeypad': {
+            'calckeypad': {
                 keytap: 'onCalcKeyTap'
             },
-            'payamountinput #historyshowbtn': {
+            '#historyshowbtn': {
                 tap: 'showOrHideHistory'
             },
-            'payamountinput #historyhidebtn': {
+            '#historyhidebtn': {
                 tap: 'showOrHideHistory'
             },
-            'payamountinput #clearinputbtn': {
+            '#clearinputbtn': {
                 tap: 'clearInputFieldAndHistory'
             },
-            'payamountinput #discountbtn': {
+            '#discountbtn': {
                 tap: 'onDiscountFldTap'
             },
-            'payamountinput #camerabtn': {
+            '#camerabtn': {
                 tap: 'onCameraBtnTap'
             },
-            'payamountinput #charge': {
+            '#charge': {
                 tap: 'onChargeBtnTap'
             },
-            'payamountinput #discount': {
+            '#discount': {
                 tap: 'onDiscountFldTap'
-            },
-            'payamountinput #back': {
-                tap: 'back'  
-            },
-            'payamountinput #descriptionfield':{
+            },            
+            '#descriptionfield':{
                 tap: 'showDescription'
             }
-        }
-
-    },
+        },
+        
+        cls: 'rm-whitebg',
+        layout: 'vbox',            
+        items:[             
+                {
+                    xtype: 'container',
+                    docked: 'top',
+                    scrollable: 'horizontal',
+                    height: '3em',
+                    cls: 'rm-whitebg',
+                    layout: 'hbox',
+                    items: [
+                        {
+                            xtype: 'button',                                                
+                            cls: ['rm-white-flatbtn', 'rm-payamountinput-back-arrow'],
+                            itemId: 'historyshowbtn',
+                            docked: 'left'
+                        },
+                        {
+                            xtype: 'component',
+                            html: '0.00',
+                            itemId: 'amount',                                    
+                            cls: 'rm-pay-amount'                                                
+                        },{
+                            xtype: 'button',
+                            itemId: 'clearinputbtn',
+                            margin: 9,
+                            ui: 'plain', 
+                            iconCls: 'rm-btn-iconsize',
+                            icon: 'resources/images/icons/rm-fieldclear.svg',
+                            docked: 'right'                                        
+                        },{
+                            xtype: 'button',                                                
+                            cls: ['rm-white-flatbtn', 'rm-payamountinput-arrow'],
+                            itemId: 'historyhidebtn',
+                            hidden: true,
+                            docked: 'right'
+                        }                
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    itemId: 'inputandhistorycontainer',
+                    flex: '1',
+                    layout: 'card',
+                    activeItem: 0,               
+                    items: [
+                        {
+                            xtype: 'container',
+                            cls: 'rm-whitebg',
+                            scrollable: 'vertical',
+                            items: [        
+                                        
+                                    {
+                                        xtype: 'container',
+                                        cls: ['rm-whitebg', 'rm-border-top'],
+                                        height: '2.6em',
+                                        layout: 'hbox',
+                                        items: [
+                                            {
+                            				    xtype: 'exttextfield', 
+                                                itemId: 'discount',
+                                                readOnly: true,                        					
+                            					cls: 'rm-flatfield',
+                                                border: 0,
+                                                clearIcon: false,  
+                                                placeHolder: 'enter',
+                                                flex: 1
+                            				},{
+                                                xtype: 'button',
+                                                itemId: 'discountbtn',
+                                                width: 72,
+                                                cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-discountbtn']
+                                            }                
+                                        ]
+                                },{                                                            
+                                        xtype: 'container',                         
+                                        cls: ['rm-border-bottom','rm-whitebg', 'rm-border-top'],
+                                        height: '2.6em',
+                                        layout: 'hbox',
+                                        items: [
+                                            {
+                                                xtype: 'exttextfield',
+                                                itemId: 'descriptionfield',
+                                                cls: 'rm-flatfield',
+                                                border: 0,                                            
+                                                clearIcon: false,
+                                                readOnly: true,
+                                                placeHolder: 'add optional description',
+                                                flex: 1
+                                            },{
+                                                xtype: 'button',
+                                                itemId: 'camerabtn',
+                                                width: 72,
+                                                cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-camerabtn']
+                                            }                        
+                                        ]
+                            },{
+                                        xtype: 'calckeypad',
+                                        docked: 'bottom'  
+                            },{                    
+                                        xtype: 'button',
+                                        itemId: 'charge',
+                                        text: '<span class="rm-btn-arrow">CHARGE</span>',
+                                        cls: 'rm-photopreviewbtn',
+                                        docked: 'bottom'                        
+                            }
+                    ]
+                }
+                ,{
+                       xtype: 'container',
+                       cls: 'rm-whitebg',
+                       scrollable: 'vertical',
+                       html: 'History',
+                       styleHtmlContent: true,
+                       styleHtmlCls: ['rm-p10', 'rm-fontsize70', 'rm-pay-graytext', 'rm-border1px'],
+                       itemId: 'historycontainer'
+                }               
+        	]
+            }           
+         ] 
+    },    
     
-    init: function(){
-        this.callParent(arguments);  
-        this.data = {}; 
+    initialize: function(){
+        this.callParent(arguments);         
         this.inputStr = '';
         this.inputArray = new Array();
         this.inputArrayIndex = 0;
         this.noteText = '',        
-        this.history = false;
+        this.history = false;   
+    },  
+    
+    /*refs:{
+            payAmountInputCalc: 'payamountinputcalc',            
+            historyHideBtn: 'payamountinputcalc #historyhidebtn',
+            historyShowBtn: 'payamountinputcalc #historyshowbtn',            
+            clearInputBtn: 'payamountinputcalc #clearinputbtn',
+            historyContainer: 'payamountinputcalc #historycontainer',
+            inputAndHistoryContainer: 'payamountinputcalc #inputandhistorycontainer',
+            amount: '#amount',   
+            discount: 'payamountinputcalc #discount',
+            descriptionFld: 'payamountinputcalc #descriptionfield',
+            
+        },*/
+    
+    getHistoryHideBtn: function(){
+        return this.down("#historyhidebtn");
     },
     
-    showView: function (data, cb, cbs) {
-        this.data = data;
-        this.selectCb = cb;
-        this.selectCbs = cbs;           
-        var view = this.getPayAmountInput();
-        if (!view){
-            view = { xtype: 'payamountinput' };
-        }       
-        RM.ViewMgr.showPanel(view);
-        //this.getBackBtn().setHidden(false);
-        this.clearInputFieldAndHistory();
-        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.BalanceDue);
-        if(amountToPay){
-            this.inputStr = '' + amountToPay.toFixed(2);
-        }
-        else{
-            this.inputStr = '';
-        }
-        this.getAmount().setHtml(this.inputStr);  
-        this.getDiscount().setValue('None');        
-        //this.getToolbarTitle().setHtml('Joe Plumber');       
-    },  
+    getHistoryShowBtn: function(){
+        return this.down("#historyshowbtn");
+    },
     
-    showViewFromOne: function (data, cb, cbs) {
+    getClearInputBtn: function(){
+        return this.down('#clearinputbtn');  
+    },
+    
+    getHistoryContainer: function(){
+        return this.down('#historycontainer');  
+    },
+    
+    getInputAndHistoryContainer: function(){
+        return this.down('#inputandhistorycontainer');  
+    },
+    
+    getAmount: function(){   
+       return this.down('#amount');      
+    },
+    
+    getDiscount: function(){
+        return this.down('#discount');  
+    },
+    
+    getDescriptionFld: function(){
+        return this.down('#descriptionfield');  
+    }, 
+    
+    loadData: function(data, callback, callbackScope){
         this.data = data;
-        this.selectCb = cb;
-        this.selectCbs = cbs;
-          
+        this.callback = callback;
+        this.callbackScope = callbackScope;      
         
-        //this.getBackBtn().setHidden(true);
-        this.clearInputFieldAndHistory(); 
-        var amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountFromPay);  
-        //this.getToolbarTitle().setHtml('Joe Plumber');
+        this.clearInputFieldAndHistory();
+        var amountToPay = 0;
+        if(data && data.BalanceDue){
+            amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.BalanceDue);
+        }
+        else if(data && data.AmountFromPay){
+            amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountFromPay);
+        }
         if(amountToPay){
             this.inputStr = '' + amountToPay.toFixed(2);
         }
@@ -101,9 +229,8 @@ Ext.define('RM.controller.PayAmountInputC', {
             this.inputStr = '';
         }
         this.getAmount().setHtml(this.inputStr);  
-        this.getDiscount().setValue('None');
-        this.getInputAndHistoryContainer().setActiveItem(0);
-    },  
+        this.getDiscount().setValue('None'); 
+    },
     
     onCalcKeyTap: function (key) {       
         var pointIndex = this.inputStr.indexOf('.');        
@@ -155,8 +282,9 @@ Ext.define('RM.controller.PayAmountInputC', {
         this.inputStr = '=' + this.calculateTotal();  
         if(this.inputStr === '=' || this.inputStr === '=undefined' || this.inputStr === '=NaN') {
             this.inputStr = '';
-        }        
+        }    
         this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
+        
     },
     
     showCurrencyPrefix: function(val){         
@@ -211,20 +339,10 @@ Ext.define('RM.controller.PayAmountInputC', {
     },
     
     onChargeBtnTap: function(){
-        this.onCalcKeyTap('=');
-        console.log(this.data);
-        
-        /*this.data = {
-            Amount: 0,
-            Description: "",
-            PayerName: "Travis Beesley",
-            PaymentMethodId: 2,
-            Discount: 0,
-            Surcharge: 0,
-            Total: 0,
-        };*/
-        
-        
+        this.onCalcKeyTap('=');        
+        if(!this.data){
+            this.data = {}; 
+        }
         this.data.AmountFromPay = 0;
         this.data.Description = "";
         this.data.PayerName = "";
@@ -236,10 +354,11 @@ Ext.define('RM.controller.PayAmountInputC', {
         var discVal = this.getDiscount().getValue();
         this.data.Discount = discVal ? discVal : '$0.00';
         this.data.AmountFromPay = this.formatNumber(this.inputStr.slice(1)); 
-        this.data.Description = this.getDescriptionFld().getValue();
+        this.data.Description = this.getDescriptionFld().getValue();        
         if(this.validateForm(this.data)){ 
             this.totalWithSurchargeAndDiscount();
-            RM.PayMgr.showScreen('PayTransTypeSelect', this.data);
+            console.log(this.data);
+            RM.PayMgr.showScreen('PayTransTypeSelect', this.data, this.callback, this.callbackScope);
         }        
     },
     
@@ -424,12 +543,7 @@ Ext.define('RM.controller.PayAmountInputC', {
         result = parseFloat(val);
         result = operator + result.toFixed(decimalPlaces);    
         return result;       
-    },
-    
-    
-    back: function () {
-        RM.ViewMgr.back();
-    },
+    }, 
     
     validateForm: function(vals){        
         var isValid = true;
@@ -448,6 +562,15 @@ Ext.define('RM.controller.PayAmountInputC', {
                 RM.AppMgr.showErrorMsgBox('Discount amount must be less than total amount');  
                 isValid = false; 
             }            
+        }
+        if(vals.BalanceDue){
+            var balance = parseFloat(vals.BalanceDue);
+            var amount = parseFloat(vals.AmountFromPay);
+            //var total = parseFloat(vals.Total);
+            if(balance<amount){
+                RM.AppMgr.showErrorMsgBox('Amount cannot be greater than balance due');  
+                isValid = false;
+            }
         }
         /*else if (this.getAmount().getHtml().indexOf('=') == -1){
             RM.AppMgr.showErrorMsgBox('Please complete calculation and press =');  

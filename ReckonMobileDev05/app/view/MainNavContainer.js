@@ -17,7 +17,7 @@ Ext.define('RM.view.MainNavContainer', {
         'RM.view.Contacts',
 		//'RM.view.settings.MyPreferences',
         'RM.view.About',
-        'RM.view.PayAmountInput',
+        'RM.view.PayAmountInputNav',
         'RM.view.PaySalesHistory',
         'RM.view.Modules'
 		//'RM.view.settings.LinkBankAccount'
@@ -246,7 +246,7 @@ Ext.define('RM.view.MainNavContainer', {
         },
         {
             index: 'PayAmountInput',
-            xtype: 'payamountinput',
+            xtype: 'payamountinputnav',
             title: 'Receive payment',
             activated: true,            
             group: 'RECKON PAY',

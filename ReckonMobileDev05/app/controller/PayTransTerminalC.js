@@ -16,8 +16,10 @@ Ext.define('RM.controller.PayTransTerminalC',{
         }
      },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
         var view = this.getPayTransTerminal();
         if (!view){
             view = { xtype: 'paytransterminal' };

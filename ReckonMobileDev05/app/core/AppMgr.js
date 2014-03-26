@@ -107,7 +107,7 @@ Ext.define('RM.core.AppMgr', {
                 else
                 {
                     //RM.PayMgr.showScreen("PayAmountInput");
-                    RM.ViewMgr.showPay();
+                    RM.ViewMgr.showPayWithSlideNav();
                 }
             },
             this

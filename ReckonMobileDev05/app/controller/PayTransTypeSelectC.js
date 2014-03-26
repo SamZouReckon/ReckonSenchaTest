@@ -28,8 +28,10 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
         }
     },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
         var view = this.getPayTransTypeSelect();
         if (!view){
             view = { xtype: 'paytranstypeselect' };
@@ -57,15 +59,15 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     },
     
     onCashTap: function(){
-        RM.PayMgr.showScreen('PayRecvCash', this.data);
+        RM.PayMgr.showScreen('PayRecvCash', this.data, this.callback, this.callbackScope);
     },
     
     onChequeTap: function(){
-        RM.PayMgr.showScreen('PayRecvCheque', this.data);
+        RM.PayMgr.showScreen('PayRecvCheque', this.data, this.callback, this.callbackScope);
     },
     
     onOtherTap: function(){
-        RM.PayMgr.showScreen('PayRecvManualCard', this.data);
+        RM.PayMgr.showScreen('PayRecvManualCard', this.data, this.callback, this.callbackScope);
     },
     
     back: function () {

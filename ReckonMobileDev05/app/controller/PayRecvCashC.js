@@ -24,8 +24,10 @@ Ext.define('RM.controller.PayRecvCashC',{
         }
      },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
         var view = this.getPayRecvCash();
         if (!view){
             view = { xtype: 'payrecvcash' };
@@ -77,7 +79,7 @@ Ext.define('RM.controller.PayRecvCashC',{
         
         if(this.validateForm()){
         	RM.PayMgr.createTransaction(this.data, function(){
-                RM.PayMgr.showScreen('PaySendReceipt', this.data);      
+                RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
             },this);            
         }
     },

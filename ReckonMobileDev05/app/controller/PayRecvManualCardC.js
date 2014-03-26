@@ -22,8 +22,11 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         }
      },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
+        
         var view = this.getPayRecvManualCard();
         if (!view){
             view = { xtype: 'payrecvmanualcard' };
@@ -43,9 +46,8 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         this.data.PaymentMethodId = 3;
         
         if(this.validateForm(vals)){
-        	RM.PayMgr.createTransaction(this.data, function(){
-            
-                RM.PayMgr.showScreen('PaySendReceipt', this.data);      
+        	RM.PayMgr.createTransaction(this.data, function(){            
+                RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
             },this);            
         }
     },

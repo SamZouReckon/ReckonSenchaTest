@@ -67,10 +67,11 @@ Ext.define('RM.controller.PaySalesHistoryC', {
     onItemSelect: function(list, rec){
 		// Delay the selection clear so get a flash of the selection
 		setTimeout(function(){list.deselect(rec);},500);
+        
 		RM.PayMgr.getTransaction(rec.data.Id,
 			function(){
 				var payTransDetailsC = RM.AppMgr.getAppControllerInstance('RM.controller.PayTransDetailsC');
-        		payTransDetailsC.showView(rec.data, cb, cbs);                
+        		payTransDetailsC.showView(rec.data, null, this);                
 			}, 
 			this
 		);

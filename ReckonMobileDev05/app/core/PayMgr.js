@@ -25,7 +25,7 @@ Ext.define('RM.core.PayMgr', {
     },
     
     getTransaction: function(transactionId, callBack, callBackScope){
-        RM.AppMgr.getServerRec('PayTransaction', true, transactionId,
+        RM.AppMgr.getServerRec('PayTransaction', transactionId,
 		    function () {                    
 		        callBack.call(callBackScope);
 		    },
@@ -37,7 +37,7 @@ Ext.define('RM.core.PayMgr', {
     },
     
     getTransactions: function(callBack, callBackScope){
-        RM.AppMgr.getServerRecs('PayTransaction', true, [],
+        RM.AppMgr.getServerRecs('PayTransaction', [],
 		    function () {                    
 		        callBack.call(callBackScope);
 		    },

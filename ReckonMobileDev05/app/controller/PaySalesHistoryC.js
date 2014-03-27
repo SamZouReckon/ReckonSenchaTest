@@ -22,7 +22,8 @@ Ext.define('RM.controller.PaySalesHistoryC', {
                 }
             },
             'paysaleshistory list': {
-                itemtap: 'onItemTap'
+                //itemtap: 'onItemTap',
+                select: 'onItemSelect'		
             }
         }
 
@@ -35,7 +36,7 @@ Ext.define('RM.controller.PaySalesHistoryC', {
         this.onSort('TransactionDate');
     },
     
-    showView: function (cb, cbs) {
+    /*showView: function (cb, cbs) {
         this.selectCb = cb;
         this.selectCbs = cbs;
         
@@ -51,18 +52,30 @@ Ext.define('RM.controller.PaySalesHistoryC', {
         var store = this.getPaySalesHistoryList().getStore();
         store.getProxy().setUrl(RM.AppMgr.getApiUrl('PayTransaction'));
         this.loadList();
-    },
+    },*/
 
     onSort: function (val) {
         this.getPaySalesHistoryList().getStore().sort(val);
         this.loadList();
     },
 
-    onItemTap: function (list, index, target, rec) {
+    /*onItemTap: function (list, index, target, rec) {
         setTimeout(function () { list.deselect(rec); }, 500);
         this.selectCb.call(this.selectCbs, rec.data);
-    },
+    },*/
 
+    onItemSelect: function(list, rec){
+		// Delay the selection clear so get a flash of the selection
+		setTimeout(function(){list.deselect(rec);},500);
+		RM.PayMgr.getTransaction(rec.data.Id,
+			function(){
+				var payTransDetailsC = RM.AppMgr.getAppControllerInstance('RM.controller.PayTransDetailsC');
+        		payTransDetailsC.showView(rec.data, cb, cbs);                
+			}, 
+			this
+		);
+    },
+    
     loadList: function (searchFilter) {
         var store = this.getPaySalesHistoryList().getStore();
         store.clearFilter();

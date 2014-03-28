@@ -3,11 +3,15 @@ Ext.define('RM.controller.PayTransRefundC',{
     requires: 'RM.view.PayTransRefund',
     config: {
         refs: {
-            payTransRefund: 'paytransrefund'
+            payTransRefund: 'paytransrefund',
+            notesFld: 'paytransrefund #notes'
         },
         control: {            
             'paytransrefund #refund': {
                 tap: 'refund'
+            },
+            'paytransrefund #notes':{
+                tap: 'onNotesTap'
             },
             'paytransrefund #back': {
                 tap: 'back'
@@ -26,6 +30,21 @@ Ext.define('RM.controller.PayTransRefundC',{
     
     refund: function(){
            
+    },
+    
+    onNotesTap: function(){
+      RM.Selectors.showNoteText(
+            'Notes',
+            true,
+            'SAVE',
+            this.noteText,
+            function(noteText){
+                RM.ViewMgr.back();
+                this.noteText = noteText;
+                this.getNotesFld().setValue(noteText.replace(/(\r\n|\n|\r)/g, ' '));
+            },
+            this
+        );   
     },
     
     back: function () {

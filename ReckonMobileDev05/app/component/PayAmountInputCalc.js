@@ -209,11 +209,10 @@ Ext.define('RM.component.PayAmountInputCalc', {
         return this.down('#descriptionfield');  
     }, 
     
-    loadData: function(data, callback, callbackScope){
-        this.data = data;
+    loadData: function(data, callback, callbackScope){        
+        data ? this.data = data : this.data = {};
         this.callback = callback;
-        this.callbackScope = callbackScope;      
-        
+        this.callbackScope = callbackScope;        
         this.clearInputFieldAndHistory();
         var amountToPay = 0;
         if(data && data.BalanceDue){
@@ -229,7 +228,12 @@ Ext.define('RM.component.PayAmountInputCalc', {
             this.inputStr = '';
         }
         this.getAmount().setHtml(this.inputStr);  
-        this.getDiscount().setValue('None'); 
+        this.data.Discount = 'None';
+        if(data){
+            this.data.Discount = (data.DiscountPerc && data.DiscountPerc != 0) ? data.DiscountPerc + '%' : 'None';
+			this.data.Discount = (data.DiscountAmount && data.DiscountAmount != 0) ? RM.AppMgr.formatCurrency(data.DiscountAmount, 2) : this.data.Discount;  
+        }                    	
+        this.getDiscount().setValue(this.data.Discount); 
     },
     
     onCalcKeyTap: function (key) {       
@@ -349,12 +353,23 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.data.PaymentMethodId = 2;
         this.data.Discount = 0;
         this.data.Surcharge = 0;
-        this.data.Total = 0;        
+        this.data.Total = 0;     
         
         var discVal = this.getDiscount().getValue();
         this.data.Discount = discVal ? discVal : '$0.00';
         this.data.AmountFromPay = this.formatNumber(this.inputStr.slice(1)); 
-        this.data.Description = this.getDescriptionFld().getValue();        
+        this.data.Description = this.getDescriptionFld().getValue(); 
+        this.data.Amount = this.data.AmountFromPay;
+        this.data.DiscountPerc = null;
+        this.data.DiscountAmount = null;
+        
+        if (this.data.Discount.indexOf('%') > -1) {
+            this.data.DiscountPerc = this.data.Discount.replace('%', '');
+        }
+        else if (this.data.Discount.indexOf('$') > -1) {
+            this.data.DiscountAmount = this.data.Discount.replace('$', '');
+        }
+        
         if(this.validateForm(this.data)){ 
             this.totalWithSurchargeAndDiscount();
             console.log(this.data);

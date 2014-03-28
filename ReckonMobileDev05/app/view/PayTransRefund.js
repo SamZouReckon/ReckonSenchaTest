@@ -16,7 +16,7 @@ Ext.define('RM.view.PayTransRefund', {
                 }, {
                     xtype: 'component',
                     itemId: 'title',
-                    html: '',
+                    html: 'Issue a refund',
                     cls: 'rm-topbartitle'
                 }
             ]
@@ -24,15 +24,20 @@ Ext.define('RM.view.PayTransRefund', {
             xtype: 'exttextfield',
             cls: 'rm-flatfield',
             label: 'Amount to refund',
-            labelWidth: '9em'            
+            labelWidth: '9em',
+            placeHolder: 'enter'
         },{
             xtype: 'exttextfield',
             cls: 'rm-flatfield',
-            label: 'Reason'
+            label: 'Reason',
+            placeHolder: 'choose'
         },{
             xtype: 'exttextfield',
+            itemId: 'notes',
             cls: 'rm-flatfield',
-            label: 'Notes'
+            label: 'Notes',
+            clearIcon: false,
+            placeHolder: 'enter'
         },{
             xtype: 'button',
             itemId: 'refund',

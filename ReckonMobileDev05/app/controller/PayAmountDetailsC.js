@@ -18,15 +18,14 @@ Ext.define('RM.controller.PayAmountDetailsC',{
     
     
     showView: function (data) {
-        this.details = data;
+        this.data = data;
         var view = this.getPayAmountDetails();
         if (!view)
             view = { xtype: 'payamountdetails' };
         RM.ViewMgr.showPanel(view, 'flip');
     },
     
-    onShow: function () {
-        var data = this.details;       
+    onShow: function () {            
         this.getDetailsComp().setHtml(       
         Ext.util.Format.format(
             '<table width="90%" class="rm-tablelayout">' +        
@@ -43,18 +42,31 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                     '<div class="rm-balance-breakdown-due"><span>TOTAL</span><span class="rm-balance-breakdown-amount">${3}</span></div>'   +
                 '</tr>' + 
              '</table>', 
-            data.AmountFromPay, 
+            this.data.Id ? this.data.Amount : this.data.AmountFromPay, 
             this.formatDiscountValue(), 
-            this.formatNumber(data.Surcharge), 
-            this.formatNumber(data.Total)));
+            this.formatNumber(this.data.Surcharge), 
+            this.formatNumber(this.data.Total)));
     },
     
     formatDiscountValue: function(){
-        var amount = parseFloat(this.details.AmountFromPay.replace('$', ''));
-        var discount = this.details.Discount
+        //this.data.Discount = '';
+        if(this.data.InvoiceId){
+            if(!this.data.DiscountPerc && !this.data.DiscountAmount){
+               return 'None' 
+            }else if(this.data.DiscountPerc){
+                this.data.Discount = this.data.DiscountPerc + '%';
+            }else if(this.data.DiscountAmount){
+                this.data.Discount = '$' + this.data.DiscountAmount;
+            }
+        }
+        if(!this.data.Discount){
+            return '';
+        }
+        var amount = parseFloat(this.data.AmountFromPay.replace('$', ''));
+        var discount = this.data.Discount
         if(discount.indexOf('%') > -1){            
             discount = (parseFloat(discount.replace('%', ''))/100) * amount;
-            discount = '(' + this.details.Discount + ')' + ' $' + discount.toFixed(2);
+            discount = '(' + this.data.Discount + ')' + ' $' + discount.toFixed(2);
         }
         return discount;
     },

@@ -39,15 +39,23 @@ Ext.define('RM.view.PayTransDetails', {
             cls: 'rm-photopreviewbtn'
         },{
             xtype: 'extdatepickerfield',
+            itemId: 'date',
             cls: 'rm-flatfield',
             dateFormat : 'jS M Y',
+            readOnly: true,
             label: 'Paid'
         },{
             xtype: 'exttextfield',
+            itemId: 'cardno',
+            clearIcon: false,
+            readOnly: true,
             cls: 'rm-flatfield',
             label: 'Card'
         },{
             xtype: 'exttextfield',
+            itemId: 'receiptno',
+            clearIcon: false,
+            readOnly: true,
             cls: ['rm-flatfield', 'rm-flatfield-last'],
             label: 'Receipt no',
             labelWidth: '6em'            

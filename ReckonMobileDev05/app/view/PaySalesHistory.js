@@ -31,7 +31,7 @@ Ext.define('RM.view.PaySalesHistory', {
                 itemTpl: new Ext.XTemplate(
                     '<table width="100%">' +
                     '<tr>' +
-                    '<td width="55"><img src="resources/images/icons/'+
+                    '<td valign="top" width="50"><img src="resources/images/icons/'+
                     '<tpl if="PaymentMethodId == 1">'+
                         'rm-cash'+                                            
                     '</tpl>'+ 
@@ -41,12 +41,12 @@ Ext.define('RM.view.PaySalesHistory', {
                    '<tpl if="PaymentMethodId == 3">'+
                         'rm-credit'+                                            
                     '</tpl>'+
-                    '.svg" style= "width: 40px; height: 27px;"></td>' +
+                    '.svg" style= "width: 28px; height: 18px;"></td>' +
                     '<td valign="top" width="200">' +
                     '<div class="rm-orgnametext">{[this.formatCurrency(values)]}</div>' +
                     '<div class="rm-booknametext rm-mr5">{Description}</div>' +
                     '</td>' +
-                    '<td valign="top"><div class="rm-booknametext">{[this.formatDate(values)]}</div></td>' +
+                    '<td valign="top" width="180"><div class="rm-booknametext">{[this.formatDate(values)]}</div></td>' +
                     '<td>' +
                     '</tr>' +
                     '</table>',
@@ -56,7 +56,7 @@ Ext.define('RM.view.PaySalesHistory', {
                             return RM.AppMgr.formatCurrency(amountToPay, 0);
                         },
                         formatDate: function(values) {
-                            return Ext.Date.format(values.TransactionDate, 'd/m/y');
+                            return Ext.Date.format(values.TransactionDate, 'jS M Y');
                         }
                 })				
             }

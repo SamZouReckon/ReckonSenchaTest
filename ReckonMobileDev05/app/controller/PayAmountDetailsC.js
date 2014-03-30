@@ -50,7 +50,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
     
     formatDiscountValue: function(){
         //this.data.Discount = '';
-        if(this.data.InvoiceId){
+        if(this.data.InvoiceId || this.data.Id){
             if(!this.data.DiscountPerc && !this.data.DiscountAmount){
                return 'None' 
             }else if(this.data.DiscountPerc){

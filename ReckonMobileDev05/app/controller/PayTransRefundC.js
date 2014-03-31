@@ -4,7 +4,8 @@ Ext.define('RM.controller.PayTransRefundC',{
     config: {
         refs: {
             payTransRefund: 'paytransrefund',
-            notesFld: 'paytransrefund #notes'
+            notesFld: 'paytransrefund #notes',
+            amountFld: 'paytransrefund #amount'
         },
         control: {            
             'paytransrefund #refund': {
@@ -26,7 +27,13 @@ Ext.define('RM.controller.PayTransRefundC',{
             view = { xtype: 'paytransrefund' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.loadData();
     },   
+    
+    loadData: function(){
+        this.getAmountFld().setValue(this.data.Amount);
+        this.noteText = '';        
+    },
     
     refund: function(){
            

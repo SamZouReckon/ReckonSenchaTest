@@ -42,33 +42,26 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                     '<div class="rm-balance-breakdown-due"><span>TOTAL</span><span class="rm-balance-breakdown-amount">${3}</span></div>'   +
                 '</tr>' + 
              '</table>', 
-            this.data.Id ? this.data.Amount : this.data.AmountFromPay, 
+            this.formatNumber(this.data.Amount), 
             this.formatDiscountValue(), 
             this.formatNumber(this.data.Surcharge), 
             this.formatNumber(this.data.Total)));
     },
     
     formatDiscountValue: function(){
-        //this.data.Discount = '';
-        if(this.data.InvoiceId || this.data.Id){
-            if(!this.data.DiscountPerc && !this.data.DiscountAmount){
-               return 'None' 
-            }else if(this.data.DiscountPerc){
-                this.data.Discount = this.data.DiscountPerc + '%';
-            }else if(this.data.DiscountAmount){
-                this.data.Discount = '$' + this.data.DiscountAmount;
-            }
-        }
-        if(!this.data.Discount){
-            return '';
-        }
-        var amount = parseFloat(this.data.AmountFromPay.replace('$', ''));
-        var discount = this.data.Discount
-        if(discount.indexOf('%') > -1){            
-            discount = (parseFloat(discount.replace('%', ''))/100) * amount;
-            discount = '(' + this.data.Discount + ')' + ' $' + discount.toFixed(2);
-        }
-        return discount;
+       var discount = 'None';
+       if (!this.data.DiscountPercent && !this.data.DiscountAmount) {
+           return discount; 
+       }
+       else if (this.data.DiscountPercent) {
+           var amount = parseFloat(this.data.Amount);
+           discount = (parseFloat(this.data.DiscountPercent) / 100) * amount;
+           discount = '(' + this.data.DiscountPercent + '%' + ')' + ' $' + discount.toFixed(2);
+       }
+       else if (this.data.DiscountAmount) {
+           discount = '$' + this.data.DiscountAmount;
+       }
+       return discount;
     },
     
     formatNumber: function(val, decimalPlaces){        

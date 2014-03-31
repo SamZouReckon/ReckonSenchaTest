@@ -160,9 +160,9 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.inputStr = '';
         this.inputArray = new Array();
         this.inputArrayIndex = 0;
-        this.noteText = '',        
+        this.noteText = '';        
         this.history = false;   
-    },  
+    },
     
     /*refs:{
             payAmountInputCalc: 'payamountinputcalc',            
@@ -218,8 +218,8 @@ Ext.define('RM.component.PayAmountInputCalc', {
         if(data && data.BalanceDue){
             amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.BalanceDue);
         }
-        else if(data && data.AmountFromPay){
-            amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.AmountFromPay);
+        else if(data && data.Amount){
+            amountToPay = typeof data === "undefined" ? 0 : parseFloat(data.Amount);
         }
         if(amountToPay){
             this.inputStr = '' + amountToPay.toFixed(2);
@@ -227,13 +227,19 @@ Ext.define('RM.component.PayAmountInputCalc', {
         else{
             this.inputStr = '';
         }
-        this.getAmount().setHtml(this.inputStr);  
-        this.data.Discount = 'None';
+        this.getAmount().setHtml(this.inputStr); 
+        var discount = 'None';
         if(data){
-            this.data.Discount = (data.DiscountPerc && data.DiscountPerc != 0) ? data.DiscountPerc + '%' : 'None';
-			this.data.Discount = (data.DiscountAmount && data.DiscountAmount != 0) ? RM.AppMgr.formatCurrency(data.DiscountAmount, 2) : this.data.Discount;  
-        }                    	
-        this.getDiscount().setValue(this.data.Discount); 
+            if(data.DiscountPercent && data.DiscountPercent != 0){
+                discount = data.DiscountPercent + '%';
+            }
+            else if(data.DiscountAmount && data.DiscountAmount != 0){
+                discount = RM.AppMgr.formatCurrency(data.DiscountAmount, 2);
+            }            
+        }                     	
+        this.getDiscount().setValue(discount); 
+        this.getDescriptionFld().setValue((data && data.Description) ? data.Description : '');
+        this.noteText = this.getDescriptionFld().getValue();
     },
     
     onCalcKeyTap: function (key) {       
@@ -347,27 +353,27 @@ Ext.define('RM.component.PayAmountInputCalc', {
         if(!this.data){
             this.data = {}; 
         }
-        this.data.AmountFromPay = 0;
+        this.data.Amount = 0;
         this.data.Description = "";
         this.data.PayerName = "";
         this.data.PaymentMethodId = 2;
-        this.data.Discount = 0;
+        //this.data.Discount = 0;
         this.data.Surcharge = 0;
         this.data.Total = 0;     
         
         var discVal = this.getDiscount().getValue();
-        this.data.Discount = discVal ? discVal : '$0.00';
-        this.data.AmountFromPay = this.formatNumber(this.inputStr.slice(1)); 
+        var discount = discVal ? discVal : '$0.00';
+        this.data.Amount = this.formatNumber(this.inputStr.slice(1)); 
         this.data.Description = this.getDescriptionFld().getValue(); 
-        this.data.Amount = this.data.AmountFromPay;
-        this.data.DiscountPerc = null;
+        
+        this.data.DiscountPercent = null;
         this.data.DiscountAmount = null;
         
-        if (this.data.Discount.indexOf('%') > -1) {
-            this.data.DiscountPerc = this.data.Discount.replace('%', '');
+        if (discount.indexOf('%') > -1) {
+            this.data.DiscountPercent = discount.replace('%', '');
         }
-        else if (this.data.Discount.indexOf('$') > -1) {
-            this.data.DiscountAmount = this.data.Discount.replace('$', '');
+        else if (discount.indexOf('$') > -1) {
+            this.data.DiscountAmount = discount.replace('$', '');
         }
         
         if(this.validateForm(this.data)){ 
@@ -381,13 +387,13 @@ Ext.define('RM.component.PayAmountInputCalc', {
         var discount = 0;
         var total = 0;
         var surcharge = parseFloat(this.data.Surcharge);
-        var amount = parseFloat(this.data.AmountFromPay.replace('$', ''));
-        if(this.data.Discount.indexOf('$') > -1){
-            discount = parseFloat(this.data.Discount.replace('$', ''));
+        var amount = parseFloat(this.data.Amount.replace('$', ''));       
+        if(this.data.DiscountAmount){
+            discount = parseFloat(this.data.DiscountAmount);
         }
-        if(this.data.Discount.indexOf('%') > -1){
+        else if(this.data.DiscountPercent){
             
-            discount = (parseFloat(this.data.Discount.replace('%', ''))/100) * amount;
+            discount = (parseFloat(this.data.DiscountPercent)/100) * amount;
         }
         total = amount - discount + surcharge;
         this.data.Total = total.toFixed(2);
@@ -419,8 +425,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
         );        
     },
     
-    addRowsToInputHistory: function(){
-        
+    addRowsToInputHistory: function(){        
         var me = this;
         var historyContainer = this.getHistoryContainer();
         historyContainer.removeAll(true,true);
@@ -561,37 +566,30 @@ Ext.define('RM.component.PayAmountInputCalc', {
     }, 
     
     validateForm: function(vals){        
-        var isValid = true;
-        
-        if( vals.AmountFromPay === undefined || vals.AmountFromPay === null || vals.AmountFromPay === ''){
+        var isValid = true;        
+        if( vals.Amount === undefined || vals.Amount === null || vals.Amount === ''){
             RM.AppMgr.showErrorMsgBox('Please enter in an amount');
             isValid = false;
         }       
-        else if (vals.AmountFromPay <= 0) {
+        else if (vals.Amount <= 0) {
             RM.AppMgr.showErrorMsgBox('Please enter payment amount greater than $0.00');  
             isValid = false;
         }
-        else if(vals.Discount.indexOf('$') > -1 && vals.Discount) {
-            var discount = parseFloat(vals.Discount.replace('$', ''));
-            if(discount && discount >= vals.AmountFromPay){
+        else if(vals.DiscountAmount) {
+            var discount = parseFloat(vals.DiscountAmount);
+            if(discount && discount >= vals.Amount){
                 RM.AppMgr.showErrorMsgBox('Discount amount must be less than total amount');  
                 isValid = false; 
             }            
-        }
+        }        
         if(vals.BalanceDue){
             var balance = parseFloat(vals.BalanceDue);
-            var amount = parseFloat(vals.AmountFromPay);
-            //var total = parseFloat(vals.Total);
+            var amount = parseFloat(vals.Amount);            
             if(balance<amount){
                 RM.AppMgr.showErrorMsgBox('Amount cannot be greater than balance due');  
                 isValid = false;
             }
-        }
-        /*else if (this.getAmount().getHtml().indexOf('=') == -1){
-            RM.AppMgr.showErrorMsgBox('Please complete calculation and press =');  
-            isValid = false;
-        }*/
-            
+        }            
         return isValid;
     }
 });

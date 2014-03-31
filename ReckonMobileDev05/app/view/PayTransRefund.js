@@ -21,16 +21,25 @@ Ext.define('RM.view.PayTransRefund', {
                 }
             ]
         },{
-            xtype: 'exttextfield',
+            xtype: 'rmamountfield',
             cls: 'rm-flatfield',
             label: 'Amount to refund',
+            itemId: 'amount',
+            readOnly: true,
             labelWidth: '9em',
             placeHolder: 'enter'
         },{
-            xtype: 'exttextfield',
+            xtype: 'extselectfield',
             cls: 'rm-flatfield',
             label: 'Reason',
-            placeHolder: 'choose'
+            placeHolder: 'choose',
+            options: [
+                        {text: 'Faulty',  value: 'Faulty'},
+                        {text: 'Damaged', value: 'Damaged'},
+                        {text: 'Change of mind',  value: 'Change of mind'},
+            			{text: 'Warranty', value: 'Warranty'},
+            			{text: 'Other', value: 'Other'}
+                    ],
         },{
             xtype: 'exttextfield',
             itemId: 'notes',

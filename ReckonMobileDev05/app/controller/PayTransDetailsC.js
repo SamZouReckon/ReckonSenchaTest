@@ -43,7 +43,7 @@ Ext.define('RM.controller.PayTransDetailsC',{
     },
     
     refund: function(){        
-        RM.PayMgr.showScreen('PayTransRefund');   
+        RM.PayMgr.showScreen('PayTransRefund', this.data);   
     },
     
     sendReceipt: function(){

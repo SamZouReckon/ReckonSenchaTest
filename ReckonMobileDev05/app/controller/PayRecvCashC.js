@@ -33,8 +33,14 @@ Ext.define('RM.controller.PayRecvCashC',{
             view = { xtype: 'payrecvcash' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.clearFields();
         this.getPayRecvCashTitle().setHtml('$'+data.Total);
         this.getCashFld().setValue('');
+    },
+    
+    clearFields: function(){
+        this.getCashFld().setValue('');
+        this.getChangeFld().setValue('');
     },
     
     onDetailsTap: function(){

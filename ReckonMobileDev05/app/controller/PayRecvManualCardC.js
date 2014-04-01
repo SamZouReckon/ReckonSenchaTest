@@ -32,6 +32,7 @@ Ext.define('RM.controller.PayRecvManualCardC',{
             view = { xtype: 'payrecvmanualcard' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.getPayRecvManualCardForm().reset();
         this.getPayRecvManualCardTitle().setHtml('$'+data.Total);
     },
     

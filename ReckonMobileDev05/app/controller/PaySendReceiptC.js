@@ -35,12 +35,18 @@ Ext.define('RM.controller.PaySendReceiptC',{
             view = { xtype: 'paysendreceipt' };
         }       
         RM.ViewMgr.showPanel(view);
+        this.clearFields();
         this.getPaySendReceipt().setActiveItem(0);
         this.getPaySendReceiptTitle().setHtml('$' + data.Total + ' charged');
         if(this.data.CustomerEmail){
             this.getEmailFld().setValue(this.data.CustomerEmail);
         }
-    },   
+    },  
+    
+    clearFields: function(){
+        this.getEmailFld().setValue('');
+        this.getSmsFld().setValue('');
+    },
     
     done: function() {
         if(this.callback){

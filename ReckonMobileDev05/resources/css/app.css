@@ -5511,6 +5511,12 @@ body.x-desktop {
 .x-android .x-input-el {
   -webkit-text-fill-color: #787878 !important; }
 
+.rm-flatfield-fontweightnormal .x-form-label span {
+  font-weight: normal !important; }
+.rm-flatfield-fontweightnormal .x-input-el {
+  color: #F00;
+  font-weight: normal !important; }
+
 .x-toolbar-rm-sortsearch-topbar {
   background-image: none;
   background-color: #4e4e4e;
@@ -6175,6 +6181,12 @@ body.x-desktop {
 .rm-pl5 {
   padding-left: 5px; }
 
+.rm-pl10 {
+  padding-left: 10px; }
+
+.rm-pl15 {
+  padding-left: 15px !important; }
+
 .rm-pl0 {
   padding-left: 0px !important; }
 
@@ -6224,7 +6236,7 @@ body.x-desktop {
   font-size: 90%; }
 
 .rm-fontsize70 {
-  font-size: 70%; }
+  font-size: 70% !important; }
 
 .rm-fontsize80 {
   font-size: 80%; }
@@ -6240,6 +6252,9 @@ body.x-desktop {
 
 .rm-pt5 {
   padding-top: 5px !important; }
+
+.rm-mt-10 {
+  margin-top: -10px; }
 
 .rm-m-1 {
   margin: -1px -5px -1px -5px;
@@ -6288,6 +6303,12 @@ body.x-desktop {
 
 .rm-colorblue {
   color: #5095E1; }
+
+.rm-colorblack {
+  color: #323232; }
+
+.rm-pref-headingtitle {
+  color: #646464; }
 
 .rm-border1px {
   border-top: 1px solid #DBDBDB; }
@@ -6462,7 +6483,7 @@ body.x-desktop {
 .rm-checkbox {
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 26px;
+  background-size: 24px;
   width: 30px;
   height: 30px; }
 
@@ -6815,9 +6836,10 @@ rm-emailinvoicebackground {
 
 .rm-checkbox-smalltext {
   font-size: 84%;
-  color: #969696;
   margin-left: 9px;
   margin-right: 9px; }
+.rm-checkbox-smalltext span {
+  color: #646464; }
 
 .x-form .x-scroll-container {
   background-color: #FFFFFF; }
@@ -7368,4 +7390,17 @@ rm-emailinvoicebackground {
 
 .rm-paypreferences-leftalign {
   position: absolute !important;
-  left: 5px; }
+  left: 15px; }
+
+.rm-linkbtn {
+  color: #3D8ADE;
+  font-size: 80%;
+  font-weight: normal; }
+
+.rm-percentagefield {
+  background-image: url("../images/icons/rm-percentagefield.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 6px;
+  margin-right: 10px; }

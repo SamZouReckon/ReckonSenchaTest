@@ -1,7 +1,8 @@
 Ext.define('RM.view.PayPreferences',{
     extend: 'Ext.Panel',
-    xtype: 'paypreferences',
-    config:{        
+    xtype: 'paypreferences',    
+    config:{ 
+        cls: 'rm-whitebg',       
         items: [
             {
                 xtype: 'toolbar',
@@ -12,28 +13,169 @@ Ext.define('RM.view.PayPreferences',{
                                 itemId: 'title',
                                 html: 'Preferences',
                                 cls: 'rm-topbartitle'
-                            }
+                            },{
+            					xtype:'spacer'
+            				},{
+                                xtype: 'button',
+                				text: 'Save',
+                				itemId: 'save', 
+                                width: '4em',
+                				ui: 'rm_topbarbuttonright'
+                			}
                 ]
             },
             {
-                xtype: 'container',
+                xtype: 'formpanel',
+                itemId: 'preferencesform',
                 layout: 'vbox',
+                scrollable: 'vertical',
                 cls: 'rm-whitebg',
                 items:[                
                     {            
-            			xtype: 'rmcheckbox',			                  
-            			border: '0',
-                        text: '<span class="rm-fontweightbold">I have a Reckon Pay device</span><br><span class="rm-colorblue rm-fontsize80 rm-pb5">What is a Reckon Pay device?</span>',
-            			labelCls: 'rm-checkbox-smalltext rm-paypreferences-leftalign',								
-            			cls: 'rm-checkbox-rightalign rm-flatfield-last'            			
+            			xtype: 'rmcheckbox',	
+                        name: 'IncludeSurcharge',
+                        itemId: 'includesurcharge',
+            			border: 0,
+                        text: 'Include surcharge',
+            			labelCls: 'rm-paypreferences-leftalign rm-pref-headingtitle rm-fontweightbold rm-fontsize80',						
+            			cls: 'rm-pl15 rm-checkbox-rightalign',
+                        margin: '20 0 10 0',
+                        value: false
+                    },{
+                        xtype: 'extselectfield',
+                        hidden: true,
+                        name: 'SurchargeType',
+                        cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-pl5'],
+                        border: 0,                        
+                        label: 'Surcharge type',
+                        labelWidth: '8em',
+                        placeHolder: 'choose',
+                        options: [
+                                    {text: 'Percentage',  value: 'Percentage'},
+                                    {text: 'Absolute amount', value: 'Absolute amount'}
+                                ]
                     },{
                         xtype: 'rmamountfield',
-                        cls: ['rm-flatfield', 'rm-flatfield-last'],
-                        label: 'Surcharge',
-                        labelWidth: '8em',
-                        itemId: 'surcharge',            
+                        hidden: true,
+                        name: 'SurchargeAmount',  
+                        placeHolder: 'enter',
+                        cls: ['rm-flatfield', 'rm-flatfield-last', 'rm-flatfield-fontweightnormal', 'rm-pl5'],
+                        border: '0',
+                        label: 'Surcharge amount',
+                        labelWidth: '12em',                                                
                         clearIcon: false,            
                         placeHolder: 'enter'
+                    },{
+                  	  xtype: 'extnumberfield',
+                        hidden: true,
+                        name: 'SurchargePercentage',
+                        placeHolder: 'enter',
+                        cls: ['rm-flatfield', 'rm-flatfield-last', 'rm-flatfield-fontweightnormal', 'rm-pl5', 'rm-percentagefield'],                        
+                        border: '0',
+                        label: 'Surcharge percentage',
+                        labelWidth: '12em',                                              
+                        clearIcon: false,            
+                        placeHolder: 'enter'
+                    },{
+                        xtype: 'component',                        
+                        cls: 'rm-flatfield-last'
+                    },{
+                        xtype: 'component',
+                        cls: ['rm-pl15', 'rm-fontweightbold', 'rm-pref-headingtitle', 'rm-fontsize80'],
+                        html: 'Email settings',
+                        margin: '15 0 0 0'
+                    },{
+                        xtype: 'extemailfield',
+                        name: 'Email',
+                        placeHolder: 'enter',
+                        clearIcon: false,
+                        border: 0,
+                        label: 'Your email address',
+                        cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-pl5'],
+                        labelWidth: '10em'
+                    },{
+                        xtype: 'component',
+                        html: 'Not verified yet.',
+                        cls: 'rm-fontsize70 rm-pl15 rm-colorblack'
+                    },{
+                        xtype: 'component',
+                        html: 'Resend verification email',
+                        margin: '0 0 10 0',
+                		cls: ['rm-pl15', 'rm-linkbtn', 'rm-fontsize70'],
+                        listeners: {
+							tap: {
+								element: 'element',                    
+								fn: function () { 
+									window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');                              
+								}
+							}
+						}
+                    },
+                	{
+                        xtype: 'exttextfield',
+                        name: 'NameToShow',
+                        placeHolder: 'enter',
+                        cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-flatfield-last', 'rm-pl5'],
+                        clearIcon: false,
+                        label: 'Name to show',
+                        labelWidth: '8em'
+                    },
+                	{
+                        xtype: 'component',
+                        cls: ['rm-pl15', 'rm-fontweightbold', 'rm-pref-headingtitle', 'rm-fontsize80'],
+                        html: 'Receipt settings',
+                        margin: '15 0 0 0'
+                    },{
+                        xtype: 'exttextfield',
+                        name: 'ReceiptPrefix',
+                        placeHolder: 'enter',
+                        autoCapitalize: true,
+                        clearIcon: false,
+                        border: 0,
+                        label: 'Receipt prefix',
+                        value: 'REC',
+                        maxLength: 3,
+                        cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-pl5'],
+                        labelWidth: '8em'
+                    },
+                	{
+                        xtype: 'rmphonefield', //to show leading zeros in number e.g. 0001. number field ignores leading zeros
+                        name: 'NextReceiptNumber',
+                        placeHolder: 'enter',
+                        cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-flatfield-last', 'rm-pl5'],
+                        clearIcon: false,
+                        label: 'Next receipt number',                        
+                        maxLength: 6,	//Not working, Sencha bug
+                        value: '0001',
+                        labelWidth: '9em'                        
+                    },
+                	{            
+            			xtype: 'rmcheckbox',
+                        itemId: 'reckonpaydevice',
+                        name: 'ReckonPayDevice',
+                        value: false,
+                        margin: '15 0 0 0',
+                        text: 'I have a Reckon Pay device',
+            			labelCls: 'rm-paypreferences-leftalign rm-pref-headingtitle rm-fontweightbold rm-fontsize80',								
+            			cls: 'rm-pl15 rm-checkbox-rightalign'            			
+                    },
+                	{
+                        xtype: 'component',
+                        html: 'What is a Reckon Pay device?',
+                        width: '18em',
+                        cls: ['rm-pl15', 'rm-linkbtn', 'rm-mt-10', 'rm-fontsize70'],
+                        listeners: {
+							tap: {
+								element: 'element',                    
+								fn: function () { 
+									window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');                        
+								}
+							}
+						}
+                    },{
+                        xtype: 'component',
+                        height: 15,
+                        cls: 'rm-flatfield-last'
                     }
                 ]
             }

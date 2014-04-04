@@ -4,13 +4,13 @@ Ext.define('RM.component.RMCheckbox', {
 
     config: {
         layout: 'hbox',  
-        padding: '18 5 18 5',        
+        //padding: '18 5 18 5',        
     },
 
     initialize: function () {
         var me = this;
         this.callParent();
-        
+        this.val = this.config.value;
         if(this.config.leftAlignCheckbox){
              this.add([{
                             xtype: 'component',                            

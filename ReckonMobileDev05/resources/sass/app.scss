@@ -174,6 +174,17 @@ $font-family: 'Open Sans', sans-serif !default;
         	
 }
 
+.rm-flatfield-fontweightnormal{	
+	.x-form-label span{
+		//color: #979797;			
+		font-weight: normal !important;
+	}
+	.x-input-el{
+		//color: #B6B6B6;
+		font-weight: normal !important;
+	}
+}
+
 //Toolbar UI for gray toolbar used for sort search component
 @include sencha-toolbar-ui('rm-sortsearch-topbar', #4E4E4E, 'none');
 //@include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
@@ -874,6 +885,12 @@ $font-family: 'Open Sans', sans-serif !default;
     .rm-pl5{
         padding-left: 5px;
     }
+	.rm-pl10{
+		padding-left: 10px;
+	}
+	.rm-pl15{
+		padding-left: 15px !important;
+	}
     .rm-pl0{
         padding-left: 0px !important;
     }
@@ -923,7 +940,7 @@ $font-family: 'Open Sans', sans-serif !default;
 		font-size: 90%;
 	}
     .rm-fontsize70{
-        font-size: 70%;
+        font-size: 70% !important;
     } 
     .rm-fontsize80{
         font-size: 80%;
@@ -938,6 +955,7 @@ $font-family: 'Open Sans', sans-serif !default;
         padding: 5px;
     }
 	.rm-pt5{ padding-top:5px !important;}
+	.rm-mt-10{ margin-top: -10px;}
 	.rm-m-1{ margin: -1px -5px -1px -5px; margin-top: -1px;}
 	.rm-tablelayout{
 		table-layout: fixed;
@@ -962,6 +980,8 @@ $font-family: 'Open Sans', sans-serif !default;
     .rm-colorred {color: red !important;}
     .rm-colorgreen {color: #A2D079;}
     .rm-colorblue{color: #5095E1;}
+	.rm-colorblack{color: #323232;}
+	.rm-pref-headingtitle{color: #646464;}
     .rm-border1px { border-top: 1px solid #DBDBDB;}
 
 //cashbook.scss
@@ -1174,7 +1194,7 @@ $font-family: 'Open Sans', sans-serif !default;
 .rm-checkbox{
 	background-position: center; 
     background-repeat: no-repeat;
-    background-size: 26px;
+    background-size: 24px;
 	width: 30px;
 	height: 30px;    
 }
@@ -1614,10 +1634,13 @@ rm-emailinvoicebackground{
 
 //checkbox small text
 .rm-checkbox-smalltext{
-    font-size: 84%;
-    color: #969696;
+    font-size: 84%;    
     margin-left: 9px;
-    margin-right: 9px;    
+    margin-right: 9px;
+	
+	span{
+		color: #646464;
+	}    
 }
 
 //Code to get white background in invoices, timesheet and expenses details screen   
@@ -1876,7 +1899,7 @@ rm-emailinvoicebackground{
 
 //Mandatory field red color highlighting
 .rm-manfld-notset-lbl span{
-    color: red;
+    color: red;	
 } 
 
 //style to show border on top of RMCheckbox in form fields 
@@ -2339,5 +2362,20 @@ rm-emailinvoicebackground{
 
 .rm-paypreferences-leftalign{
     position: absolute !important;
-    left: 5px;
+    left: 15px;
+}
+
+.rm-linkbtn{	
+	color: #3D8ADE;
+	font-size: 80%;	
+	font-weight: normal;		
+}
+
+.rm-percentagefield{
+	background-image: url("../images/icons/rm-percentagefield.png");
+	background-position: right center; 
+    background-repeat: no-repeat;
+    background-size: 16px;
+	padding-right: 6px;
+	margin-right: 10px;
 }

@@ -30,12 +30,12 @@ Ext.define('RM.component.ExtNumberField', {
     
     valChange: function(comp, e, eOpts){
         var val = this.getValue(); 
-        console.log(e.browserEvent.keyCode);
+        //console.log(e.browserEvent.keyCode);
         if (!(47<e.browserEvent.keyCode<58 || e.browserEvent.keyCode == 190)) {
             e.stopEvent();
         }
         if(val === null || val === undefined ) {            
-            console.log(val);
+            //console.log(val);
             return;
         }   
         
@@ -47,7 +47,7 @@ Ext.define('RM.component.ExtNumberField', {
                 this.setValue(valStr.substring(0,valStrLen-1));
             }
         } 
-        console.log(this.getValue());
+        //console.log(this.getValue());
     },
     
     numberPrecision: function (value) {        

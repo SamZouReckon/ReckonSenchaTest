@@ -72,9 +72,9 @@ Ext.define('RM.controller.CustomDiscountC', {
         if (!val1 && !val2) {
             isValid = false;
         }  
-        if (val1 && val1 > 100) {
+        if (val1 && val1 > 99) {
             isValid = false;            
-            RM.AppMgr.showErrorMsgBox('% discount cannot be greater than 100.');            
+            RM.AppMgr.showErrorMsgBox('% discount cannot be greater than 99%.');            
             return isValid;
         }
         if (!isValid) {            

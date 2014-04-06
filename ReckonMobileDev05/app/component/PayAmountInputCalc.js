@@ -210,7 +210,16 @@ Ext.define('RM.component.PayAmountInputCalc', {
     }, 
     
     loadData: function(data, callback, callbackScope){        
-        data ? this.data = data : this.data = {};
+        //data ? this.data = data : this.data = {};
+        this.data = {};
+        if(data){
+            this.data.InvoiceId = data.InvoiceId;
+            this.data.AccountsReceivableCategoryId  = data.AccountsReceivableCategoryId;
+            this.data.CustomerSupplierId = data.CustomerSupplierId;
+            this.data.BankAccountId = data.BankAccountId;
+            this.data.CustomerEmail = data.CustomerEmail;
+        }       
+        
         this.callback = callback;
         this.callbackScope = callbackScope;        
         this.clearInputFieldAndHistory();
@@ -227,7 +236,8 @@ Ext.define('RM.component.PayAmountInputCalc', {
         else{
             this.inputStr = '';
         }
-        this.getAmount().setHtml(this.inputStr); 
+        //this.getAmount().setHtml(this.inputStr); 
+        this.getAmount().setHtml(this.inputStr ? this.inputStr : '<span class = "rm-pay-currencyprefix">$</span>0.00');
         var discount = 'None';
         if(data){
             if(data.DiscountPercent && data.DiscountPercent != 0){

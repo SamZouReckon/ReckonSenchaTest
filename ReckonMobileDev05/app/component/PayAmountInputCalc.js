@@ -215,7 +215,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
         if(data){
             this.data.InvoiceId = data.InvoiceId;
             this.data.AccountsReceivableCategoryId  = data.AccountsReceivableCategoryId;
-            this.data.CustomerSupplierId = data.CustomerSupplierId;
+            this.data.CustomerSupplierId = data.CustomerId;
             this.data.BankAccountId = data.BankAccountId;
             this.data.CustomerEmail = data.CustomerEmail;
         }       

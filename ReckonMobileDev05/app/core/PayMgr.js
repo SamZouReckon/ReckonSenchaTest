@@ -14,7 +14,8 @@ Ext.define('RM.core.PayMgr', {
     createTransaction: function(transaction, callBack, callBackScope)
     {
         RM.AppMgr.saveServerRec('PayTransaction', true, transaction,
-		    function () {                    
+		    function () {       
+                RM.AppMgr.itemUpdated('invoice');
 		        callBack.call(callBackScope);
 		    },
 		    this,

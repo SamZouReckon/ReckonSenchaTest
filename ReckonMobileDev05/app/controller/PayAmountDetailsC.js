@@ -49,7 +49,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
     },
     
     formatDiscountValue: function(){
-       var discount = 'None';
+       var discount = '$0.00';
        if (!this.data.DiscountPercent && !this.data.DiscountAmount) {
            return discount; 
        }

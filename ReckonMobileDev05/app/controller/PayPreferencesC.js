@@ -83,6 +83,11 @@ Ext.define('RM.controller.PayPreferencesC',{
                 prefObj.Value = value;
                 prefArray.push(prefObj);
             });
+            
+            RM.PayMgr.postPreferences(prefArray, function(){
+                //RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
+            },this);  
+            
             console.log(prefArray);
         }    
     },   

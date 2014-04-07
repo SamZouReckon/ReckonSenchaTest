@@ -11,6 +11,31 @@ Ext.define('RM.core.PayMgr', {
         RM.AppMgr.showScreen.apply(this, arguments); 
     },
     
+    postPreferences: function(preferences, callBack, callBackScope)
+    {
+        RM.AppMgr.saveServerRec('PayTransactionPreferences', true, preferences,
+		    function () {       
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
+    },
+    
+    getPreferences: function(callBack, callBackScope){
+        RM.AppMgr.getServerRecs('PayTransactionPreferences', [],
+		    function () {                    
+		        callBack.call(callBackScope);
+		    },
+		    this,
+            function(recs, eventMsg){
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+	    );
+    },
+    
     createTransaction: function(transaction, callBack, callBackScope)
     {
         RM.AppMgr.saveServerRec('PayTransaction', true, transaction,

@@ -13,9 +13,9 @@ Ext.define('RM.controller.PaySendReceiptC',{
             'paysendreceipt #sendreceiptbtn': {
                 tap: 'sendReceipt'
             },
-            'paysendreceipt #sendreceiptbtn2': {
+            /*'paysendreceipt #sendreceiptbtn2': {
                 tap: 'sendReceiptUsingSmsUri'
-            },
+            },*/
             'paysendreceipt #dontsendreceiptbtn': {
                 tap: 'done'
             },
@@ -62,24 +62,27 @@ Ext.define('RM.controller.PaySendReceiptC',{
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
         if(this.validateForm(vals)){
-            this.sendSMS(vals.SMS);
-            this.setReceiptContent(vals)
-            this.getPaySendReceipt().setActiveItem(1);
-        }
-        this.done();
+            this.sendSMS(vals.SMS);                       
+        }       
     },
     
-    sendSMS: function(phoneNumber) {
-        var number = phoneNumber;
-        alert('sending SMS using Cordova plugin' + phoneNumber);
-        var message = 'Test msg';
+    sendSMS: function(vals) {
+        var number = vals.SMS;
+        //alert('sending SMS using Cordova plugin' + phoneNumber);
+        var message = '';
         var intent = "INTENT"; //leave empty for sending sms using default intent
-        var success = function () { alert('Message sent successfully'); };
-        var error = function (e) { alert('Message Failed:' + e); };
+        var success = function () { 
+            this.setReceiptContent(vals); 
+            this.getPaySendReceipt().setActiveItem(1);
+            this.done();
+		};
+        var error = function (e) { 
+            RM.AppMgr.showErrorMsgBox('Message Failed:' + e); 
+        };
         sms.send(number, message, intent, success, error);        
     },
     
-    sendReceiptUsingSmsUri: function() {        
+    /*sendReceiptUsingSmsUri: function() {        
         var vals = {};
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
@@ -90,7 +93,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
             this.getPaySendReceipt().setActiveItem(1);
         }  
         this.done();
-    },
+    },*/
     
     setReceiptContent: function(vals){
         var msg = '';

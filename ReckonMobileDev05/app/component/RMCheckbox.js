@@ -71,6 +71,7 @@ Ext.define('RM.component.RMCheckbox', {
     setValue: function (boolVal) {
         this.val = boolVal;
         this.setCheckBoxState();
+        this.fireEvent('check', this.val);
     },
 
     setCheckBoxState: function () {

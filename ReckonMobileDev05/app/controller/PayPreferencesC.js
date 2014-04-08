@@ -31,13 +31,98 @@ Ext.define('RM.controller.PayPreferencesC',{
         }
      },
     
-    showView: function () {       
+    /*showView: function () {       
         var view = this.getPayPreference();
         if (!view){
             view = { xtype: 'paypreferences' };
         }       
         RM.ViewMgr.showPanel(view);  
-    },     
+    }, */  
+    
+    init: function () {
+        this.getApplication().addListener('rm-activeviewchanged', 'onActiveViewChanged', this);  
+    },
+    
+    onActiveViewChanged: function(newView) {
+        if(this.getPayPreferences() && newView.xtype === this.getPayPreferences().xtype) {            
+            this.resetFields();         
+        	RM.PayMgr.getPreferences(function(preferences){
+            	this.loadData(preferences);  
+            },this);    	
+        }        
+    },
+    
+    loadData: function(preferences){        
+        var includeSurcharge = this.getIncludeSurcharge();        
+        var surchargeType = this.getSurchargeType();
+        var surchargeAmount = this.getSurchargeAmount();
+        var surchargePercentage = this.getSurchargePercentage();
+        var email = this.getEmail();
+        var nameToShow = this.getNameToShow();
+        var receiptPrefix= this.getReceiptPrefix();
+        var nextReceiptNumber = this.getNextReceiptNumber();
+        var reckonDevice = this.getReckonPayDevice();        
+        if(includeSurcharge) {        
+            includeSurcharge.setValue(this.convertToBooleanValue(this.getPreferencesValue(preferences, 'IncludeSurcharge'))); 
+        }        
+        if(surchargeType) {
+            surchargeType.setValue(this.getPreferencesValue(preferences, 'SurchargeType'));	   
+        }
+        if(surchargeAmount) {
+            surchargeAmount.setValue(this.getPreferencesValue(preferences, 'SurchargeAmount'));	   
+        }
+        if(surchargePercentage) {
+            surchargePercentage.setValue(this.getPreferencesValue(preferences, 'SurchargePercentage'));	   
+        }
+        if(email) {
+            email.setValue(this.getPreferencesValue(preferences, 'Email'));	   
+        }
+        if(nameToShow) {
+            nameToShow.setValue(this.getPreferencesValue(preferences, 'NameToShow'));	   
+        }
+        if(receiptPrefix) {
+            receiptPrefix.setValue(this.getPreferencesValue(preferences, 'ReceiptPrefix'));	   
+        }
+        if(nextReceiptNumber) {
+            nextReceiptNumber.setValue(this.getPreferencesValue(preferences, 'NextReceiptNumber'));	   
+        }
+        if(reckonDevice) {            
+            reckonDevice.setValue(this.convertToBooleanValue(this.getPreferencesValue(preferences, 'ReckonPayDevice')));
+        }
+    },
+    
+    convertToBooleanValue: function(boolValue){
+        if(boolValue.toUpperCase() === 'TRUE'){
+            return true;
+        }
+        else{
+            return false;
+        }
+    },
+    
+    getPreferencesValue: function(preferences, key){
+        for(var i = 0; i < preferences.length; i++ ){
+            if(preferences[i].SettingName == key){                
+                console.log('key: ' + key + ' val: ' + preferences[i].Value);
+                return preferences[i].Value;
+            }
+        }        
+    },
+    
+    resetFields: function(){
+        var prefForm = this.getPayPreferencesForm();
+        var includeSurcharge = this.getIncludeSurcharge();
+        var reckonDevice = this.getReckonPayDevice();
+        if(prefForm) {
+            prefForm.reset();
+        }
+        if(includeSurcharge) {
+            includeSurcharge.setValue(false);	   
+        }
+        if(reckonDevice) {
+            reckonDevice.setValue(false);
+        }
+    },
     
     onSurchargeCheckBoxToggle: function() {
         if(this.getIncludeSurcharge().getValue()){
@@ -60,14 +145,22 @@ Ext.define('RM.controller.PayPreferencesC',{
     },
     
     onSurchargeTypeChange: function(control){
+        if(!this.getIncludeSurcharge().getValue()){
+            this.getSurchargeType().setHidden(true);
+            this.getSurchargeAmount().setHidden(true);
+            this.getSurchargePercentage().setHidden(true);
+            return;
+        }
   	  var surchargeType = control.getValue();
         if(surchargeType == 'Percentage'){
             this.getSurchargeAmount().setHidden(true);
         	this.getSurchargePercentage().setHidden(false);
+            this.getSurchargeAmount().setValue('');
         }
         else if(surchargeType == 'Absolute amount'){
             this.getSurchargeAmount().setHidden(false);
         	this.getSurchargePercentage().setHidden(true);
+            this.getSurchargePercentage().setValue('');
         }  
     },
     
@@ -82,13 +175,10 @@ Ext.define('RM.controller.PayPreferencesC',{
                 prefObj.SettingName = key;
                 prefObj.Value = value;
                 prefArray.push(prefObj);
-            });
-            
+            });            
             RM.PayMgr.postPreferences(prefArray, function(){
-                //RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
-            },this);  
-            
-            console.log(prefArray);
+                console.log(prefArray);
+            },this);           
         }    
     },   
     

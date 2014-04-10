@@ -62,19 +62,20 @@ Ext.define('RM.controller.PaySendReceiptC',{
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
         if(this.validateForm(vals)){
-            this.sendSMS(vals.SMS);                       
+            this.sendSMS(vals);                       
         }       
     },
     
     sendSMS: function(vals) {
         var number = vals.SMS;
         //alert('sending SMS using Cordova plugin' + phoneNumber);
-        var message = '';
+        var message = 'Test SMS from Reckon Pay';
         var intent = "INTENT"; //leave empty for sending sms using default intent
+        var me = this;
         var success = function () { 
-            this.setReceiptContent(vals); 
-            this.getPaySendReceipt().setActiveItem(1);
-            this.done();
+            me.setReceiptContent(vals); 
+            me.getPaySendReceipt().setActiveItem(1);
+            //me.done();
 		};
         var error = function (e) { 
             RM.AppMgr.showErrorMsgBox('Message Failed:' + e); 
@@ -115,7 +116,12 @@ Ext.define('RM.controller.PaySendReceiptC',{
         if( !vals.SMS && !vals.Email ){
             RM.AppMgr.showErrorMsgBox('Please enter Phone number or Email or both for receipt');            
             isValid = false;
-        } 
+        }
+         
+        if(vals.SMS && vals.SMS.length < 9) {
+            RM.AppMgr.showErrorMsgBox('Please recheck the number you have entered it appears too short');            
+            isValid = false;
+        }
          
         if (vals.Email !== '' && !RM.AppMgr.validateEmail(vals.Email)) {             
             this.getEmailFld().showValidation(false);

@@ -49,40 +49,53 @@ Ext.define('RM.controller.PayRecvCashC',{
     
     onCashFldChange: function() {
         if(this.getCashFld().getValue()){
-           this.validateForm();       
+            this.setChangeFldValue();
         }
         else{
             this.getChangeFld().setValue('');                      
         }
     },
     
-    validateForm: function(){
-        var isValid = true;
-        
-        var cashFldVal = this.getCashFld().getValue();
-        var cash = parseFloat(cashFldVal); 
+    calculateChange: function(){        
+        var cash = parseFloat(this.getCashFld().getValue()); 
         var total = parseFloat(this.data.Total);
         var change = cash - total;
+        return change;
+    },
+    
+    setChangeFldValue: function(){        
+        var change = this.calculateChange();        
+        if(change < 0){
+             this.getChangeFld().setValue('');               
+        }
+        else {
+            this.getChangeFld().setValue(change);
+        }     
+    },   
+    
+    validateForm: function(){
+        var isValid = true;
+        var cashFldVal = this.getCashFld().getValue();
+        var cash = parseFloat(cashFldVal); 
+        var change = this.calculateChange();
         if (Ext.isNumber(cash)) {
             if(change < 0){
-                 RM.AppMgr.showErrorMsgBox('Cash received cannot be less than the total amount');   
-                 isValid = false;                
-            }
-            else {
-                this.getChangeFld().setValue(change);
-            }            
+                 RM.AppMgr.showErrorMsgBox('Cash received cannot be less than the total amount', function(){
+                     this.clearFields();
+                 }, this);   
+                 isValid = false;
+                 return isValid;
+            }                      
         }
-        else if(!cashFldVal){
+        if(!cashFldVal){
             RM.AppMgr.showErrorMsgBox('Please enter cash received'); 
             isValid = false;
         }        
         return isValid;
     },
     
-    tenderCash: function(){
-        
-        this.data.PaymentMethodId = 1;
-        
+    tenderCash: function(){        
+        this.data.PaymentMethodId = 1;        
         if(this.validateForm()){
         	RM.PayMgr.createTransaction(this.data, function(){
                 RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      

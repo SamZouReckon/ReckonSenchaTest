@@ -52,7 +52,7 @@ Ext.define('RM.view.PayPreferences',{
                         placeHolder: 'choose',
                         options: [
                                     {text: 'Percentage',  value: 'Percentage'},
-                                    {text: 'Absolute amount', value: 'Absolute amount'}
+                                    {text: 'Amount', value: 'Amount'}
                                 ]
                     },{
                         xtype: 'rmamountfield',

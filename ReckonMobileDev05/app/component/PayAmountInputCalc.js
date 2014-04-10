@@ -289,7 +289,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
     },
     
     addToInputHistory: function(){
-        if(this.inputStr === '+' || this.inputStr === '*' || this.inputStr === '=' || this.inputStr === ''){
+        if(this.inputStr === '+' || this.inputStr === '*' || this.inputStr === '=' || this.inputStr === '' || this.inputStr === '.' || this.inputStr === '+.' || this.inputStr === '*.'){
             this.inputStr = ''
             return;
         }         

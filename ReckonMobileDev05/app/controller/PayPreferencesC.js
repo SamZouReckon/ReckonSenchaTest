@@ -132,7 +132,7 @@ Ext.define('RM.controller.PayPreferencesC',{
                 this.getSurchargeAmount().setHidden(true);
             	this.getSurchargePercentage().setHidden(false);
             }
-            else if(surchargeType == 'Absolute amount'){
+            else if(surchargeType == 'Amount'){
                 this.getSurchargeAmount().setHidden(false);
             	this.getSurchargePercentage().setHidden(true);
             }
@@ -157,7 +157,7 @@ Ext.define('RM.controller.PayPreferencesC',{
         	this.getSurchargePercentage().setHidden(false);
             this.getSurchargeAmount().setValue('');
         }
-        else if(surchargeType == 'Absolute amount'){
+        else if(surchargeType == 'Amount'){
             this.getSurchargeAmount().setHidden(false);
         	this.getSurchargePercentage().setHidden(true);
             this.getSurchargePercentage().setValue('');
@@ -207,7 +207,7 @@ Ext.define('RM.controller.PayPreferencesC',{
             		return isValid;
                 }
             }
-            else if(vals.SurchargeType == 'Absolute amount'){
+            else if(vals.SurchargeType == 'Amount'){
                 if(!vals.SurchargeAmount){
                     this.getSurchargeAmount().showValidation(false);
             		isValid = false;            

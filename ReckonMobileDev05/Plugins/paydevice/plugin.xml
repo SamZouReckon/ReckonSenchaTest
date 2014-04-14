@@ -28,7 +28,10 @@
         
         <header-file src="src/ios/PayDevice.h" />
         <source-file src="src/ios/PayDevice.m" />
+
+		<resource-file src="MPEAPI.bundle" />
         
+		<framework src="MPEAPI.framework"/>
         <framework src="libsqlite3.0.dylib"/>
         <framework src="libstdc++.dylib"/>
         <framework src="Foundation.framework"/>
@@ -45,9 +48,6 @@
         <framework src="AVFoundation.framework"/>
         <framework src="AudioToolbox.framework"/>
         <framework src="MessageUI.framework"/>
-
-        <header-file src="src/ios/MPEAPI.h"/>
-        <source-file framework="true" src="src/ios/libMPEAPI.a"/>
     </platform>
 
 </plugin>

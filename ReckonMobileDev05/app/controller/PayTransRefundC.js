@@ -5,6 +5,7 @@ Ext.define('RM.controller.PayTransRefundC',{
         refs: {
             payTransRefund: 'paytransrefund',
             notesFld: 'paytransrefund #notes',
+            reasonFld: 'paytransrefund #reason',
             amountFld: 'paytransrefund #amount'
         },
         control: {            

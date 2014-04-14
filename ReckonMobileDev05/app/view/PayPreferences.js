@@ -52,7 +52,7 @@ Ext.define('RM.view.PayPreferences',{
                         placeHolder: 'choose',
                         options: [
                                     {text: 'Percentage',  value: 'Percentage'},
-                                    {text: 'Absolute amount', value: 'Absolute amount'}
+                                    {text: 'Amount', value: 'Amount'}
                                 ]
                     },{
                         xtype: 'rmamountfield',
@@ -106,7 +106,8 @@ Ext.define('RM.view.PayPreferences',{
 							tap: {
 								element: 'element',                    
 								fn: function () { 
-									window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');                              
+                                    RM.AppMgr.showSuccessMsgBox('Email sent');  
+									//window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');                              
 								}
 							}
 						}

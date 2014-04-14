@@ -26,8 +26,8 @@ Ext.define('RM.core.PayMgr', {
     
     getPreferences: function(callBack, callBackScope){
         RM.AppMgr.getServerRecs('PayTransactionPreferences', [],
-		    function () {                    
-		        callBack.call(callBackScope);
+		    function (data) {    
+                callBack.call(callBackScope,data);
 		    },
 		    this,
             function(recs, eventMsg){

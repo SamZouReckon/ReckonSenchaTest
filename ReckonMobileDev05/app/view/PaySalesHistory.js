@@ -19,8 +19,7 @@ Ext.define('RM.view.PaySalesHistory', {
                 xtype: 'sortsearchbar',				
                 docked: 'top',
                 sortfields: [
-                    {text: 'Date',  value: 'TransactionDate'},
-                    {text: 'Payer Name', value: 'PayerName'}
+                    {text: 'Date',  value: 'TransactionDate'}                    
                 ]
             },{
                 xtype: 'rmlist',
@@ -46,7 +45,7 @@ Ext.define('RM.view.PaySalesHistory', {
                     '<div class="rm-orgnametext">{[this.formatCurrency(values)]}</div>' +
                     '<div class="rm-booknametext rm-mr5">{Description}</div>' +
                     '</td>' +
-                    '<td valign="top" width="180"><div class="rm-booknametext">{[this.formatDate(values)]}</div></td>' +
+                    '<td valign="top" width="80"><div class="rm-booknametext rm-alignr">{[this.formatDate(values)]}</div></td>' +
                     '<td>' +
                     '</tr>' +
                     '</table>',
@@ -56,7 +55,7 @@ Ext.define('RM.view.PaySalesHistory', {
                             return RM.AppMgr.formatCurrency(amountToPay, 0);
                         },
                         formatDate: function(values) {
-                            return Ext.Date.format(values.TransactionDate, 'jS M Y');
+                            return Ext.Date.format(values.TransactionDate, 'd/m/y');
                         }
                 })				
             }

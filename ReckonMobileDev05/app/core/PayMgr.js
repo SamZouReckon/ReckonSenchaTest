@@ -2,6 +2,10 @@ Ext.define('RM.core.PayMgr', {
     alternateClassName: 'RM.PayMgr',
     singleton: true,
     requires: ['RM.core.ViewMgr','RM.core.PermissionsMgr'],  
+    
+    config: {
+        payId: null        
+    },
 
     init: function (application) {
         

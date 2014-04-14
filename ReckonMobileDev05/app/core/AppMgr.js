@@ -78,13 +78,17 @@ Ext.define('RM.core.AppMgr', {
                 localStorage.getItem('RmDisplayName'),
 				function (loginDto) {
                     this.doAfterLogin(loginDto);
-                    /*if (RM.CashbookMgr.getCashbookId()) {
+                    if (RM.CashbookMgr.getCashbookId()) {
                          RM.ViewMgr.back();
-                    }                    
+                    } 
+                    else if(RM.PayMgr.getPayId()){
+                        RM.ViewMgr.back();
+                    }
                     else {
-                        RM.CashbookMgr.selectCashBook();
-                    }*/
-                    this.selectModule();
+                        //RM.CashbookMgr.selectCashBook();
+                        this.selectModule();       
+                    }
+                    //this.selectModule();                    
 				},
 				this,
                 function(){

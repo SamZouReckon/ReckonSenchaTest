@@ -27,14 +27,11 @@ Ext.define('RM.view.PaySendReceipt',{
 						]
 							
 					},{
-                        xtype: 'exttextfield',
+                        xtype: 'rmphonefield',
                         name: 'SMS',
                         clearIcon: false,
                         cls: 'rm-flatfield',
-                        label: 'SMS receipt',
-                        component : {
-                            type : 'tel'
-                        },
+                        label: 'SMS receipt',                        
                         labelWidth: '6.5em',
                         placeHolder: 'enter'
                     },{
@@ -87,10 +84,13 @@ Ext.define('RM.view.PaySendReceipt',{
 						xtype: 'button',
                         itemId: 'done',
 						text: '<span class="rm-btn-arrow">DONE</span>',
-                        cls: 'rm-photopreviewbtn'
-						
-						
-					}
+                        cls: 'rm-photopreviewbtn'					
+					},{
+                        xtype: 'button',
+                        itemId: 'retry',
+						text: '<span class="rm-btn-arrow">RETRY</span>',
+                        cls: 'rm-photopreviewbtn'	
+                    }
 				]
             }
          ] 

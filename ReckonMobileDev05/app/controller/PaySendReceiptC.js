@@ -21,6 +21,12 @@ Ext.define('RM.controller.PaySendReceiptC',{
             },
             'paysendreceipt #done': {
                 tap: 'done'
+            },
+            'paysendreceipt #done': {
+                tap: 'done'
+            },
+            'paysendreceipt #retry':{
+                tap: 'retry'
             }
         }
      },
@@ -73,14 +79,21 @@ Ext.define('RM.controller.PaySendReceiptC',{
         var intent = "INTENT"; //leave empty for sending sms using default intent
         var me = this;
         var success = function () { 
+            //alert('success');
             me.setReceiptContent(vals); 
             me.getPaySendReceipt().setActiveItem(1);
+            //alert('popup after showing card 1');
             //me.done();
 		};
-        var error = function (e) { 
+        var error = function (e) {
+            //alert('error');
             RM.AppMgr.showErrorMsgBox('Message Failed:' + e); 
         };
         sms.send(number, message, intent, success, error);        
+    },
+    
+    retry: function(){
+        this.getPaySendReceipt().setActiveItem(0);
     },
     
     /*sendReceiptUsingSmsUri: function() {        

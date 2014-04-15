@@ -5,8 +5,8 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         refs: {
             payRecvManualCard: 'payrecvmanualcard',
             payRecvManualCardTitle: 'payrecvmanualcard #title',
-            payRecvManualCardForm: 'payrecvmanualcard #payrecvmanualcardform',
-            cardTypeFld: 'payrecvmanualcard textfield[name=CardType]',
+            //payRecvManualCardForm: 'payrecvmanualcard #payrecvmanualcardform',
+            cardTypeFld: 'payrecvmanualcard textfield[name=PaymentMethodId]',
             dateFld: 'payrecvmanualcard textfield[name=Date]'
         },
         control: {
@@ -32,7 +32,9 @@ Ext.define('RM.controller.PayRecvManualCardC',{
             view = { xtype: 'payrecvmanualcard' };
         }       
         RM.ViewMgr.showPanel(view);
-        this.getPayRecvManualCardForm().reset();
+        this.getCardTypeFld().setValue(null);
+        this.getDateFld().setValue(null);
+        //this.getPayRecvManualCardForm().reset();
         this.getPayRecvManualCardTitle().setHtml('$'+data.Total);
     },
     
@@ -42,11 +44,11 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     
     recordTransaction: function() {
         
-        var vals = this.getPayRecvManualCardForm().getValues();
-        
-        this.data.PaymentMethodId = 3;
-        
-        if(this.validateForm(vals)){
+        //var vals = this.getPayRecvManualCardForm().getValues();
+        var cardType = this.getCardTypeFld().getValue();        
+        this.data.PaymentMethodId = cardType;
+        this.data.TransactionDate = this.getDateFld().getValue();
+        if(this.validateForm(this.data)){
         	RM.PayMgr.createTransaction(this.data, function(){            
                 RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
             },this);            
@@ -60,14 +62,12 @@ Ext.define('RM.controller.PayRecvManualCardC',{
     validateForm: function(vals){        
         var isValid = true;
         
-        if( vals.CardType === undefined || vals.CardType === null || vals.CardType === ''){
-            //RM.AppMgr.showErrorMsgBox('Please choose credit card type');
+        if( vals.PaymentMethodId === undefined || vals.PaymentMethodId === null || vals.PaymentMethodId === ''){            
             this.getCardTypeFld().showValidation(false);
             isValid = false;
         }       
         
-        if( ! vals.Date ){
-            //RM.AppMgr.showErrorMsgBox('Please enter a date for transaction');
+        if( ! vals.TransactionDate ){    
             this.getDateFld().showValidation(false);
             isValid = false;
         } 

@@ -33,22 +33,23 @@ Ext.define('RM.view.PayRecvCheque',{
             itemId: 'payrecvchequeform',
             items: [
                     {
-                        xtype: 'exttextfield',
+                        xtype: 'rmnumberfield',
                         label: 'Cheque number',
                         name: 'ChequeNumber',
                         placeHolder: 'enter',
                         labelWidth: '12em',
+                        rmmandatory: true,
                         clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
-                        xtype: 'extnumberfield',
+                        xtype: 'rmnumberfield',
                         label: 'BSB',
                         name: 'BSB',
                         placeHolder: 'enter',
                         clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
-                        xtype: 'extnumberfield',
+                        xtype: 'rmnumberfield',
                         label: 'Account number',
                         name: 'AccountNumber',
                         labelWidth: '9em',
@@ -60,6 +61,7 @@ Ext.define('RM.view.PayRecvCheque',{
                         label: 'Drawer',
                         itemId: 'drawer',
                         name: 'Drawer',
+                        rmmandatory: true,
                         clearIcon: false,
                         placeHolder: 'enter',
                         cls: 'rm-flatfield'
@@ -67,6 +69,7 @@ Ext.define('RM.view.PayRecvCheque',{
                         xtype: 'extdatepickerfield',
                         itemId: 'date',
                         name: 'Date',
+                        rmmandatory: true,
                         dateFormat : 'jS M Y',
                         label: 'Date',
                         cls: 'rm-flatfield'

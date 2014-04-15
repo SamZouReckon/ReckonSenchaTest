@@ -171,10 +171,12 @@ Ext.define('RM.core.ViewMgr', {
         
         RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputNavC').showView(data, cb, cbs);
         this.showPanel(this.mainNavContainer, anim);
+        RM.PayMgr.setPayId('PayWithSlideNav');
     },
     
     showPayFromOne: function(anim, data, cb, cbs){        
         RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputBackC').showView(data, cb, cbs);
+        RM.PayMgr.setPayId('PayFromOne');
     },
     
     isDashboardShowing: function(){

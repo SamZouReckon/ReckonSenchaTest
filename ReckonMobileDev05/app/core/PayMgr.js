@@ -4,7 +4,7 @@ Ext.define('RM.core.PayMgr', {
     requires: ['RM.core.ViewMgr','RM.core.PermissionsMgr'],  
     
     config: {
-        payId: null        
+        loadPayOnAppResume: null     //to check and load Pay screen when screen gets locked and resuming app 
     },
 
     init: function (application) {

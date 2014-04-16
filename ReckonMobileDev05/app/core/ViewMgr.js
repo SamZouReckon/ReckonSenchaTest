@@ -171,12 +171,12 @@ Ext.define('RM.core.ViewMgr', {
         
         RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputNavC').showView(data, cb, cbs);
         this.showPanel(this.mainNavContainer, anim);
-        RM.PayMgr.setPayId('PayWithSlideNav');
+        RM.PayMgr.setLoadPayOnAppResume(true);			//to load Pay screen when screen gets locked and resuming app 
     },
     
     showPayFromOne: function(anim, data, cb, cbs){        
         RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputBackC').showView(data, cb, cbs);
-        RM.PayMgr.setPayId('PayFromOne');
+        RM.PayMgr.setLoadPayOnAppResume(true);			//to load Pay screen when screen gets locked and resuming app 
     },
     
     isDashboardShowing: function(){

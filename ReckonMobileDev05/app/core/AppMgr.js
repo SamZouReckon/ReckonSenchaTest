@@ -81,7 +81,7 @@ Ext.define('RM.core.AppMgr', {
                     if (RM.CashbookMgr.getCashbookId()) {
                          RM.ViewMgr.back();
                     } 
-                    else if(RM.PayMgr.getPayId()){
+                    else if(RM.PayMgr.getLoadPayOnAppResume()){
                         RM.ViewMgr.back();
                     }
                     else {

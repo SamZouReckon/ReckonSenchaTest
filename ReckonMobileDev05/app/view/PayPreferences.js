@@ -106,13 +106,21 @@ Ext.define('RM.view.PayPreferences',{
 							tap: {
 								element: 'element',                    
 								fn: function () { 
-                                    RM.AppMgr.showSuccessMsgBox('Email sent');  
-									//window.open(RM.HomeSettingsMgr.getSetting('AppInfoUrl'), '_blank', 'location=no');                              
+                                    RM.AppMgr.showSuccessMsgBox('Email sent');	                        
 								}
 							}
 						}
-                    },
-                	{
+                    },{            
+            			xtype: 'rmcheckbox',	
+                        name: 'Bcc',
+                        itemId: 'includebcc',
+            			border: 0,
+                        text: 'BCC receipt',
+            			labelCls: 'rm-paypreferences-leftalign rm-fontsize80 rm-pref-headingtitle',						
+            			cls: 'rm-pl15 rm-checkbox-rightalign',
+                        margin: '0 0 10 0',
+                        value: false
+                    },{
                         xtype: 'exttextfield',
                         name: 'NameToShow',
                         placeHolder: 'enter',
@@ -120,8 +128,7 @@ Ext.define('RM.view.PayPreferences',{
                         clearIcon: false,
                         label: 'Name to show',
                         labelWidth: '8em'
-                    },
-                	{
+                    },{
                         xtype: 'component',
                         cls: ['rm-pl15', 'rm-fontweightbold', 'rm-pref-headingtitle', 'rm-fontsize80'],
                         html: 'Receipt settings',

@@ -49,7 +49,7 @@ Ext.define('RM.view.PayRecvCheque',{
                         clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
-                        xtype: 'rmnumberfield',
+                        xtype: 'extnumberfield',
                         label: 'Account number',
                         name: 'AccountNumber',
                         labelWidth: '9em',

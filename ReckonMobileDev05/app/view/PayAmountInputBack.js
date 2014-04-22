@@ -21,7 +21,14 @@ Ext.define('RM.view.PayAmountInputBack', {
                                 html: '',
                                 cls: 'rm-topbartitle',
                                 itemId: 'toolbarTitle'
-                            }
+                            },{
+        						xtype: 'spacer'
+        					},{
+                				text: 'Details',
+                				itemId: 'details', 
+                                width: '5em',
+                				ui: 'rm_topbarbuttonright'
+                			}
                          ]             
             },{
                 xtype: 'payamountinputcalc',

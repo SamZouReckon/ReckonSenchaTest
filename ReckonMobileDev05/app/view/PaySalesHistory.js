@@ -11,7 +11,7 @@ Ext.define('RM.view.PaySalesHistory', {
                 items: [
                     {
                         xtype: 'component',
-                        html: 'Sales History',
+                        html: 'Transaction history',
                         cls: 'rm-topbartitle',
                     }
                 ]
@@ -43,7 +43,7 @@ Ext.define('RM.view.PaySalesHistory', {
                     '.svg" style= "width: 28px; height: 18px;"></td>' +
                     '<td valign="top" width="200">' +
                     '<div class="rm-orgnametext">{[this.formatCurrency(values)]}</div>' +
-                    //'<div class="rm-booknametext rm-mr5">{Description}</div>' +
+                    '<div class="rm-booknametext rm-mr5">{Description}</div>' +
                     '</td>' +
                     '<td valign="top" width="80"><div class="rm-booknametext rm-alignr">{[this.formatDate(values)]}</div></td>' +
                     '<td>' +

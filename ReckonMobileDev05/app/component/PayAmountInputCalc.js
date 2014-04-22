@@ -358,7 +358,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
         alert('camera btn tapped');
     },
     
-    onChargeBtnTap: function(){
+    validateAndCalculateAmount: function(){
         this.onCalcKeyTap('=');        
         if(!this.data){
             this.data = {}; 
@@ -384,11 +384,21 @@ Ext.define('RM.component.PayAmountInputCalc', {
         }
         else if (discount.indexOf('$') > -1) {
             this.data.DiscountAmount = discount.replace('$', '');
-        }
-        
+        }        
         if(this.validateForm(this.data)){ 
-            this.totalWithSurchargeAndDiscount();
-            console.log(this.data);
+            this.totalWithSurchargeAndDiscount();            
+            return true;
+        }        
+    },
+    
+    onDetails: function(){
+        if(this.validateAndCalculateAmount()){  
+            RM.PayMgr.showScreen('PayAmountDetails', this.data, this.callback, this.callbackScope);
+        } 
+    },
+    
+    onChargeBtnTap: function(){      
+        if(this.validateAndCalculateAmount()){  
             RM.PayMgr.showScreen('PayTransTypeSelect', this.data, this.callback, this.callbackScope);
         }        
     },

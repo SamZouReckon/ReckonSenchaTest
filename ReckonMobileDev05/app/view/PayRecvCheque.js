@@ -37,7 +37,7 @@ Ext.define('RM.view.PayRecvCheque',{
                         label: 'Cheque number',
                         name: 'ChequeNumber',
                         placeHolder: 'enter',
-                        labelWidth: '12em',
+                        labelWidth: '9em',
                         rmmandatory: true,
                         clearIcon: false,
                         cls: 'rm-flatfield'
@@ -49,9 +49,10 @@ Ext.define('RM.view.PayRecvCheque',{
                         clearIcon: false,
                         cls: 'rm-flatfield'
                     },{
-                        xtype: 'extnumberfield',
+                        xtype: 'rmnumberfield',
                         label: 'Account number',
                         name: 'AccountNumber',
+                        allowedCharacters: '-',		//to allow hyphen '-' in Account number field
                         labelWidth: '9em',
                         placeHolder: 'enter',
                         clearIcon: false,

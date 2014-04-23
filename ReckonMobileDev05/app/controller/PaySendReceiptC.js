@@ -64,7 +64,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
     },
     
     onEmailFieldTap: function(){
-        RM.AppMgr.showErrorMsgBox('From email address must be set in Preferences before a receipt can be sent via email');
+        RM.AppMgr.showErrorMsgBox('\'From\' email address must be set in Preferences before a receipt can be sent via email');
     },
     
     sendReceipt: function () {

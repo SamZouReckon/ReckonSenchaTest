@@ -15,7 +15,14 @@ Ext.define('RM.view.PayAmountInputNav', {
                                 html: '',
                                 cls: 'rm-topbartitle',
                                 itemId: 'toolbarTitle'
-                            }
+                            },{
+        						xtype: 'spacer'
+        					},{
+                				text: 'Details',
+                				itemId: 'details', 
+                                width: '5em',
+                				ui: 'rm_topbarbuttonright'
+                			}
                          ]             
             },{
                 xtype: 'payamountinputcalc',

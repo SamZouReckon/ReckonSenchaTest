@@ -11,7 +11,10 @@ Ext.define('RM.controller.PayAmountInputBackC', {
         control: {         
             'payamountinputback #back': {
                 tap: 'back'  
-            }            
+            },
+            'payamountinputback #details': {
+                tap: 'onDetails'
+            }
         }
     },
     
@@ -23,6 +26,10 @@ Ext.define('RM.controller.PayAmountInputBackC', {
         RM.ViewMgr.showPanel(view);
         this.getPayAmountInputCalcPanel().loadData(data, cb, cbs);
         this.getToolbarTitle().setHtml('Joe Plumber');
+    },
+    
+    onDetails: function(){
+        this.getPayAmountInputCalcPanel().onDetails();
     },
     
     back: function () {

@@ -95,7 +95,7 @@ Ext.define('RM.controller.PayRecvCashC',{
     },
     
     tenderCash: function(){        
-        this.data.PaymentMethodId = 1;        
+        this.data.PaymentMethodId = 2;        
         if(this.validateForm()){
         	RM.PayMgr.createTransaction(this.data, function(){
                 RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      

@@ -31,15 +31,15 @@ Ext.define('RM.view.PaySendReceipt',{
                         name: 'SMS',
                         clearIcon: false,
                         cls: 'rm-flatfield',
-                        label: 'SMS receipt',                        
-                        labelWidth: '6.5em',
+                        label: 'SMS a receipt',                        
+                        labelWidth: '7.5em',
                         placeHolder: 'enter'
                     },{
                         xtype: 'exttextfield',
                         name: 'Email',
                         clearIcon: false,
                         cls: 'rm-flatfield',
-                        label: 'Email receipt',
+                        label: 'Email a receipt',
                         labelWidth: '7.5em',
                         placeHolder: 'enter'
                     },{

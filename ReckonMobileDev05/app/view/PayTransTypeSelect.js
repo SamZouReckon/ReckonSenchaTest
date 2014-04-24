@@ -60,7 +60,7 @@ Ext.define('RM.view.PayTransTypeSelect', {
 			text: 'Other credit transaction',
             itemId: 'other',
 			cls: ['rm-arrowimgbtn', 'rm-paymenttype-btn-bg'],	
-			icon: 'resources/images/icons/rm-cheque.svg',
+			icon: 'resources/images/icons/rm-manualcreditcard.svg',
             iconCls: 'rm-btn-iconsize',
 			iconAlign: 'left',
 			//paymentType: RM.Consts.PaymentMethodTypes.OTHER

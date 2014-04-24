@@ -19,12 +19,12 @@ Ext.define('RM.controller.PaySendReceiptC',{
             'paysendreceipt #dontsendreceiptbtn': {
                 tap: 'done'
             },
+            /*'paysendreceipt textfield[name=Email]':{
+                tap: 'onEmailFieldTap'
+            },*/
             'paysendreceipt #done': {
                 tap: 'done'
-            },
-            'paysendreceipt #done': {
-                tap: 'done'
-            },
+            },            
             'paysendreceipt #retry':{
                 tap: 'retry'
             }
@@ -61,6 +61,10 @@ Ext.define('RM.controller.PaySendReceiptC',{
         else{
             RM.ViewMgr.showPayWithSlideNav();
         }
+    },
+    
+    onEmailFieldTap: function(){
+        RM.AppMgr.showErrorMsgBox('\'From\' email address must be set in Preferences before a receipt can be sent via email');
     },
     
     sendReceipt: function () {

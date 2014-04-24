@@ -981,6 +981,8 @@ $font-family: 'Open Sans', sans-serif !default;
     .rm-colorgreen {color: #A2D079;}
     .rm-colorblue{color: #5095E1;}
 	.rm-colorblack{color: #323232;}
+	.rm-colorgrey{color: #646464}
+	.rm-colorlightgrey{color: #969696;}
 	.rm-pref-headingtitle{color: #646464;}
     .rm-border1px { border-top: 1px solid #DBDBDB;}
 
@@ -2379,3 +2381,27 @@ rm-emailinvoicebackground{
 	padding-right: 6px;
 	margin-right: 10px;
 }
+
+.rm-paymethod{
+	background-position: left 4px !important; 
+    background-repeat: no-repeat;
+    background-size: 20px;	
+}
+
+.rm-cash{	
+	background-image: url("../images/icons/rm-cash.svg"); 
+}
+
+.rm-cheque{	
+	background-image: url("../images/icons/rm-cheque.svg"); 
+}
+
+.rm-creditcard{	
+	background-image: url("../images/icons/rm-creditcard.svg"); 
+}
+
+.rm-manualcreditcard{
+	background-image: url("../images/icons/rm-manualcreditcard.svg");
+}
+
+

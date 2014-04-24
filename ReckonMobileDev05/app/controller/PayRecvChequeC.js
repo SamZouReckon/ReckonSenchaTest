@@ -44,7 +44,7 @@ Ext.define('RM.controller.PayRecvChequeC',{
     charge: function(){
        var vals = this.getPayRecvChequeForm().getValues(); 
         
-       this.data.PaymentMethodId = 2;
+       this.data.PaymentMethodId = 3;
         
        if(this.validateForm(vals)){
         	RM.PayMgr.createTransaction(this.data, function(){            

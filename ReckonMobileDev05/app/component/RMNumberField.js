@@ -45,9 +45,19 @@ Ext.define('RM.component.RMNumberField', {
                 this
             );*/            
         }
-        else{
-            //remove no number chars from input such as #,*
-            this.setValue(val.replace(/\D/g,''));
+        else{            
+            if(this.config.allowedCharacters && this.config.allowedCharacters === '-'){
+                //We have used character class with ^ negation:
+                //to allow alphanumeric val with _ and -
+                //this.setValue(val.replace(/[^a-zA-Z0-9_-]/g,''));
+                
+                //to allow 0-9 and hyphen '-'
+                this.setValue(val.replace(/[^0-9-]/g,''));
+            }
+            else{
+                //remove no number chars from input such as #,*
+                this.setValue(val.replace(/\D/g,''));
+            }            
         }
 
 

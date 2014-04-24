@@ -256,7 +256,7 @@ Ext.define('RM.view.MainNavContainer', {
         },{
             index: 'PaySalesHistory',
             xtype: 'paysaleshistory',
-            title: 'Sales history',
+            title: 'Transaction history',
             activated: true,
             group: 'RECKON PAY',
             slideButton: {

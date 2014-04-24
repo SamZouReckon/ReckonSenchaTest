@@ -43,7 +43,7 @@ Ext.define('RM.view.PayTransDetails', {
             cls: 'rm-flatfield',
             dateFormat : 'jS M Y',
             readOnly: true,
-            label: 'Paid'
+            label: 'Paid on'
         },{
             xtype: 'exttextfield',
             itemId: 'cardno',

@@ -10,6 +10,7 @@ Ext.define('RM.controller.PayPreferencesC',{
             surchargeAmount: 'paypreferences textfield[name = SurchargeAmount]',
             surchargePercentage: 'paypreferences textfield[name = SurchargePercentage]',
             email: 'paypreferences textfield[name = Email]',
+            includeBcc: 'paypreferences #includebcc',
             nameToShow: 'paypreferences textfield[name = NameToShow]',
             receiptPrefix: 'paypreferences textfield[name = ReceiptPrefix]',
             nextReceiptNumber: 'paypreferences textfield[name = NextReceiptNumber]',
@@ -58,6 +59,7 @@ Ext.define('RM.controller.PayPreferencesC',{
         var surchargeAmount = this.getSurchargeAmount();
         var surchargePercentage = this.getSurchargePercentage();
         var email = this.getEmail();
+        var includeBcc = this.getIncludeBcc();
         var nameToShow = this.getNameToShow();
         var receiptPrefix= this.getReceiptPrefix();
         var nextReceiptNumber = this.getNextReceiptNumber();
@@ -77,6 +79,9 @@ Ext.define('RM.controller.PayPreferencesC',{
         if(email) {
             email.setValue(this.getPreferencesValue(preferences, 'Email'));	   
         }
+        if(includeBcc) {
+            includeBcc.setValue(this.convertToBooleanValue(this.getPreferencesValue(preferences, 'IncludeBcc')));	   
+        }
         if(nameToShow) {
             nameToShow.setValue(this.getPreferencesValue(preferences, 'NameToShow'));	   
         }
@@ -92,7 +97,7 @@ Ext.define('RM.controller.PayPreferencesC',{
     },
     
     convertToBooleanValue: function(boolValue){
-        if(boolValue.toUpperCase() === 'TRUE'){
+        if(boolValue && boolValue.toUpperCase() === 'TRUE'){
             return true;
         }
         else{
@@ -113,6 +118,7 @@ Ext.define('RM.controller.PayPreferencesC',{
         var prefForm = this.getPayPreferencesForm();
         var includeSurcharge = this.getIncludeSurcharge();
         var reckonDevice = this.getReckonPayDevice();
+        var includeBcc = this.getIncludeBcc();
         if(prefForm) {
             prefForm.reset();
         }
@@ -121,6 +127,9 @@ Ext.define('RM.controller.PayPreferencesC',{
         }
         if(reckonDevice) {
             reckonDevice.setValue(false);
+        }
+        if(includeBcc) {
+            includeBcc.setValue(false);
         }
     },
     
@@ -167,7 +176,8 @@ Ext.define('RM.controller.PayPreferencesC',{
     onSave: function(){        
         var data = this.getPayPreferencesForm().getValues();
         data.IncludeSurcharge = this.getIncludeSurcharge().getValue();
-        data.ReckonPayDevice = this.getReckonPayDevice().getValue();        
+        data.ReckonPayDevice = this.getReckonPayDevice().getValue();
+        data.IncludeBcc = this.getIncludeBcc().getValue();
         if(this.validateForm(data)){  
             var prefArray = new Array();           
             Ext.Object.each(data, function(key, value) {

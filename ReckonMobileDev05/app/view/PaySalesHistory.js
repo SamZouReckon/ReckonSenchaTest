@@ -28,7 +28,7 @@ Ext.define('RM.view.PaySalesHistory', {
                 emptyText: 'No transactions found.',
                 grouped: true,				
                 itemTpl: new Ext.XTemplate(
-                		'<div style= "padding-left: 30px;" class = "rm-paymethod ' + 
+                		'<div class = "rm-pl30 rm-paymethod ' + 
                 			'<tpl if="PaymentMethodId == 1">'+
                                     'rm-cash'+                                            
                                 '</tpl>'+ 

@@ -115,7 +115,7 @@ Ext.define('RM.view.PayPreferences',{
                         name: 'Bcc',
                         itemId: 'includebcc',
             			border: 0,
-                        text: 'BCC receipt',
+                        text: 'Send copy of receipt to above email',
             			labelCls: 'rm-paypreferences-leftalign rm-fontsize80 rm-pref-headingtitle',						
             			cls: 'rm-pl15 rm-checkbox-rightalign',
                         margin: '0 0 10 0',

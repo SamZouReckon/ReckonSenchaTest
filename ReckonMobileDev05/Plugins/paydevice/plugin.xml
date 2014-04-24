@@ -27,7 +27,7 @@
             </feature>
         </config-file>
         
-        <header-file src="src/ios/PayDevice.h" />
+        <!--<header-file src="src/ios/PayDevice.h" />
         <source-file src="src/ios/PayDevice.m" />
 		
 		<header-file src="src/ios/MPEAPI.h"/>
@@ -52,7 +52,7 @@
         <framework src="MediaPlayer.framework"/>
         <framework src="AVFoundation.framework"/>
         <framework src="AudioToolbox.framework"/>
-        <framework src="MessageUI.framework"/>
+        <framework src="MessageUI.framework"/>-->
     </platform>
 
 </plugin>

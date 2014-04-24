@@ -39,24 +39,36 @@ NSString *callBackId;
 
 	-(void)MPEinteractionEvent:(MPEbaseInteraction*) interaction
     {
-        /*MPEinteractionType interactionType = interaction.typeOfInteraction;
+        MPEinteractionType interactionType = interaction.interactionType;
 
         switch(interactionType)
         {
-            case displayMessage :
+            case ITDisplayMessage :
             {
-                MPEdisplayMessageInteraction* displayInteraction = (MPEdisplayMessageInteraction*) transaction;
-                [self displayMessageInteraction:displayInteraction];
+                MPEdisplayMessageInteraction* displayInteraction = (MPEdisplayMessageInteraction*) interaction;
+
+				NSLog(@"%@.",displayInteraction.message);  
+                //[self displayMessageInteraction:displayInteraction];
+
+				break;
+            }
+			case ITPinEntry :
+            {
+                MPEpinEntryInteraction* displayInteraction = (MPEpinEntryInteraction*) interaction;
+
+				NSLog(@"%@.",displayInteraction.message);  
+                //[self displayMessageInteraction:displayInteraction];
 
 				break;
             }
             default:
             {
             	// Unknown interaction event.
+				NSLog(@"No interaction");  
             	NSAssert(NO, @"Unknown interaction event encountered.");
 				break;
             }
-        }*/
+        }
     }
 
 	/*-(void) MPEtransactionResult:(MPETransactionStatus)transactionStatus transaction:(MPEbaseTransaction*)transaction error:(NSError*)error

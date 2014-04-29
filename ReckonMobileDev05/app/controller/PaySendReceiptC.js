@@ -71,7 +71,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
         var vals = {};
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
-        if(this.validateForm(vals)){
+        if(this.validateForm(vals) && vals.SMS){
             this.sendSMS(vals);                       
         }       
     },

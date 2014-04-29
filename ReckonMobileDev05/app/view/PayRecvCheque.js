@@ -65,7 +65,7 @@ Ext.define('RM.view.PayRecvCheque',{
                                 xtype: 'rmnumberfield',                                                    
                                 name: 'AccountNumber',						    
                                 placeHolder: 'number',
-                                maxLength: 8,
+                                //maxLength: 8,
                                 flex: 3,
                                 border: '0 1 0 1 ',
                                 style: 'border-color: #DBDBDB; border-style: solid;'
@@ -73,7 +73,7 @@ Ext.define('RM.view.PayRecvCheque',{
                             {
                                 xtype: 'rmnumberfield', 
                                 placeHolder: 'suffix',
-                                maxLength: 3,
+                                //maxLength: 3,
                                 name: 'AccountNumberSuffix',
                                 flex: 2,
                                 border: '0 0 0 0 '                            

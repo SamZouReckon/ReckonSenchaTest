@@ -13,6 +13,7 @@ Ext.define('RM.model.Transaction', {
             'PayerAccountNumber', 
             'PayerName', 
             'Id', 
+        	'ParentId',
             'PaymentMethodId', 
             {name:'TransactionDate', FormDate: 'TransactionDate', type: 'date', dateFormat: 'c'},
             {name:'Tax', type:'float'},

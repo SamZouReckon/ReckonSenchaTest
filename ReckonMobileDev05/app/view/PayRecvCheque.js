@@ -31,41 +31,60 @@ Ext.define('RM.view.PayRecvCheque',{
         },{
             xtype: 'formpanel',
             itemId: 'payrecvchequeform',
+            defaults: {cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},
             items: [
                     {
                         xtype: 'rmnumberfield',
                         label: 'Cheque number',
-                        name: 'ChequeNumber',
-                        placeHolder: 'enter',
+                        name: 'ChequeNumber',                        
                         labelWidth: '9em',
-                        rmmandatory: true,
-                        clearIcon: false,
-                        cls: 'rm-flatfield'
+                        rmmandatory: true                        
                     },{
                         xtype: 'rmnumberfield',
                         label: 'BSB',
-                        name: 'BSB',
-                        placeHolder: 'enter',
-                        clearIcon: false,
-                        cls: 'rm-flatfield'
-                    },{
+                        name: 'BSB'                                       
+                    },/*{
                         xtype: 'rmnumberfield',
                         label: 'Account number',
                         name: 'AccountNumber',
-                        allowedCharacters: '-',		//to allow hyphen '-' in Account number field
+                        //component: {type: 'text'},
+                        //allowedCharacters: '-',		//to allow hyphen '-' in Account number field
                         labelWidth: '9em',
                         placeHolder: 'enter',
                         clearIcon: false,
                         cls: 'rm-flatfield'
-                    },{
+                    },*/{
+                            xtype: 'container',                                                                    
+                            layout: 'hbox',
+                            items: [{                            
+                                html: 'Account number',
+                                flex: 4,    
+                                cls: 'rm-colorgrey rm-fontsize80 rm-fontweightbold',
+                                style: 'padding-top: 0.9em; padding-left: 0.7em;'
+                            },{
+                                xtype: 'rmnumberfield',                                                    
+                                name: 'AccountNumber',						    
+                                placeHolder: 'number',
+                                maxLength: 8,
+                                flex: 3,
+                                border: '0 1 0 1 ',
+                                style: 'border-color: #DBDBDB; border-style: solid;'
+                            },
+                            {
+                                xtype: 'rmnumberfield', 
+                                placeHolder: 'suffix',
+                                maxLength: 3,
+                                name: 'AccountNumberSuffix',
+                                flex: 2,
+                                border: '0 0 0 0 '                            
+                            }]
+    						
+    					},{
                         xtype: 'exttextfield',
                         label: 'Drawer',
                         itemId: 'drawer',
                         name: 'Drawer',
-                        rmmandatory: true,
-                        clearIcon: false,
-                        placeHolder: 'enter',
-                        cls: 'rm-flatfield'
+                        rmmandatory: true                        
                     },{
                         xtype: 'extdatepickerfield',
                         itemId: 'date',
@@ -73,7 +92,17 @@ Ext.define('RM.view.PayRecvCheque',{
                         rmmandatory: true,
                         dateFormat : 'jS M Y',
                         label: 'Date',
-                        cls: 'rm-flatfield'
+                        placeHolder: 'select'
+                    },{
+                        xtype: 'rmnumberfield',
+                        name: 'ContactNumber',
+                        label: 'Contact number',
+                        labelWidth: '8.5em'
+                    },{
+                        xtype: 'exttextfield',
+                        name: 'ContactName',
+                        label: 'Contact name',
+                        labelWidth: '7.5em'
                     },{
                         xtype: 'button',
                         itemId: 'charge',

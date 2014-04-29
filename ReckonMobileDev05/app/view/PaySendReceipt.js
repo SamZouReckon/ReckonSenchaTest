@@ -31,7 +31,7 @@ Ext.define('RM.view.PaySendReceipt',{
                         name: 'SMS',
                         clearIcon: false,
                         cls: 'rm-flatfield',
-                        label: 'SMS a receipt',                        
+                        label: 'SMS receipt',                        
                         labelWidth: '7.5em',
                         placeHolder: 'enter'
                     },{
@@ -39,7 +39,7 @@ Ext.define('RM.view.PaySendReceipt',{
                         name: 'Email',
                         clearIcon: false,
                         cls: 'rm-flatfield',
-                        label: 'Email a receipt',
+                        label: 'Email receipt',
                         labelWidth: '7.5em',
                         placeHolder: 'enter'
                     },{

@@ -71,9 +71,20 @@ Ext.define('RM.controller.PaySendReceiptC',{
         var vals = {};
         vals.SMS = this.getSmsFld().getValue();
         vals.Email = this.getEmailFld().getValue();
-        if(this.validateForm(vals) && vals.SMS){
-            this.sendSMS(vals);                       
+        if(this.validateForm(vals)){
+            if(vals.SMS){
+                this.sendSMS(vals);                       
+            }
+            if(vals.Email){
+                this.sendEmail(vals);
+            } 
+            this.setReceiptContent(vals); 
+        	this.getPaySendReceipt().setActiveItem(1);
         }       
+    },
+    
+    sendEmail: function(vals){
+        //Email API code 
     },
     
     sendSMS: function(vals) {
@@ -81,11 +92,11 @@ Ext.define('RM.controller.PaySendReceiptC',{
         //alert('sending SMS using Cordova plugin' + phoneNumber);
         var message = 'Test SMS from Reckon Pay';
         var intent = "INTENT"; //leave empty for sending sms using default intent
-        var me = this;
+        //var me = this;
         var success = function () { 
             //alert('success');
-            me.setReceiptContent(vals); 
-            me.getPaySendReceipt().setActiveItem(1);
+            //me.setReceiptContent(vals); 
+            //me.getPaySendReceipt().setActiveItem(1);
             //alert('popup after showing card 1');
             //me.done();
 		};

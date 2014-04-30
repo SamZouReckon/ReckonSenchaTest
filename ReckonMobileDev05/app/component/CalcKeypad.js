@@ -83,8 +83,8 @@ Ext.define('RM.component.CalcKeypad', {
                                         				defaults: {xtype:'button', height: 50, cls: 'rm-flatkeypadbutton'},
                                         				items:[
                                         						{
-                                        							text: 'BACK',
-                                                                    style: 'font-size: 70%'
+                                        							cls: 'rm-flatkeypadbutton rm-flatkeypad-backspace',
+                                                                    itemId: 'back'
                                         						},{
                                         							text: '+'					
                                         						},{
@@ -109,7 +109,7 @@ Ext.define('RM.component.CalcKeypad', {
     
 	
 	onKeyTap: function(btn){        
-	    this.fireEvent('keytap', btn.getText().toLowerCase());	
+	    this.fireEvent('keytap', btn.getText() ? btn.getText().toLowerCase() : btn.getItemId().toLowerCase());	
 	}
 
 });

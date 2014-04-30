@@ -57,11 +57,12 @@ Ext.define('RM.component.PayAmountInputCalc', {
                             cls: 'rm-pay-amount'                                                
                         },{
                             xtype: 'button',
-                            itemId: 'clearinputbtn',
-                            margin: 9,
-                            ui: 'plain', 
-                            iconCls: 'rm-btn-iconsize',
-                            icon: 'resources/images/icons/rm-fieldclear.svg',
+                            itemId: 'clearinputbtn',                            
+                            ui: 'plain',
+                            text: 'CLR',
+                            cls: 'rm-colorgrey rm-pay-clr',                            
+                            //iconCls: 'rm-btn-iconsize',
+                            //icon: 'resources/images/icons/rm-fieldclear.svg',
                             docked: 'right'                                        
                         },{
                             xtype: 'button',                                                

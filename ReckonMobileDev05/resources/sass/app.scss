@@ -696,6 +696,13 @@ $font-family: 'Open Sans', sans-serif !default;
     background-size: 28px;
 }
 
+.rm-flatkeypad-backspace{
+	background-image: url("../images/icons/rm-keypad-backspace.svg");
+	background-repeat: no-repeat;	
+    background-position: center;
+    background-size: 24px;
+}
+
 //Flat button with arrow icon set using iconCls property 
 .rm-flatbuttonwitharrow {
 	border-radius: 0;
@@ -2314,6 +2321,11 @@ rm-emailinvoicebackground{
     font-size: 275%;
 	line-height: 1;
 	margin: 5px;
+}
+
+.rm-pay-clr{
+	padding: 20px !important;
+	background: none ;
 }
 
 .rm-pay-gsttext{

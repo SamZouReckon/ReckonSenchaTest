@@ -4,9 +4,14 @@ Ext.define('RM.controller.PaySendReceiptC',{
      config: {
         refs: {
             paySendReceipt: 'paysendreceipt',
+            paySendReceiptTopbar: 'paysendreceipt #topbar',
+            paySendReceiptMsgPanel: 'paysendreceipt #msgpanel',
             paySendReceiptTitle: 'paysendreceipt #title',
+            paySendReceiptToolbarTitle: 'paysendreceipt #toolbartitle',
             smsFld: 'paysendreceipt textfield[name=SMS]',
             emailFld: 'paysendreceipt textfield[name=Email]',
+            sendReceiptBtn: 'paysendreceipt #sendreceiptbtn',
+            dontSendReceiptBtn: 'paysendreceipt #dontsendreceiptbtn',
             sentCont: 'paysendreceipt #sentcont'
         },
         control: {            
@@ -27,6 +32,12 @@ Ext.define('RM.controller.PaySendReceiptC',{
             },            
             'paysendreceipt #retry':{
                 tap: 'retry'
+            },
+            'paysendreceipt #details': {
+                tap: 'onDetailsTap'
+            },
+            'paysendreceipt #back': {
+                tap: 'back'
             }
         }
      },
@@ -42,8 +53,21 @@ Ext.define('RM.controller.PaySendReceiptC',{
         }       
         RM.ViewMgr.showPanel(view);
         this.clearFields();
+        this.resetButtonText();
         this.getPaySendReceipt().setActiveItem(0);
-        this.getPaySendReceiptTitle().setHtml('$' + data.Total + ' charged');
+        //To check if this view is opened from PayTransDetails screen and hide and show controls based on that
+        if(callbackScope && callbackScope.getPayTransDetails){
+            this.getPaySendReceiptTopbar().setHidden(false);
+            this.getPaySendReceiptMsgPanel().setHidden(true);
+            this.setButtonTextForResend();
+            this.getPaySendReceiptToolbarTitle().setHtml(RM.AppMgr.formatCurrency((data.Total ? data.Total : data.Amount)) );
+        }
+        else{
+            this.getPaySendReceiptTopbar().setHidden(true);
+            this.getPaySendReceiptMsgPanel().setHidden(false);
+        }
+        
+        this.getPaySendReceiptTitle().setHtml('$' + (data.Total ? data.Total : data.Amount) + ' charged');
         if(this.data.CustomerEmail){
             this.getEmailFld().setValue(this.data.CustomerEmail);
         }
@@ -54,14 +78,29 @@ Ext.define('RM.controller.PaySendReceiptC',{
         this.getSmsFld().setValue('');
     },
     
+    resetButtonText: function(){
+        this.getSendReceiptBtn().setText('<span class="rm-btn-arrow">SEND RECEIPT</span>');
+        this.getDontSendReceiptBtn().setText('<span class="rm-btn-arrow">DON\'T SEND RECEIPT</span>');
+    },
+    
+    setButtonTextForResend: function(){
+        this.getSendReceiptBtn().setText('<span class="rm-btn-arrow">RESEND RECEIPT</span>');
+        this.getDontSendReceiptBtn().setText('<span class="rm-btn-arrow">DON\'T RESEND RECEIPT</span>');
+    },
+    
     done: function() {
         if(this.callback){
             this.callback.call(this.callbackScope);
-        }
-        else{
-            RM.ViewMgr.showPayWithSlideNav();
-        }
+        }        
     },
+    
+    onDetailsTap: function(){
+        RM.PayMgr.showScreen('PayAmountDetails', this.data);
+    },
+    
+    back: function () {
+        RM.ViewMgr.back();
+    },   
     
     onEmailFieldTap: function(){
         RM.AppMgr.showErrorMsgBox('\'From\' email address must be set in Preferences before a receipt can be sent via email');
@@ -79,6 +118,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
                 this.sendEmail(vals);
             } 
             this.setReceiptContent(vals); 
+            this.setButtonTextForResend();
         	this.getPaySendReceipt().setActiveItem(1);
         }       
     },

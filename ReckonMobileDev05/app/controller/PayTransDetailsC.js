@@ -56,7 +56,9 @@ Ext.define('RM.controller.PayTransDetailsC',{
     },
     
     sendReceipt: function(){
-        
+        RM.PayMgr.showScreen('PaySendReceipt', this.data, function(){
+            RM.ViewMgr.back();
+        }, this);
     },
     
     onDetailsTap: function(){

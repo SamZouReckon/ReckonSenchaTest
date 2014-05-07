@@ -197,7 +197,7 @@ Ext.define('Ext.ux.slidenavigation.View', {
             this.config.groups = this.config.paygroups;
             me.addItems(me.config.itemsPay || []);
         }
-        else
+        else if(type == 'reckonone')
         {
             this.config.groups = this.config.onegroups;
             me.addItems(me.config.oneitems || []);   

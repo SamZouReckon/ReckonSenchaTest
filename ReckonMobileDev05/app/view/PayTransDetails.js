@@ -50,7 +50,7 @@ Ext.define('RM.view.PayTransDetails', {
             clearIcon: false,
             readOnly: true,
             cls: 'rm-flatfield',
-            label: 'Card'
+            label: 'Paid with'
         },{
             xtype: 'exttextfield',
             itemId: 'receiptno',

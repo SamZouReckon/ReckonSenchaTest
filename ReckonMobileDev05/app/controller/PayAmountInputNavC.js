@@ -13,9 +13,19 @@ Ext.define('RM.controller.PayAmountInputNavC', {
         }
     },
     
-    showView: function(data, cb, cbs){               
-        this.getPayAmountInputCalcPanel().loadData(data, cb, cbs);
+    showView: function(data){ 
+        var me = this;
+        this.getPayAmountInputCalcPanel().loadData(data, function(){
+            me.clearFields();
+            RM.ViewMgr.backTo('slidenavigationview');
+        }, this);
         this.getToolbarTitle().setHtml('Joe Plumber');
+    },
+    
+    clearFields: function(){
+        this.getPayAmountInputCalcPanel().clearInputFieldAndHistory();
+        this.getPayAmountInputCalcPanel().getDiscount().setValue('None'); 
+   	 this.getPayAmountInputCalcPanel().getDescriptionFld().setValue('');
     },
     
     onDetails: function(){

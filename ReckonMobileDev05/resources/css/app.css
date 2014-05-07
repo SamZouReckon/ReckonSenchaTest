@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -6306,6 +6305,12 @@ body.x-desktop {
 .rm-colorred {
   color: red !important; }
 
+.rm-colorred-popup-no {
+  color: #FE4045 !important; }
+
+.rm-colorred-popup-yes {
+  color: #9CCD70 !important; }
+
 .rm-colorgreen {
   color: #A2D079; }
 
@@ -7365,7 +7370,7 @@ rm-emailinvoicebackground {
 
 .rm-pay-clr {
   padding: 20px !important;
-  background: none; }
+  background: none !important; }
 
 .rm-pay-gsttext {
   padding-left: 10px;

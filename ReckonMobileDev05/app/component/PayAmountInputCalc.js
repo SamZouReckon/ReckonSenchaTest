@@ -429,6 +429,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
         historyContainer.removeAll(true,true);
         this.history = true;
         this.showOrHideHistory();
+        this.getAmount().setHtml(this.inputStr ? this.inputStr : '<span class = "rm-pay-currencyprefix">$</span>0.00');
     },
     
     showDescription: function(){        

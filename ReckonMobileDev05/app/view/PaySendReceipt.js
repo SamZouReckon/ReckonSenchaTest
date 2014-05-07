@@ -6,25 +6,51 @@ Ext.define('RM.view.PaySendReceipt',{
         layout: 'card',
         activeItem: 0,
         items:[{
-				xtype:'container',
-				cls: 'rm-emailinvoicebackground',
-				items: [
-					{
-						xtype: 'container',
-						layout: 'hbox',
-						height: 50,
-						cls: ['rm-emailpositivepanel', 'rm-p10'],
-						items: [
-							{
-								cls: ['rm-emailcheckmark','rm-iconsize25'],
-								flex:1
-							},{
-								itemId: 'title',
-                                cls: 'rm-pt5',
-                                html: '',
-								flex:5
-							}
-						]
+                    xtype: 'toolbar',
+                    docked: 'top',  
+            		itemId: 'topbar',
+                    items: [{
+                            itemId: 'back',
+                            ui: 'rm_topbarbuttonleft',
+                            icon: 'resources/images/icons/rm-back.svg',
+                            iconCls: 'rm-backbtniconcls',
+                            width: '2.6em',
+                            iconMask: 'true'
+                        }, {
+                            xtype: 'component',
+                            itemId: 'toolbartitle',
+                            html: '',
+                            cls: 'rm-topbartitle'
+                        },{
+        					xtype:'spacer'
+        				},{
+            				text: 'Details',
+            				itemId: 'details', 
+                            width: '6em',
+            				ui: 'rm_topbarbuttonright'
+            			}
+                    ]
+        		},{
+    				xtype:'container',                    
+    				cls: 'rm-emailinvoicebackground',
+    				items: [
+    					{
+    						xtype: 'container',
+                            itemId: 'msgpanel',
+    						layout: 'hbox',
+    						height: 50,
+    						cls: ['rm-emailpositivepanel', 'rm-p10'],
+    						items: [
+    							{
+    								cls: ['rm-emailcheckmark','rm-iconsize25'],
+    								flex:1
+    							},{
+    								itemId: 'title',
+                                    cls: 'rm-pt5',
+                                    html: '',
+    								flex:5
+    							}
+    						]
 							
 					},{
                         xtype: 'rmphonefield',

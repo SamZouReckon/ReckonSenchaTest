@@ -22,12 +22,15 @@ Ext.define('RM.core.ViewMgr', {
             this.showDashboard(anim);
 			return;
 		}
+        
 		var view = this.appBackStack.pop();
         
 		anim = anim || this.defaultBackAnimation;   
         // Clean up the popped view after animation completes        
         view.onAfter('erased', function() {
-            this.destroy();
+            if(this.xtype !== 'slidenavigationview'){
+                this.destroy();
+            } 
         });        
         
         this.showPanel2(this.appBackStack[this.appBackStack.length - 1], anim);		
@@ -164,12 +167,12 @@ Ext.define('RM.core.ViewMgr', {
         this.showPanel(this.mainNavContainer, anim);
     },
     
-    showPayWithSlideNav: function(anim, data, cb, cbs){
+    showPayWithSlideNav: function(anim){
         this.mainNavContainer.reloadItems("reckonpay");
         this.mainNavContainer.list.getComponent(0).setTitle('<div class="rm-slidenav-menu-title">Reckon Pay</div> <div class="rm-slidenav-menu-subtitle"></div>');   
         this.mainNavContainer.setSelectedItem('PayAmountInput');
         
-        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputNavC').showView(data, cb, cbs);
+        RM.AppMgr.getAppControllerInstance('RM.controller.PayAmountInputNavC').showView();
         this.showPanel(this.mainNavContainer, anim);
         RM.PayMgr.setLoadPayOnAppResume(true);			//to load Pay screen when screen gets locked and resuming app 
     },
@@ -288,6 +291,7 @@ Ext.define('RM.core.ViewMgr', {
 	},	
     
 	showMainNavContainer: function(title, subtitle, anim){
+        this.mainNavContainer.reloadItems("reckonone");
         this.mainNavContainer.list.getComponent(0).setTitle('<div class="rm-slidenav-menu-title">' + title + '</div> <div class="rm-slidenav-menu-subtitle">' + subtitle + '</div>');        
 		RM.ViewMgr.showPanel(this.mainNavContainer, anim);
         this.clearBackStack();

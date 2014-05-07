@@ -986,6 +986,8 @@ $font-family: 'Open Sans', sans-serif !default;
     .rm-floatr { float: right !important;}
     .rm-floatr15 { position: absolute; right: 15px;}
     .rm-colorred {color: red !important;}
+	.rm-colorred-popup-no { color: #FE4045 !important;}
+	.rm-colorred-popup-yes { color: #9CCD70 !important;}
     .rm-colorgreen {color: #A2D079;}
     .rm-colorblue{color: #5095E1;}
 	.rm-colorblack{color: #323232;}
@@ -2325,7 +2327,7 @@ rm-emailinvoicebackground{
 
 .rm-pay-clr{
 	padding: 20px !important;
-	background: none ;
+	background: none !important;
 }
 
 .rm-pay-gsttext{

@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -6082,6 +6083,9 @@ body.x-desktop {
 .rm-msgpopup .x-layout-box-item {
   text-align: center; }
 
+.rm-radiobtnwidth .x-field-mask {
+  width: 3em !important; }
+
 .rm-popup {
   min-width: 13em;
   max-width: 15em;
@@ -6187,6 +6191,9 @@ body.x-desktop {
 
 .rm-pl10 {
   padding-left: 10px; }
+
+.rm-p1015 {
+  padding: 10px 15px; }
 
 .rm-pl15 {
   padding-left: 15px !important; }

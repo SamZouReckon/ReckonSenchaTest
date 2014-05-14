@@ -36,6 +36,10 @@ Ext.define('RM.controller.PayRecvManualCardC',{
         this.getDateFld().setValue(null);
         //this.getPayRecvManualCardForm().reset();
         this.getPayRecvManualCardTitle().setHtml('$'+data.Total);
+        /*var store = this.getCardTypeFld().getStore();        
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl('PayTransactionMethods'));     
+        store.filter('IsCard', true);
+        RM.AppMgr.loadStore(store);*/                
     },
     
     onDetailsTap: function(){

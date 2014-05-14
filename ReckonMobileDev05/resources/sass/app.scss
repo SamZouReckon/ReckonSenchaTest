@@ -741,6 +741,10 @@ $font-family: 'Open Sans', sans-serif !default;
     }  
 }
 
+.rm-radiobtnwidth{
+	.x-field-mask { width: 3em !important;}
+}
+
 //Popup menu used for popup dialog with cross icon. 
 .rm-popup {
 
@@ -894,6 +898,9 @@ $font-family: 'Open Sans', sans-serif !default;
     }
 	.rm-pl10{
 		padding-left: 10px;
+	}
+	.rm-p1015{
+		padding: 10px 15px;
 	}
 	.rm-pl15{
 		padding-left: 15px !important;

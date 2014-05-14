@@ -25,7 +25,7 @@ Ext.define('RM.component.SortSearchBar', {
 		
 		this.add([{
 				xtype: 'dropdownbutton',				
-				width: 190,				
+				width: 230,				
 				options: this.config.sortfields
 			},{
 				xtype: 'textfield',

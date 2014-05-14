@@ -64,10 +64,16 @@ Ext.define('RM.view.PaySendReceipt',{
                         xtype: 'exttextfield',
                         name: 'Email',
                         clearIcon: false,
+                        hidden: true,
                         cls: 'rm-flatfield',
                         label: 'Email receipt',
                         labelWidth: '7.5em',
                         placeHolder: 'enter'
+                    },{
+                        xtype: 'component',
+                        itemId: 'emailcomponent',
+                        html: 'To email receipts, use Preferences to set and verify your email address',
+                        cls: 'rm-p10 rm-fontsize80 rm-colorgrey rm-whitebg rm-border-top'                        
                     },{
 						xtype: 'button',						
 						itemId: 'sendreceiptbtn',
@@ -107,6 +113,10 @@ Ext.define('RM.view.PaySendReceipt',{
 						]
 							
 					},{
+                      	xtype: 'component',
+                          cls: 'rm-whitebg rm-p1015 rm-fontsize80 rm-colorgrey',                          
+                          html: 'Check your Messages app on your device to see if it went through.'
+                    },{
 						xtype: 'button',
                         itemId: 'done',
 						text: '<span class="rm-btn-arrow">DONE</span>',

@@ -10,6 +10,7 @@ Ext.define('RM.controller.PaySendReceiptC',{
             paySendReceiptToolbarTitle: 'paysendreceipt #toolbartitle',
             smsFld: 'paysendreceipt textfield[name=SMS]',
             emailFld: 'paysendreceipt textfield[name=Email]',
+            emailComponent: 'paysendreceipt #emailcomponent',
             sendReceiptBtn: 'paysendreceipt #sendreceiptbtn',
             dontSendReceiptBtn: 'paysendreceipt #dontsendreceiptbtn',
             sentCont: 'paysendreceipt #sentcont'
@@ -46,6 +47,8 @@ Ext.define('RM.controller.PaySendReceiptC',{
         this.data = data;
         this.callback = callback;
         this.callbackScope = callbackScope;
+        //temp flag to simulate email verification
+        this.emailverified = true;
         
         var view = this.getPaySendReceipt();
         if (!view){
@@ -66,7 +69,8 @@ Ext.define('RM.controller.PaySendReceiptC',{
             this.getPaySendReceiptTopbar().setHidden(true);
             this.getPaySendReceiptMsgPanel().setHidden(false);
         }
-        
+        this.getEmailFld().setHidden(!this.emailverified);
+        this.getEmailComponent().setHidden(this.emailverified);
         this.getPaySendReceiptTitle().setHtml('$' + (data.Total ? data.Total : data.Amount) + ' charged');
         if(this.data.CustomerEmail){
             this.getEmailFld().setValue(this.data.CustomerEmail);

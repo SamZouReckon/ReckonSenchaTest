@@ -39,17 +39,20 @@ Ext.define('RM.view.PayRecvManualCard',{
                                     cls: 'rm-flatfield',                                    
                                     autoSelect: false,  
                                     itemId: 'cardtype',
+                                   /* store: 'TransactionMethods',
+                                    displayField: 'Name',
+            						valueField: 'Id',*/
                                     rmmandatory: true,
                                     label: 'Credit card type',
                                     name: 'PaymentMethodId',
                                     placeHolder: 'choose',
-                                    labelWidth: '9em',                              
+                                    labelWidth: '9em',                                   
                                     options: [                                   			
                                                 {text: 'Visa',  value: 6},
                                                 {text: 'Master Card', value: 7},
                                                 {text: 'American Express',  value: 9},
                                     			{text: 'Other', value: 10}
-                                            ],                                    
+                                            ]                                   
                                 },
                                 {
                                     xtype: 'extdatepickerfield',

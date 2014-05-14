@@ -95,9 +95,9 @@ Ext.define('RM.view.PayPreferences',{
                         labelWidth: '10em'
                     },{
                         xtype: 'component',
-                        html: 'Not verified yet.',
-                        cls: 'rm-fontsize70 rm-pl15 rm-colorblack'
-                    },{
+                        html: 'Email verified',
+                        cls: 'rm-fontsize70 rm-pl15 rm-pb5 rm-colorblack'
+                    },/*{
                         xtype: 'component',
                         html: 'Resend verification email',
                         margin: '0 0 10 0',
@@ -106,11 +106,11 @@ Ext.define('RM.view.PayPreferences',{
 							tap: {
 								element: 'element',                    
 								fn: function () { 
-                                    RM.AppMgr.showSuccessMsgBox('Email sent');	                        
+                                    RM.AppMgr.showSuccessMsgBox('We\'ve sent you an email.<br>Please check your inbox and click the link in the email to verify the new email address.');	                        
 								}
 							}
 						}
-                    },{            
+                    },*/{            
             			xtype: 'rmcheckbox',	
                         name: 'Bcc',
                         itemId: 'includebcc',

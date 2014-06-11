@@ -6032,8 +6032,8 @@ body.x-desktop {
   border-radius: 0;
   border: 1px solid #989898;
   margin: 0;
-  background: #646464;
-  color: #FFFFFF;
+  background: #F8FDF9;
+  color: #A0A29F;
   font-size: 140%; }
 .rm-flatkeypadbutton .x-button-label, .rm-flatkeypadbutton .x-badge {
   font-weight: normal; }
@@ -6240,6 +6240,9 @@ body.x-desktop {
 .rm-fontsize180 {
   font-size: 180%; }
 
+.rm-fintsize275 {
+  font-size: 275%; }
+
 .rm-fontsize98 {
   font-size: 98%; }
 
@@ -6320,6 +6323,9 @@ body.x-desktop {
 
 .rm-colorgreen {
   color: #A2D079; }
+
+.rm-colorgreenoptions {
+  color: #00BC99; }
 
 .rm-colorblue {
   color: #5095E1; }
@@ -7333,12 +7339,12 @@ rm-emailinvoicebackground {
   color: #646464;
   padding: 25px 10px; }
 
-.rm-pay-discountbtn {
-  background-image: url("../images/icons/rm-discount.png") !important;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 20px 20px; }
-
+/*.rm-pay-discountbtn{
+    background-image: url("../images/icons/rm-discount.png") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}*/
 .rm-payamountinput-arrow {
   background-image: url("../images/icons/rm-btn-arrow.svg") !important;
   background-repeat: no-repeat;
@@ -7371,7 +7377,7 @@ rm-emailinvoicebackground {
 
 .rm-pay-amount {
   color: #646464;
-  font-size: 275%;
+  font-size: 320%;
   line-height: 1;
   margin: 5px; }
 
@@ -7412,8 +7418,7 @@ rm-emailinvoicebackground {
   background-position: right;
   background-repeat: no-repeat;
   background-size: 10px;
-  padding-right: 22px;
-  padding-top: 2px; }
+  padding-right: 22px; }
 
 .rm-pay-noimagebg {
   background: #ECECEC !important; }
@@ -7451,3 +7456,23 @@ rm-emailinvoicebackground {
 
 .rm-manualcreditcard {
   background-image: url("../images/icons/rm-manualcreditcard.svg"); }
+
+.rm-flatbtn {
+  border: 0;
+  border-radius: 0;
+  color: #FFF;
+  min-height: 2.6em; }
+.rm-flatbtn .x-button-label, .rm-flatbtn .x-badge {
+  font-weight: normal; }
+
+.rm-bigbtn {
+  height: 5.2em; }
+
+.rm-pay-discount-bg {
+  background: #F73C4F; }
+
+.rm-pay-surcharge-bg {
+  background: #405361; }
+
+.rm-pay-charge-bg {
+  background: #00BC99; }

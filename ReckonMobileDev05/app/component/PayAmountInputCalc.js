@@ -8,28 +8,31 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 keytap: 'onCalcKeyTap'
             },
             '#historyshowbtn': {
-                tap: 'showOrHideHistory'
+                tap: 'showHistory'
+            },
+            '#calculatorshowbtn':{
+                tap: 'showCalculator'
             },
             '#historyhidebtn': {
-                tap: 'showOrHideHistory'
+                tap: 'hideHistory'
             },
             '#clearinputbtn': {
                 tap: 'clearInputFieldAndHistory'
             },
             '#discountbtn': {
-                tap: 'onDiscountFldTap'
+                tap: 'onDiscountTap'
             },
-            '#camerabtn': {
-                tap: 'onCameraBtnTap'
+            '#surchargebtn': {
+                tap: 'onSurchargeTap'
             },
             '#charge': {
                 tap: 'onChargeBtnTap'
-            },
-            '#discount': {
-                tap: 'onDiscountFldTap'
-            },            
+            },                       
             '#descriptionfield':{
                 tap: 'showDescription'
+            },
+            '#more':{
+                tap: 'showMoreOptions'
             }
         },
         
@@ -40,7 +43,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
                     xtype: 'container',
                     docked: 'top',
                     scrollable: 'horizontal',
-                    height: '3em',
+                    height: '4em',
                     cls: 'rm-whitebg',
                     layout: 'hbox',
                     items: [
@@ -48,28 +51,26 @@ Ext.define('RM.component.PayAmountInputCalc', {
                             xtype: 'button',                                                
                             cls: ['rm-white-flatbtn', 'rm-payamountinput-back-arrow'],
                             itemId: 'historyshowbtn',
+                            hidden: true,
                             docked: 'left'
-                        },
-                        {
-                            xtype: 'component',
-                            html: '0.00',
-                            itemId: 'amount',                                    
-                            cls: 'rm-pay-amount'                                                
                         },{
-                            xtype: 'button',
-                            itemId: 'clearinputbtn',                            
-                            ui: 'plain',
-                            text: 'CLR',
-                            cls: 'rm-colorgrey rm-pay-clr',                            
-                            //iconCls: 'rm-btn-iconsize',
-                            //icon: 'resources/images/icons/rm-fieldclear.svg',
-                            docked: 'right'                                        
+                            xtype: 'button',                                                
+                            cls: ['rm-white-flatbtn', 'rm-payamountinput-back-arrow'],
+                            itemId: 'calculatorshowbtn',
+                            hidden: true,
+                            docked: 'left'
                         },{
                             xtype: 'button',                                                
                             cls: ['rm-white-flatbtn', 'rm-payamountinput-arrow'],
                             itemId: 'historyhidebtn',
                             hidden: true,
                             docked: 'right'
+                        },{
+                            xtype: 'component',
+                            html: '0.00',
+                            itemId: 'amount',
+                            docked: 'right',
+                            cls: 'rm-pay-amount'                                                
                         }                
                     ]
                 },
@@ -83,62 +84,78 @@ Ext.define('RM.component.PayAmountInputCalc', {
                         {
                             xtype: 'container',
                             cls: 'rm-whitebg',
-                            scrollable: 'vertical',
-                            items: [        
-                                        
+                            items: [
                                     {
-                                        xtype: 'container',
-                                        cls: ['rm-whitebg', 'rm-border-top'],
-                                        height: '2.6em',
-                                        layout: 'hbox',
-                                        items: [
-                                            {
-                            				    xtype: 'exttextfield', 
-                                                itemId: 'discount',
-                                                readOnly: true,                        					
-                            					cls: 'rm-flatfield',
-                                                border: 0,
-                                                clearIcon: false,  
-                                                placeHolder: 'enter',
-                                                flex: 1
-                            				},{
-                                                xtype: 'button',
-                                                itemId: 'discountbtn',
-                                                width: 72,
-                                                cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-discountbtn']
-                                            }                
-                                        ]
-                                },{                                                            
-                                        xtype: 'container',                         
-                                        cls: ['rm-border-bottom','rm-whitebg', 'rm-border-top'],
-                                        height: '2.6em',
-                                        layout: 'hbox',
-                                        items: [
-                                            {
-                                                xtype: 'exttextfield',
-                                                itemId: 'descriptionfield',
-                                                cls: 'rm-flatfield',
-                                                border: 0,                                            
-                                                clearIcon: false,
-                                                readOnly: true,
-                                                placeHolder: 'add optional description',
-                                                flex: 1
-                                            },{
-                                                xtype: 'button',
-                                                itemId: 'camerabtn',
-                                                width: 72,
-                                                cls: ['rm-white-flatbtn', 'rm-border-left', 'rm-pay-camerabtn']
-                                            }                        
-                                        ]
+                                        xtype: 'component',   
+                                		itemId: 'totalcomponent',
+                                        cls: ['rm-fontsize70', 'rm-colorgrey', 'rm-alignr', 'rm-p10'],
+                                        html: '',
+                                        hidden: true
+                            },
+                            {
+                                        xtype: 'exttextfield',
+                                        itemId: 'descriptionfield',
+                                        cls: 'rm-flatfield',                                                                                   
+                                        clearIcon: false,
+                                        readOnly: true,
+                                		hidden: true,
+                                        placeHolder: 'Notes (optional)'                                                           
+                                        
                             },{
                                         xtype: 'calckeypad',
+                                		itemId: 'keypad',
                                         docked: 'bottom'  
                             },{                    
                                         xtype: 'button',
                                         itemId: 'charge',
-                                        text: '<span class="rm-btn-arrow">CHARGE</span>',
-                                        cls: 'rm-photopreviewbtn',
+                                        text: 'CHARGE',
+                                        cls: ['rm-pay-charge-bg', 'rm-flatbtn'],
                                         docked: 'bottom'                        
+                            },{
+                                xtype: 'container',
+                                layout: 'hbox',
+                                itemId: 'optionscontainer',
+                                docked: 'bottom',
+                                items:[
+                                	{
+                                        xtype: 'button',
+                                        itemId: 'clearinputbtn',                            
+                                        ui: 'plain',
+                                        width: '3em',
+                                        text: 'CLR',
+                                        cls: 'rm-colorgreenoptions',                             
+                                        docked: 'right'
+                                    },{
+                                        xtype: 'button',
+                                        itemId: 'more',   
+                                        width: '4em',
+                                        ui: 'plain',
+                                        text: 'MORE',
+                                        cls: 'rm-colorgreenoptions',                                   
+                                        docked: 'left'
+                                    }
+                                ]
+                            },{
+                              	xtype: 'container',
+                                  layout: 'hbox',
+                                  itemId: 'discountsurchargecontainer',
+                                  docked: 'bottom',
+                                  hidden: true,
+                                  items: [
+                                			{
+                                                xtype: 'button',
+                                                itemId: 'discountbtn',
+                                                text: '<div class="rm-fintsize275">-</div><br>DISCOUNT',
+                                                flex: '1',
+                                                cls: ['rm-pay-discount-bg', 'rm-bigbtn', 'rm-flatbtn']
+                                            },{
+                                                xtype: 'button',
+                                                itemId: 'surchargebtn',
+                                                text: '<div class="rm-fintsize275">+</div><br>SURCHARGE',
+                                                flex: '1',
+                                                cls: ['rm-pay-surcharge-bg', 'rm-bigbtn', 'rm-flatbtn']
+                                            }
+                                ]                                  
                             }
                     ]
                 }
@@ -146,7 +163,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
                        xtype: 'container',
                        cls: 'rm-whitebg',
                        scrollable: 'vertical',
-                       html: 'History',
+                       html: 'Calculation',
                        styleHtmlContent: true,
                        styleHtmlCls: ['rm-p10', 'rm-fontsize70', 'rm-pay-graytext', 'rm-border1px'],
                        itemId: 'historycontainer'
@@ -161,29 +178,22 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.inputStr = '';
         this.inputArray = new Array();
         this.inputArrayIndex = 0;
-        this.noteText = '';        
-        this.history = false;   
-    },
-    
-    /*refs:{
-            payAmountInputCalc: 'payamountinputcalc',            
-            historyHideBtn: 'payamountinputcalc #historyhidebtn',
-            historyShowBtn: 'payamountinputcalc #historyshowbtn',            
-            clearInputBtn: 'payamountinputcalc #clearinputbtn',
-            historyContainer: 'payamountinputcalc #historycontainer',
-            inputAndHistoryContainer: 'payamountinputcalc #inputandhistorycontainer',
-            amount: '#amount',   
-            discount: 'payamountinputcalc #discount',
-            descriptionFld: 'payamountinputcalc #descriptionfield',
-            
-        },*/
+        this.noteText = '';     
+        this.amountAfterDiscount = 0;
+        this.discount = 0;
+        this.surcharge = 0;
+    }, 
     
     getHistoryHideBtn: function(){
         return this.down("#historyhidebtn");
-    },
+    },   
     
     getHistoryShowBtn: function(){
         return this.down("#historyshowbtn");
+    },
+    
+    getCalculatorShowBtn: function(){
+        return this.down("#calculatorshowbtn");
     },
     
     getClearInputBtn: function(){
@@ -210,8 +220,23 @@ Ext.define('RM.component.PayAmountInputCalc', {
         return this.down('#descriptionfield');  
     }, 
     
+    getKeypad: function(){
+        return this.down('#keypad');
+    },
+    
+    getOptionsContainer: function(){
+        return this.down('#optionscontainer');
+    },
+    
+    getDiscountSurchargeContainer: function(){
+        return this.down('#discountsurchargecontainer');
+    },
+    
+    getTotalValueComponent: function(){
+        return this.down('#totalcomponent');
+    },
+    
     loadData: function(data, callback, callbackScope){        
-        //data ? this.data = data : this.data = {};
         this.data = {};
         if(data){
             this.data.InvoiceId = data.InvoiceId;
@@ -220,7 +245,6 @@ Ext.define('RM.component.PayAmountInputCalc', {
             this.data.BankAccountId = data.BankAccountId;
             this.data.CustomerEmail = data.CustomerEmail;
         }       
-        
         this.callback = callback;
         this.callbackScope = callbackScope;        
         this.clearInputFieldAndHistory();
@@ -236,8 +260,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
         }
         else{
             this.inputStr = '';
-        }
-        //this.getAmount().setHtml(this.inputStr); 
+        }         
         this.getAmount().setHtml(this.inputStr ? this.inputStr : '<span class = "rm-pay-currencyprefix">$</span>0.00');
         var discount = 'None';
         if(data){
@@ -248,7 +271,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 discount = RM.AppMgr.formatCurrency(data.DiscountAmount, 2);
             }            
         }                     	
-        this.getDiscount().setValue(discount); 
+        //this.getDiscount().setValue(discount); 
         this.getDescriptionFld().setValue((data && data.Description) ? data.Description : '');
         this.noteText = this.getDescriptionFld().getValue();
     },
@@ -256,7 +279,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
     onCalcKeyTap: function (key) {       
         var pointIndex = this.inputStr.indexOf('.');        
         if (key === 'back') {
-            if (this.inputStr.length > 0 && (this.inputStr.indexOf('=') === -1 )) {               
+            if (this.inputStr.length > 0 && (this.inputStr.indexOf('=') === -1 ) && this.inputStr !== '*' && this.inputStr !== '+') {               
                 this.inputStr = this.inputStr.slice(0, -1); 
             }
         }  
@@ -264,14 +287,19 @@ Ext.define('RM.component.PayAmountInputCalc', {
             if(this.inputStr.indexOf('=') === -1){
                 this.addToInputHistory();            
                 this.displayTotal(); 
+                return;
             }                       
         }
         else if(key === 'x'){  
-            if(this.inputStr === 'x') return;
+            if(this.inputStr === 'x' || (!this.inputArray.length && this.inputStr === '')){
+               return;
+            } 
             this.addToInputHistory();
             this.inputStr += '*';
         }else if(key === '+'){  
-            if(this.inputStr === '+') return;
+            if(this.inputStr === '+' || (!this.inputArray.length && this.inputStr === '')) {
+               return;
+            }
             this.addToInputHistory();
             this.inputStr += key;
         }
@@ -285,7 +313,13 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 }
                 this.inputStr += key;
             }            
-        }         
+        } 
+        var a = this.getHistoryHideBtn().getHidden();
+        var b = this.getCalculatorShowBtn().getHidden();
+        console.log(a + ' ' +b);
+        if(this.getHistoryHideBtn().getHidden() && this.getCalculatorShowBtn().getHidden()){
+            this.getHistoryShowBtn().setHidden(false);  
+        }
         this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
     },
     
@@ -299,13 +333,14 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.inputStr = '';
     },
     
-    displayTotal: function(){           
-        this.inputStr = '=' + this.calculateTotal();  
-        if(this.inputStr === '=' || this.inputStr === '=undefined' || this.inputStr === '=NaN') {
-            this.inputStr = '';
+    displayTotal: function(){        
+        this.inputStr = '=' + this.calculateTotal();        
+        this.cleanCalcHistory();
+        this.removeRedundantHistoryRows();
+        if(this.inputStr === '=' || this.inputStr === '=undefined' || this.inputStr === '=NaN' || (this.inputStr === '=0' && this.inputArray.length === 0)) {
+            this.inputStr = '';            
         }    
-        this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));
-        
+        this.getAmount().setHtml(this.inputStr ? this.showCurrencyPrefix(this.inputStr) : '<span class = "rm-pay-currencyprefix">$</span>0.00');        
     },
     
     showCurrencyPrefix: function(val){         
@@ -334,14 +369,18 @@ Ext.define('RM.component.PayAmountInputCalc', {
     
     calculateTotal: function(){
         if(this.inputArray && this.inputArray.length > 0){
+            if(this.inputArray[0].indexOf('*') !== -1){
+                this.inputArray.splice(0, 0, '0.00');
+        		this.inputArrayIndex = this.inputArrayIndex + 1;                
+            }
             try{
                 var calcInput = ''
-                for (i=0; i < this.inputArray.length; i++){
+                for (var i=0; i < this.inputArray.length; i++){
                    if(this.inputArray[i].indexOf('=') !== -1){
                         calcInput = eval(calcInput);
                         calcInput = calcInput ? calcInput.toFixed(2) : calcInput;
-                        calcInput ? this.inputArray[i] = '=' + calcInput : this.inputArray[i] = '+0.00';
-                        calcInput = this.inputArray[i].slice(1)
+                        calcInput ? this.inputArray[i] = '=' + calcInput : this.inputArray[i] = '+0.000000';
+                        calcInput = this.inputArray[i].slice(1);
                     }
                     else{
                         calcInput += this.inputArray[i];
@@ -351,13 +390,39 @@ Ext.define('RM.component.PayAmountInputCalc', {
             }catch(e){
                 RM.AppMgr.showErrorMsgBox(e.message);
             }           
-        }
+        }        
         return '';
     },
-   
-    onCameraBtnTap: function(){
-        alert('camera btn tapped');
+    
+    cleanCalcHistory: function(){ 
+        if(this.inputArray && this.inputArray.length === 0){
+            
+        	this.hideHistory();
+            this.getHistoryShowBtn().setHidden(true);              
+        }
+        if(this.inputArray[0] === '+0.000000'){
+                  this.inputArray[0] = '0.00';
+        }  
+        if(this.inputArray && this.inputArray.length > 0){
+            for (var i=1; i < this.inputArray.length; i++){              
+              if(this.inputArray[i] === '+0.000000'){
+                  this.inputArray[i] = '=0.00';                  
+              }
+          } 
+        }        
     },
+    
+    removeRedundantHistoryRows: function(){
+       if (this.inputArray && this.inputArray.length > 0) {           
+           for (var i = 1; i < this.inputArray.length; i++) {
+               if (this.inputArray[i].indexOf('=') !== -1 && (this.inputArray[i] === this.inputArray[i - 1])) {                   
+                   this.removeInputItem(i);
+                   this.removeRedundantHistoryRows();
+                   break;
+               }
+           } 
+       }        
+    },   
     
     validateAndCalculateAmount: function(){
         this.onCalcKeyTap('=');        
@@ -367,36 +432,33 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.data.Amount = 0;
         this.data.Description = "";
         this.data.PayerName = "";
-        this.data.PaymentMethodId = 2;
-        //this.data.Discount = 0;
-        this.data.Surcharge = 0;
-        this.data.Total = 0;     
-        
-        var discVal = this.getDiscount().getValue();
-        var discount = discVal ? discVal : '$0.00';
+        this.data.PaymentMethodId = 2;        
+        this.data.Total = 0;    
+        var discount = this.discount ? this.discount : '$0.00';
+        var surcharge = this.surcharge ? this.surcharge : '$0.00';
         this.data.Amount = this.formatNumber(this.inputStr.slice(1)); 
-        this.data.Description = this.getDescriptionFld().getValue(); 
-        
+        this.data.Description = this.getDescriptionFld().getValue();         
         this.data.DiscountPercent = null;
-        this.data.DiscountAmount = null;
-        
+        this.data.DiscountAmount = null;        
         if (discount.indexOf('%') > -1) {
             this.data.DiscountPercent = discount.replace('%', '');
         }
         else if (discount.indexOf('$') > -1) {
             this.data.DiscountAmount = discount.replace('$', '');
+        }   
+        this.data.SurchargePercent = null;
+        this.data.SurchargeAmount = null;        
+        if (surcharge.indexOf('%') > -1) {
+            this.data.SurchargePercent = surcharge.replace('%', '');
+        }
+        else if (surcharge.indexOf('$') > -1) {
+            this.data.SurchargeAmount = surcharge.replace('$', '');
         }        
         if(this.validateForm(this.data)){ 
             this.totalWithSurchargeAndDiscount();            
             return true;
         }        
-    },
-    
-    onDetails: function(){
-        if(this.validateAndCalculateAmount()){  
-            RM.PayMgr.showScreen('PayAmountDetails', this.data, this.callback, this.callbackScope);
-        } 
-    },
+    },    
     
     onChargeBtnTap: function(){      
         if(this.validateAndCalculateAmount()){  
@@ -407,34 +469,46 @@ Ext.define('RM.component.PayAmountInputCalc', {
     totalWithSurchargeAndDiscount: function() {
         var discount = 0;
         var total = 0;
-        var surcharge = parseFloat(this.data.Surcharge);
+        var surcharge = 0;
         var amount = parseFloat(this.data.Amount.replace('$', ''));       
         if(this.data.DiscountAmount){
             discount = parseFloat(this.data.DiscountAmount);
         }
-        else if(this.data.DiscountPercent){
-            
+        else if(this.data.DiscountPercent){            
             discount = (parseFloat(this.data.DiscountPercent)/100) * amount;
         }
-        total = amount - discount + surcharge;
+        
+        total = amount - discount;
+        this.amountAfterDiscount = total; 
+        if(this.data.SurchargeAmount){
+            surcharge = parseFloat(this.data.SurchargeAmount);
+        }
+        else if(this.data.SurchargePercent){            
+            surcharge = (parseFloat(this.data.SurchargePercent)/100) * total;
+        }
+        total = total + surcharge;
         this.data.Total = total.toFixed(2);
     },
     
     clearInputFieldAndHistory: function(){
         this.inputStr = '';
         this.inputArray = new Array();
-        this.inputArrayIndex = 0;
-        this.getAmount().setHtml('');
+        this.inputArrayIndex = 0;  
+        this.amountAfterDiscount = 0;
+        this.discount = 0;
+        this.surcharge = 0;
+        this.noteText = '';
         var historyContainer = this.getHistoryContainer();
-        historyContainer.removeAll(true,true);
-        this.history = true;
-        this.showOrHideHistory();
-        this.getAmount().setHtml(this.inputStr ? this.inputStr : '<span class = "rm-pay-currencyprefix">$</span>0.00');
+        historyContainer.removeAll(true,true);         
+        this.showCalculator();
+        this.getHistoryShowBtn().setHidden(true);
+        this.getTotalValueComponent().setHtml('');
+        this.getAmount().setHtml('<span class = "rm-pay-currencyprefix">$</span>0.00');
     },
     
     showDescription: function(){        
         RM.Selectors.showNoteText(
-            'Description',
+            'Notes',
             true,
             'SAVE',
             this.noteText,
@@ -447,12 +521,35 @@ Ext.define('RM.component.PayAmountInputCalc', {
         );        
     },
     
+    showMoreOptions: function(){
+        this.calculateAndUpdateTotal();        
+        if(this.data.Amount){
+            this.getKeypad().setHidden(true);
+            this.getCalculatorShowBtn().setHidden(false);
+            this.getHistoryHideBtn().setHidden(true);
+            this.getHistoryShowBtn().setHidden(true);  
+            this.getOptionsContainer().setHidden(true);
+            this.getTotalValueComponent().setHidden(false);
+            this.getDescriptionFld().setHidden(false);
+            this.getDiscountSurchargeContainer().setHidden(false);        
+        }           
+    },
+    
+    showCalculator: function(){
+        this.getKeypad().setHidden(false);
+        this.getCalculatorShowBtn().setHidden(true);        
+        this.getHistoryShowBtn().setHidden(false);
+        this.getOptionsContainer().setHidden(false);
+        this.getTotalValueComponent().setHidden(true);
+        this.getDescriptionFld().setHidden(true);
+        this.getDiscountSurchargeContainer().setHidden(true);
+    },
+    
     addRowsToInputHistory: function(){        
         var me = this;
         var historyContainer = this.getHistoryContainer();
-        historyContainer.removeAll(true,true);
-        
-        for (i=0; i < this.inputArray.length; i++){
+        historyContainer.removeAll(true,true);        
+        for (var i=0; i < this.inputArray.length; i++){
             
             historyContainer.add({
                 xtype: 'container',
@@ -477,21 +574,9 @@ Ext.define('RM.component.PayAmountInputCalc', {
                     docked: 'right',
                     itemId: 'rowcontent',
                     margin: '2 5 2 5',
-                    html: me.styleOperators(this.inputArray[i]),
-                    //html: this.inputArray[i],
+                    html: me.styleOperators(this.inputArray[i]),                    
                     styleHtmlContent: true,
-                    styleHtmlCls: ['rm-fontsize180', 'rm-payhistoryrowtextcolor', 'rm-pr5']
-                    /*listeners: {
-    								tap: {
-    									element: 'element',                    
-    									fn: function () {
-                                           if(this.getHtml().indexOf('=') === -1){
-                                                this.getParent().addCls('rm-lightgreenbg');                                            
-    										    this.getParent().child('#deletebtn').setHidden(false);  
-                                            }                                                                          
-    									}
-    								}
-								}*/
+                    styleHtmlCls: ['rm-fontsize180', 'rm-payhistoryrowtextcolor', 'rm-pr5']                    
                 }
                 ],
                 listeners: {
@@ -509,7 +594,8 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 }
             });
         }
-        historyContainer.add({
+        if(this.inputArray && this.inputArray.length > 0 && (this.inputArray[this.inputArray.length-1].indexOf('=') === -1)){
+            historyContainer.add({
                 xtype: 'container',
                 layout: 'hbox',  
                 margin: 1,
@@ -526,13 +612,13 @@ Ext.define('RM.component.PayAmountInputCalc', {
                     xtype: 'component', 
                     docked: 'right',   
                     margin: '2 5 2 5',
-                    html: me.styleOperators(this.getAmount().getHtml()),
-                    //html: this.getAmount().getHtml(),
+                    html: me.styleOperators(this.getAmount().getHtml()),                    
                     styleHtmlContent: true,
                     styleHtmlCls: ['rm-fontsize180', 'rm-payhistoryrowtextcolor', 'rm-pr5']                    
                 }
                 ]
-            });            
+            }); 
+        }                   
     },
     
     removeInputItem: function(index){        
@@ -540,34 +626,106 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.inputArrayIndex = this.inputArrayIndex - 1;
     },
     
-    showOrHideHistory: function(){    
-        this.history = !this.history;
-        if(this.history ){
-          this.addRowsToInputHistory(); 
-          this.getInputAndHistoryContainer().setActiveItem(1);   
-           
-        }else{
-          this.getInputAndHistoryContainer().setActiveItem(0);  
-        }
-        this.getHistoryHideBtn().setHidden(!this.history);
-        this.getClearInputBtn().setHidden(this.history);
-        this.getHistoryShowBtn().setHidden(this.history);        
+    showHistory: function(){
+        this.addRowsToInputHistory(); 
+        this.getInputAndHistoryContainer().setActiveItem(1);  
+        this.getHistoryHideBtn().setHidden(false);        
+        this.getHistoryShowBtn().setHidden(true);     
     },
     
-    onDiscountFldTap: function(){
-        RM.ViewMgr.hideKeyPad(); 
-        var discountFld = this.getDiscount();
-        var oldVal = discountFld.getValue();
-        RM.InvoicesMgr.showChooseDiscountPopup(
-            oldVal == 'None' ? 0 : oldVal,
-			function (disc) {
-                var newVal = (disc == 0 ? 'None' : disc);
-                if(newVal != oldVal){                        
-				    discountFld.setValue(newVal);
-                    oldVal = newVal;                    
+    hideHistory: function(){
+        this.getInputAndHistoryContainer().setActiveItem(0);  
+        this.getHistoryHideBtn().setHidden(true);        
+        this.getHistoryShowBtn().setHidden(false);      
+    },    
+    
+    calculateAndUpdateTotal: function(){
+        var val = '';
+        this.validateAndCalculateAmount();
+        if(this.discount){
+            val = val + '-' + this.discount + ' discount on $' +  this.formatValue(this.data.Amount) + ' (' + this.formatDiscountValue() + ')' + '<br>';
+        }
+        if(this.surcharge){
+            val = val + '+' + this.surcharge + ' surcharge on $' +  this.formatValue(this.amountAfterDiscount) +  ' (' + this.formatSurchargeValue() + ')' + '<br>'
+        }      		
+        if(this.discount || this.surcharge){
+            val = val + '<b>Amount to be charged ' + ' (' + '$' + this.formatValue(this.data.Total) + ')</b>'
+        }     	  
+        this.getTotalValueComponent().setHtml(val);  
+    },
+    
+    formatDiscountValue: function(){
+       var discount = '$0.00';
+       if (!this.data.DiscountPercent && !this.data.DiscountAmount) {
+           return discount; 
+       }
+       else if (this.data.DiscountPercent) {
+           var amount = parseFloat(this.data.Amount);
+           discount = (parseFloat(this.data.DiscountPercent) / 100) * amount;
+           discount = '$' + discount.toFixed(2);
+       }
+       else if (this.data.DiscountAmount) {
+           discount = '$' + this.data.DiscountAmount;
+       }
+       return discount;
+    },
+    
+    formatSurchargeValue: function(){
+       var surcharge = '$0.00';
+       if (!this.data.SurchargePercent && !this.data.SurchargeAmount) {
+           return surcharge; 
+       }
+       else if (this.data.SurchargePercent) {           
+           surcharge = (parseFloat(this.data.SurchargePercent) / 100) * this.amountAfterDiscount;
+           surcharge = '$' + surcharge.toFixed(2);
+       }
+       else if (this.data.SurchargeAmount) {
+           surcharge = '$' + this.data.SurchargeAmount;
+       }
+       return surcharge;
+    },
+    
+    formatValue: function(val, decimalPlaces){        
+        if(!val){
+            return '0.00';
+        } 
+        decimalPlaces ? decimalPlaces = decimalPlaces : decimalPlaces = 2;
+        var result = val;        
+        result = parseFloat(val);
+        result = result.toFixed(decimalPlaces);    
+        return result;       
+    },
+    
+    onDiscountTap: function(){
+        RM.ViewMgr.hideKeyPad();
+        var me = this;    
+        RM.PayMgr.showChooseDiscountPopup(
+            me.discount,
+			function (discount) {
+                var newVal = (discount === 0 ? 'None' : discount);
+                if(newVal !== me.discount){	    
+                    me.discount = newVal;   
+                    me.calculateAndUpdateTotal();
                 }
 			},
 			this
+		);
+    },
+    
+    onSurchargeTap: function(){
+        RM.ViewMgr.hideKeyPad();
+        var me = this;    
+        RM.PayMgr.showChooseDiscountPopup(
+            me.surcharge,
+			function (surcharge) {
+                var newVal = (surcharge === 0 ? 'None' : surcharge);
+                if(newVal !== me.surcharge){	    
+                    me.surcharge = newVal;                    
+                    me.calculateAndUpdateTotal();
+                }
+			},
+			this,
+        	'surcharge'
 		);
     },
     
@@ -603,7 +761,14 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 RM.AppMgr.showErrorMsgBox('Discount amount must be less than total amount');  
                 isValid = false; 
             }            
-        }        
+        }
+        else if(vals.SurchargeAmount) {
+            var surcharge = parseFloat(vals.SurchargeAmount);
+            if(surcharge && surcharge >= vals.Amount){
+                RM.AppMgr.showErrorMsgBox('Surcharge amount must be less than total amount');  
+                isValid = false; 
+            }            
+        }
         if(vals.BalanceDue){
             var balance = parseFloat(vals.BalanceDue);
             var amount = parseFloat(vals.Amount);            

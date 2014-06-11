@@ -72,6 +72,9 @@ Ext.define('RM.controller.PaySendReceiptC',{
         this.getEmailFld().setHidden(!this.emailverified);
         this.getEmailComponent().setHidden(this.emailverified);
         this.getPaySendReceiptTitle().setHtml('$' + (data.Total ? data.Total : data.Amount) + ' charged');
+        if(this.data.voidedTransaction) {
+         	this.getPaySendReceiptTitle().setHtml('Charge voided');   
+        }
         if(this.data.CustomerEmail){
             this.getEmailFld().setValue(this.data.CustomerEmail);
         }
@@ -95,7 +98,10 @@ Ext.define('RM.controller.PaySendReceiptC',{
     done: function() {
         if(this.callback){
             this.callback.call(this.callbackScope);
-        }        
+        }
+        else{
+            RM.ViewMgr.backTo('slidenavigationview');
+        }
     },
     
     onDetailsTap: function(){

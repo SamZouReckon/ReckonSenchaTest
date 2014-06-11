@@ -7,14 +7,14 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
 
     },
 
-    show: function (val, cb, cbs) {
+    show: function (val, cb, cbs, title) {
         var me = this;
-        RM.ViewMgr.regBackHandler(this.hide, this);
-        
+        this.title = title ? title : 'discount';
+        RM.ViewMgr.regBackHandler(this.hide, this);        
         this.popup = Ext.create('RM.component.Popup', {
             items: [{
                 xtype: 'component',
-                html: 'Choose discount',
+                html: 'Choose ' + this.title,
                 cls: 'rm-title'
             }, {
                 xtype: 'fieldset',
@@ -71,7 +71,7 @@ Ext.define('RM.component.ChooseInvoiceDiscount', {
                 }, {
                     name: 'disc',
                     itemId: 'custom',
-                    label: 'Custom % or $ discount',
+                    label: 'Custom % or $',
                     checked: (val != 0 && val != '5%' && val != '10%' && val != '20%')
                 }
 					]

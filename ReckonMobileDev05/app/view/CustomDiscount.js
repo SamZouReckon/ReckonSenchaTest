@@ -16,6 +16,7 @@ Ext.define('RM.view.CustomDiscount', {
 					width: '2.6em'
 				},{
 					xtype: 'component',
+                    itemId: 'title',
 					html: 'Custom discount',
 					cls: 'rm-topbartitle'
 				},{

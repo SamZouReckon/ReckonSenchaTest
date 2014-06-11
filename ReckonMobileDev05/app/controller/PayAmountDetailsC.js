@@ -14,11 +14,11 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                 tap: 'onReturn'
             }            
         }
-    },
-    
+    },    
     
     showView: function (data) {
         this.data = data;
+        this.amountAfterDiscount = 0;
         var view = this.getPayAmountDetails();
         if (!view)
             view = { xtype: 'payamountdetails' };
@@ -36,7 +36,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                     '<div class="rm-balance-breakdown-row"><span>Discount</span><span class="rm-balance-breakdown-amount">{1}</span></div>' +
                 '</tr>' +                
                 '<tr>'+
-                    '<div class="rm-balance-breakdown-row"><span>Surcharge</span><span class="rm-balance-breakdown-amount">${2}</span></div>' +
+                    '<div class="rm-balance-breakdown-row"><span>Surcharge</span><span class="rm-balance-breakdown-amount">{2}</span></div>' +
                 '</tr>' +                 
                 '<tr>' +
                     '<div class="rm-balance-breakdown-due"><span>TOTAL</span><span class="rm-balance-breakdown-amount">${3}</span></div>'   +
@@ -44,24 +44,41 @@ Ext.define('RM.controller.PayAmountDetailsC',{
              '</table>', 
             this.formatNumber(this.data.Amount), 
             this.formatDiscountValue(), 
-            this.formatNumber(this.data.Surcharge), 
+            this.formatSurchargeValue(), 
             this.formatNumber(this.data.Total)));
     },
     
     formatDiscountValue: function(){
        var discount = '$0.00';
+        var amount = parseFloat(this.data.Amount);
        if (!this.data.DiscountPercent && !this.data.DiscountAmount) {
            return discount; 
        }
-       else if (this.data.DiscountPercent) {
-           var amount = parseFloat(this.data.Amount);
+       else if (this.data.DiscountPercent) {           
            discount = (parseFloat(this.data.DiscountPercent) / 100) * amount;
+           this.amountAfterDiscount = amount - discount;
            discount = '(' + this.data.DiscountPercent + '%' + ')' + ' $' + discount.toFixed(2);
        }
        else if (this.data.DiscountAmount) {
            discount = '$' + this.data.DiscountAmount;
+           this.amountAfterDiscount = amount - discount;
        }
        return discount;
+    },
+    
+    formatSurchargeValue: function(){
+       var surcharge = '$0.00';
+       if (!this.data.SurchargePercent && !this.data.SurchargeAmount) {
+           return surcharge; 
+       }
+       else if (this.data.SurchargePercent) {           
+           surcharge = (parseFloat(this.data.SurchargePercent) / 100) * this.amountAfterDiscount;
+           surcharge = '(' + this.data.SurchargePercent + '%' + ')' + ' $' + surcharge.toFixed(2);
+       }
+       else if (this.data.SurchargeAmount) {
+           surcharge = '$' + this.data.SurchargeAmount;
+       }
+       return surcharge;
     },
     
     formatNumber: function(val, decimalPlaces){        

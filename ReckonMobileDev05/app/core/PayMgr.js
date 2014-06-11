@@ -114,6 +114,11 @@ Ext.define('RM.core.PayMgr', {
 	    );
     },
     
+    showPinAuthentication: function(userName, displayName, cb, cbs, cbFail){
+		var pinAuthenticationC = RM.AppMgr.getAppControllerInstance('RM.controller.PinAuthenticationC');
+		pinAuthenticationC.showView(userName, displayName, cb, cbs, cbFail);		
+	},
+    
     readTransactionHistory: function(transactionHistoryId, callBack, callBackScope){
         RM.AppMgr.getServerRec('PayTransactionHistory', true, transactionHistoryId,
 		    function () {                    
@@ -124,5 +129,25 @@ Ext.define('RM.core.PayMgr', {
                 RM.AppMgr.showOkMsgBox(eventMsg);
             }
 	    );
+    },
+    
+    showChooseDiscountPopup: function (val, cb, cbs, title) {
+        var discPopup = Ext.create('RM.component.ChooseInvoiceDiscount');
+        discPopup.show(
+            val,
+			function (disc) {
+			    if (disc == 'custom')
+			        this.showCustomDiscount(val, cb, cbs, title);
+			    else
+			        cb.call(cbs, disc);
+			},
+			this,
+        	title
+		);
+    },
+    
+    showCustomDiscount: function (val, cb, cbs, title) {
+        var custDisc = RM.AppMgr.getAppControllerInstance('RM.controller.CustomDiscountC');
+        custDisc.showView(val, cb, cbs, title);
     }
 });

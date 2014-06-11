@@ -112,11 +112,11 @@ Ext.define('RM.view.PaySendReceipt',{
 							}
 						]
 							
-					},{
+					},/*{
                       	xtype: 'component',
                           cls: 'rm-whitebg rm-p1015 rm-fontsize80 rm-colorgrey',                          
                           html: 'Check your Messages app on your device to see if it went through.'
-                    },{
+                    },*/{
 						xtype: 'button',
                         itemId: 'done',
 						text: '<span class="rm-btn-arrow">DONE</span>',

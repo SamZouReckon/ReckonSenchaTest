@@ -6,7 +6,8 @@ Ext.define('RM.controller.CustomDiscountC', {
         refs: {
             customDiscount: 'customdiscount',
             percentDiscount: 'customdiscount #percentDiscount',
-            absoluteDiscount: 'customdiscount #absoluteDiscount'
+            absoluteDiscount: 'customdiscount #absoluteDiscount',
+            title: 'customdiscount #title'
         },
         control: {
             'customdiscount': {
@@ -24,15 +25,18 @@ Ext.define('RM.controller.CustomDiscountC', {
         }
     },
 
-    showView: function (discVal, cb, cbs) {
+    showView: function (discVal, cb, cbs, title) {
         this.discVal = discVal;
         this.selectCb = cb;
         this.selectCbs = cbs;      
-        
+        this.title = title ? title : 'discount';         
         var view = this.getCustomDiscount();
         if (!view)
             view = { xtype: 'customdiscount' };
-        RM.ViewMgr.showPanel(view);
+        RM.ViewMgr.showPanel(view);     
+        this.getPercentDiscount().setLabel('% ' + this.title);
+    	this.getAbsoluteDiscount().setLabel('$ ' + this.title);
+        this.getTitle().setHtml('Custom ' + this.title);
     },
 
     onShow: function () {
@@ -74,11 +78,11 @@ Ext.define('RM.controller.CustomDiscountC', {
         }  
         if (val1 && val1 > 99) {
             isValid = false;            
-            RM.AppMgr.showErrorMsgBox('% discount cannot be greater than 99%');            
+            RM.AppMgr.showErrorMsgBox('% '+ this.title + ' cannot be greater than 99%');            
             return isValid;
         }
         if (!isValid) {            
-            RM.AppMgr.showErrorMsgBox('Please enter a % discount or $ discount value greater than 0');            
+            RM.AppMgr.showErrorMsgBox('Please enter a % ' + this.title + ' or $ '+ this.title + ' value greater than 0');            
         }         
         return isValid;
     },

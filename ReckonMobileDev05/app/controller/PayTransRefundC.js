@@ -37,7 +37,8 @@ Ext.define('RM.controller.PayTransRefundC',{
     },
     
     refund: function(){
-           
+        //To test Signature component, will be replaced with the refund screen later
+        RM.PayMgr.showScreen('PayTransCardSign', this.data);   
     },
     
     onNotesTap: function(){

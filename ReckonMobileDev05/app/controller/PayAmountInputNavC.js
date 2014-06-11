@@ -5,11 +5,6 @@ Ext.define('RM.controller.PayAmountInputNavC', {
          refs: {  
             payAmountInputCalcPanel: 'payamountinputnav #payamountinputcalcpanel',           
             toolbarTitle: 'payamountinputnav #toolbarTitle',    
-        },
-        control: {
-            'payamountinputnav #details': {
-                tap: 'onDetails'
-            }
         }
     },
     
@@ -24,12 +19,6 @@ Ext.define('RM.controller.PayAmountInputNavC', {
     
     clearFields: function(){
         this.getPayAmountInputCalcPanel().clearInputFieldAndHistory();
-        this.getPayAmountInputCalcPanel().getDiscount().setValue('None'); 
    	 this.getPayAmountInputCalcPanel().getDescriptionFld().setValue('');
-    },
-    
-    onDetails: function(){
-        this.getPayAmountInputCalcPanel().onDetails();
-    }
-    
+    }    
 });

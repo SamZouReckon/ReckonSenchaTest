@@ -32,7 +32,7 @@
   },
   "resources": [
     "resources/images",
-	"resources/css/fonts"
+	"resources/css/fonts",
     "resources/icons",
     "resources/startup",
     "index.production.html"

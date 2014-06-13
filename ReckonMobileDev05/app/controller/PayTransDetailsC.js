@@ -7,7 +7,8 @@ Ext.define('RM.controller.PayTransDetailsC',{
             date: 'paytransdetails #date',
             cardNumber: 'paytransdetails #cardno',
             receiptNumber: 'paytransdetails #receiptno',
-            refundBtn: 'paytransdetails #refund'
+            refundBtn: 'paytransdetails #refund',
+            amountFld: 'paytransdetails #amountfld'
         },
         control: {            
             'paytransdetails #refund': {
@@ -45,7 +46,8 @@ Ext.define('RM.controller.PayTransDetailsC',{
         }
         else{
             this.getRefundBtn().setHidden(false);
-        }        
+        }  
+        this.getAmountFld().setValue(this.data.Amount);
         this.getDate().setValue(this.data.TransactionDate);
         this.getCardNumber().setValue('Card Ending with 4455');
         this.getReceiptNumber().setValue('REC123456');

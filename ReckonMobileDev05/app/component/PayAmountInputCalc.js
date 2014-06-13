@@ -278,10 +278,15 @@ Ext.define('RM.component.PayAmountInputCalc', {
     
     onCalcKeyTap: function (key) {       
         var pointIndex = this.inputStr.indexOf('.');        
-        if (key === 'back') {
+        if (key === 'back') {            
             if (this.inputStr.length > 0 && (this.inputStr.indexOf('=') === -1 ) && this.inputStr !== '*' && this.inputStr !== '+') {               
                 this.inputStr = this.inputStr.slice(0, -1); 
             }
+            if(this.inputArray.length === 0 && this.inputStr === ''){
+                this.getHistoryShowBtn().setHidden(true); 
+            	this.getAmount().setHtml('<span class = "rm-pay-currencyprefix">$</span>0.00'); 
+                return;
+            }  
         }  
         else if(key === '=' ){  
             if(this.inputStr.indexOf('=') === -1){
@@ -313,11 +318,8 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 }
                 this.inputStr += key;
             }            
-        } 
-        var a = this.getHistoryHideBtn().getHidden();
-        var b = this.getCalculatorShowBtn().getHidden();
-        console.log(a + ' ' +b);
-        if(this.getHistoryHideBtn().getHidden() && this.getCalculatorShowBtn().getHidden()){
+        }        
+        if(this.getHistoryHideBtn().getHidden() && this.getCalculatorShowBtn().getHidden() && this.inputStr !== ''){
             this.getHistoryShowBtn().setHidden(false);  
         }
         this.getAmount().setHtml(this.showCurrencyPrefix(this.inputStr));

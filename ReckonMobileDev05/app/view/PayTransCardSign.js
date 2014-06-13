@@ -23,14 +23,10 @@ Ext.define('RM.view.PayTransCardSign',{
                 },{
 					xtype:'spacer'
 				},{
-    				text: 'Details',
-    				itemId: 'details', 
-                    width: '3.7em',
-    				ui: 'rm_topbarbuttonright'
-    			},{
                     text: 'Clear',
                     itemId: 'clear',
                     width: '2.75em',
+                    hidden: true,
                     ui: 'rm_topbarbuttonright'
                 },{
                     text: 'VOID',
@@ -38,7 +34,14 @@ Ext.define('RM.view.PayTransCardSign',{
                     hidden: true,
                     width: '2.75em',
     				ui: 'rm_topbarbuttonright'
-                }
+                },{
+					xtype:'spacer'
+				},{
+    				text: 'Details',
+    				itemId: 'details', 
+                    width: '3.7em',
+    				ui: 'rm_topbarbuttonright'
+    			}
             ]
         },{
             xtype: 'rmcanvas',            
@@ -51,7 +54,15 @@ Ext.define('RM.view.PayTransCardSign',{
 			xtype: 'button',
             docked: 'bottom',
             itemId: 'confirm',
+            hidden: true,
 			text: '<span class="rm-btn-arrow">VENDOR VERIFY SIGNATURE</span>',
+            cls: 'rm-photopreviewbtn'					
+		},{
+			xtype: 'button',
+            docked: 'bottom',
+            itemId: 'approve',
+            hidden: true,
+			text: '<span class="rm-btn-arrow">APPROVE</span>',
             cls: 'rm-photopreviewbtn'					
 		}
          ]

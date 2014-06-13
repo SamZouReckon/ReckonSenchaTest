@@ -6,7 +6,10 @@ Ext.define('RM.controller.PayTransCardSignC',{
             payTransCardSign: 'paytranscardsign',
             payTransCardSignTitle: 'paytranscardsign #title',
             payTransCardSignPanel: 'paytranscardsign #signpanel',
-            payTransCardVoidButton: 'paytranscardsign #void'
+            payTransCardVoidButton: 'paytranscardsign #void',
+            payTransCardClearButton: 'paytranscardsign #clear',
+            payTransCardConfirmButton: 'paytranscardsign #confirm',
+            payTransCardApproveButton: 'paytranscardsign #approve'            
         },
         control: { 
             'paytranscardsign #back': {
@@ -18,6 +21,9 @@ Ext.define('RM.controller.PayTransCardSignC',{
             'paytranscardsign #confirm':{
                 tap: 'onConfirmTap'  
             },
+             'paytranscardsign #approve':{
+                tap: 'onApproveTap'  
+            },
             'paytranscardsign #details': {
                 tap: 'onDetailsTap'
             },
@@ -25,7 +31,8 @@ Ext.define('RM.controller.PayTransCardSignC',{
                 tap: 'onVoidTap'
             },
             'paytranscardsign #signpanel': {
-                rmcanvaspainted: 'onRMCanvasPainted'
+                rmcanvaspainted: 'onRMCanvasPainted',
+                rmcanvascleared: 'onRMCanvasCleared'
             }
         }
      },
@@ -45,8 +52,7 @@ Ext.define('RM.controller.PayTransCardSignC',{
     },
     
     clear: function(){
-        this.getPayTransCardSignPanel().clearCanvas();
-        this.getPayTransCardVoidButton().setHidden(true);
+        this.getPayTransCardSignPanel().clearCanvas();        
     },
     
     back: function(){
@@ -57,8 +63,14 @@ Ext.define('RM.controller.PayTransCardSignC',{
         RM.PayMgr.showScreen('PayAmountDetails', this.data);
     },
     
+    onRMCanvasCleared: function(){
+        this.getPayTransCardClearButton().setHidden(true);  
+        this.getPayTransCardConfirmButton().setHidden(true);  
+    },
+    
     onRMCanvasPainted: function(){
-        this.getPayTransCardVoidButton().setHidden(false);  
+        this.getPayTransCardClearButton().setHidden(false);  
+        this.getPayTransCardConfirmButton().setHidden(false);  
     },
     
     onVoidTap: function(){
@@ -74,17 +86,30 @@ Ext.define('RM.controller.PayTransCardSignC',{
         }, this); 
     },
     
-    onConfirmTap: function(){
-     	RM.PayMgr.showPinAuthentication(
-        	localStorage.getItem('RmUserName'),
-            localStorage.getItem('RmDisplayName'), 
-        	function(){
-               alert('Correct PIN');
-            }, 
-        	this, 
-        	function(){
-               alert('Incorrect PIN');  
-            }
-        );   
-    }
+   onConfirmTap: function() {
+       if (this.getPayTransCardSignPanel().isCanvasEmpty) {
+           RM.AppMgr.showErrorMsgBox('No signature detected');
+       }
+       else {
+           RM.PayMgr.showPinAuthentication(
+               localStorage.getItem('RmUserName'),
+               localStorage.getItem('RmDisplayName'), 
+               function() {
+                   RM.ViewMgr.back();
+                   this.getPayTransCardSignPanel().setReadOnlyMode(); 
+                   this.getPayTransCardClearButton().setHidden(true);
+                   this.getPayTransCardVoidButton().setHidden(false);
+                   this.getPayTransCardConfirmButton().setHidden(true);
+                   this.getPayTransCardApproveButton().setHidden(false); 
+               }, 
+               this, 
+               function() {
+                   RM.AppMgr.showErrorMsgBox('Incorrect PIN');
+               });   
+       }
+   },
+    
+    onApproveTap: function(){
+        
+    }    
 });

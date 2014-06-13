@@ -44,7 +44,7 @@ Ext.define('RM.view.PayTransDetails', {
             label: 'Amount',
             clearIcon: false,
             readOnly: true,
-            hidden: true
+            //hidden: true
         },{
             xtype: 'extdatepickerfield',
             itemId: 'date',
@@ -76,45 +76,6 @@ Ext.define('RM.view.PayTransDetails', {
             cls: ['rm-flatfield', 'rm-flatfield-last'],
             label: 'Refund Receipt No.',
             labelWidth: '11em'            
-        },{
-            xtype: 'container',
-            layout: 'hbox',
-            items:[{
-                xtype: 'container',
-                layout: 'vbox',
-                flex: 1,
-                items: [{
-                    xtype: 'component',
-                    html: 'LOCATION',
-                    cls: ['rm-alignc', 'rm-fontsize70', 'rm-pay-graytext'],
-                    margin: '15 auto 0 auto'
-                }/*,{
-                    xtype: 'map',
-                    useCurrentLocation: true,
-                    cls: 'rm-border1px',
-                    height: 180
-                }*/]
-                
-            },{
-                xtype: 'container',
-                layout: 'vbox',                
-                flex: 1,
-                items: [{
-                    xtype: 'component',
-                    html: 'PHOTO',
-                    cls: ['rm-alignc', 'rm-fontsize70', 'rm-pay-graytext'],
-                    margin: '15 auto 0 auto'
-                },{
-                    xtype: 'img',
-                    html: 'No photo<br>taken', 
-                    cls: 'rm-border1px',
-                    styleHtmlContent: true,
-                    styleHtmlCls: ['rm-fontsize70', 'rm-pay-graytext'],
-                    backgroundCls: 'rm-pay-noimagebg',
-                    src: '',
-                    height: 180
-                }]
-            }]
         }
         ]
     }

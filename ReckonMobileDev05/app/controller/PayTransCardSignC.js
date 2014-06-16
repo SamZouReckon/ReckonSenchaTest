@@ -37,8 +37,10 @@ Ext.define('RM.controller.PayTransCardSignC',{
         }
      },
     
-    showView: function (data) {
+    showView: function (data, callback, callbackScope) {
         this.data = data;
+        this.callback = callback;
+        this.callbackScope = callbackScope;
         var view = this.getPayTransCardSign();
         if (!view){
             view = { xtype: 'paytranscardsign' };
@@ -48,7 +50,7 @@ Ext.define('RM.controller.PayTransCardSignC',{
     },   
     
     loadData: function(){        
-        this.getPayTransCardSignTitle().setHtml(RM.AppMgr.formatCurrency(this.data.Amount));
+        this.getPayTransCardSignTitle().setHtml('$' + this.data.Amount);
     },
     
     clear: function(){
@@ -76,12 +78,11 @@ Ext.define('RM.controller.PayTransCardSignC',{
     onVoidTap: function(){
         RM.AppMgr.showRMMsgPopup('Signature is incorrect','error',[{text: '<span class="rm-btn-arrow">CHANGE PAYMENT TYPE</span>', itemId: 'changetype'}, {text: 'EXIT', itemId: 'exit'}], function(selection){
             if(selection === 'changetype'){
-                RM.ViewMgr.backTo('paytransdetails');
+                RM.ViewMgr.backTo('paytranstypeselect');
                 //RM.PayMgr.showScreen('PayTransDetails', this.data, this.callback, this.callbackScope);
             }
             else if(selection === 'exit'){
-                this.data.voidedTransaction = true;
-                RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);                
+                this.callback.call(this.callbackScope);
             }            
         }, this); 
     },

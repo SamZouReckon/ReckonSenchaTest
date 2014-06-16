@@ -111,6 +111,10 @@ Ext.define('RM.controller.PayTransCardSignC',{
    },
     
     onApproveTap: function(){
-        
+       
+    	//RM.PayMgr.createTransaction(this.data, function(){
+            RM.PayMgr.showScreen('PaySendReceipt', this.data, this.callback, this.callbackScope);      
+        //},this);            
+       
     }    
 });

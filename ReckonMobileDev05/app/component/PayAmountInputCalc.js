@@ -44,6 +44,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
                     docked: 'top',
                     scrollable: 'horizontal',
                     height: '4em',
+                    margin: '25 0 0 0',
                     cls: 'rm-whitebg',
                     layout: 'hbox',
                     items: [
@@ -161,11 +162,11 @@ Ext.define('RM.component.PayAmountInputCalc', {
                 }
                 ,{
                        xtype: 'container',
-                       cls: 'rm-whitebg',
+                       cls: ['rm-whitebg', 'rm-border1px'],
                        scrollable: 'vertical',
-                       html: 'Calculation',
+                       html: '',
                        styleHtmlContent: true,
-                       styleHtmlCls: ['rm-p10', 'rm-fontsize70', 'rm-pay-graytext', 'rm-border1px'],
+                       styleHtmlCls: ['rm-p10', 'rm-fontsize70', 'rm-pay-graytext'],
                        itemId: 'historycontainer'
                 }               
         	]
@@ -500,6 +501,7 @@ Ext.define('RM.component.PayAmountInputCalc', {
         this.discount = 0;
         this.surcharge = 0;
         this.noteText = '';
+        this.getDescriptionFld().setValue(''); 
         var historyContainer = this.getHistoryContainer();
         historyContainer.removeAll(true,true);         
         this.showCalculator();

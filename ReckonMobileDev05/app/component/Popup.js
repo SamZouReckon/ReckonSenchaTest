@@ -32,7 +32,10 @@ Ext.define('RM.component.Popup', {
         this.callParent();
         this.insert(0, {
             xtype: 'button',
-            ui: 'close',
+            //ui: 'close',
+            cls: ['rm-greybtn-bg', 'rm-flatbtn'],
+            docked: 'bottom',
+            text: 'CANCEL',
             handler: function() {
                 this.hide()
             },

@@ -12,12 +12,12 @@
 //$base-color: #F82C2C;				//Global theme color used for theming app
 $base-color: #333333;
 
-$rm-default-color: #787878;
+$rm-default-color: #969696;
 $rm-warning-color: #8e6c09;
 $rm-warning-bg-color: #fbe29e;
 
 $list-color: #646464;				//List Text color
-$list-header-bg-color: #EBEBEB;		//group header bg color
+$list-header-bg-color: #F8F8F8;		//group header bg color
 $list-header-gradient: none;		//group header gradient
 $list-bg-color: #FFFFFF ;			//List row bg color
 $list-pressed-color: #F0F0F0;		//List row color when pressed
@@ -58,6 +58,10 @@ $font-family: 'Open Sans', sans-serif !default;
 @include sencha-form;
 @include sencha-msgbox;
 @include sencha-list-pullrefresh;*/
+
+.x-button-label{
+	font-weight: normal;
+}
 
 //topbarbutton style is for flat toolbar buttons
   @mixin rm_topbarbuttonstyle {
@@ -142,10 +146,14 @@ $font-family: 'Open Sans', sans-serif !default;
 				margin-right: 50px;
 			}	
 		}		
-		.x-form-label{			
-			color: #646464;
+		.x-form-label{
 			background-color: inherit;			
-		}        
+		} 
+		
+		.x-form-label span{
+			color: #475561;
+			font-weight: normal !important;
+		}	       
         
 		.x-input-el{
 			text-align: right;	
@@ -154,7 +162,7 @@ $font-family: 'Open Sans', sans-serif !default;
             background-color: inherit;
             font-size: 0.8em;
             min-height: 3.2em; 
-            font-weight: bold;
+            //font-weight: bold;
             //padding-top: 0.9em;	
             padding-right: 0.6em;
 		}	
@@ -186,7 +194,7 @@ $font-family: 'Open Sans', sans-serif !default;
 }
 
 //Toolbar UI for gray toolbar used for sort search component
-@include sencha-toolbar-ui('rm-sortsearch-topbar', #4E4E4E, 'none');
+@include sencha-toolbar-ui('rm-sortsearch-topbar', #ECECEC, 'none');
 //@include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
 //@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
 //@include sencha-toolbar-ui('rm-slidenav-topbar',#333333,'matte'); //toolbar for slidenav menu toolbar
@@ -204,10 +212,10 @@ $font-family: 'Open Sans', sans-serif !default;
       color: #646464;				//Changed from default color #777 to #646464	  
       font-size: 0.8em;			//To get the right height of header without text wrap
       font-weight: bold;
-      padding-left: 8px; //26px;
+      padding-left: 15px !important; //26px;
       line-height: 1.7em;			
       //      background: rgba(238,238,238,.8);
-      background-color: #EBEBEB;        //Added to get flat look    
+      background-color: #F8F8F8;        //Added to get flat look    
       //@include background-image(linear-gradient(top, rgba(238, 238, 238, 1), rgba(238, 238, 238, .9) 30%, rgba(238, 238, 238, .4))); //commented to remove gradient effect
       border-bottom: none;
       border-top: none !important;
@@ -564,21 +572,26 @@ $font-family: 'Open Sans', sans-serif !default;
 	margin:0px;
 }
 
-//Dropdown menu with black bgcolor for dropdown menu
+//Dropdown menu
 .x-button-rm_btnaslistrowmain {
-		border-radius: 0;
-		border: none;		
-        background: #000000;
-    	color: #FFFFFF;
-    	border-top: 1px solid #4F4F4F;
-    	padding: 0px;
-    	margin:0px;            
-	}
+	border-radius: 0;
+	border: none;		
+    background: #A5A5A5;
+	color: #454545;
+	//border-top: 1px solid #4F4F4F;
+	padding: 0px;
+	margin:0px;   
+	.x-button-label {         
+        font-size: 90% !important;                
+    }	        
+}
 
  
 //For sortsearch dropdown button
  .x-toolbar .x-button.x-button-rm_dropdownbtn {
-    @include rm_topbarbuttonstyle;	
+    @include rm_topbarbuttonstyle;
+	background: #ECECEC !important;
+	color: #646464 !important;	
 	margin: -5px;
     padding-left: 15px !important;
   }
@@ -594,8 +607,8 @@ $font-family: 'Open Sans', sans-serif !default;
     .x-button-label {    
         text-overflow: ellipsis;
         text-align: left;
-        font-weight: normal !important;
-        font-size: 115% !important;                
+        font-weight: bold !important;
+        font-size: 92% !important;                
 	}	
 }
 
@@ -672,10 +685,10 @@ $font-family: 'Open Sans', sans-serif !default;
 //Keypad button style used in EnterPin screen
 .rm-flatkeypadbutton {
 	border-radius: 0;
-	border: 1px solid #989898;	
+	border: 1px solid #DADBDF;	
 	margin: 0;
-	background: #F8FDF9;
-	color: #A0A29F;
+	background: #FCFCFC;
+	color: #595959;
     font-size: 140%;
     
     .x-button-label{
@@ -730,10 +743,10 @@ $font-family: 'Open Sans', sans-serif !default;
         height: 3.25em;        
         margin: 0;        
         border-radius: 0;        
-        color: #646464;
-        background: #efefef;  
+        color: #F9F9F9;
+        background: #475561;  
         border: 0 !important; 
-        border-top: 1px solid #B4B4B4 !important;              
+        //border-top: 1px solid #B4B4B4 !important;              
     }  
 
     .x-layout-box-item {
@@ -747,28 +760,22 @@ $font-family: 'Open Sans', sans-serif !default;
 
 //Popup menu used for popup dialog with cross icon. 
 .rm-popup {
-
-	  min-width: 13em;
-	  max-width: 15em;
-	  padding: 0.1em 0.1em;
-	  //font-size: 80%;
-	  //line-height: 1.1em;
-	  border: 0px solid #c2c2c2;
+	  padding: 0;	  
+	  border: 0px;
 	  border-radius: 0px;
-	  background: #4E4E4E;
-	  color: #FFFFFF;  
-      
-  
-	  .rm-title {
-			margin-top: 0.3em;
-			margin-bottom: 0.3em;
-			padding: 0.7em;
-			text-align: left;
-			color: #C8C8C8;
-			font-weight:bold;
-			p {
-				margin-bottom: 0.7em;
-			}
+	  background: #FFF;
+	  color: #787878;  
+      width: 100%;
+  	text-align: center;
+	 
+	 .rm-title {			
+			padding: 0.6em;			
+			text-align: center;
+			color: #787878;
+			font-weight: bold;
+			//font-size: 0.8em;
+			//height: 3em;
+			//border-bottom: 1px solid #dddddd;		
 	  }
 	  
 	  .rm-textitemgray{
@@ -782,6 +789,7 @@ $font-family: 'Open Sans', sans-serif !default;
 				margin-bottom: 0.2em;
 			}
 	  }
+
 	  .rm-textitemwhite{
 			margin-top: 0.3em;
 			margin-bottom: 0.3em;
@@ -795,15 +803,13 @@ $font-family: 'Open Sans', sans-serif !default;
 	  } 
 	  
 	  .x-list{
-			background: #4F4F4F;	
+			background: #FFF;
+			color: #787878;	
 	  }
 	  
-		.x-list-item,
-		.x-list-item.x-item-selected {
-			
-			background: #4F4F4F;
-			color: #FFFFFF; 
-			border: 0px none !important;
+      .x-list .x-list-item.x-item-selected.x-list-item-tpl { 	
+			background: #00BD9D;
+			color: #FFF;	
 	  }
 
 	  .rm-topright {
@@ -843,7 +849,7 @@ $font-family: 'Open Sans', sans-serif !default;
 			}
 		}
 
-	  .x-button-close {
+	  /*.x-button-close {
 		position: absolute;
 		width: 31px;
 		height: 31px;
@@ -856,7 +862,7 @@ $font-family: 'Open Sans', sans-serif !default;
 
 	  .x-component-outer {
 		width: 100%;
-	  }
+	  }*/
 	  
 	  .rm-picker {		
 		background-color: #4F4F4F;
@@ -868,21 +874,34 @@ $font-family: 'Open Sans', sans-serif !default;
         background-repeat:repeat-x;
         background-position:top left;
 	  }
+	
+	.x-form-fieldset{
+		margin: 0;
+	}
 
-	  .x-field-radio .x-input-el {
-	    /*background-color: #4F4F4F;
-        text-shadow: none; 
-		color: #4F4F4F;
-		border:0;
-		border-radius:0;
-        background-image: url(../images/rm-menuitem-topborder.svg);
-        background-repeat:repeat-x;
-        background-position:top left;*/
+	 .x-form-fieldset .x-form-fieldset-inner {			
+			border:0;
+			border-radius:0;
+		}
+	
+	 .x-field-radio .x-form-label {		
+		  background: #FFF;
+		  color: #787878;		  
+		  text-align: left;		
+	  }  
+		
+	.x-field-radio .x-form-label span{
+		font-weight: normal;
+	}
+	/*.x-field-radio .x-field-input{
+		display: none;	
+	}*/
 
+	  /*.x-field-radio .x-input-el {	    
 		&:checked:before {
 		  background-color: $base-color;
 		}
-	  }  
+	  }  */
 	  
 }
 
@@ -999,13 +1018,17 @@ $font-family: 'Open Sans', sans-serif !default;
 	.rm-colorred-popup-no { color: #FE4045 !important;}
 	.rm-colorred-popup-yes { color: #9CCD70 !important;}
     .rm-colorgreen {color: #A2D079;}
-	.rm-colorgreenoptions{ color: #00BC99;}
+	.rm-colorgreenoptions{ color: #00BD9D !important;}
     .rm-colorblue{color: #5095E1;}
 	.rm-colorblack{color: #323232;}
 	.rm-colorgrey{color: #646464}
 	.rm-colorlightgrey{color: #969696;}
 	.rm-pref-headingtitle{color: #646464;}
     .rm-border1px { border-top: 1px solid #DBDBDB;}
+
+	.rm-greenbtn-bg { background: #00BD9D; }
+	.rm-greybtn-bg { background: #475561; }
+	.rm-lightgreybtn-bg { background: #F2F2F2; }
 
 //cashbook.scss
 .rm-orgnametext{
@@ -2432,7 +2455,7 @@ rm-emailinvoicebackground{
 .rm-flatbtn{
 	border: 0;
     border-radius: 0;
-	color: #FFF;
+	color: #F9F9F9;
 	min-height: 2.6em;
 	.x-button-label{
 		font-weight: normal;
@@ -2444,13 +2467,13 @@ rm-emailinvoicebackground{
 }
 
 .rm-pay-discount-bg{
-	background: #F73C4F;
+	background: #FE3C57;
 }
 
 .rm-pay-surcharge-bg{
-	background: #405361;
+	background: #475561;
 }
 
 .rm-pay-charge-bg{
-	background: #00BC99;
+	background: #00BD9D;
 }

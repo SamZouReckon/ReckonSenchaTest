@@ -52,7 +52,7 @@ Ext.define('RM.view.PayTransRefund', {
         },{
             xtype: 'button',
             itemId: 'refund',
-            cls: ['rm-greybtn-bg', 'rm-flatbtn'],
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
             text: 'REFUND',
         }
         ]

@@ -60,16 +60,15 @@ Ext.define('RM.component.RMCanvas', {
         }        
     },
     
-    onTouchMove:function(e) {        
+    onTouchMove:function(e) {          
         e.preventDefault();        
         if(this.isCanvasEmpty && this.lastPt!==null){
             this.resetCanvas();            
-        }
-        var ctx = this.canvas.dom.getContext("2d");        
+        }  
+        var x1 = e.touches[0].pageX - e.target.offsetLeft;        
+        var y1 = e.touches[0].pageY - e.target.offsetTop - this.toolbarHeight - 60;  //60 is height of the title text component
+        var ctx = this.canvas.dom.getContext("2d");
         ctx.lineWidth = 2;
-        var x1 = e.touches[0].pageX - e.target.offsetLeft;
-        var y1 = e.touches[0].pageY - e.target.offsetTop - this.toolbarHeight;
-        
         if(this.lastPt!==null) {
               ctx.beginPath();          
               ctx.moveTo(this.lastPt.x, this.lastPt.y);
@@ -86,7 +85,7 @@ Ext.define('RM.component.RMCanvas', {
             ctx.fillStyle = "#969696";
             ctx.font = '28px open sans';
             ctx.textBaseline = 'bottom';
-            ctx.fillText(this.config.placeHolder, 90, 150);
+            ctx.fillText(this.config.placeHolder, 90, 70);
         }        
     },
     

@@ -22,7 +22,8 @@ Ext.define('RM.controller.PayAmountDetailsC',{
         var view = this.getPayAmountDetails();
         if (!view)
             view = { xtype: 'payamountdetails' };
-        RM.ViewMgr.showPanel(view, 'flip');
+        RM.ViewMgr.showPanel(view);
+        //RM.ViewMgr.showPanel(view, 'flip');
     },
     
     onShow: function () {            
@@ -39,7 +40,7 @@ Ext.define('RM.controller.PayAmountDetailsC',{
                     '<div class="rm-balance-breakdown-row"><span>Surcharge</span><span class="rm-balance-breakdown-amount">{2}</span></div>' +
                 '</tr>' +                 
                 '<tr>' +
-                    '<div class="rm-balance-breakdown-due"><span>TOTAL</span><span class="rm-balance-breakdown-amount">${3}</span></div>'   +
+                    '<div class="rm-balance-breakdown-row rm-colorgreenoptions"><span>TOTAL</span><span class="rm-balance-breakdown-amount">${3}</span></div>'   +
                 '</tr>' + 
              '</table>', 
             this.formatNumber(this.data.Amount), 
@@ -93,7 +94,8 @@ Ext.define('RM.controller.PayAmountDetailsC',{
     },
     
     onReturn: function(){
-        RM.ViewMgr.back('flip');
+        RM.ViewMgr.back();
+        //RM.ViewMgr.back('flip');
     }
     
 });

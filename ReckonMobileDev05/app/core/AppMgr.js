@@ -615,11 +615,13 @@ Ext.define('RM.core.AppMgr', {
     },
     
     showErrorMsgBox: function(msgText, cb, cbs){ 
-        this.showRMMsgPopup(msgText,'error',[{text: 'RETURN', itemId: 'Yes'}], cb, cbs);        
+        //this.showRMMsgPopup(msgText,'error',[{text: 'RETURN', itemId: 'Yes'}], cb, cbs);    
+        this.showRMMsgPopup(msgText,'error',[{text: 'OK', itemId: 'Yes'}], cb, cbs);
     },    
     
     showErrorMsgBoxOpaque: function(msgText, cb, cbs){ 
-        this.showRMMsgPopup(msgText,'error', [{text: 'RETURN', itemId: 'Yes'}], cb, cbs, { hideBackground:true });        
+        //this.showRMMsgPopup(msgText,'error', [{text: 'RETURN', itemId: 'Yes'}], cb, cbs, { hideBackground:true });    
+        this.showRMMsgPopup(msgText,'error', [{text: 'OK', itemId: 'Yes'}], cb, cbs, { hideBackground:true }); 
     },  
     
     showOkMsgBox: function(msgText, cb, cbs){ 

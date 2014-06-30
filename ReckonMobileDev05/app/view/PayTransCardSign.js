@@ -44,9 +44,15 @@ Ext.define('RM.view.PayTransCardSign',{
     			}
             ]
         },{
+            xtype: 'component',
+            docked: 'top',
+            height: 60,
+            cls: ['rm-colorblack', 'rm-fontsize80', 'rm-p10'],
+            html: 'I agree to pay the above total amount to Joe Plumber'
+        },{
             xtype: 'rmcanvas',            
             itemId: 'signpanel',  
-            placeHolder: 'SIGN HERE',
+            placeHolder: 'SIGN HERE',            
             height: 2000,		
             width: 2000		  
             //flex: 1
@@ -55,16 +61,21 @@ Ext.define('RM.view.PayTransCardSign',{
             docked: 'bottom',
             itemId: 'confirm',
             hidden: true,
-			text: '<span class="rm-btn-arrow">VENDOR VERIFY SIGNATURE</span>',
-            cls: 'rm-photopreviewbtn'					
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+			text: 'VENDOR VERIFY SIGNATURE'
 		},{
 			xtype: 'button',
             docked: 'bottom',
             itemId: 'approve',
             hidden: true,
-			text: '<span class="rm-btn-arrow">APPROVE</span>',
-            cls: 'rm-photopreviewbtn'					
-		}
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+			text: 'APPROVE'
+		},{
+            xtype: 'component',
+            docked: 'bottom',
+            cls: ['rm-colorblack', 'rm-fontsize80', 'rm-p10'],
+            html: 'Daniel Dalto'
+        }
          ]
      }
     

@@ -106,8 +106,8 @@ Ext.define('RM.view.PayRecvCheque',{
                     },{
                         xtype: 'button',
                         itemId: 'charge',
-                        text: '<span class="rm-btn-arrow">CHARGE</span>',
-                        cls: 'rm-photopreviewbtn',
+                        cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+                        text: 'RECORD TRANSACTION'                        
                     }
             ]
         }

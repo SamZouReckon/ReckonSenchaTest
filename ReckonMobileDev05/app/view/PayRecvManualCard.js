@@ -65,8 +65,8 @@ Ext.define('RM.view.PayRecvManualCard',{
                                 {
                                     xtype: 'button',
                                     itemId: 'recordtransaction',
-                                    text: '<span class="rm-btn-arrow">RECORD TRANSACTION</span>',
-                                    cls: 'rm-photopreviewbtn',
+                                    text: 'RECORD TRANSACTION',
+                                    cls: ['rm-greenbtn-bg', 'rm-flatbtn']
                                 }
         /*
         {

@@ -27,17 +27,7 @@ Ext.define('RM.view.PayTransDetails', {
     				ui: 'rm_topbarbuttonright'
     			}
             ]
-        },{
-            xtype: 'button',
-            itemId: 'sendreceipt',
-            text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
-            cls: 'rm-photopreviewbtn'
-        },{
-            xtype: 'button',
-            itemId: 'refund',
-            text: '<span class="rm-btn-arrow">REFUND</span>',
-            cls: 'rm-photopreviewbtn'
-        },{
+        },/*{
             xtype: 'rmamountfield',
             cls: 'rm-flatfield',
             itemId: 'amountfld',
@@ -45,7 +35,7 @@ Ext.define('RM.view.PayTransDetails', {
             clearIcon: false,
             readOnly: true,
             //hidden: true
-        },{
+        },*/{
             xtype: 'extdatepickerfield',
             itemId: 'date',
             cls: 'rm-flatfield',
@@ -76,6 +66,16 @@ Ext.define('RM.view.PayTransDetails', {
             cls: ['rm-flatfield', 'rm-flatfield-last'],
             label: 'Refund Receipt No.',
             labelWidth: '11em'            
+        },{
+            xtype: 'button',
+            itemId: 'sendreceipt',
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+            text: 'RE-SEND RECEIPT'
+        },{
+            xtype: 'button',
+            itemId: 'refund',
+            cls: ['rm-greybtn-bg', 'rm-flatbtn'],
+            text: 'ISSUE REFUND'
         }
         ]
     }

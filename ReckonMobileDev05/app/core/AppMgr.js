@@ -409,7 +409,7 @@ Ext.define('RM.core.AppMgr', {
             this.baseApiUrl = 'http://r1mobileqa.reckon.com.au/api';            
         }
         else if(apiLocation == 'devlocaliis'){
-            this.baseApiUrl = 'http://localhost:/Reckon.Host.ReckonOneMobile/api';
+            this.baseApiUrl = 'http://localhost/api';
         }        
         else {
             this.baseApiUrl = '/api';

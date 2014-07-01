@@ -469,8 +469,8 @@ Ext.define('RM.core.AppMgr', {
 
     getModuleData: function(){
         return [
-			{ModuleCode: 'reckonone', Activated: true, ShortName: 'ONE', FullName: 'Reckon One', Description: 'Our customised cloud accounting software.<br/>Designed by you to fit your needs', Image: 'reckonone'},
-			{ModuleCode: 'reckonpay', Activated: false, ShortName: 'PAY', FullName: 'Reckon Pay', Description: 'Accept credit card payments on the go.<br/>Only available to Australian customers.',  Image: 'reckonpay'}
+			{ModuleCode: 'reckonone', Activated: true, ShortName: 'ONE', FullName: 'Reckon One', Description: 'Our customised cloud accounting software.<br/>Designed by you to fit your needs', Image: 'reckonone'}
+			//{ModuleCode: 'reckonpay', Activated: false, ShortName: 'PAY', FullName: 'Reckon Pay', Description: 'Accept credit card payments on the go.<br/>Only available to Australian customers.',  Image: 'reckonpay'}
 		];    
     },    
     

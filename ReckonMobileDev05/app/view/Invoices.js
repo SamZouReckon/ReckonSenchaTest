@@ -27,9 +27,9 @@ Ext.define('RM.view.Invoices', {
 				docked: 'top',
 				sortfields: [					
                     {text: 'Due date',  value: 'duedate'},
+                	{text: 'Invoice Number', value: 'invoicenumber'},
 					{text: 'Amount', value: 'amount'},
-                    {text: 'Customer',  value: 'customer'}
-					
+                    {text: 'Customer',  value: 'customer'}					
 				]
                 
 			}

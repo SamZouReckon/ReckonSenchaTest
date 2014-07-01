@@ -57,7 +57,7 @@ Ext.define('RM.controller.EnterUsernameC', {
             text: 'Signup for Pay',
             value: 'reckonpay'
         },*/ {
-            text: 'Forgotten login details',
+            text: 'Forgotten password',
             value: 'forgotlogin'
         }, {
             text: 'Core settings',

@@ -19,11 +19,11 @@ Ext.define('RM.view.PaySalesHistory', {
                 xtype: 'sortsearchbar',				
                 docked: 'top',
                 sortfields: [
-                    {text: 'All',  value: 'TransactionDate'},
-                	{text: 'Filter by Pay Device',  value: 'reckonpaydevice'},  
-                	{text: 'Filter by Cash',  value: 'cash'},
-                	{text: 'Filter by Cheque',  value: 'cheque'},
-                	{text: 'Filter by Other',  value: 'othercredittrans'}  
+                    {text: 'All',  value: ''},
+                	{text: 'Filter by Pay Device',  value: '1'},  
+                	{text: 'Filter by Cash',  value: '2'},
+                	{text: 'Filter by Cheque',  value: '3'},
+                	{text: 'Filter by Other',  value: '8'}  
                 ]
             },{
                 xtype: 'rmlist',

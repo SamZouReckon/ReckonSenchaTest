@@ -6085,7 +6085,8 @@ body.x-desktop {
   border-radius: 0;
   color: #F9F9F9;
   background: #475561;
-  border: 0 !important; }
+  border: 0 !important;
+  border-top: 1px solid #B4B4B4 !important; }
 .rm-msgpopup .x-layout-box-item {
   text-align: center; }
 

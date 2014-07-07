@@ -24,7 +24,9 @@ Ext.define('RM.controller.ContactDetailC', {
             notesFld: 'contactdetail field[name=Notes]',
             postalAddress: 'contactdetail #postalAddress',
             businessAddress: 'contactdetail #businessAddress',
-            sameAddress: 'contactdetail field[name=SameAddress]'
+            sameAddress: 'contactdetail field[name=SameAddress]',
+            postalAddressCountry: 'contactdetail #postalAddress field[name=PostalAddress.Country]',
+            businessAddressCountry: 'contactdetail #businessAddress field[name=BusinessAddress.Country]'
         },
         control: {
             'contactdetail': {
@@ -42,6 +44,12 @@ Ext.define('RM.controller.ContactDetailC', {
             },
             'contactdetail #businessOrIndividual': {
                 change: 'onBusinessOrIndividualSelect'
+            },
+            'contactdetail #postalAddressSelectField':{
+                change: 'onPostalAddressSelect'
+            },
+            'contactdetail #businessAddressSelectField':{
+                change: 'onBusinessAddressSelect'
             },
             notesFld: {
                 tap: 'showNotes'
@@ -300,6 +308,22 @@ Ext.define('RM.controller.ContactDetailC', {
         
     }, 
     
+    onPostalAddressSelect: function(selectfield, newValue, oldValue){
+        if(newValue.toUpperCase() === 'NATIONAL' ){
+            this.getPostalAddressCountry().setHidden(true);
+        }else{
+            this.getPostalAddressCountry().setHidden(false);
+        }
+    },
+    
+    onBusinessAddressSelect: function(selectfield, newValue, oldValue){
+	    if(newValue.toUpperCase() === 'NATIONAL' ){
+            this.getBusinessAddressCountry().setHidden(true);
+        }else{
+            this.getBusinessAddressCountry().setHidden(false);
+        } 
+    },
+    
     onCustomerOrSupplierSelect: function() {
         
         var selection = this.getCustomerOrSupplier().getValue();
@@ -365,6 +389,7 @@ Ext.define('RM.controller.ContactDetailC', {
     
     copyPostalToBusiness: function() {
         var contactDetail = this.getContactDetail();
+        contactDetail.down('field[name=BusinessAddress.Address]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address]').getValue());
         contactDetail.down('field[name=BusinessAddress.Address1]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address1]').getValue());
         contactDetail.down('field[name=BusinessAddress.Address2]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address2]').getValue());
         contactDetail.down('field[name=BusinessAddress.Suburb]').setValue(this.getContactDetail().down('field[name=PostalAddress.Suburb]').getValue());

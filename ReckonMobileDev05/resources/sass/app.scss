@@ -229,30 +229,23 @@ $font-family: 'Open Sans', sans-serif !default;
 
 //For datepicker 
 .x-picker-bar {
-    border-top: none;
-    border-bottom: none;
+    border-top: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
     height: 2.5em;
-    background: #A0A0A0;
-    opacity: 0.4;
-	//background: theme_image($theme-name, "pictos/picker_bg.png") repeat-x left top;
-    //background: url(../images/picker_bg.png) repeat-x left top;
-
+    background: #00BD9D;
+	box-shadow: none;
+    opacity: 0.2;
   }
 
-.x-picker-slot-title {
+.x-picker-slot-title {	
     height: 1.5em;
     position:relative;
-    z-index: 2;
-    background: #292929;
+    z-index: 2;    
     border: none;
-    border-radius: 0px 0px 0px 0px !important;
+    border-radius: 0 !important;
     text-shadow: none;
     text-align: center;    
-    text-transform: uppercase;
-    //@include background-gradient($picker-title-bg-color, $picker-title-bg-gradient);
-    //border-top: 1px solid $picker-title-bg-color;
-    //border-bottom: 1px solid darken($picker-title-bg-color, 20%);
-    //@include box-shadow(rgba(0, 0, 0, 0.3) 0px .1em .3em);
+    text-transform: uppercase;    
     padding: 0.2em 1.02em;
 
     > div {
@@ -263,38 +256,53 @@ $font-family: 'Open Sans', sans-serif !default;
     }    
   } 
 
-.x-picker .x-scroll-container {
-    border-left: 0;
-    border-right: 1px solid #ACACAC;
+.x-picker .x-scroll-container {    
+	border: 0;
     text-align: center;
+}
+
+.x-picker-slot .x-picker-item{
+	color: #475561;
+	font-weight: normal;
+}
+
+.x-picker-slot {
+	border: 0;
 }
 
 .x-picker {	
 		border-top: none; 
-		background: #000000;
+		//background: #000000;
         .x-toolbar{
-           background: #4e4e4e;
+           background: #f8f9f9;
+		   
         }
 		.x-toolbar .x-button{
-			@include rm_topbarbuttonstyle;			
+			@include rm_topbarbuttonstyle;
+			color: #000;			
 		}
-		.x-toolbar .x-button-normal{
-            
-            text-transform: uppercase;
-			//border-right: 0.1em solid #000;
-            background: url(../images/rm-pickerbtn-border.svg) repeat-y right top;
+		.x-toolbar .x-button-normal{            
+            text-transform: uppercase;			
             margin-left: -5px;
             margin-right: 5px;
 		}
-		.x-toolbar .x-button-action{
-            
+		.x-toolbar .x-button-action{            
             width: 3.8em !important;
-            text-transform: uppercase;
-			//border-left: 0.1em solid #000;
-            background: url(../images/rm-pickerbtn-border.svg) repeat-y left top;
+            text-transform: uppercase;			
             margin-left: 5px;
             margin-right: -5px;
 		}
+		.x-dock-body{
+			background: #FFF;
+		}
+		.x-picker-inner{
+			background: #FFF;
+            border: 0;
+            border-radius: 0;
+            margin-left: 0;
+            margin-right: 0;
+		}
+		
 	}
  	
 //datepicker end

@@ -226,7 +226,7 @@ Ext.define('RM.view.ContactDetail', {
                                      label: 'Address',
                                 	 options: [                                        
                                         {text: 'International', value: 'international'},
-                                    	{text: 'National',  value: 'national'},
+                                    	{text: 'National',  value: 'national'}
                                     ]
                             	},{
                                     name: 'PostalAddress.Address1',                                        

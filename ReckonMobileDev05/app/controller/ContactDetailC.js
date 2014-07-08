@@ -111,6 +111,8 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsCustomer = null;
                 this.detailsData.IsSupplier = null;
                 this.initialFormValues = contactForm.getValues();
+                this.getPostalAddressCountry().setHidden(true);	//As default address type is National
+        		this.getBusinessAddressCountry().setHidden(true);  //As default address type is National
                 this.dataLoaded = true;
             }            
         }        
@@ -309,7 +311,8 @@ Ext.define('RM.controller.ContactDetailC', {
     }, 
     
     onPostalAddressSelect: function(selectfield, newValue, oldValue){
-        if(newValue.toUpperCase() === 'NATIONAL' ){
+        //National: 1 International:2
+        if(newValue === 1){
             this.getPostalAddressCountry().setHidden(true);
         }else{
             this.getPostalAddressCountry().setHidden(false);
@@ -317,7 +320,8 @@ Ext.define('RM.controller.ContactDetailC', {
     },
     
     onBusinessAddressSelect: function(selectfield, newValue, oldValue){
-	    if(newValue.toUpperCase() === 'NATIONAL' ){
+        //National: 1 International:2
+	    if(newValue === 1){
             this.getBusinessAddressCountry().setHidden(true);
         }else{
             this.getBusinessAddressCountry().setHidden(false);
@@ -419,8 +423,21 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBusinessOrIndividual().setValue('Business');
             this.getBusinessName().setValue(data.SurnameBusinessName);
             this.getBranchName().setValue(data.FirstNameBranchName);
-        }       
-               
+        } 
+        //this.getPostalAddressCountry().setHidden(data.PostalAddress.Address === 1);
+        //this.getBusinessAddressCountry().setHidden(data.BusinessAddress.Address === 1);
+        if(data.PostalAddress.Address === 1){
+            this.getPostalAddressCountry().setHidden(true);
+        }        
+        else{
+            this.getPostalAddressCountry().setHidden(false);
+        }
+        if(data.BusinessAddress.Address === 1){
+            this.getBusinessAddressCountry().setHidden(true); 
+        }
+        else{
+            this.getBusinessAddressCountry().setHidden(false); 
+        }      
     },
     
     // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object

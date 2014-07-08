@@ -76,7 +76,7 @@ Ext.define('RM.controller.PayTransCardSignC',{
     },
     
     onVoidTap: function(){
-        RM.AppMgr.showRMMsgPopup('Transaction has been voided.','error',[{text: '<span class="rm-btn-arrow">CHANGE PAYMENT TYPE</span>', itemId: 'changetype'}, {text: 'SEND VOID RECEIPT', itemId: 'exit'}], function(selection){
+        RM.AppMgr.showRMMsgPopup('Transaction has been voided.','error',[{text: 'CHANGE PAYMENT TYPE', itemId: 'changetype', cls: 'x-button-green'}, {text: 'SEND VOID RECEIPT', itemId: 'exit'}], function(selection){
             if(selection === 'changetype'){
                 RM.ViewMgr.backTo('paytranstypeselect');
                 //RM.PayMgr.showScreen('PayTransDetails', this.data, this.callback, this.callbackScope);

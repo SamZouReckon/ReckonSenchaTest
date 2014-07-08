@@ -122,7 +122,7 @@ Ext.define('RM.view.ContactDetail', {
                             border: '1 0 1 0'
     					},{
     						name: 'ABN',                                       
-    						label: 'ABN / IRD Number',
+    						label: 'ABN / Tax Number',
                             labelWidth: '10em',
                             maxLength: 30,
                             border: '1 0 1 0'
@@ -223,10 +223,10 @@ Ext.define('RM.view.ContactDetail', {
                                 	 xtype: 'extselectfield',
                                      name: 'PostalAddress.Address',
                                      itemId: 'postalAddressSelectField',
-                                     label: 'Address',
-                                	 options: [                                        
-                                        {text: 'International', value: 'international'},
-                                    	{text: 'National',  value: 'national'}
+                                     label: 'Address type',
+                                	 options: [
+                                        {text: 'National',  value: 1},
+                                    	{text: 'International', value: 2}                                    	
                                     ]
                             	},{
                                     name: 'PostalAddress.Address1',                                        
@@ -262,7 +262,7 @@ Ext.define('RM.view.ContactDetail', {
             						label: 'Country',
                                     maxLength: 30,
                                     border: '1 0 1 0',
-                                    labelWidth: '5.5em'
+                                    labelWidth: '5.5em'                                    
             					}]    						
     					},
                         {
@@ -286,10 +286,10 @@ Ext.define('RM.view.ContactDetail', {
                                 	 xtype: 'extselectfield',
                                      name: 'BusinessAddress.Address',
                                      itemId: 'businessAddressSelectField',
-                                     label: 'Address',
+                                     label: 'Address type',
                                 	 options: [
-                                        {text: 'International', value: 'international'},
-                                    	{text: 'National',  value: 'national'}
+                                        {text: 'National',  value: 1},
+                                    	{text: 'International', value: 2}                                    	
                                     ]
                             	},
                                 {

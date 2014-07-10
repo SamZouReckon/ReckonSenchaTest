@@ -1,0 +1,44 @@
+{
+  "ProjectGuid": "ded88774-d691-4e8e-bd16-c1122722fc75",
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "AppIdentifier": "com.reckon.ReckonMobileDev05",
+  "ProjectName": "ReckonMobileDev05",
+  "IsRunnable": "true",
+  "AndroidPermissions": [
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.CAMERA",
+    "android.permission.INTERNET",
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.WRITE_EXTERNAL_STORAGE"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "iOSStatusBarStyle": "Default",
+  "AndroidHardwareAcceleration": "true",
+  "BundleVersion": "1.1.0",
+  "iOSDisplayName": "",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "AndroidVersionCode": "1",
+  "CorePlugins": [
+    "org.apache.cordova.inappbrowser",
+    "org.apache.cordova.statusbar"
+  ],
+  "FrameworkVersion": "3.2.0",
+  "DisplayName": "",
+  "Author": "",
+  "Description": "ReckonMobileDev05",
+  "WP8Requirements": [],
+  "WP8Capabilities": [],
+  "WP8TileTitle": "",
+  "WP8ProductID": "{ded88774-d691-4e8e-bd16-c1122722fc75}",
+  "WP8PublisherID": "{7adb8492-802b-4eb4-a4dc-60ee700af357}",
+  "WP8Publisher": "",
+  "WP8SupportedResolutions": [],
+  "Framework": "Cordova"
+}

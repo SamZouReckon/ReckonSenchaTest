@@ -5556,6 +5556,12 @@ body.x-desktop {
   color: #131313;
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0; }
 
+.x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed {
+  background: #C5C5C5 !important; }
+
+.x-button.x-button-plain.x-button-pressing, .x-button.x-button-plain.x-button-pressed, .x-toolbar .x-button.x-button-plain.x-button-pressing, .x-toolbar .x-button.x-button-plain.x-button-pressed {
+  background: #ECECEC; }
+
 .rm-listitemselection {
   background-color: #FFFFFF !important; }
 
@@ -6873,12 +6879,12 @@ rm-emailinvoicebackground {
   margin: 2px auto; }
 
 .rm-loginbtn {
-  background-image: url("../images/icons/rm-btn-arrow.svg") !important;
-  background-repeat: no-repeat;
-  background-position-x: 65%;
-  background-position-y: 50%;
-  background-color: #F0F0F0;
-  background-size: 10px 20px;
+    /*background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+	background-repeat: no-repeat;	
+	background-position-x: 65%;
+	background-position-y: 50%;
+	background-size: 10px 20px;*/
+  background: #F0F0F0;
   color: #646464;
   border-radius: 0;
   border: 0;
@@ -7162,7 +7168,7 @@ rm-emailinvoicebackground {
   font-size: 90%; }
 
 .rm-about-link {
-  color: #1395D1;
+  color: #00bd9d;
   font-size: 90%; }
 
 .rm-actionbtn {

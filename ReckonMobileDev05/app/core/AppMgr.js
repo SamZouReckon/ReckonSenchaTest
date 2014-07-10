@@ -85,10 +85,9 @@ Ext.define('RM.core.AppMgr', {
                         RM.ViewMgr.back();
                     }
                     else {
-                        //RM.CashbookMgr.selectCashBook();
-                        this.selectModule();       
-                    }
-                    //this.selectModule();                    
+                        RM.CashbookMgr.selectCashBook();
+                        //this.selectModule();       //Uncomment this line for select Module screen
+                    }                                      
 				},
 				this,
                 function(){
@@ -131,8 +130,8 @@ Ext.define('RM.core.AppMgr', {
                 this.doAfterLogin(loginDto);
 			    RM.ViewMgr.showCreatePin(
                     function () {                           
-                        //RM.CashbookMgr.selectCashBook();
-                        this.selectModule();
+                        RM.CashbookMgr.selectCashBook();
+                        //this.selectModule();			//Uncomment this line for select Module screen
                     },
                     this
                 );

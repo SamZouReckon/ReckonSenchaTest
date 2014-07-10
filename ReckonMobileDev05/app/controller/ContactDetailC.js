@@ -244,11 +244,20 @@ Ext.define('RM.controller.ContactDetailC', {
         vals.IsActive = true;                             //Set this to field value when contact state field is added back to contact detail form
         
         // Save the fully formatted notes value, not the unformatted one displayed in the textbox
-        vals.Notes = this.formattedNoteValue;
+        vals.Notes = this.formattedNoteValue;        
         
         // Some fernagling to get the address fields populated properly
         this.unFlattenProperty(vals, 'BusinessAddress');
         this.unFlattenProperty(vals, 'PostalAddress');
+        
+        
+        //For Address type National: 1, delete Country field from request data 
+        if(vals.PostalAddress.Address === 1){
+            delete vals.PostalAddress.Country;
+        }
+        if(vals.BusinessAddress.Address === 1){
+            delete vals.BusinessAddress.Country;
+        }
             
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
-<svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 x="0px" y="0px" width="17.245px" height="17.245px" viewBox="0 0 17.245 17.245" xml:space="preserve">
+<!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="79 -1 482.1 482.1" enable-background="new 79 -1 482.1 482.1" xml:space="preserve">
 <g>
-	<path fill="#646464" d="M10.13,10.13c-1.237,1.237-3.25,1.237-4.487,0c-1.237-1.237-1.237-3.25,0-4.487
-		c1.237-1.237,3.25-1.237,4.487,0C11.367,6.88,11.367,8.892,10.13,10.13z M6.439,6.437c-0.799,0.799-0.799,2.099,0,2.898
-		c0.799,0.798,2.098,0.798,2.897,0c0.797-0.799,0.797-2.098,0-2.897C8.536,5.64,7.238,5.64,6.439,6.437z"/>
+	<path fill="#646565" d="M361.9,281.9c-36.3,36.3-92.1,36.3-125.6,0c-36.3-36.3-36.3-92.1,0-125.6c36.3-36.3,92.1-36.3,125.6,0
+		C398.1,189.8,398.1,248.4,361.9,281.9z M258.6,178.6c-22.3,22.3-22.3,58.6,0,80.9c22.3,22.3,58.6,22.3,80.9,0
+		c22.3-22.3,22.3-58.6,0-80.9S280.9,156.3,258.6,178.6z"/>
 </g>
-<rect x="10.067" y="8.809" transform="matrix(0.7063 -0.7079 0.7079 0.7063 -4.4348 10.7247)" fill="#646464" width="1.283" height="3.798"/>
-<circle fill="none" stroke="#646464" stroke-miterlimit="10" cx="8.639" cy="8.64" r="8.026"/>
+<rect x="361.3" y="245" transform="matrix(-0.7063 0.7079 -0.7079 -0.7063 858.3929 239.9931)" fill="#646565" width="36.3" height="106"/>
+<circle fill="none" stroke="#646464" stroke-width="30" stroke-miterlimit="10" cx="320" cy="240" r="226"/>
 </svg>

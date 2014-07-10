@@ -200,6 +200,22 @@ $font-family: 'Open Sans', sans-serif !default;
 //@include sencha-toolbar-ui('rm-slidenav-topbar',#333333,'matte'); //toolbar for slidenav menu toolbar
 
 
+//Slide nav button background when pressed
+.x-button.x-button-rm_topbarbuttonleft.x-button-pressing, 
+.x-button.x-button-rm_topbarbuttonleft.x-button-pressed, 
+.x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, 
+.x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed {
+	background: #C5C5C5 !important;
+}
+
+//Sortsearch bar - Search/clear button background when pressed
+.x-button.x-button-plain.x-button-pressing, 
+.x-button.x-button-plain.x-button-pressed, 
+.x-toolbar .x-button.x-button-plain.x-button-pressing, 
+.x-toolbar .x-button.x-button-plain.x-button-pressed {
+	background: #ECECEC;
+}
+
 //List item selection cls with white background when tapped
 
 .rm-listitemselection{    
@@ -1652,12 +1668,12 @@ rm-emailinvoicebackground{
 
 //Login button on EnterUsername view
 .rm-loginbtn{
-    background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+    /*background-image: url("../images/icons/rm-btn-arrow.svg") !important;
 	background-repeat: no-repeat;	
 	background-position-x: 65%;
 	background-position-y: 50%;
-	background-color: #F0F0F0;
-    background-size: 10px 20px;
+	background-size: 10px 20px;*/
+	background: #F0F0F0;    
     color: #646464;	
 	border-radius: 0;
 	border: 0;
@@ -2052,7 +2068,7 @@ rm-emailinvoicebackground{
 }
 
 .rm-about-link{
-    color: #1395D1;
+    color: #00bd9d;
     font-size: 90%;
 }
 // About screen code end
@@ -2496,3 +2512,6 @@ rm-emailinvoicebackground{
 .rm-pay-charge-bg{
 	background: #00BD9D;
 }
+
+
+

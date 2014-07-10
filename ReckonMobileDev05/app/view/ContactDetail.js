@@ -122,8 +122,8 @@ Ext.define('RM.view.ContactDetail', {
                             border: '1 0 1 0'
     					},{
     						name: 'ABN',                                       
-    						label: 'ABN',
-                            labelWidth: '3em',
+    						label: 'ABN / Tax Number',
+                            labelWidth: '10em',
                             maxLength: 30,
                             border: '1 0 1 0'
     					},{
@@ -134,7 +134,7 @@ Ext.define('RM.view.ContactDetail', {
                                 html: 'Phone',
                                 flex: 1.5,
                                 cls: 'x-form-label',
-                                style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
+                                style: 'font-size: 80%; padding-top: 0.9em; padding-left: 0.7em;'
                             },{
                                 xtype: 'rmphonefield',                             
                                 cls: 'rm-flatfield',                             
@@ -165,7 +165,7 @@ Ext.define('RM.view.ContactDetail', {
                                 html: 'Fax',
                                 flex: 1.5,
                                 cls: 'x-form-label',  
-                                style: 'font-size: 80%; font-weight: bold; padding-top: 0.9em; padding-left: 0.7em;'
+                                style: 'font-size: 80%; padding-top: 0.9em; padding-left: 0.7em;'
                             },{
                                 xtype: 'rmphonefield',                             
                                 cls: 'rm-flatfield',                             
@@ -218,18 +218,33 @@ Ext.define('RM.view.ContactDetail', {
                                     itemId: 'addressHeader',
                                     layout: 'vbox',
                                     html: '<h3 class="rm-m-1 rm-hearderbg">Postal address</h3>'
+                                	
                                 },{
+                                	 xtype: 'extselectfield',
+                                     name: 'PostalAddress.Address',
+                                     itemId: 'postalAddressSelectField',
+                                     label: 'Address type',
+                                	 options: [
+                                        {text: 'National',  value: 1},
+                                    	{text: 'International', value: 2}                                    	
+                                    ]
+                            	},{
                                     name: 'PostalAddress.Address1',                                        
-                                    label: 'Address',
+                                    label: 'Line 1',
                                     maxLength: 80,
                                     labelWidth: '4.5em'
                                 },{
                                     name: 'PostalAddress.Address2', 
-                                    label: '',
+                                    label: 'Line 2',
                                     maxLength: 80
                                 },{
             						name: 'PostalAddress.Suburb',   
-            						label: 'Town/Suburb',
+            						label: 'Suburb',
+                                    maxLength: 80,
+                                    labelWidth: '7.5em'
+            					},{
+            						name: 'PostalAddress.Town',   
+            						label: 'Town / City',
                                     maxLength: 80,
                                     labelWidth: '7.5em'
             					},{
@@ -247,7 +262,7 @@ Ext.define('RM.view.ContactDetail', {
             						label: 'Country',
                                     maxLength: 30,
                                     border: '1 0 1 0',
-                                    labelWidth: '5.5em'
+                                    labelWidth: '5.5em'                                    
             					}]    						
     					},
                         {
@@ -267,18 +282,33 @@ Ext.define('RM.view.ContactDetail', {
                                     placeHolder: '',
                                     toggleState: false
                                 },
+                            	{
+                                	 xtype: 'extselectfield',
+                                     name: 'BusinessAddress.Address',
+                                     itemId: 'businessAddressSelectField',
+                                     label: 'Address type',
+                                	 options: [
+                                        {text: 'National',  value: 1},
+                                    	{text: 'International', value: 2}                                    	
+                                    ]
+                            	},
                                 {
                                     name: 'BusinessAddress.Address1',                                        
-                                    label: 'Address',
+                                    label: 'Line 1',
                                     maxLength: 80,
                                     labelWidth: '4.5em'
                                 },{
                                     name: 'BusinessAddress.Address2', 
-                                    label: '',
+                                    label: 'Line 2',
                                     maxLength: 80
                                 },{
             						name: 'BusinessAddress.Suburb',   
-            						label: 'Town/Suburb',
+            						label: 'Suburb',
+                                    maxLength: 80,
+                                    labelWidth: '7.5em'
+            					},{
+            						name: 'BusinessAddress.Town',   
+            						label: 'Town / City',
                                     maxLength: 80,
                                     labelWidth: '7.5em'
             					},{

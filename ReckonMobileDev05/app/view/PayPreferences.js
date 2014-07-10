@@ -31,7 +31,7 @@ Ext.define('RM.view.PayPreferences',{
                 scrollable: 'vertical',
                 cls: 'rm-whitebg',
                 items:[                
-                    {            
+                    /*{            
             			xtype: 'rmcheckbox',	
                         name: 'IncludeSurcharge',
                         itemId: 'includesurcharge',
@@ -79,7 +79,7 @@ Ext.define('RM.view.PayPreferences',{
                     },{
                         xtype: 'component',                        
                         cls: 'rm-flatfield-last'
-                    },{
+                    },*/{
                         xtype: 'component',
                         cls: ['rm-pl15', 'rm-fontweightbold', 'rm-pref-headingtitle', 'rm-fontsize80'],
                         html: 'Email settings',
@@ -127,6 +127,7 @@ Ext.define('RM.view.PayPreferences',{
                         cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-flatfield-last', 'rm-pl5'],
                         clearIcon: false,
                         label: 'Name to show',
+                        border: '0 0 1 0',
                         labelWidth: '8em'
                     },{
                         xtype: 'component',
@@ -152,7 +153,8 @@ Ext.define('RM.view.PayPreferences',{
                         placeHolder: 'enter',
                         cls: ['rm-flatfield', 'rm-flatfield-fontweightnormal', 'rm-flatfield-last', 'rm-pl5'],
                         clearIcon: false,
-                        label: 'Next receipt number',                        
+                        label: 'Next receipt number',
+                        border: '0 0 1 0',
                         maxLength: 6,	//Not working, Sencha bug
                         value: '0001',
                         labelWidth: '9em'                        
@@ -180,10 +182,6 @@ Ext.define('RM.view.PayPreferences',{
 								}
 							}
 						}
-                    },{
-                        xtype: 'component',
-                        height: 15,
-                        cls: 'rm-flatfield-last'
                     }
                 ]
             }

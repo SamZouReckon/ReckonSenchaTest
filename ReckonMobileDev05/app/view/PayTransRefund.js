@@ -52,8 +52,8 @@ Ext.define('RM.view.PayTransRefund', {
         },{
             xtype: 'button',
             itemId: 'refund',
-            text: '<span class="rm-btn-arrow">REFUND</span>',
-            cls: 'rm-photopreviewbtn'
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+            text: 'REFUND',
         }
         ]
     }

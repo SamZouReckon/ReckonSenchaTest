@@ -24,7 +24,9 @@ Ext.define('RM.controller.ContactDetailC', {
             notesFld: 'contactdetail field[name=Notes]',
             postalAddress: 'contactdetail #postalAddress',
             businessAddress: 'contactdetail #businessAddress',
-            sameAddress: 'contactdetail field[name=SameAddress]'
+            sameAddress: 'contactdetail field[name=SameAddress]',
+            postalAddressCountry: 'contactdetail #postalAddress field[name=PostalAddress.Country]',
+            businessAddressCountry: 'contactdetail #businessAddress field[name=BusinessAddress.Country]'
         },
         control: {
             'contactdetail': {
@@ -42,6 +44,12 @@ Ext.define('RM.controller.ContactDetailC', {
             },
             'contactdetail #businessOrIndividual': {
                 change: 'onBusinessOrIndividualSelect'
+            },
+            'contactdetail #postalAddressSelectField':{
+                change: 'onPostalAddressSelect'
+            },
+            'contactdetail #businessAddressSelectField':{
+                change: 'onBusinessAddressSelect'
             },
             notesFld: {
                 tap: 'showNotes'
@@ -103,6 +111,8 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsCustomer = null;
                 this.detailsData.IsSupplier = null;
                 this.initialFormValues = contactForm.getValues();
+                this.getPostalAddressCountry().setHidden(true);	//As default address type is National
+        		this.getBusinessAddressCountry().setHidden(true);  //As default address type is National
                 this.dataLoaded = true;
             }            
         }        
@@ -234,11 +244,20 @@ Ext.define('RM.controller.ContactDetailC', {
         vals.IsActive = true;                             //Set this to field value when contact state field is added back to contact detail form
         
         // Save the fully formatted notes value, not the unformatted one displayed in the textbox
-        vals.Notes = this.formattedNoteValue;
+        vals.Notes = this.formattedNoteValue;        
         
         // Some fernagling to get the address fields populated properly
         this.unFlattenProperty(vals, 'BusinessAddress');
         this.unFlattenProperty(vals, 'PostalAddress');
+        
+        
+        //For Address type National: 1, delete Country field from request data 
+        if(vals.PostalAddress.Address === 1){
+            delete vals.PostalAddress.Country;
+        }
+        if(vals.BusinessAddress.Address === 1){
+            delete vals.BusinessAddress.Country;
+        }
             
         if(this.validateForm(vals)){ 
             delete vals.CustomerOrSupplier;
@@ -299,6 +318,24 @@ Ext.define('RM.controller.ContactDetailC', {
         );
         
     }, 
+    
+    onPostalAddressSelect: function(selectfield, newValue, oldValue){
+        //National: 1 International:2
+        if(newValue === 1){
+            this.getPostalAddressCountry().setHidden(true);
+        }else{
+            this.getPostalAddressCountry().setHidden(false);
+        }
+    },
+    
+    onBusinessAddressSelect: function(selectfield, newValue, oldValue){
+        //National: 1 International:2
+	    if(newValue === 1){
+            this.getBusinessAddressCountry().setHidden(true);
+        }else{
+            this.getBusinessAddressCountry().setHidden(false);
+        } 
+    },
     
     onCustomerOrSupplierSelect: function() {
         
@@ -365,6 +402,7 @@ Ext.define('RM.controller.ContactDetailC', {
     
     copyPostalToBusiness: function() {
         var contactDetail = this.getContactDetail();
+        contactDetail.down('field[name=BusinessAddress.Address]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address]').getValue());
         contactDetail.down('field[name=BusinessAddress.Address1]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address1]').getValue());
         contactDetail.down('field[name=BusinessAddress.Address2]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address2]').getValue());
         contactDetail.down('field[name=BusinessAddress.Suburb]').setValue(this.getContactDetail().down('field[name=PostalAddress.Suburb]').getValue());
@@ -394,8 +432,21 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBusinessOrIndividual().setValue('Business');
             this.getBusinessName().setValue(data.SurnameBusinessName);
             this.getBranchName().setValue(data.FirstNameBranchName);
-        }       
-               
+        } 
+        //this.getPostalAddressCountry().setHidden(data.PostalAddress.Address === 1);
+        //this.getBusinessAddressCountry().setHidden(data.BusinessAddress.Address === 1);
+        if(data.PostalAddress.Address === 1){
+            this.getPostalAddressCountry().setHidden(true);
+        }        
+        else{
+            this.getPostalAddressCountry().setHidden(false);
+        }
+        if(data.BusinessAddress.Address === 1){
+            this.getBusinessAddressCountry().setHidden(true); 
+        }
+        else{
+            this.getBusinessAddressCountry().setHidden(false); 
+        }      
     },
     
     // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object

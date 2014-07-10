@@ -39,14 +39,14 @@ Ext.define('RM.view.PaySendReceipt',{
                             itemId: 'msgpanel',
     						layout: 'hbox',
     						height: 50,
-    						cls: ['rm-emailpositivepanel', 'rm-p10'],
+    						cls: ['rm-whitebg','rm-p10'],
     						items: [
     							{
     								cls: ['rm-emailcheckmark','rm-iconsize25'],
     								flex:1
     							},{
     								itemId: 'title',
-                                    cls: 'rm-pt5',
+                                    cls: ['rm-pt5', 'rm-colorgreenoptions'],
                                     html: '',
     								flex:5
     							}
@@ -76,19 +76,14 @@ Ext.define('RM.view.PaySendReceipt',{
                         cls: 'rm-p10 rm-fontsize80 rm-colorgrey rm-whitebg rm-border-top'                        
                     },{
 						xtype: 'button',						
-						itemId: 'sendreceiptbtn',
-						text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
-                        cls: 'rm-photopreviewbtn'
-					},/*{
-						xtype: 'button',						
-						itemId: 'sendreceiptbtn2',
-						text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
-                        cls: 'rm-photopreviewbtn'
-					},*/{
+						itemId: 'sendreceiptbtn',						
+                        cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+                        text: 'SEND RECEIPT'
+					},{
 						xtype: 'button',						
 						itemId: 'dontsendreceiptbtn',
-						text: '<span class="rm-btn-arrow">DON\'T SEND RECEIPT</span>',
-                        cls: 'rm-photopreviewbtn'
+                        cls: ['rm-greybtn-bg', 'rm-flatbtn'],
+						text: 'DON\'T SEND RECEIPT'                       
 					}
 				]
 			},{
@@ -99,14 +94,14 @@ Ext.define('RM.view.PaySendReceipt',{
 						xtype: 'container',
 						layout: 'hbox',
 						height: 50,
-						cls: ['rm-emailpositivepanel', 'rm-p10',],
+						cls: ['rm-whitebg', 'rm-p10',],
 						items: [
 							{
 								cls: ['rm-emailcheckmark','rm-iconsize25'],
 								flex:1
 							},{
 								itemId: 'sentcont',
-                                cls: 'rm-pt5',
+                                cls: ['rm-pt5', 'rm-colorgreenoptions'],
                                 html: 'Email sent',
 								flex:5
 							}
@@ -119,13 +114,13 @@ Ext.define('RM.view.PaySendReceipt',{
                     },*/{
 						xtype: 'button',
                         itemId: 'done',
-						text: '<span class="rm-btn-arrow">DONE</span>',
-                        cls: 'rm-photopreviewbtn'					
+                        cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+						text: 'DONE'
 					},{
                         xtype: 'button',
                         itemId: 'retry',
-						text: '<span class="rm-btn-arrow">RETRY</span>',
-                        cls: 'rm-photopreviewbtn'	
+						cls: ['rm-greybtn-bg', 'rm-flatbtn'],                        
+						text: 'RETRY'
                     }
 				]
             }

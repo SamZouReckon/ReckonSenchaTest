@@ -95,7 +95,7 @@ Ext.define('RM.view.MainNavContainer', {
             },
 			group: 'GENERAL'
         },
-        {
+        /*{
             title: 'Reckon home',
             activated: true,
             handler: function () {
@@ -104,7 +104,7 @@ Ext.define('RM.view.MainNavContainer', {
                 }   
             },
 			group: 'GENERAL'
-        },
+        },*/
         {
             index: 'Cashbooks',
             title: 'Choose book',

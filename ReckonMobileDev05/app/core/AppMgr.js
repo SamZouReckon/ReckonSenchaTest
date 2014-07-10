@@ -85,10 +85,9 @@ Ext.define('RM.core.AppMgr', {
                         RM.ViewMgr.back();
                     }
                     else {
-                        //RM.CashbookMgr.selectCashBook();
-                        this.selectModule();       
-                    }
-                    //this.selectModule();                    
+                        RM.CashbookMgr.selectCashBook();
+                        //this.selectModule();       //Uncomment this line for select Module screen
+                    }                                      
 				},
 				this,
                 function(){
@@ -131,8 +130,8 @@ Ext.define('RM.core.AppMgr', {
                 this.doAfterLogin(loginDto);
 			    RM.ViewMgr.showCreatePin(
                     function () {                           
-                        //RM.CashbookMgr.selectCashBook();
-                        this.selectModule();
+                        RM.CashbookMgr.selectCashBook();
+                        //this.selectModule();			//Uncomment this line for select Module screen
                     },
                     this
                 );
@@ -469,8 +468,8 @@ Ext.define('RM.core.AppMgr', {
 
     getModuleData: function(){
         return [
-			{ModuleCode: 'reckonone', Activated: true, ShortName: 'ONE', FullName: 'Reckon One', Description: 'Our customised cloud accounting software.<br/>Designed by you to fit your needs', Image: 'reckonone'},
-			{ModuleCode: 'reckonpay', Activated: false, ShortName: 'PAY', FullName: 'Reckon Pay', Description: 'Accept credit card payments on the go.<br/>Only available to Australian customers.',  Image: 'reckonpay'}
+			{ModuleCode: 'reckonone', Activated: true, ShortName: 'ONE', FullName: 'Reckon One', Description: 'Our customised cloud accounting software.<br/>Designed by you to fit your needs', Image: 'reckonone'}
+			//{ModuleCode: 'reckonpay', Activated: false, ShortName: 'PAY', FullName: 'Reckon Pay', Description: 'Accept credit card payments on the go.<br/>Only available to Australian customers.',  Image: 'reckonpay'}
 		];    
     },    
     
@@ -583,6 +582,7 @@ Ext.define('RM.core.AppMgr', {
                     xtype: 'button',
                     text: btnArray[i].text,
                     itemId: btnArray[i].itemId,
+                    cls: btnArray[i].cls || 'x-button-grey',
                     handler: function(btn){
     				    msgBox.hide();
                         RM.ViewMgr.deRegBackHandler();
@@ -611,15 +611,15 @@ Ext.define('RM.core.AppMgr', {
     },
     
     showFailureMsgBox: function(msgText, cb, cbs){
-        this.showRMMsgPopup(msgText, 'error', [{text: 'RETRY', itemId: 'retry'}, {text: 'CANCEL', itemId: 'cancel'}], cb, cbs);
+        this.showRMMsgPopup(msgText, 'error', [{text: 'RETRY', itemId: 'retry', cls: 'x-button-green'}, {text: 'CANCEL', itemId: 'cancel'}], cb, cbs);
     },
     
     showErrorMsgBox: function(msgText, cb, cbs){ 
-        this.showRMMsgPopup(msgText,'error',[{text: 'RETURN', itemId: 'Yes'}], cb, cbs);        
+        this.showRMMsgPopup(msgText,'error',[{text: 'OK', itemId: 'Yes'}], cb, cbs);
     },    
     
     showErrorMsgBoxOpaque: function(msgText, cb, cbs){ 
-        this.showRMMsgPopup(msgText,'error', [{text: 'RETURN', itemId: 'Yes'}], cb, cbs, { hideBackground:true });        
+        this.showRMMsgPopup(msgText,'error', [{text: 'OK', itemId: 'Yes'}], cb, cbs, { hideBackground:true }); 
     },  
     
     showOkMsgBox: function(msgText, cb, cbs){ 
@@ -627,11 +627,11 @@ Ext.define('RM.core.AppMgr', {
     },    
     
     showOkCancelMsgBox: function(msgText, cb, cbs){        
-        this.showRMMsgPopup(msgText,'warning',[{text: 'OK', itemId: 'ok'}, {text: 'Cancel', itemId: 'cancel'}], cb, cbs);       
+        this.showRMMsgPopup(msgText,'warning',[{text: 'OK', itemId: 'ok', cls: 'x-button-green'}, {text: 'Cancel', itemId: 'cancel'}], cb, cbs);       
     },
     
     showYesNoMsgBox: function(msgText, cb, cbs){        
-        this.showRMMsgPopup(msgText,'warning',[{text: 'Yes', itemId: 'yes'}, {text: 'No', itemId: 'no'}], cb, cbs);        
+        this.showRMMsgPopup(msgText,'warning',[{text: 'Yes', itemId: 'yes', cls: 'x-button-green'}, {text: 'No', itemId: 'no'}], cb, cbs);        
     },
     
     showUnsavedChangesMsgBox: function(cb, cbs){

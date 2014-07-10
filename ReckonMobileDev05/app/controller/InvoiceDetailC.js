@@ -51,7 +51,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 tap: 'onBalanceBreakdown'
             },
             'invoicedetail #invActions': {
-                tap: 'onInvoiceActions'
+                tap: 'onOptions'
+                //tap: 'onInvoiceActions'
             },
             dateFld : {
                 change: 'onInvoiceDateChanged'

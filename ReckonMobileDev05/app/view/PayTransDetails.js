@@ -27,25 +27,15 @@ Ext.define('RM.view.PayTransDetails', {
     				ui: 'rm_topbarbuttonright'
     			}
             ]
-        },{
-            xtype: 'button',
-            itemId: 'sendreceipt',
-            text: '<span class="rm-btn-arrow">SEND RECEIPT</span>',
-            cls: 'rm-photopreviewbtn'
-        },{
-            xtype: 'button',
-            itemId: 'refund',
-            text: '<span class="rm-btn-arrow">REFUND</span>',
-            cls: 'rm-photopreviewbtn'
-        },{
+        },/*{
             xtype: 'rmamountfield',
             cls: 'rm-flatfield',
             itemId: 'amountfld',
             label: 'Amount',
             clearIcon: false,
             readOnly: true,
-            hidden: true
-        },{
+            //hidden: true
+        },*/{
             xtype: 'extdatepickerfield',
             itemId: 'date',
             cls: 'rm-flatfield',
@@ -77,44 +67,15 @@ Ext.define('RM.view.PayTransDetails', {
             label: 'Refund Receipt No.',
             labelWidth: '11em'            
         },{
-            xtype: 'container',
-            layout: 'hbox',
-            items:[{
-                xtype: 'container',
-                layout: 'vbox',
-                flex: 1,
-                items: [{
-                    xtype: 'component',
-                    html: 'LOCATION',
-                    cls: ['rm-alignc', 'rm-fontsize70', 'rm-pay-graytext'],
-                    margin: '15 auto 0 auto'
-                }/*,{
-                    xtype: 'map',
-                    useCurrentLocation: true,
-                    cls: 'rm-border1px',
-                    height: 180
-                }*/]
-                
-            },{
-                xtype: 'container',
-                layout: 'vbox',                
-                flex: 1,
-                items: [{
-                    xtype: 'component',
-                    html: 'PHOTO',
-                    cls: ['rm-alignc', 'rm-fontsize70', 'rm-pay-graytext'],
-                    margin: '15 auto 0 auto'
-                },{
-                    xtype: 'img',
-                    html: 'No photo<br>taken', 
-                    cls: 'rm-border1px',
-                    styleHtmlContent: true,
-                    styleHtmlCls: ['rm-fontsize70', 'rm-pay-graytext'],
-                    backgroundCls: 'rm-pay-noimagebg',
-                    src: '',
-                    height: 180
-                }]
-            }]
+            xtype: 'button',
+            itemId: 'sendreceipt',
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+            text: 'RE-SEND RECEIPT'
+        },{
+            xtype: 'button',
+            itemId: 'refund',
+            cls: ['rm-greybtn-bg', 'rm-flatbtn'],
+            text: 'ISSUE REFUND'
         }
         ]
     }

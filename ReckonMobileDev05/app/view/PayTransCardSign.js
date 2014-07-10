@@ -23,14 +23,10 @@ Ext.define('RM.view.PayTransCardSign',{
                 },{
 					xtype:'spacer'
 				},{
-    				text: 'Details',
-    				itemId: 'details', 
-                    width: '3.7em',
-    				ui: 'rm_topbarbuttonright'
-    			},{
                     text: 'Clear',
                     itemId: 'clear',
                     width: '2.75em',
+                    hidden: true,
                     ui: 'rm_topbarbuttonright'
                 },{
                     text: 'VOID',
@@ -38,12 +34,25 @@ Ext.define('RM.view.PayTransCardSign',{
                     hidden: true,
                     width: '2.75em',
     				ui: 'rm_topbarbuttonright'
-                }
+                },{
+					xtype:'spacer'
+				},{
+    				text: 'Details',
+    				itemId: 'details', 
+                    width: '3.7em',
+    				ui: 'rm_topbarbuttonright'
+    			}
             ]
+        },{
+            xtype: 'component',
+            docked: 'top',
+            height: 60,
+            cls: ['rm-colorblack', 'rm-fontsize80', 'rm-p10'],
+            html: 'I agree to pay the above total amount to Joe Plumber'
         },{
             xtype: 'rmcanvas',            
             itemId: 'signpanel',  
-            placeHolder: 'SIGN HERE',
+            placeHolder: 'SIGN HERE',            
             height: 2000,		
             width: 2000		  
             //flex: 1
@@ -51,9 +60,22 @@ Ext.define('RM.view.PayTransCardSign',{
 			xtype: 'button',
             docked: 'bottom',
             itemId: 'confirm',
-			text: '<span class="rm-btn-arrow">VENDOR VERIFY SIGNATURE</span>',
-            cls: 'rm-photopreviewbtn'					
-		}
+            hidden: true,
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+			text: 'VENDOR VERIFY SIGNATURE'
+		},{
+			xtype: 'button',
+            docked: 'bottom',
+            itemId: 'approve',
+            hidden: true,
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+			text: 'APPROVE'
+		},{
+            xtype: 'component',
+            docked: 'bottom',
+            cls: ['rm-colorblack', 'rm-fontsize80', 'rm-p10'],
+            html: 'Daniel Dalto'
+        }
          ]
      }
     

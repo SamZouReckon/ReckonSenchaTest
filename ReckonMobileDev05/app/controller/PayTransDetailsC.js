@@ -4,10 +4,12 @@ Ext.define('RM.controller.PayTransDetailsC',{
     config: {
         refs: {
             payTransDetails: 'paytransdetails',
+            title: 'paytransdetails #title',
             date: 'paytransdetails #date',
             cardNumber: 'paytransdetails #cardno',
             receiptNumber: 'paytransdetails #receiptno',
-            refundBtn: 'paytransdetails #refund'
+            refundBtn: 'paytransdetails #refund',
+            //amountFld: 'paytransdetails #amountfld'
         },
         control: {            
             'paytransdetails #refund': {
@@ -36,7 +38,7 @@ Ext.define('RM.controller.PayTransDetailsC',{
     },   
     
     loadData: function(){
-        console.log(this.data);
+        //console.log(this.data);
         //regex to test a valid UUID/GUID
         var regexp = new RegExp('/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i');
         //if the test result is true then its a refund transaction else a normal transaction 
@@ -45,7 +47,8 @@ Ext.define('RM.controller.PayTransDetailsC',{
         }
         else{
             this.getRefundBtn().setHidden(false);
-        }        
+        }  
+        this.getTitle().setHtml(RM.AppMgr.formatCurrency(this.data.Amount));
         this.getDate().setValue(this.data.TransactionDate);
         this.getCardNumber().setValue('Card Ending with 4455');
         this.getReceiptNumber().setValue('REC123456');

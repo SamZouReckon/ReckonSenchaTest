@@ -42,7 +42,7 @@ Ext.define('RM.view.About', {
 						padding: '5 20 5 20'
 					},{
 						xtype: 'component',
-						html: 'Privacy Policy >',  
+						html: 'Privacy Policy',  
 						cls: 'rm-about-link',
 						padding: '35 20 10 20',
 						listeners: {
@@ -55,7 +55,7 @@ Ext.define('RM.view.About', {
 						}
 					},{
 						xtype: 'component',
-						html: 'Terms of Use >',
+						html: 'Terms of Use',
 						cls: 'rm-about-link',
 						padding: '10 20 10 20',
 						listeners: {
@@ -68,7 +68,7 @@ Ext.define('RM.view.About', {
 						}
 					},{
 						xtype: 'component',
-						html: 'Reckon One website >',
+						html: 'Reckon One website',
 						cls: 'rm-about-link',
 						padding: '10 20 10 20',
 						listeners: {

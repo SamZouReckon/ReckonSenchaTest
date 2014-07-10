@@ -86,13 +86,13 @@ Ext.define('RM.controller.PaySendReceiptC',{
     },
     
     resetButtonText: function(){
-        this.getSendReceiptBtn().setText('<span class="rm-btn-arrow">SEND RECEIPT</span>');
-        this.getDontSendReceiptBtn().setText('<span class="rm-btn-arrow">DON\'T SEND RECEIPT</span>');
+        this.getSendReceiptBtn().setText('SEND RECEIPT');
+        this.getDontSendReceiptBtn().setText('DON\'T SEND RECEIPT');
     },
     
     setButtonTextForResend: function(){
-        this.getSendReceiptBtn().setText('<span class="rm-btn-arrow">RESEND RECEIPT</span>');
-        this.getDontSendReceiptBtn().setText('<span class="rm-btn-arrow">DON\'T RESEND RECEIPT</span>');
+        this.getSendReceiptBtn().setText('RESEND RECEIPT');
+        this.getDontSendReceiptBtn().setText('DON\'T RESEND RECEIPT');
     },
     
     done: function() {

@@ -45,7 +45,7 @@ Ext.define('RM.view.InvoiceActions', {
             iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'	
             			
-        },{
+        }/*,{
 			text: 'Receive payment with Pay',
 			itemId: 'payApp',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
@@ -53,8 +53,7 @@ Ext.define('RM.view.InvoiceActions', {
             iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'	
             			
-        }
-        ,{
+        }*/,{
 			text: 'Email customer',
 			itemId: 'email',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',

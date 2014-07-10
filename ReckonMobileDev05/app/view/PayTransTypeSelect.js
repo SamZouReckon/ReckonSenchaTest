@@ -64,6 +64,15 @@ Ext.define('RM.view.PayTransTypeSelect', {
             iconCls: 'rm-btn-iconsize',
 			iconAlign: 'left',
 			//paymentType: RM.Consts.PaymentMethodTypes.OTHER
+		},
+        {
+			xtype: 'button',
+			text: 'Test Signature component',
+            itemId: 'testsignature',
+			cls: ['rm-arrowimgbtn', 'rm-paymenttype-btn-bg'],	
+			//icon: 'resources/images/icons/rm-manualcreditcard.svg',
+            iconCls: 'rm-btn-iconsize',
+			iconAlign: 'left',
 		}
         ]
     }

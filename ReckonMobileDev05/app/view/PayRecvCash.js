@@ -63,9 +63,9 @@ Ext.define('RM.view.PayRecvCash',{
             readOnly: true
         },{
             xtype: 'button',            
-            itemId: 'tendercash',            
-            text: '<span class="rm-btn-arrow">TENDER CASH</span>',
-            cls: 'rm-photopreviewbtn'
+            itemId: 'tendercash',
+            cls: ['rm-greenbtn-bg', 'rm-flatbtn'],
+            text: 'TENDER CASH'            
         }
          ]
      }

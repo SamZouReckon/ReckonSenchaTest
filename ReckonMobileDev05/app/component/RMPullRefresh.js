@@ -5,7 +5,7 @@ Ext.define('RM.component.RMPullRefresh', {
         lastUpdatedText: 'Last update:',  
         pullRefreshText: '',
         releaseRefreshText: '',        
-        loadingText: '<img src="resources/images/rm-loading-img.gif" width="175" height="35">',  
+        loadingText: '<img src="resources/images/rm-loading-img.gif" width="64" height="64">',  
         lastUpdatedDateFormat: 'd/m/Y h:i:s A',
     },
 

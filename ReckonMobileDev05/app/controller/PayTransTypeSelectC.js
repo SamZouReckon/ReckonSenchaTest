@@ -24,6 +24,9 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
             },
             'paytranstypeselect #other':{
                 tap: 'onOtherTap'
+            },
+            'paytranstypeselect #testsignature':{
+                tap: 'onTestSignatureTap'
             }
         }
     },
@@ -68,6 +71,11 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     
     onOtherTap: function(){
         RM.PayMgr.showScreen('PayRecvManualCard', this.data, this.callback, this.callbackScope);
+    },
+    
+    onTestSignatureTap: function(){
+        //To test Signature component, will be replaced with the refund screen later
+        RM.PayMgr.showScreen('PayTransCardSign', this.data, this.callback, this.callbackScope); 
     },
     
     back: function () {

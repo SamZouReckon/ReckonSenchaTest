@@ -6,19 +6,18 @@ Ext.define('RM.view.PayAmountDetails',{
         items: [{
                     xtype: 'toolbar',
                     docked: 'top',            
-                    items: [{
-                            xtype: 'component',
-                            itemId: 'title',
-                            html: '',
-                            cls: 'rm-topbartitle'
-                        },{
-        					xtype:'spacer'
-        				},{
-            				text: 'Return',
-            				itemId: 'return', 
-                            width: '6em',
-            				ui: 'rm_topbarbuttonright'
-            			}
+                    items: [{					
+        						itemId: 'return',
+        						ui: 'rm_topbarbuttonleft',
+        						icon: 'resources/images/icons/rm-back.svg',
+                                iconCls: 'rm-backbtniconcls',                        		
+                                width: '2.6em'						
+							},{
+                                xtype: 'component',
+                                itemId: 'title',
+                                html: 'Details',
+                                cls: 'rm-topbartitle'
+                        }
                     ]
             },{                
                     xtype: 'component',

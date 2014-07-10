@@ -11,7 +11,7 @@ Ext.define('RM.component.RMCanvas', {
     
     initialize: function() {
         this.callParent(arguments);
-        this.isCanvasEmpty = true;
+        this.isCanvasEmpty = true;        
         this.toolbarHeight = 47;	// 47px is the toolbar height 
         this.canvas.on({
             //tap: 'onTap',
@@ -37,7 +37,11 @@ Ext.define('RM.component.RMCanvas', {
         },this); 
         
         this.lastPt = null;      
-    },     
+    }, 
+    
+    setReadOnlyMode: function(){
+        this.canvas.clearListeners();       
+    },
 
     onTap:function(e) {
         //this.fireEvent('tap',this,e);
@@ -51,25 +55,26 @@ Ext.define('RM.component.RMCanvas', {
     
     onTouchEnd:function(e) {       
         e.preventDefault();
-        this.fireEvent('rmcanvaspainted');
+        if(!this.isCanvasEmpty){
+        	this.fireEvent('rmcanvaspainted');    
+        }        
     },
     
-    onTouchMove:function(e) {        
+    onTouchMove:function(e) {          
         e.preventDefault();        
-        if(this.isCanvasEmpty){
-            this.resetCanvas();
-            this.isCanvasEmpty = false;
-        }
-        var ctx = this.canvas.dom.getContext("2d");        
+        if(this.isCanvasEmpty && this.lastPt!==null){
+            this.resetCanvas();            
+        }  
+        var x1 = e.touches[0].pageX - e.target.offsetLeft;        
+        var y1 = e.touches[0].pageY - e.target.offsetTop - this.toolbarHeight - 60;  //60 is height of the title text component
+        var ctx = this.canvas.dom.getContext("2d");
         ctx.lineWidth = 2;
-        var x1 = e.touches[0].pageX - e.target.offsetLeft;
-        var y1 = e.touches[0].pageY - e.target.offsetTop - this.toolbarHeight;
-        
         if(this.lastPt!==null) {
-          ctx.beginPath();          
-          ctx.moveTo(this.lastPt.x, this.lastPt.y);
-          ctx.lineTo( x1, y1);          
-          ctx.stroke();
+              ctx.beginPath();          
+              ctx.moveTo(this.lastPt.x, this.lastPt.y);
+              ctx.lineTo( x1, y1);          
+              ctx.stroke();
+              this.isCanvasEmpty = false;  
         }
         this.lastPt = {x: x1, y: y1};      
     },
@@ -80,7 +85,7 @@ Ext.define('RM.component.RMCanvas', {
             ctx.fillStyle = "#969696";
             ctx.font = '28px open sans';
             ctx.textBaseline = 'bottom';
-            ctx.fillText(this.config.placeHolder, 90, 150);
+            ctx.fillText(this.config.placeHolder, 90, 70);
         }        
     },
     

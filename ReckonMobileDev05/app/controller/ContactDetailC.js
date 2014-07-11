@@ -433,20 +433,19 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBusinessName().setValue(data.SurnameBusinessName);
             this.getBranchName().setValue(data.FirstNameBranchName);
         } 
-        //this.getPostalAddressCountry().setHidden(data.PostalAddress.Address === 1);
-        //this.getBusinessAddressCountry().setHidden(data.BusinessAddress.Address === 1);
-        if(data.PostalAddress.Address === 1){
+        
+        if(data.PostalAddress.Address === 1 || data.PostalAddress.Address === 0){
             this.getPostalAddressCountry().setHidden(true);
         }        
         else{
             this.getPostalAddressCountry().setHidden(false);
         }
-        if(data.BusinessAddress.Address === 1){
+        if(data.BusinessAddress.Address === 1 || data.BusinessAddress.Address === 0){
             this.getBusinessAddressCountry().setHidden(true); 
         }
         else{
             this.getBusinessAddressCountry().setHidden(false); 
-        }      
+        }     
     },
     
     // Populate all fields in the container that are to be bound to properties of the valuesObject.parentProperty object

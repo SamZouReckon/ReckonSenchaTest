@@ -6676,12 +6676,7 @@ rm-emailinvoicebackground {
   background: #F8F8F8; }
 
 .rm-emailscreenbtn {
-  background-image: url("../images/icons/rm-btn-arrow.svg") !important;
-  background-repeat: no-repeat;
-  background-position-x: 75%;
-  background-position-y: 50%;
-  background-size: 10px 20px;
-  background-color: #EBEBEB;
+  background: #EBEBEB;
   padding: 0.3em;
   border-radius: 0;
   border: 0;

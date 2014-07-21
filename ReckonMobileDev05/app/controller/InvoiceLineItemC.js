@@ -4,6 +4,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     config: {
         refs: {
             itemDetail: 'invoicelineitem',
+            itemTitle: 'invoicelineitem #title',
             addBtn: 'invoicelineitem #add',
 			itemForm: 'invoicelineitem #itemForm',
             description: 'invoicelineitem field[name=Description]',
@@ -14,6 +15,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             tax: 'invoicelineitem field[name=Tax]',
             amount: 'invoicelineitem field[name=Amount]',
             itemNameFld: 'invoicelineitem field[name=ItemName]',
+            accountFld: 'invoicelineitem field[name=Account]',
             projectId: 'invoicelineitem field[name=ProjectId]',
             itemId: 'invoicelineitem field[name=ItemId]',
             projectName: 'invoicelineitem field[name=ProjectName]',
@@ -104,7 +106,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         var itemForm = this.getItemForm();
 
         this.getAddBtn().setHidden(!this.isEditable);
-        this.getAddBtn().setText(this.isCreate ? 'ADD' : 'SAVE');
+        this.getAddBtn().setText(this.isCreate ? 'Add' : 'Save');
         this.getTax().setReadOnly(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit);
         
         if(!RM.CashbookMgr.getTaxPreferences().AllowTaxEdit){
@@ -200,7 +202,23 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                     true,
     				this.getProjectId().getValue(),
                     false,
-    				function (data) {                        
+    				function (data) { 
+                        this.getItemTitle().setHtml('Item details');
+                        this.getAccountFld().setHidden(true);
+                        this.itemChanged(data[0])                        
+    				},
+    				this
+    			);
+            }
+            else if (tf.getName() == 'Account') {
+                RM.Selectors.showAccounts(                    
+                    false,
+    				function (data) { 
+                        this.getItemTitle().setHtml('Account details');
+                        this.getItemNameFld().setHidden(true);
+                        this.getUnitPrice().setHidden(true);
+                        this.getAmount().setReadOnly(false);
+                        this.getAmount().setLabel(this.getAmount().getLabel() + ' <span style="color: #F00">*</span>');                         
                         this.itemChanged(data[0])                        
     				},
     				this
@@ -237,7 +255,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         var isValid = true;
     
         // Field-specific validations
-        if(!vals.ItemId){
+        if(!vals.ItemId && !this.getItemNameFld().getHidden()){
             this.getItemNameFld().showValidation(false);
             isValid = false;
         }        
@@ -334,6 +352,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // An item has been selected from the list:
         // Reset item fields
         this.detailsData.ItemName = newItem.Name;
+        this.detailsData.Account = newItem.Name;
         this.detailsData.DefaultTaxGroupId = newItem.SaleTaxCodeId;
         this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
         this.setTaxModified(false);
@@ -342,6 +361,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getItemForm().setValues({ 
             ItemId: newItem.ItemId, 
             ItemName:newItem.ItemPath, 
+            Account:newItem.Name, 
             TaxGroupId: this.isTaxTracking() ? newItem.SaleTaxCodeId : null,         
             Description: newItem.SalesDescription,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax

@@ -12,6 +12,10 @@ Ext.define('RM.core.CashbookMgr', {
         return this.getCurrentCashbook().TaxPreference;
     },
     
+    getAccountingCategories: function(){
+        return this.getCurrentCashbook().AccountingCategories;
+    },
+    
     getSalesPreferences: function() {
         return this.getCurrentCashbook().SalesPreferences;
     },

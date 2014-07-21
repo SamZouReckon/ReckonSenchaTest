@@ -1732,15 +1732,13 @@ rm-emailinvoicebackground{
 //Text color for invoiceline items heading colour
 .rm-invoicelineitem-text{
     color: #646464;
-    font-size: 86%;
-    font-weight: bold;
+    font-size: 0.8em;
     padding: 5px;
 }
 
 .rm-invoicelineitem-add {
     color: #0096D0;
-    font-size: 86%;
-    font-weight: bold;
+    font-size: 0.8em;
     padding: 5px;    
 }
 
@@ -2360,7 +2358,7 @@ rm-emailinvoicebackground{
 }
 
 .rm-payamountinput-back-arrow{
-    background-image: url("../images/icons/rm-btn-back-arrow.svg") !important;
+    background-image: url("../images/icons/rm-back-arrow-pay.svg") !important;
 	background-repeat: no-repeat;
     background-position: center;
     background-size: 10px 20px;

@@ -15,7 +15,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                     iconCls: 'rm-backbtniconcls'
 				},{
 					xtype: 'component',
-					html: 'Item details',
+					html: 'Item/account details',
 					cls: 'rm-topbartitle',
 					itemId: 'title'
 				},{
@@ -57,7 +57,16 @@ Ext.define('RM.view.InvoiceLineItem', {
                     readOnly: true, //prevent OS keypad coming as well
 					label: 'Item',
                     rmmandatory: true,
-					cls: ['rm-flatfield', 'rm-flatfield-last'],
+					cls: ['rm-flatfield'],
+					placeHolder: 'select'
+				},{
+					xtype: 'exttextfield',
+					name: 'Account',
+                    itemId:'account',
+                    readOnly: true, //prevent OS keypad coming as well
+					label: 'Account',
+                    rmmandatory: true,
+					cls: ['rm-flatfield'],
 					placeHolder: 'select'
 				},{
                     xtype: 'container',
@@ -96,7 +105,7 @@ Ext.define('RM.view.InvoiceLineItem', {
     				},{
                         xtype: 'exttextfield',
     					name: 'Discount',
-    					label: 'Item discount',
+    					label: 'Discount',
                         labelWidth: '7em',
                         readOnly: true, //prevent OS keypad coming as well                        
     					value: 0,

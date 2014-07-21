@@ -61,7 +61,7 @@ Ext.define('RM.component.InvoiceLineItems', {
     },
     
     getItemsLabelHtml: function(valid){
-        return valid ? 'Items <span style="color: #F00">*</span>' : '<span style="color: #F00">Items *</span>';        
+        return valid ? 'Items/accounts <span style="color: #F00; font-size: 0.8em;">*</span>' : '<span style="color: #F00; font-size: 0.8em;">Items/accounts *</span>';        
     },
 
     onAddItem: function () {

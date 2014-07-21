@@ -34,6 +34,11 @@ Ext.define('RM.core.Selectors', {
 	    var itemsC = RM.AppMgr.getAppControllerInstance('RM.controller.ItemsAmountsC');
 		itemsC.showView(showItemTax, projectId, selectDetails, cb, cbs);
 	},
+    
+    showAccounts: function(selectDetails, cb, cbs){
+        var accountsC = RM.AppMgr.getAppControllerInstance('RM.controller.AccountsC');
+		accountsC.showView(selectDetails, cb, cbs);
+    },
 
 	showItemDetail: function(showTaxCode, item, cb, cbs){
 	    var itemDetailC = RM.AppMgr.getAppControllerInstance('RM.controller.ItemDetailC');

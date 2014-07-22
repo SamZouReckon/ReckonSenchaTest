@@ -11,11 +11,8 @@ Ext.define('RM.core.AppMgr', {
         this.isUserLoggedIn = false;
         
         //this.startUpTest();
-        
-        Ext.Ajax.setDefaultHeaders({'X-APIV': RM.Consts.Api.VERSION});        
-        
         RM.EventMgr = RM.core.EventMgr;
-        this.appTypeId = (Ext.typeOf(window.cordova) != 'undefined') ? RM.Consts.App.CORDOVA_CONTAINER : RM.Consts.App.WEB_CONTAINER;        
+        this.appTypeId = window.cordova ? RM.Consts.App.CORDOVA_CONTAINER : RM.Consts.App.WEB_CONTAINER;        
         RM.EventMgr.logEvent(RM.Consts.Events.OP, 1, 'am.i.1', 'Test', {MyVar:'My Data'});
         
         this.setupBaseApi();
@@ -32,8 +29,45 @@ Ext.define('RM.core.AppMgr', {
         RM.PayMgr.init(application);
         
         this.addDeviceListeners();
-        RM.HomeSettingsMgr.load();
+        this.doPreflight();        
+    },
+    
+    doPreflight: function() {        
+        var self = this;
         
+        // Set up a block covering the actual preflight execution logic
+        var runPreflight = function(clientVersion) {
+            // Make sure the custom headers are populated
+            self.setHeaders(clientVersion);
+            // Run the first service call
+            RM.HomeSettingsMgr.load();
+        }
+        
+        // If we're running inside cordova, use the plugin to get the current app version.
+        // All plugin queries are async, that's why this is all so gnarly
+        if(cordova && cordova.AppVersion) {
+           cordova.AppVersion.getAppVersion(
+           	// Success
+               function (version) {
+                   runPreflight(version);
+               },
+               // Failed
+               function () {
+                   runPreflight('?');
+               }
+           );
+        }
+        // Otherwise we're hosting in the web or simulator
+        else {
+            runPreflight('WEB');
+        }        
+    },
+    
+    setHeaders: function(clientVersion) {        
+        Ext.Ajax.setDefaultHeaders({
+            'X-APIV': RM.Consts.Api.VERSION,
+            'X-CLIENTV': clientVersion
+        }); 
     },
     
     runningOnDevice: function() {

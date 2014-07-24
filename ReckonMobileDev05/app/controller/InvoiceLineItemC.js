@@ -216,7 +216,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     				this
     			);
             }
-            else if (tf.getName() == 'Account') {
+            else if (tf.getName() == 'AccountName') {
                 RM.Selectors.showAccounts(                    
                     false,
     				function (data) {                                               

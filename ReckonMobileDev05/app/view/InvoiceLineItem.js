@@ -41,6 +41,9 @@ Ext.define('RM.view.InvoiceLineItem', {
 				},{
 					xtype: 'hiddenfield',
 					name: 'ItemPath'			
+				},{	
+                    xtype: 'hiddenfield',
+					name: 'AccountId'			
 				},{
 					xtype: 'rmselectscreenfield',
 					name: 'ProjectName',
@@ -61,7 +64,7 @@ Ext.define('RM.view.InvoiceLineItem', {
 					placeHolder: 'select'
 				},{
 					xtype: 'exttextfield',
-					name: 'Account',
+					name: 'AccountName',
                     itemId:'account',
                     readOnly: true, //prevent OS keypad coming as well
 					label: 'Account',

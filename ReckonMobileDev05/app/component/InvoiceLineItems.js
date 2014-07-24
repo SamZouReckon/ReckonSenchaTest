@@ -61,7 +61,7 @@ Ext.define('RM.component.InvoiceLineItems', {
     },
     
     getItemsLabelHtml: function(valid){
-        return valid ? 'Items/accounts <span style="color: #F00; font-size: 0.8em;">*</span>' : '<span style="color: #F00; font-size: 0.8em;">Items/accounts *</span>';        
+        return valid ? 'Items/accounts <span style="color: #F00;">*</span>' : '<span style="color: #F00;">Items/accounts *</span>';        
     },
 
     onAddItem: function () {
@@ -110,7 +110,7 @@ Ext.define('RM.component.InvoiceLineItems', {
 									xtype: 'component',
 									cls:'rm-invoiceitemtext',                               
 									//html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + (item.ItemPath ? item.ItemPath : item.ItemName),
-                                    html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + (item.LineText || item.Description || item.ItemName),
+                                    html: ((item.Quantity > 0) ? item.Quantity + ' x ' : '') + (item.LineText || item.Description || item.ItemName || item.AccountName),
 									listeners: {
 										tap: {
 											element: 'element',                    
@@ -189,7 +189,7 @@ Ext.define('RM.component.InvoiceLineItems', {
     onDeleteItem: function (btn) {
         var itemContainer = btn.getParent().getParent(), item = this.lineItems[itemContainer.getId()];
         
-        RM.AppMgr.showYesNoMsgBox('Are you sure you want to delete ' + ((item.Quantity > 0) ? item.Quantity  + ' x ' : '') + (item.LineText || item.Description || item.ItemName) + '?',
+        RM.AppMgr.showYesNoMsgBox('Are you sure you want to delete ' + ((item.Quantity > 0) ? item.Quantity  + ' x ' : '') + (item.LineText || item.Description || item.ItemName || item.AccountName) + '?',
             function(msgBoxBtn){
                 if(msgBoxBtn == 'yes'){                    
                     delete this.lineItems[itemContainer.getId()];

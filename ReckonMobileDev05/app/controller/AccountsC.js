@@ -37,7 +37,8 @@ Ext.define('RM.controller.AccountsC', {
         this.selectCb = cb;
         this.selectCbs = cbs;        
         var view = { xtype: 'accounts', selectDetails: selectDetails}; //create a new view each time as we want selectDetails to be effective
-        RM.ViewMgr.showPanel(view);
+        RM.ViewMgr.showPanel(view); 
+        if(this.nameFilter) delete this.nameFilter;
         this.loadList();
     },
 
@@ -51,11 +52,10 @@ Ext.define('RM.controller.AccountsC', {
 
         setTimeout(function () { list.deselect(rec); }, 500);
         var item = rec.data;
-        item.ItemName = item.Name;
         if(this.selectDetails){
     		RM.Selectors.showItemDetail(this.showItemTax, item,
     			function(closeType, data){
-    				this.selectCb.call(this.selectCbs, [data]);
+    				this.selectCb.call(this.selectCbs, [data]);                    
     				RM.ViewMgr.back({ type: 'slide', direction: 'left' });
     			},
     			this
@@ -68,37 +68,19 @@ Ext.define('RM.controller.AccountsC', {
     
     },
     
-   /* onCreateItem: function(){
-        //alert('onCreateItem');
-        RM.InvoicesMgr.showCreateItem(
-            function(){
-                
-                
-            },
-            this
-       );
-        
-    },*/
-
     back: function () {
         RM.ViewMgr.back();
     },
 
     loadList: function () {
-        var store = Ext.create("Ext.data.Store", { 
-            fields: [{name:'Name'}],
-    		data: RM.CashbookMgr.getAccountingCategories(),            
-		});        
+        this.getAccountsList().setStore('AccountingCategories');
+        var store = this.getAccountsList().getStore();
+        store.setData(RM.CashbookMgr.getAccountingCategories());
         store.clearFilter();
-        /*if (this.projectIdFilter){
-            store.filter('projectid', this.projectIdFilter);
-        }*/
         if (this.nameFilter){
             store.filter('Name', this.nameFilter);
         }
-        //RM.AppMgr.loadStore(store);    
-        this.getAccountsList().setItemTpl('{Name}');
-		this.getAccountsList().setStore(store);        
+        this.getAccountsList().setItemTpl('{Name}');		      
     },
 
     setLoadTimer: function () {

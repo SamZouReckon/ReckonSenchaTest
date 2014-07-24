@@ -406,6 +406,7 @@ Ext.define('RM.controller.ContactDetailC', {
         contactDetail.down('field[name=BusinessAddress.Address1]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address1]').getValue());
         contactDetail.down('field[name=BusinessAddress.Address2]').setValue(this.getContactDetail().down('field[name=PostalAddress.Address2]').getValue());
         contactDetail.down('field[name=BusinessAddress.Suburb]').setValue(this.getContactDetail().down('field[name=PostalAddress.Suburb]').getValue());
+        contactDetail.down('field[name=BusinessAddress.Town]').setValue(this.getContactDetail().down('field[name=PostalAddress.Town]').getValue());
         contactDetail.down('field[name=BusinessAddress.State]').setValue(this.getContactDetail().down('field[name=PostalAddress.State]').getValue());
         contactDetail.down('field[name=BusinessAddress.PostCode]').setValue(this.getContactDetail().down('field[name=PostalAddress.PostCode]').getValue());
         contactDetail.down('field[name=BusinessAddress.Country]').setValue(this.getContactDetail().down('field[name=PostalAddress.Country]').getValue());

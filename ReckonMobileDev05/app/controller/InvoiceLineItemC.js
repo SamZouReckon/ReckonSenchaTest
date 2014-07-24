@@ -376,7 +376,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         // An item has been selected from the list:
         // Reset item fields
         this.detailsData.ItemName = newItem.Name;
-        this.detailsData.Account = newItem.Name;
+        this.detailsData.AccountName = newItem.Name;
         this.detailsData.DefaultTaxGroupId = newItem.SaleTaxCodeId;
         this.detailsData.UnitPriceExTax = newItem.UnitPriceExTax;
         this.setTaxModified(false);
@@ -386,7 +386,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             ItemId: newItem.ItemId,
             AccountId: newItem.AccountingCategoryId,
             ItemName:newItem.ItemPath, 
-            Account:newItem.Name, 
+            AccountName:newItem.Name, 
             TaxGroupId: this.isTaxTracking() ? newItem.SaleTaxCodeId : null,         
             Description: newItem.SalesDescription,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax

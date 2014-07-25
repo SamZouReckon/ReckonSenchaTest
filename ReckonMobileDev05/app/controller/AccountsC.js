@@ -28,10 +28,6 @@ Ext.define('RM.controller.AccountsC', {
 
     },
     
-    init: function () {
-        //this.getApplication().addListener('itemupdated', 'onItemUpdated', this);
-    },    
-
     showView: function (selectDetails, cb, cbs) {       
         this.selectDetails = selectDetails;
         this.selectCb = cb;
@@ -42,12 +38,6 @@ Ext.define('RM.controller.AccountsC', {
         this.loadList();
     },
 
-    /*onItemUpdated: function (itemType) {
-        if (itemType == 'item') {
-            this.loadList();
-        }
-    },  */  
-    
     onItemSelect: function (list, rec) {
 
         setTimeout(function () { list.deselect(rec); }, 500);

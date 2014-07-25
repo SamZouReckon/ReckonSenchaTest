@@ -132,7 +132,7 @@ Ext.define('RM.component.InvoiceLineItems', {
 							height: 30,
 							padding: 0,
                             iconCls: 'rm-lineitemcrossbg',
-							margin: '-6 0 0 2'
+							margin: '-4 0 0 2'
 						},{
 							xtype: 'component',                        
 							cls:'rm-invoiceitemamount', 

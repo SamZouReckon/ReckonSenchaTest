@@ -52,6 +52,9 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             },
             projectName: {
                 clearicontap: 'projectCleared'
+            },
+            amount: {
+                valueChange: 'amountChanged'
             }
 		}
     },
@@ -62,6 +65,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     
     isTaxTracking: function() {
         return this.taxStatusCode !== RM.Consts.TaxStatus.NON_TAXED;
+    },
+
+    isAccountLine: function() {
+        return this.detailsData.AccountId && this.detailsData.AccountId !== RM.Consts.EmptyGuid;
+    },
+
+    isItemLine: function() {
+        return this.detailsData.ItemId && this.detailsData.ItemId !== RM.Consts.EmptyGuid;
     },
     
     showView: function (editable, customerId, options, detailsData, cb, cbs) {
@@ -133,11 +144,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             
             this.setTaxModified(this.detailsData.TaxIsModified);
             
-            if(this.detailsData.ItemId && this.detailsData.ItemId !== '00000000-0000-0000-0000-000000000000') { 
+            if(this.isItemLine()) { 
                 this.getItemDetail().showDetailsFields(); 
                 this.showItemFields();
             }
-            if(this.detailsData.AccountId && this.detailsData.AccountId !== '00000000-0000-0000-0000-000000000000') {
+            if(this.isAccountLine()) {
                 this.getItemDetail().showDetailsFields(); 
                 this.showAccountFields();                
             }
@@ -281,7 +292,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             isValid = false;
         }
         
-        if(!Ext.isNumber(vals.UnitPriceExTax)){
+        if(this.isItemLine() && !Ext.isNumber(vals.UnitPriceExTax)){
             this.getUnitPrice().showValidation(false);
             isValid = false;
         }        
@@ -299,14 +310,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         return isValid;
     },       
     
-	add: function(){
+    add: function(){
         // Make sure we aren't waiting on an async action like item calculation
         if(this.ignoreControlEvents() || this.pendingUnitPriceChange()) return;
-		var ITEM_TYPE_CHARGEABLE_ITEM = 1;
+        var ITEM_TYPE_CHARGEABLE_ITEM = 1;
 
         var formVals = this.getItemForm().getValues();        
         // Remove the form fields that are display values only, and shouldn't override detailsData
-        if(this.getAccountFld().getHidden()) delete formVals.Amount;
+        if(!this.isAccountLine()) delete formVals.Amount;
         delete formVals.UnitPrice;
         delete formVals.Tax;
         delete formVals.Discount;
@@ -315,18 +326,22 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         
         var item = Ext.apply(this.detailsData, formVals);    
         item.ItemType = ITEM_TYPE_CHARGEABLE_ITEM;
-        item.Quantity = item.Quantity;
-        item.LineText = item.Description || item.ItemName;
-        if(!this.getAccountFld().getHidden()) {
-            item.LineText = item.Description || item.AccountName;
+        item.LineText = item.Description || item.ItemName || item.AccountName;
+        
+        // Unit price fields aren't used for Account lines
+        if(this.isAccountLine()) {
+            delete item.UnitPrice;
+            delete item.UnitPriceAccuracy;
+            delete item.UnitPriceExTax;
+            delete item.UnitPriceTax;
         }
         
         if(this.validateForm(item)){            
-		    this.detailsCb.call(this.detailsCbs, [item]);
+            this.detailsCb.call(this.detailsCbs, [item]);
             RM.ViewMgr.back();
         }
         
-	},
+    },
     
     projectChanged: function(newProjectData, oldProjectId) {        
         this.getItemForm().setValues({ 
@@ -472,6 +487,12 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         if(this.ignoreControlEvents()) return;                    
         this.getServerCalculatedValues('Quantity');
     },
+
+    amountChanged: function(newValue, oldValue) {
+        // Only respond to changes triggered by the user, not events triggered during page loading
+        if(this.ignoreControlEvents()) return;
+        this.getServerCalculatedValues('Amount');
+    },
     
     getServerCalculatedValues: function(triggerField, completeCallback) {
         // build a dummy invoice
@@ -489,11 +510,14 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
             ChangeStatus : 2,             
             ItemId: formVals.ItemId,
+            AccountId: this.detailsData.AccountId,
             Quantity: formVals.Quantity,
             TaxGroupId: this.isTaxTracking() ? formVals.TaxGroupId : null,
             TaxIsModified: this.detailsData.TaxIsModified,
             Tax: this.detailsData.TaxIsModified ? formVals.Tax : null,
-            UnitPriceExTax: this.detailsData.UnitPriceExTax
+            UnitPriceExTax: this.detailsData.UnitPriceExTax,
+            // For Account lines the amount itself is editable and has to be passed through.
+            TaxExclusiveTotalAmount: this.detailsData.AmountExTax
         };
 
         // Only pass the ex-tax discount amount if not using a percentage
@@ -520,6 +544,17 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                     lineItem.DiscountAmountTax = null;
                 }
                 lineItem.DiscountIsModified = true;
+                break;
+            case 'Amount':
+                var taxExclTotal = this.getAmount().getValue();
+                // Calc service only accepts tax excl total amount, if we're showing amounts Gross we have to calculate the Net figure
+                if (this.isTaxInclusive() && lineItem.TaxGroupId) {
+                    var taxCode = RM.AppMgr.getTaxCode(lineItem.TaxGroupId);
+                    if (taxCode) {
+                        taxExclTotal = this.getAmount().getValue() / (100 + taxCode.Rate) * 100;
+                    }                    
+                }
+                lineItem.TaxExclusiveTotalAmount = taxExclTotal;
                 break;
         }
                 

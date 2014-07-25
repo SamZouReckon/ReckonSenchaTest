@@ -448,7 +448,11 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 DiscountPercentage: item.DiscountPercentage,
                 TaxGroupId: item.TaxGroupId, 
                 Tax: item.Tax, 
-                TaxIsModified: item.TaxIsModified
+                TaxIsModified: item.TaxIsModified,
+                AccountId: item.AccountId,
+                TaxExclusiveTotalAmount: item.AmountExTax,
+                IsParent: item.IsParent,
+                IsSubTotal: item.IsSubTotal
             };            
         });         
                 

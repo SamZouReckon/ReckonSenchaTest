@@ -512,7 +512,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             // Flag the item as Status New, since this forces the server to calculate what the default tax for the item is (but not necessarily apply it)
             ChangeStatus : 2,             
             ItemId: formVals.ItemId,
-            AccountId: this.detailsData.AccountId,
+            AccountId: formVals.AccountId,
             Quantity: formVals.Quantity,
             TaxGroupId: this.isTaxTracking() ? formVals.TaxGroupId : null,
             TaxIsModified: this.detailsData.TaxIsModified,

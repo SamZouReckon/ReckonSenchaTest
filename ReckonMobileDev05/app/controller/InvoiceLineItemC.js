@@ -492,6 +492,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     amountChanged: function(newValue, oldValue) {
         // Only respond to changes triggered by the user, not events triggered during page loading
         if(this.ignoreControlEvents()) return;
+        this.setTaxModified(false);
         this.getServerCalculatedValues('Amount');
     },
     

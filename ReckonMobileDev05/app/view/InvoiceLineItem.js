@@ -69,7 +69,7 @@ Ext.define('RM.view.InvoiceLineItem', {
                     readOnly: true, //prevent OS keypad coming as well
 					label: 'Account',
                     rmmandatory: true,
-					cls: ['rm-flatfield'],
+					cls: ['rm-flatfield', 'rm-flatfield-last'],
 					placeHolder: 'select'
 				},{
                     xtype: 'container',

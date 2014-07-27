@@ -241,6 +241,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     },
     
     showAccountFields: function(){
+        this.getAccountFld().setCls('rm-flatfield');
     	this.getItemTitle().setHtml('Account details');
         this.getItemNameFld().setHidden(true);
         this.getUnitPrice().setHidden(true);

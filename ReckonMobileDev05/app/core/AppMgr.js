@@ -45,7 +45,7 @@ Ext.define('RM.core.AppMgr', {
         
         // If we're running inside cordova, use the plugin to get the current app version.
         // All plugin queries are async, that's why this is all so gnarly
-        if(cordova && cordova.AppVersion) {
+        if(window.cordova && cordova.AppVersion) {
            cordova.AppVersion.getAppVersion(
            	// Success
                function (version) {

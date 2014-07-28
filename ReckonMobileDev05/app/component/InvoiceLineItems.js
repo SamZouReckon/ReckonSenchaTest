@@ -84,6 +84,10 @@ Ext.define('RM.component.InvoiceLineItems', {
     },
 
 	addLineItem: function (item) {
+        if(item.IsSubTotal){
+            return;
+        }
+        
 		var me = this;
         
 		//alert(Ext.encode(item));

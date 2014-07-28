@@ -70,7 +70,7 @@ Ext.define('RM.controller.AccountsC', {
         if (this.nameFilter){
             store.filter('Name', this.nameFilter);
         }
-        this.getAccountsList().setItemTpl('{Name}');		      
+        this.getAccountsList().setItemTpl('<div class = "rm-orgnametext">{Name}</div>');		      
     },
 
     setLoadTimer: function () {

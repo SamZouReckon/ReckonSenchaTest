@@ -15,7 +15,7 @@ Ext.define('RM.component.InvoicesList', {
 
         this.customerId = this.config.customerId;
         this.isShowCustomer = this.config.isShowCustomer;
-		this.callParent(arguments);
+        this.callParent(arguments);
         
         var groupDueDate = (this.config.sortVal == 'duedate');
         
@@ -30,15 +30,15 @@ Ext.define('RM.component.InvoicesList', {
 
         this.loadList();
         
-		this.add({
-			xtype: 'rmlist',
-			store: 'Invoices',
+        this.add({
+            xtype: 'rmlist',
+            store: 'Invoices',
             loadingText: null,
             emptyText: 'No invoices found.',
-			disableSelection: true,
-			grouped: groupDueDate,
-			itemTpl: this.getTemplate()			
-		});        
+            disableSelection: true,
+            grouped: groupDueDate,
+            itemTpl: this.getTemplate()         
+        });        
     },
     
     onItemTap: function (list, index, target, rec, e, eOpts) {
@@ -47,11 +47,11 @@ Ext.define('RM.component.InvoicesList', {
         }
         else {
             RM.InvoicesMgr.showInvoiceDetail(false, rec.data,
-				function (closeType, data) {
-				    return null;
-				},
-				this
-			);
+                function (closeType, data) {
+                    return null;
+                },
+                this
+            );
         }
 
     },
@@ -99,7 +99,7 @@ Ext.define('RM.component.InvoicesList', {
     sendInvoiceReminder: function(invoiceId){
         
         RM.AppMgr.getServerRecById('Invoices', invoiceId,
-			function (data) {
+            function (data) {
                 RM.InvoicesMgr.sendMsg(
                     function(){
                         RM.ViewMgr.backTo('invoices');
@@ -108,18 +108,18 @@ Ext.define('RM.component.InvoicesList', {
                     data, 
                     'emailreminder'
                 ); 
-			},
-			this,
+            },
+            this,
             function(eventMsg){
                 RM.AppMgr.showOkMsgBox(eventMsg);                
             }
-		);
+        );
     },    
     
-	getTemplate: function() {
+    getTemplate: function() {
        
         var tplStr =                         
-                	
+                    
                '<div>' +
                     '<div style="width: 55%; display: inline-block; vertical-align: top;">'+
                         '<div class="rm-orgnametext rm-pt5 rm-pl5">{InvCode}</div>'+
@@ -130,7 +130,7 @@ Ext.define('RM.component.InvoicesList', {
                         '</div>' +
                     '</div>'+
                 '</div>' +               
-    			'<div>' +  
+                '<div>' +  
                     '<div style="width: 60%; display: inline-block; vertical-align: top;">'+
                         '<div class="rm-invoices-duestatus rm-pt5 rm-pl5 "> {[this.calculateDays(values.DueDate, values.DueDays, values.Status)]}' +
                             '<tpl if="this.isOverdue(values.DueDate, values.DueDays, values.Status)">' +                                
@@ -150,40 +150,40 @@ Ext.define('RM.component.InvoicesList', {
                                 '</tpl>' +
                         '</div>'+
                     '</div>' +                     
-    			'</div>'
-						 
+                '</div>'
+                         
         
         var me = this;
         
-		return new Ext.XTemplate(
-			tplStr,
-			{
+        return new Ext.XTemplate(
+            tplStr,
+            {
             isOverdue: function(dueDate, dueDays, status){
                if (status == RM.Consts.InvoiceStatus.PAID) return false; 
                return dueDate && dueDate.getFullYear() > 1 && dueDays < 0;
             },
-			calculateDays: function (dueDate, dueDays, status) {
+            calculateDays: function (dueDate, dueDays, status) {
                 if (status == RM.Consts.InvoiceStatus.PAID) return ''; 
                 if(!dueDate || dueDate.getFullYear() == 1){
                     return 'No due date';                    
                 }
-				else if (dueDays < 0) {
-					return "Overdue"
-				}
-				else if (dueDays == 0) {
-					return "Due today"
-				}
-				else if (dueDays == 1) {
-					return "Due in 1 day"
-				}
-				else {
-					return "Due in " + dueDays + " days"
-				}
-			},
+                else if (dueDays < 0) {
+                    return "Overdue"
+                }
+                else if (dueDays == 0) {
+                    return "Due today"
+                }
+                else if (dueDays == 1) {
+                    return "Due in 1 day"
+                }
+                else {
+                    return "Due in " + dueDays + " days"
+                }
+            },
             isShowCustomer: function(){
                 return me.isShowCustomer;
             }
-		});        
-	}      
+        });        
+    }      
 
 });

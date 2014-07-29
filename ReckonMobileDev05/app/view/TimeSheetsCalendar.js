@@ -1,17 +1,17 @@
 Ext.define('RM.view.TimeSheetsCalendar', {
 	extend: 'Ext.Panel',	
 	xtype: 'timesheetscalendar',
-	requires: ['Ext.ux.touchcalendar.TouchCalendarView', 'Ext.ux.touchcalendar.TouchCalendarSimpleEvents'],
+	requires: ['RM.component.touchcalendar.TouchCalendarView', 'RM.component.touchcalendar.TouchCalendarSimpleEvents'],
 	
 	initialize: function(){
 		var dtNow = new Date();
-		var calView = Ext.create('Ext.ux.touchcalendar.TouchCalendarView', {
+		var calView = Ext.create('RM.component.touchcalendar.TouchCalendarView', {
 			itemId: 'calview',
 			mode: 'month',
 			weekStart: 1,
 			value: dtNow,
 			eventStore: Ext.getStore('TimeEntriesCalendar'),
-			plugins: [Ext.create('Ext.ux.touchcalendar.TouchCalendarSimpleEvents', { startEventField: 'Start', endEventField: 'End' })],
+			plugins: [Ext.create('RM.component.touchcalendar.TouchCalendarSimpleEvents', { startEventField: 'Start', endEventField: 'End' })],
 			listeners: {
 				painted: function(cal){
 					//console.log('TouchCalendarView painted');

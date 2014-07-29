@@ -1,5 +1,5 @@
 Ext.define('RM.view.MainNavContainer', {
-    extend: 'Ext.ux.slidenavigation.View',
+    extend: 'RM.component.slidenavigation.View',
 
     requires: [
         'Ext.Container',

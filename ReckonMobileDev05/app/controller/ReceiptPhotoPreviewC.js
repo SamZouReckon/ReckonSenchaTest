@@ -1,6 +1,6 @@
 Ext.define('RM.controller.ReceiptPhotoPreviewC', {
     extend: 'Ext.app.Controller',
-    requires: ['Ext.device.Camera','RM.view.ReceiptPhotoPreview'],
+    requires: ['RM.view.ReceiptPhotoPreview'],
     config: {
         refs: {
             receiptPhotoPreview: 'receiptphotopreview',

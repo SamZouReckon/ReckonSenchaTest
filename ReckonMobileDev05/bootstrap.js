@@ -17,7 +17,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
   "RM": "app",
-  "TouchCalendarViewModel": "touch/src/ux/touchcalendar/TouchCalendarView.js"
+  "TouchCalendarViewModel": "app/component/touchcalendar/TouchCalendarView.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -515,17 +515,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
-  "Ext.log.Base": [],
-  "Ext.log.Logger": [],
-  "Ext.log.filter.Filter": [],
-  "Ext.log.filter.Priority": [],
-  "Ext.log.formatter.Default": [],
-  "Ext.log.formatter.Formatter": [],
-  "Ext.log.formatter.Identity": [],
-  "Ext.log.writer.Console": [],
-  "Ext.log.writer.DocumentTitle": [],
-  "Ext.log.writer.Remote": [],
-  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -643,9 +632,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.ux.parse.Store": [],
   "Ext.ux.parse.association.Pointer": [],
   "Ext.ux.parse.association.Relation": [],
-  "Ext.ux.slidenavigation.View": [],
-  "Ext.ux.touchcalendar.TouchCalendarSimpleEvents": [],
-  "Ext.ux.touchcalendar.TouchCalendarView": [],
   "Ext.viewport.Android": [],
   "Ext.viewport.Default": [],
   "Ext.viewport.Ios": [],
@@ -671,15 +657,21 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.component.InvoiceLineItems": [],
   "RM.component.InvoiceTimeSelectDetailPan": [],
   "RM.component.InvoicesList": [],
+  "RM.component.PayAmountInputCalc": [],
   "RM.component.PinKeypad": [],
   "RM.component.PinOptions": [],
   "RM.component.Popup": [],
   "RM.component.PopupNotes": [],
   "RM.component.RMAmountField": [],
   "RM.component.RMAmountFieldKeyPad": [],
+  "RM.component.RMCanvas": [],
   "RM.component.RMCheckbox": [],
+  "RM.component.RMComponent": [],
+  "RM.component.RMList": [],
   "RM.component.RMMsgPopup": [],
+  "RM.component.RMNumberField": [],
   "RM.component.RMPhoneField": [],
+  "RM.component.RMPicker": [],
   "RM.component.RMPullRefresh": [],
   "RM.component.RMSelectScreenField": [],
   "RM.component.RMToggleField": [],
@@ -687,8 +679,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.component.SecureFormPanel": [],
   "RM.component.SecurePanel": [],
   "RM.component.SortSearchBar": [],
+  "RM.component.VisibleOnFocus": [],
+  "RM.component.slidenavigation.View": [],
+  "RM.component.touchcalendar.TouchCalendarSimpleEvents": [],
+  "RM.component.touchcalendar.TouchCalendarView": [],
   "RM.controller.AboutC": [],
   "RM.controller.AcceptPaymentC": [],
+  "RM.controller.AccountsC": [],
   "RM.controller.AddNoteC": [],
   "RM.controller.AppStopC": [],
   "RM.controller.BillsC": [],
@@ -726,6 +723,22 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.controller.ModuleSignupC": [],
   "RM.controller.ModulesC": [],
   "RM.controller.MyPreferencesC": [],
+  "RM.controller.PayAmountDetailsC": [],
+  "RM.controller.PayAmountInputBackC": [],
+  "RM.controller.PayAmountInputC": [],
+  "RM.controller.PayAmountInputNavC": [],
+  "RM.controller.PayPreferencesC": [],
+  "RM.controller.PayRecvCashC": [],
+  "RM.controller.PayRecvChequeC": [],
+  "RM.controller.PayRecvManualCardC": [],
+  "RM.controller.PaySalesHistoryC": [],
+  "RM.controller.PaySendReceiptC": [],
+  "RM.controller.PayTransCardSignC": [],
+  "RM.controller.PayTransDetailsC": [],
+  "RM.controller.PayTransRefundC": [],
+  "RM.controller.PayTransTerminalC": [],
+  "RM.controller.PayTransTypeSelectC": [],
+  "RM.controller.PinAuthenticationC": [],
   "RM.controller.ProjectsC": [],
   "RM.controller.ReceiptPhotoPreviewC": [],
   "RM.controller.SuppliersC": [],
@@ -755,6 +768,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.core.InvoicesMgr": [
     "RM.InvoicesMgr"
   ],
+  "RM.core.PayMgr": [
+    "RM.PayMgr"
+  ],
   "RM.core.PermissionsMgr": [
     "RM.PermissionsMgr"
   ],
@@ -777,6 +793,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.model.BankAccount": [],
   "RM.model.Bill": [],
   "RM.model.BudgetLineItem": [],
+  "RM.model.CardType": [],
   "RM.model.CashBook": [],
   "RM.model.Contact": [],
   "RM.model.Customer": [],
@@ -797,10 +814,14 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.model.TaxStatus": [],
   "RM.model.TimeEntry": [],
   "RM.model.TimeEntryCalendar": [],
+  "RM.model.Transaction": [],
+  "RM.model.TransactionHistory": [],
+  "RM.model.TransactionMethod": [],
   "RM.store.AccountingCategories": [],
   "RM.store.BankAccounts": [],
   "RM.store.Bills": [],
   "RM.store.BudgetLineItems": [],
+  "RM.store.CardTypes": [],
   "RM.store.CashBooks": [],
   "RM.store.Contacts": [],
   "RM.store.CustomerInvoices": [],
@@ -821,7 +842,13 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.store.TaxStatuses": [],
   "RM.store.TimeEntries": [],
   "RM.store.TimeEntriesCalendar": [],
+  "RM.store.TransactionMethods": [],
+  "RM.store.Transactions": [],
+  "RM.store.TransactionsHistory": [],
   "RM.util.Dates": [],
+  "RM.util.Device": [
+    "RM.Device"
+  ],
   "RM.util.FormUtils": [],
   "RM.util.Log": [
     "RM.Log"
@@ -832,6 +859,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.view.AcceptPayment": [],
   "RM.view.AcceptPaymentMsg": [],
   "RM.view.AcceptPaymentType": [],
+  "RM.view.Accounts": [],
   "RM.view.AddNote": [],
   "RM.view.AppStop": [],
   "RM.view.CashBooks": [],
@@ -866,6 +894,22 @@ Ext.ClassManager.addNameAlternateMappings({
   "RM.view.MainNavContainer": [],
   "RM.view.ModuleSignup": [],
   "RM.view.Modules": [],
+  "RM.view.PayAmountDetails": [],
+  "RM.view.PayAmountInput": [],
+  "RM.view.PayAmountInputBack": [],
+  "RM.view.PayAmountInputNav": [],
+  "RM.view.PayPreferences": [],
+  "RM.view.PayRecvCash": [],
+  "RM.view.PayRecvCheque": [],
+  "RM.view.PayRecvManualCard": [],
+  "RM.view.PaySalesHistory": [],
+  "RM.view.PaySendReceipt": [],
+  "RM.view.PayTransCardSign": [],
+  "RM.view.PayTransDetails": [],
+  "RM.view.PayTransRefund": [],
+  "RM.view.PayTransTerminal": [],
+  "RM.view.PayTransTypeSelect": [],
+  "RM.view.PinAuthentication": [],
   "RM.view.Projects": [],
   "RM.view.ReceiptPhotoPreview": [],
   "RM.view.ReceiptUpload": [],
@@ -1466,17 +1510,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
-  "Ext.log.Base": [],
-  "Ext.log.Logger": [],
-  "Ext.log.filter.Filter": [],
-  "Ext.log.filter.Priority": [],
-  "Ext.log.formatter.Default": [],
-  "Ext.log.formatter.Formatter": [],
-  "Ext.log.formatter.Identity": [],
-  "Ext.log.writer.Console": [],
-  "Ext.log.writer.DocumentTitle": [],
-  "Ext.log.writer.Remote": [],
-  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -1610,11 +1643,6 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.ux.parse.association.Relation": [
     "association.relation"
   ],
-  "Ext.ux.slidenavigation.View": [
-    "widget.slidenavigationview"
-  ],
-  "Ext.ux.touchcalendar.TouchCalendarSimpleEvents": [],
-  "Ext.ux.touchcalendar.TouchCalendarView": [],
   "Ext.viewport.Android": [],
   "Ext.viewport.Default": [
     "widget.viewport"
@@ -1672,6 +1700,9 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.component.InvoicesList": [
     "widget.invoiceslist"
   ],
+  "RM.component.PayAmountInputCalc": [
+    "widget.payamountinputcalc"
+  ],
   "RM.component.PinKeypad": [
     "widget.pinkeypad"
   ],
@@ -1684,13 +1715,24 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.component.RMAmountFieldKeyPad": [
     "widget.rmamountfieldkeypad"
   ],
+  "RM.component.RMCanvas": [
+    "widget.rmcanvas"
+  ],
   "RM.component.RMCheckbox": [
     "widget.rmcheckbox"
   ],
+  "RM.component.RMComponent": [],
+  "RM.component.RMList": [
+    "widget.rmlist"
+  ],
   "RM.component.RMMsgPopup": [],
+  "RM.component.RMNumberField": [
+    "widget.rmnumberfield"
+  ],
   "RM.component.RMPhoneField": [
     "widget.rmphonefield"
   ],
+  "RM.component.RMPicker": [],
   "RM.component.RMPullRefresh": [
     "rmpullrefresh"
   ],
@@ -1712,8 +1754,15 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.component.SortSearchBar": [
     "widget.sortsearchbar"
   ],
+  "RM.component.VisibleOnFocus": [],
+  "RM.component.slidenavigation.View": [
+    "widget.slidenavigationview"
+  ],
+  "RM.component.touchcalendar.TouchCalendarSimpleEvents": [],
+  "RM.component.touchcalendar.TouchCalendarView": [],
   "RM.controller.AboutC": [],
   "RM.controller.AcceptPaymentC": [],
+  "RM.controller.AccountsC": [],
   "RM.controller.AddNoteC": [],
   "RM.controller.AppStopC": [],
   "RM.controller.BillsC": [],
@@ -1751,6 +1800,22 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.controller.ModuleSignupC": [],
   "RM.controller.ModulesC": [],
   "RM.controller.MyPreferencesC": [],
+  "RM.controller.PayAmountDetailsC": [],
+  "RM.controller.PayAmountInputBackC": [],
+  "RM.controller.PayAmountInputC": [],
+  "RM.controller.PayAmountInputNavC": [],
+  "RM.controller.PayPreferencesC": [],
+  "RM.controller.PayRecvCashC": [],
+  "RM.controller.PayRecvChequeC": [],
+  "RM.controller.PayRecvManualCardC": [],
+  "RM.controller.PaySalesHistoryC": [],
+  "RM.controller.PaySendReceiptC": [],
+  "RM.controller.PayTransCardSignC": [],
+  "RM.controller.PayTransDetailsC": [],
+  "RM.controller.PayTransRefundC": [],
+  "RM.controller.PayTransTerminalC": [],
+  "RM.controller.PayTransTypeSelectC": [],
+  "RM.controller.PinAuthenticationC": [],
   "RM.controller.ProjectsC": [],
   "RM.controller.ReceiptPhotoPreviewC": [],
   "RM.controller.SuppliersC": [],
@@ -1766,6 +1831,7 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.core.ExpensesMgr": [],
   "RM.core.HomeSettingsMgr": [],
   "RM.core.InvoicesMgr": [],
+  "RM.core.PayMgr": [],
   "RM.core.PermissionsMgr": [],
   "RM.core.PopupNrPad": [],
   "RM.core.Selectors": [],
@@ -1776,6 +1842,7 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.model.BankAccount": [],
   "RM.model.Bill": [],
   "RM.model.BudgetLineItem": [],
+  "RM.model.CardType": [],
   "RM.model.CashBook": [],
   "RM.model.Contact": [],
   "RM.model.Customer": [],
@@ -1796,10 +1863,14 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.model.TaxStatus": [],
   "RM.model.TimeEntry": [],
   "RM.model.TimeEntryCalendar": [],
+  "RM.model.Transaction": [],
+  "RM.model.TransactionHistory": [],
+  "RM.model.TransactionMethod": [],
   "RM.store.AccountingCategories": [],
   "RM.store.BankAccounts": [],
   "RM.store.Bills": [],
   "RM.store.BudgetLineItems": [],
+  "RM.store.CardTypes": [],
   "RM.store.CashBooks": [],
   "RM.store.Contacts": [],
   "RM.store.CustomerInvoices": [],
@@ -1820,7 +1891,11 @@ Ext.ClassManager.addNameAliasMappings({
   "RM.store.TaxStatuses": [],
   "RM.store.TimeEntries": [],
   "RM.store.TimeEntriesCalendar": [],
+  "RM.store.TransactionMethods": [],
+  "RM.store.Transactions": [],
+  "RM.store.TransactionsHistory": [],
   "RM.util.Dates": [],
+  "RM.util.Device": [],
   "RM.util.FormUtils": [],
   "RM.util.Log": [],
   "RM.util.MathHelpers": [],
@@ -1836,6 +1911,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "RM.view.AcceptPaymentType": [
     "widget.acceptpaymenttype"
+  ],
+  "RM.view.Accounts": [
+    "widget.accounts"
   ],
   "RM.view.AddNote": [
     "widget.addnote"
@@ -1936,6 +2014,54 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "RM.view.Modules": [
     "widget.modules"
+  ],
+  "RM.view.PayAmountDetails": [
+    "widget.payamountdetails"
+  ],
+  "RM.view.PayAmountInput": [
+    "widget.payamountinput"
+  ],
+  "RM.view.PayAmountInputBack": [
+    "widget.payamountinputback"
+  ],
+  "RM.view.PayAmountInputNav": [
+    "widget.payamountinputnav"
+  ],
+  "RM.view.PayPreferences": [
+    "widget.paypreferences"
+  ],
+  "RM.view.PayRecvCash": [
+    "widget.payrecvcash"
+  ],
+  "RM.view.PayRecvCheque": [
+    "widget.payrecvcheque"
+  ],
+  "RM.view.PayRecvManualCard": [
+    "widget.payrecvmanualcard"
+  ],
+  "RM.view.PaySalesHistory": [
+    "widget.paysaleshistory"
+  ],
+  "RM.view.PaySendReceipt": [
+    "widget.paysendreceipt"
+  ],
+  "RM.view.PayTransCardSign": [
+    "widget.paytranscardsign"
+  ],
+  "RM.view.PayTransDetails": [
+    "widget.paytransdetails"
+  ],
+  "RM.view.PayTransRefund": [
+    "widget.paytransrefund"
+  ],
+  "RM.view.PayTransTerminal": [
+    "widget.paytransterminal"
+  ],
+  "RM.view.PayTransTypeSelect": [
+    "widget.paytranstypeselect"
+  ],
+  "RM.view.PinAuthentication": [
+    "widget.pinauthentication"
   ],
   "RM.view.Projects": [
     "widget.projects"

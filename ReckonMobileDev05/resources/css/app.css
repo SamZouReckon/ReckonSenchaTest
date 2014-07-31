@@ -3100,7 +3100,7 @@ body.x-desktop {
 .x-button .x-button-icon:before {
   font-size: 1.6em;
   line-height: 1em; }
-.x-button.x-item-disabled .x-button-label, .x-button.x-item-disabled .x-badge, .x-button.x-item-disabled .x-hasbadge .x-badge, .x-hasbadge .x-button.x-item-disabled .x-badge, .x-button.x-item-disabled .x-button-icon {
+.x-button.x-item-disabled .x-button-label, .x-button.x-item-disabled .x-badge, .x-button.x-item-disabled .x-button-icon {
   opacity: .5; }
 
 .x-button-round, .x-button.x-button-action-round, .x-button.x-button-confirm-round, .x-button.x-button-decline-round {
@@ -3112,13 +3112,13 @@ body.x-desktop {
 
 .x-ie .x-button {
   height: 0px; }
-.x-ie .x-button .x-button-label, .x-ie .x-button .x-badge, .x-ie .x-button .x-hasbadge .x-badge, .x-hasbadge .x-ie .x-button .x-badge {
+.x-ie .x-button .x-button-label, .x-ie .x-button .x-badge {
   overflow: visible; }
 
-.x-iconalign-left .x-button-label, .x-iconalign-left .x-badge, .x-iconalign-left .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-left .x-badge {
+.x-iconalign-left .x-button-label, .x-iconalign-left .x-badge {
   margin-left: .6em; }
 
-.x-iconalign-right .x-button-label, .x-iconalign-right .x-badge, .x-iconalign-right .x-hasbadge .x-badge, .x-hasbadge .x-iconalign-right .x-badge {
+.x-iconalign-right .x-button-label, .x-iconalign-right .x-badge {
   margin-right: .6em; }
 
 .x-iconalign-top, .x-iconalign-bottom {
@@ -3132,9 +3132,9 @@ body.x-desktop {
 .x-toolbar .x-button {
   margin: 6px .2em;
   padding: 0 .6em; }
-.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button .x-badge {
+.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-badge {
   font-size: .7em; }
-.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-badge {
+.x-toolbar .x-button .x-button-label, .x-toolbar .x-button .x-badge, .x-toolbar .x-button .x-hasbadge .x-badge {
   line-height: 1.6em; }
 .x-toolbar .x-button .x-button-icon:before {
   font-size: 1.3em;
@@ -3152,7 +3152,7 @@ body.x-desktop {
   border-radius: 0.3em;
   padding: .2em .4em;
   min-height: 0; }
-.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-badge, .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-badge, .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-button-small .x-badge, .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-decline-small .x-badge {
+.x-button-small .x-button-label, .x-button.x-button-action-small .x-button-label, .x-button.x-button-confirm-small .x-button-label, .x-button.x-button-decline-small .x-button-label, .x-button-small .x-badge, .x-button.x-button-action-small .x-badge, .x-button.x-button-confirm-small .x-badge, .x-button.x-button-decline-small .x-badge, .x-toolbar .x-button-small .x-button-label, .x-toolbar .x-button.x-button-action-small .x-button-label, .x-toolbar .x-button.x-button-confirm-small .x-button-label, .x-toolbar .x-button.x-button-decline-small .x-button-label, .x-toolbar .x-button-small .x-badge, .x-toolbar .x-button.x-button-action-small .x-badge, .x-toolbar .x-button.x-button-confirm-small .x-badge, .x-toolbar .x-button.x-button-decline-small .x-badge {
   font-size: .6em; }
 .x-button-small .x-button-icon, .x-button.x-button-action-small .x-button-icon, .x-button.x-button-confirm-small .x-button-icon, .x-button.x-button-decline-small .x-button-icon, .x-toolbar .x-button-small .x-button-icon, .x-toolbar .x-button.x-button-action-small .x-button-icon, .x-toolbar .x-button.x-button-confirm-small .x-button-icon, .x-toolbar .x-button.x-button-decline-small .x-button-icon {
   width: .75em;
@@ -3178,14 +3178,14 @@ body.x-desktop {
   overflow: hidden; }
 
 .x-webkit .x-button-back, .x-webkit .x-toolbar .x-button-back {
-  margin-left: 0.772em;
+  margin-left: 0.77217em;
   padding-left: .4em; }
 .x-webkit .x-button-back:before, .x-webkit .x-toolbar .x-button-back:before {
   left: -15px; }
 .x-webkit .x-button-back:after, .x-webkit .x-toolbar .x-button-back:after {
   left: -14px; }
 .x-webkit .x-button-forward, .x-webkit .x-toolbar .x-button-forward {
-  margin-right: 0.782em;
+  margin-right: 0.78217em;
   padding-right: .4em; }
 .x-webkit .x-button-forward:before, .x-webkit .x-button-forward:after, .x-webkit .x-toolbar .x-button-forward:before, .x-webkit .x-toolbar .x-button-forward:after {
   -webkit-mask: -4px 0 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAABGCAYAAADb7SQ4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAXlJREFUaN7lmTFqAlEQhh8EhFSCYJXW1law9QAewMrWAwQWAmmtbPcGHiCQ1gPYCla2QsDKSsgmQecvFqImu2/fzry/2OLb9mt23vwz47Kvn5MwEFxM8DkLB6HHEIOd0GGIwUpoMcRgyRKDOUsMJizxpzBiiMFR6DPEeZl1GWKwFh4ZYvAmPDDEqmVWVQxmLPG3MGaIVcosVAz2whNDDDZCmyEG7yFlpiEGKUsMEpb4XKXMtMXeiVVb7J1YLcRgW1ZmVuLSxGopLkys1mLwwhL/mVhjie8Sayxx3kp7DPFVYo0tzhNriyEGU5Z40TjxtDE/F6WcDowHBE/msDFNImG0xZQRBAonDCvxhhH2vKZIZ9Ds+7EDfaWFnKZ4xhja5owxdcnYCAQv1p1Gi4sprn08cZbDt6ZYZasXIn5mLFHTjLCvVt1V+4rVt/M+4r3FPaJMbHaBKRKb3pyKxKZXtv/Er4yjZpRL6q042u34tzh4xV9H/FHnqBHKBQeEd6aqqwD6AAAAAElFTkSuQmCC') no-repeat;
@@ -3247,7 +3247,7 @@ body.x-desktop {
   border-color: #990000;
   min-width: 2em;
   line-height: 1.2em;
-  top: -0.2em;
+  top: -.2em;
   padding: .1em .3em;
   -webkit-background-clip: padding;
   -moz-background-clip: padding;
@@ -3649,21 +3649,21 @@ body.x-desktop {
   overflow: hidden; }
 .x-webkit .x-anchor.x-anchor-top {
   margin-top: -0.68em;
-  margin-left: -0.816em;
+  margin-left: -0.8155em;
   width: 1.631em;
   height: 0.7em;
   -webkit-mask: 0 0 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAPCAYAAABut3YUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPZJREFUeNpi/PX7LwOFwAyIG6HseiA+Ra5BjBQ6xg+IVwAxJ5T/HYgjgHgTOYYxUeCQUiBeh+QQBih7HVSOLiHDDMSTgTiTgLrpQJwLxH9p5RhOaLT4EakeFF3RQPyF2o6RhkaBGYkheRmIPYH4KbXSjC4QnyTDIch6danhGCcgPgwNGXKBNNQMb0ocEwXE24GYn4FyADJjI76Ej88x7UC8FIjZGKgHQDlxGtRsZmISMMjy+dBQoSXYBC0gv+NyDD80xzgx0AeAqg4fIH6NHk0qQHyMjg6B1WvHYDkNFjIgwS1ALMowMOAjEAeBHINe2Q0U+AUQYACQ10C2QNhRogAAAABJRU5ErkJggg==') no-repeat;
   -webkit-mask-size: 1.631em 0.7em;
   background-color: black; }
 .x-webkit .x-anchor.x-anchor-bottom {
-  margin-left: -0.816em;
+  margin-left: -0.8155em;
   width: 1.631em;
   height: 0.7em;
   -webkit-mask: 0 0 url('data:image/png;base64,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') no-repeat;
   -webkit-mask-size: 1.631em 0.7em;
   background-color: black; }
 .x-webkit .x-anchor.x-anchor-left {
-  margin-left: -0.666em;
+  margin-left: -0.6655em;
   margin-top: -0.35em;
   height: 1.631em;
   width: 0.7em;
@@ -3923,13 +3923,13 @@ body.x-desktop {
 .x-toolbar-neutral .x-button, .x-toolbar .x-toolbar-neutral .x-button, .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer {
   border: 1px solid #a0a0a0;
   border-top-color: #adadad;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   color: black; }
 .x-toolbar-neutral .x-button.x-button-back:before, .x-toolbar-neutral .x-button.x-button-forward:before, .x-toolbar .x-toolbar-neutral .x-button.x-button-back:before, .x-toolbar .x-toolbar-neutral .x-button.x-button-forward:before, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:before, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:before, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:before {
   background: #a0a0a0; }
 .x-toolbar-neutral .x-button, .x-toolbar-neutral .x-button.x-button-back:after, .x-toolbar-neutral .x-button.x-button-forward:after, .x-toolbar .x-toolbar-neutral .x-button, .x-toolbar .x-toolbar-neutral .x-button.x-button-back:after, .x-toolbar .x-toolbar-neutral .x-button.x-button-forward:after, .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:after, .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:after, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-back:after, .x-toolbar .x-toolbar-neutral .x-field-select .x-component-outer.x-button-forward:after {
   background-image: none;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   background-image: -webkit-linear-gradient(top, #fafafa, #e0e0e0 3%, #c7c7c7);
   background-image: -moz-linear-gradient(top, #fafafa, #e0e0e0 3%, #c7c7c7);
   background-image: -o-linear-gradient(top, #fafafa, #e0e0e0 3%, #c7c7c7);
@@ -4244,7 +4244,7 @@ body.x-desktop {
   height: 2.2em;
   margin: .5em;
   margin-top: -1.1em;
-  right: -0.5em; }
+  right: -.5em; }
 
 .x-field-clearable .x-field-input {
   padding-right: 2.2em; }
@@ -4376,7 +4376,7 @@ body.x-desktop {
   right: 0.7em;
   -webkit-mask-size: 1em;
   -webkit-mask-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpGRTdGMTE3NDA3MjA2ODExOTJDQUMyNUQwRUE4NjdEQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQTFBMDFDQ0I5NEYxMURGQUU1RjlGMEFERUNDQTVEMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyMkRCMDIxMkI5NEUxMURGQUU1RjlGMEFERUNDQTVEMCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjMwRTE0QzVBNDIyMjY4MTFCQ0ZCOTAzOTcwNzcyRkVCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkZFN0YxMTc0MDcyMDY4MTE5MkNBQzI1RDBFQTg2N0RCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+HfrH/AAAAeVJREFUeNrs2cFHBGEUAPA3zYqIiIhOnTpFRHSKrp26RqeuEV077R/QqWtE166dOkVERHRa9hQRnZalFcv0Hk/W1Mx+38z3vvlm5j3eZW+/9+abne+9KEkSaFPMQMtCwQpWsIIVrGAFK1jBClawgo2ik/4hiqJGwLKuvfpIc5xSkWqYr5hzU1s/mRNxXTPsJ+ZqluvXlwOmSj3XBDvG3M1rpAmYYoUrFzr4ZNqTawqm2MH8Dhh7ZXJUbcAUx4FinzBnJcAUl4FhP/jIgRSYKvkYCJaO2LbNv08RMMUy5nsA4COTLy0XYIqtil9iF6aflq7AwBWuAvuQ9ZKSBgNX2ieWjtKSzeXBNZgqfe8J+4W5aXtbcg0GrvibB/BhkeuhBJhigzsghT0veh+WAlMcCGHvMOMQwcCdcIntYy6WmXhIg2PuiAvsEHO97IhHGgzckb4D8L6LmZYPMHBnhiWwXVdDPF9g4A4Vwd66nFr6BAN3ygbbw1yoMzjmjplgB5hrrufSvsHAHesZDOD2JAbxVYCBOzfIAZ9JbR6qAgN3cPwP9kZy1VIlGLiTdluCmoOBO/pnS9Bk8DzmS3pL4BMcpZEe1qX0GI/atC4dQYXRMa1MU0IX4gpWsIIVrGAFK1jBCnYUPwIMAPUPAyFL+nRdAAAAAElFTkSuQmCC');
-  margin-top: -0.5em; }
+  margin-top: -.5em; }
 
 .x-field-select {
   position: relative;
@@ -4849,7 +4849,7 @@ body.x-desktop {
   position: absolute;
   width: auto;
   height: 0.8em;
-  top: 0.737em;
+  top: 0.7375em;
   left: 0;
   background-image: none;
   background-color: #dddddd;
@@ -4899,7 +4899,7 @@ body.x-desktop {
 /**
  * @class Ext.tab.Panel
  */
-.x-tab.x-item-disabled span.x-button-label, .x-tab.x-item-disabled span.x-badge, .x-tab.x-item-disabled .x-hasbadge span.x-badge, .x-hasbadge .x-tab.x-item-disabled span.x-badge, .x-tab.x-item-disabled .x-button-icon {
+.x-tab.x-item-disabled span.x-button-label, .x-tab.x-item-disabled span.x-badge, .x-tab.x-item-disabled .x-button-icon {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5; }
 
@@ -4944,7 +4944,7 @@ body.x-desktop {
   -ms-border-radius: 0.9em;
   -o-border-radius: 0.9em;
   border-radius: 0.9em; }
-.x-tabbar.x-docked-top .x-tab .x-button-label, .x-tabbar.x-docked-top .x-tab .x-badge, .x-tabbar.x-docked-top .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab .x-badge {
+.x-tabbar.x-docked-top .x-tab .x-button-label, .x-tabbar.x-docked-top .x-tab .x-badge {
   font-size: .8em;
   line-height: 1.2em;
   text-rendering: optimizeLegibility;
@@ -4960,13 +4960,13 @@ body.x-desktop {
   font-size: 1.6em; }
 .x-tabbar.x-docked-top .x-tab.x-tab-icon {
   padding: 0.3em 0.8em; }
-.x-tabbar.x-docked-top .x-tab.x-tab-icon .x-button-label, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-badge, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-badge {
+.x-tabbar.x-docked-top .x-tab.x-tab-icon .x-button-label, .x-tabbar.x-docked-top .x-tab.x-tab-icon .x-badge {
   margin: 0;
   margin-left: .8em;
   padding: .1em 0 .2em 0;
   display: inline-block;
   position: relative;
-  top: -0.2em; }
+  top: -.2em; }
 
 .x-tabbar.x-docked-bottom {
   height: 3em;
@@ -4990,7 +4990,7 @@ body.x-desktop {
 .x-tabbar.x-docked-bottom .x-tab .x-button-icon:before {
   font-size: 1.6em;
   line-height: 1.1em; }
-.x-tabbar.x-docked-bottom .x-tab .x-button-label, .x-tabbar.x-docked-bottom .x-tab .x-badge, .x-tabbar.x-docked-bottom .x-tab .x-hasbadge .x-badge, .x-hasbadge .x-tabbar.x-docked-bottom .x-tab .x-badge {
+.x-tabbar.x-docked-bottom .x-tab .x-button-label, .x-tabbar.x-docked-bottom .x-tab .x-badge {
   margin: 0;
   padding: .1em 0 .2em 0;
   font-size: 9px;
@@ -5089,7 +5089,7 @@ body.x-desktop {
   color: #d9d9d9; }
 
 .x-tabbar-neutral {
-  border-top-color: #d3d3d3;
+  border-top-color: lightgrey;
   border-bottom-color: #bababa;
   background-image: none;
   background-color: #e0e0e0;
@@ -5112,7 +5112,7 @@ body.x-desktop {
   text-shadow: rgba(255, 255, 255, 0.25) 0 0.08em 0; }
 .x-tabbar-neutral.x-docked-bottom .x-tab-active {
   background-image: none;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   background-image: -webkit-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: -moz-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: -o-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
@@ -5126,7 +5126,7 @@ body.x-desktop {
 
 .x-tabbar-neutral.x-docked-top .x-tab-active {
   background-image: none;
-  background-color: #d3d3d3;
+  background-color: lightgrey;
   background-image: -webkit-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: -moz-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
   background-image: -o-linear-gradient(top, #bababa, #c7c7c7 10%, #d3d3d3 65%, #d5d5d5);
@@ -5671,7 +5671,7 @@ body.x-desktop {
 .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
   background-image: none;
   background-color: white; }
-.x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-button.x-button-rm_topbarbuttonleft .x-badge, .x-button.x-button-rm_topbarbuttonleft .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-rm_topbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-badge {
+.x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-button.x-button-rm_topbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonleft .x-badge {
   font-size: 85%;
   font-weight: normal; }
 
@@ -5696,7 +5696,7 @@ body.x-desktop {
 .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_topbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
   background-image: none;
   background-color: white; }
-.x-button.x-button-rm_topbarbuttonright .x-button-label, .x-button.x-button-rm_topbarbuttonright .x-badge, .x-button.x-button-rm_topbarbuttonright .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-rm_topbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-badge {
+.x-button.x-button-rm_topbarbuttonright .x-button-label, .x-button.x-button-rm_topbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_topbarbuttonright .x-badge {
   font-size: 85%;
   font-weight: normal; }
 
@@ -5720,7 +5720,7 @@ body.x-desktop {
 .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft.x-button-pressed .x-button-icon.x-button-mask {
   background-image: none;
   background-color: white; }
-.x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-button.x-button-rm_maintopbarbuttonleft .x-badge, .x-button.x-button-rm_maintopbarbuttonleft .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-rm_maintopbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-badge {
+.x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-button.x-button-rm_maintopbarbuttonleft .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft .x-badge {
   font-size: 85%;
   font-weight: normal; }
 
@@ -5745,7 +5745,7 @@ body.x-desktop {
 .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressing .x-button-icon.x-button-mask, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright.x-button-pressed .x-button-icon.x-button-mask {
   background-image: none;
   background-color: white; }
-.x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-button.x-button-rm_maintopbarbuttonright .x-badge, .x-button.x-button-rm_maintopbarbuttonright .x-hasbadge .x-badge, .x-hasbadge .x-button.x-button-rm_maintopbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-hasbadge .x-badge, .x-hasbadge .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-badge {
+.x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-button.x-button-rm_maintopbarbuttonright .x-badge, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-button-label, .x-toolbar .x-button.x-button-rm_maintopbarbuttonright .x-badge {
   font-size: 85%;
   font-weight: normal; }
 
@@ -5857,7 +5857,7 @@ body.x-desktop {
   border-radius: 0;
   border: 0;
   height: 2.6em; }
-.rm-arrowimgbtn .x-button-label, .rm-arrowimgbtn .x-badge, .rm-arrowimgbtn .x-hasbadge .x-badge, .x-hasbadge .rm-arrowimgbtn .x-badge {
+.rm-arrowimgbtn .x-button-label, .rm-arrowimgbtn .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: normal;
@@ -5874,7 +5874,7 @@ body.x-desktop {
   padding: 0.3em;
   border-radius: 0;
   border: 0; }
-.rm-plusimgbtn .x-button-label, .rm-plusimgbtn .x-badge, .rm-plusimgbtn .x-hasbadge .x-badge, .x-hasbadge .rm-plusimgbtn .x-badge {
+.rm-plusimgbtn .x-button-label, .rm-plusimgbtn .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: bold;
@@ -5915,7 +5915,7 @@ body.x-desktop {
   border-radius: 0;
   border: none;
   background: url(../images/rm-menuitem-topborder.svg) repeat-x left top; }
-.rm-dropdown .x-button-label, .rm-dropdown .x-badge, .rm-dropdown .x-hasbadge .x-badge, .x-hasbadge .rm-dropdown .x-badge {
+.rm-dropdown .x-button-label, .rm-dropdown .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: normal;
@@ -5935,7 +5935,7 @@ body.x-desktop {
   border-radius: 0;
   border: none;
   background: url(../images/rm-menuitem-topborder.svg) repeat-x left top; }
-.rm-dropdownmain .x-button-label, .rm-dropdownmain .x-badge, .rm-dropdownmain .x-hasbadge .x-badge, .x-hasbadge .rm-dropdownmain .x-badge {
+.rm-dropdownmain .x-button-label, .rm-dropdownmain .x-badge {
   text-overflow: ellipsis;
   text-align: right;
   font-weight: normal;
@@ -5960,7 +5960,7 @@ body.x-desktop {
   color: #454545;
   padding: 0px;
   margin: 0px; }
-.x-button-rm_btnaslistrowmain .x-button-label, .x-button-rm_btnaslistrowmain .x-badge, .x-button-rm_btnaslistrowmain .x-hasbadge .x-badge, .x-hasbadge .x-button-rm_btnaslistrowmain .x-badge {
+.x-button-rm_btnaslistrowmain .x-button-label, .x-button-rm_btnaslistrowmain .x-badge {
   font-size: 90% !important; }
 
 .x-toolbar .x-button.x-button-rm_dropdownbtn {
@@ -5992,7 +5992,7 @@ body.x-desktop {
   border-radius: 0;
   padding: 0;
   margin: 0; }
-.rm-dropdownbtn .x-button-label, .rm-dropdownbtn .x-badge, .rm-dropdownbtn .x-hasbadge .x-badge, .x-hasbadge .rm-dropdownbtn .x-badge {
+.rm-dropdownbtn .x-button-label, .rm-dropdownbtn .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: bold !important;
@@ -6043,7 +6043,7 @@ body.x-desktop {
   background-position-y: 50%,0%;
   background-size: 10px 20px, 4px;
   height: 2.6em; }
-.rm-swipecontainer .x-button-label, .rm-swipecontainer .x-badge, .rm-swipecontainer .x-hasbadge .x-badge, .x-hasbadge .rm-swipecontainer .x-badge {
+.rm-swipecontainer .x-button-label, .rm-swipecontainer .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: normal;
@@ -6059,10 +6059,10 @@ body.x-desktop {
   background: #FCFCFC;
   color: #595959;
   font-size: 140%; }
-.rm-flatkeypadbutton .x-button-label, .rm-flatkeypadbutton .x-badge, .rm-flatkeypadbutton .x-hasbadge .x-badge, .x-hasbadge .rm-flatkeypadbutton .x-badge {
+.rm-flatkeypadbutton .x-button-label, .rm-flatkeypadbutton .x-badge {
   font-weight: normal; }
 
-.rm-flatkeypadtextbutton .x-button-label, .rm-flatkeypadtextbutton .x-badge, .rm-flatkeypadtextbutton .x-hasbadge .x-badge, .x-hasbadge .rm-flatkeypadtextbutton .x-badge {
+.rm-flatkeypadtextbutton .x-button-label, .rm-flatkeypadtextbutton .x-badge {
   font-size: 100%; }
 
 .rm-flatkeypad-crossbtn {
@@ -6195,7 +6195,7 @@ body.x-desktop {
   background-position-y: 50%,0%;
   background-size: 10px 20px, 4px;
   height: 2.6em; }
-.rm-popup .x-button-rm_btnaslistrow .x-button-label, .rm-popup .x-button-rm_btnaslistrow .x-badge, .rm-popup .x-button-rm_btnaslistrow .x-hasbadge .x-badge, .x-hasbadge .rm-popup .x-button-rm_btnaslistrow .x-badge {
+.rm-popup .x-button-rm_btnaslistrow .x-button-label, .rm-popup .x-button-rm_btnaslistrow .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: normal;
@@ -6681,7 +6681,7 @@ rm-emailinvoicebackground {
   border: 0;
   border-bottom: 2px solid #DBDBDB;
   height: 2.6em; }
-.rm-emailscreenbtn .x-button-label, .rm-emailscreenbtn .x-badge, .rm-emailscreenbtn .x-hasbadge .x-badge, .x-hasbadge .rm-emailscreenbtn .x-badge {
+.rm-emailscreenbtn .x-button-label, .rm-emailscreenbtn .x-badge {
   text-overflow: ellipsis;
   font-weight: bold;
   line-height: 1.2em;
@@ -6925,7 +6925,7 @@ rm-emailinvoicebackground {
   padding: 5px; }
 
 .rm-invoicelineitem-add {
-  color: #0096D0;
+  color: #00BD9D;
   font-size: 0.86em;
   padding: 5px; }
 
@@ -6985,7 +6985,7 @@ rm-emailinvoicebackground {
   border: 0;
   border-top: 1px solid #DBDBDB;
   height: 2.6em; }
-.rm-createitembtn .x-button-label, .rm-createitembtn .x-badge, .rm-createitembtn .x-hasbadge .x-badge, .x-hasbadge .rm-createitembtn .x-badge {
+.rm-createitembtn .x-button-label, .rm-createitembtn .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-weight: normal;
@@ -7165,7 +7165,7 @@ rm-emailinvoicebackground {
 
 .rm-actionbtn {
   padding: 5px !important; }
-.rm-actionbtn .x-button-label, .rm-actionbtn .x-badge, .rm-actionbtn .x-hasbadge .x-badge, .x-hasbadge .rm-actionbtn .x-badge {
+.rm-actionbtn .x-button-label, .rm-actionbtn .x-badge {
   text-overflow: ellipsis;
   text-align: left;
   font-size: 90%;
@@ -7183,7 +7183,7 @@ rm-emailinvoicebackground {
   border: 0;
   height: 2.6em;
   border-bottom: 2px solid #DBDBDB; }
-.rm-photopreviewbtn .x-button-label, .rm-photopreviewbtn .x-badge, .rm-photopreviewbtn .x-hasbadge .x-badge, .x-hasbadge .rm-photopreviewbtn .x-badge {
+.rm-photopreviewbtn .x-button-label, .rm-photopreviewbtn .x-badge {
   text-overflow: ellipsis;
   text-align: center !important;
   font-size: 84%;
@@ -7243,7 +7243,7 @@ rm-emailinvoicebackground {
   font-size: 0.8em;
   padding-left: 0px;
   padding-right: 0px; }
-.rm-keypad-topbar .x-button-label, .rm-keypad-topbar .x-badge, .rm-keypad-topbar .x-hasbadge .x-badge, .x-hasbadge .rm-keypad-topbar .x-badge {
+.rm-keypad-topbar .x-button-label, .rm-keypad-topbar .x-badge {
   font-weight: normal; }
 
 .rm-update-title {
@@ -7279,7 +7279,7 @@ rm-emailinvoicebackground {
   height: 2.2em;
   margin: .5em;
   margin-top: -1.1em;
-  right: -0.5em; }
+  right: -.5em; }
 
 .rm-lineitemcrossbg {
   background-size: 12px; }
@@ -7293,12 +7293,12 @@ rm-emailinvoicebackground {
 .rm-invoiceactioniconcls {
   background-size: 20px; }
 
-.rm-invoiceactionbtnlabel .x-button-label, .rm-invoiceactionbtnlabel .x-badge, .rm-invoiceactionbtnlabel .x-hasbadge .x-badge, .x-hasbadge .rm-invoiceactionbtnlabel .x-badge {
+.rm-invoiceactionbtnlabel .x-button-label, .rm-invoiceactionbtnlabel .x-badge {
   font-weight: bold;
   margin-left: 5px !important;
   font-size: 90%; }
 
-.rm-photobtnfont .x-button-label, .rm-photobtnfont .x-badge, .rm-photobtnfont .x-hasbadge .x-badge, .x-hasbadge .rm-photobtnfont .x-badge {
+.rm-photobtnfont .x-button-label, .rm-photobtnfont .x-badge {
   font-weight: bold !important; }
 
 .rm-photobtniconsize {
@@ -7504,7 +7504,7 @@ rm-emailinvoicebackground {
   border-radius: 0;
   color: #F9F9F9;
   min-height: 2.6em; }
-.rm-flatbtn .x-button-label, .rm-flatbtn .x-badge, .rm-flatbtn .x-hasbadge .x-badge, .x-hasbadge .rm-flatbtn .x-badge {
+.rm-flatbtn .x-button-label, .rm-flatbtn .x-badge {
   font-weight: normal; }
 
 .rm-bigbtn {

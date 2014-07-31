@@ -122,7 +122,7 @@ Ext.define('RM.view.ContactDetail', {
                             border: '1 0 1 0'
     					},{
     						name: 'ABN',                                       
-    						label: 'ABN / Tax Number',
+    						label: 'ABN',
                             labelWidth: '10em',
                             maxLength: 30,
                             border: '1 0 1 0'

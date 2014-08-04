@@ -136,7 +136,8 @@ Ext.define('RM.component.RMAmountField', {
     handleTrailingZeros: function(val) {
         // Make sure only the necessary number of trailing zeros is displayed
         var decimalIndex = val.indexOf('.');
-        if( decimalIndex !== -1 && this.getTrailingZerosUpTo() > 0) {
+        
+        if( decimalIndex !== -1 && this.getTrailingZerosUpTo() >= 0) {
             var goodFromHere = false;
             var minIndexFromEnd = this.getDecimalPlaces() - this.getTrailingZerosUpTo();
             
@@ -145,14 +146,14 @@ Ext.define('RM.component.RMAmountField', {
             val = val.split('').
             reverse().
             filter(function(item, index) {
-                if(index >= minIndexFromEnd || item !== '0') { 
+                if((index >= minIndexFromEnd || item !== '0') && item !== '.') { 
                     goodFromHere = true;
                     return true;
                 }
                 return goodFromHere;                
             }).
             reverse().
-            join('');
+            join('');            
         }
         else {
             val = val.replace(/([0-9]+)\.0+$/,'$1')

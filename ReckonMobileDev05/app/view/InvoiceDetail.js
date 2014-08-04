@@ -122,8 +122,8 @@ Ext.define('RM.view.InvoiceDetail', {
 				},{
 					xtype: 'exttextfield',
 					name: 'Notes',
-					label: 'Notes',
-                    labelWidth: 110,
+					label: 'Notes to customer',
+                    labelWidth: 150,
 					placeHolder: 'enter (optional)',
 					cls: 'rm-flatfield',
                     clearIcon: false,

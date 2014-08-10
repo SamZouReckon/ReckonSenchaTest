@@ -41,7 +41,7 @@ Ext.define('RM.view.dashboard.TopExpenses', {
                     '<span class="rm-legendpercent"> '+this.wholeNumber(data[i].Percentage)+'%</span>'+'</div>'+
                     '<div class= "rm-clear"></div>'
          }
-        htmlContent+= '</td><td width="52%"><canvas id="dashboardPieChart" width="160" height="160"></canvas></td></tr></table></div>';
+        htmlContent+= '</td><td width="52%"><canvas class = "rm-margin-auto10" id="dashboardPieChart" width="160" height="160"></canvas></td></tr></table></div>';
         return htmlContent;
     },
     

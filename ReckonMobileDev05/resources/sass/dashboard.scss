@@ -40,6 +40,7 @@
 		padding: 14px 14px;
 	}
 	.rm-totalamount{
+		font-size: 82%;
 		color:#767676;        
 		text-align: center;
 		font-weight: bold;
@@ -64,7 +65,8 @@
 	.rm-billtext{
 		font-size:82%;
         color:#646464;
-        text-align:left
+        text-align:left;
+		display: table;
 	}
 	.rm-overduetext{		
 		background-image: url("../images/icons/overDue_icon.png");
@@ -179,12 +181,16 @@
 
     .rm-netposition-income{               
         color:#a0cf79;
-        font-weight:bold;             
-    }
+        font-weight:bold;
+		font-size: 82%;
+    	margin: 7px 5px;
+   }
 
     .rm-netposition-expenses{               
         color:#ec3b55;
-        font-weight:bold;                
+        font-weight:bold;      
+		font-size: 82%;
+    	margin: 7px 5px;  
     }
 
     .rm-budgetoverviewarrow{

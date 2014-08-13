@@ -1,43 +1,101 @@
-#import "PayDevice.h"
 #import <Cordova/CDV.h>
-#import "MPEAPI.h"
+#import "CloudEftposSDK/CloudEftposSDK.h"
+
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 NSString *callBackId;
+#if TRUE // TEST MODE
+// This causes transactions to be done in training mode. No messages will be sent to the test host
+NSString * const email = @"test";
+NSString * const password = @"test";
+#else
+// This will set the SDK into dev mode - messages will go to a dev host
+NSString * const email = @"tomg@questps.com.au";
+NSString * const password = @"questSW1!";
+#endif
+
+@interface PayDevice : CDVPlugin
+
+- (void)doTransaction:(CDVInvokedUrlCommand*)command;    
+//- (void)MPEinteractionEvent: (MPEbaseInteraction*) interaction;
+//- (void)isSecureDeviceConnected:(CDVInvokedUrlCommand*)command;
+
+@property (nonatomic, strong) NSNumber *amount;
+@property (nonatomic, strong) CloudEftpos *cloudEftpos;
+
+@end
 
 @implementation PayDevice
 
-    -(void)doTransaction:(CDVInvokedUrlCommand*)command
-    {
-        [self.commandDelegate runInBackground:^{
-            NSLog(@"%@.",[command.arguments objectAtIndex:0]);  
+@synthesize cloudEftpos;
 
-            //NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-            //[f setNumberStyle:NSNumberFormatterDecimalStyle];
-            //NSNumber * amount = [f numberFromString:[command.arguments objectAtIndex:0]];
-            
-            NSLog(@"Converted amount to number.");
-            [[NSUserDefaults standardUserDefaults] setObject:@"https://mpos-global.test.point.fi:450/" 
-                                              forKey:@"paymentengineurl"];  
-            NSLog(@"Changed to NZ/AU.");    
-            callBackId = command.callbackId;   
-            //NSLog(@"%@ amount = ", amount);         
-			[MPEAPI instance].interactionDelegate = self;
-			
-			/*MPEpurchaseTransaction* transaction = [MPEpurchaseTransaction new];
-			Transaction.amountPurchase = 95.00f;
+-(void)doTransaction:(CDVInvokedUrlCommand*)command
+{
+    [self.commandDelegate runInBackground:^{
+		//Initialise the CloudEftpos Library and reconnect to the last PINpad if possible 	
+		@try
+        {
+			NSLog(@"Trying to load api.");              
+			cloudEftpos = [[CloudEftpos alloc] init];
+        }
+        @catch (NSException *theException) 
+        {
+            NSLog(@"Exception: %@", theException);
+        }		
 
-			NSError* errorPtr;
-            if (![[MPEAPI instance] MPEsubmitTransaction:transaction error:&errorPtr)
+		NSLog(@"CloudEftpos Loaded."); 
+
+		[cloudEftpos verifyCredentials:email password:password onCompletion:^(bool verified, NSError *error) {
+            if (!verified)
             {
-            	//Report any error for the failed submit. Use an alert view with
-            	// the error object for example.
+                // Cannot proceed. Should warn the user and try again later
+                NSLog(@"Error verifying credentials: %@", [error localizedDescription]);
+                return;
             }
+            
+            NSString *posName = @"unique POS Name";
+            [cloudEftpos authorisePOS:posName onCompletion:^(bool authorised, NSError *error) {
+                if (!authorised)
+                {
+                    // Cannot proceed. Should warn the user and try again
+                    NSLog(@"Error authorising POS: %@", [error localizedDescription]);
+                    return;
+                }
+                
+                // Now authorised. This authorisation code should not be called again.
+                NSLog(@"Verified and authorised!");
+            }];
+        }];		
 
-            //[MPEAPI initiatePurchaseTransactionWithInfo:@{@"amount": @"200.00", @"currency" : @"AUD"} andDelegate:self];*/
-        }];
-    }
+		NSLog(@"CloudEftpos authenticated."); 
+		
+        //NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        //[f setNumberStyle:NSNumberFormatterDecimalStyle];
+        //NSNumber * amount = [f numberFromString:[command.arguments objectAtIndex:0]];
+        
+        //NSLog(@"Converted amount to number.");
+        //[[NSUserDefaults standardUserDefaults] setObject:@"https://mpos-global.test.point.fi:450/" 
+                                          //forKey:@"paymentengineurl"];  
+        //NSLog(@"Changed to NZ/AU.");    
+        //callBackId = command.callbackId;   
+        //NSLog(@"%@ amount = ", amount);         
+		//[MPEAPI instance].interactionDelegate = self;
+		
+		/*MPEpurchaseTransaction* transaction = [MPEpurchaseTransaction new];
+		Transaction.amountPurchase = 95.00f;
 
-	-(void)MPEinteractionEvent:(MPEbaseInteraction*) interaction
+		NSError* errorPtr;
+        if (![[MPEAPI instance] MPEsubmitTransaction:transaction error:&errorPtr)
+        {
+        	//Report any error for the failed submit. Use an alert view with
+        	// the error object for example.
+        }
+
+        //[MPEAPI initiatePurchaseTransactionWithInfo:@{@"amount": @"200.00", @"currency" : @"AUD"} andDelegate:self];*/
+    }];
+}
+
+	/*-(void)MPEinteractionEvent:(MPEbaseInteraction*) interaction
     {
         MPEinteractionType interactionType = interaction.interactionType;
 
@@ -71,7 +129,7 @@ NSString *callBackId;
         }
     }
 
-	/*-(void) MPEtransactionResult:(MPETransactionStatus)transactionStatus transaction:(MPEbaseTransaction*)transaction error:(NSError*)error
+	-(void) MPEtransactionResult:(MPETransactionStatus)transactionStatus transaction:(MPEbaseTransaction*)transaction error:(NSError*)error
 	{
 		/*switch(transactionStatus)
 		{
@@ -97,7 +155,7 @@ NSString *callBackId;
 				break;
             }
 		}
-	}*/
+	}
 
 	-(void)transactionWasSuccesfulWithResults:(NSDictionary *)results
     {
@@ -108,7 +166,7 @@ NSString *callBackId;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:callBackId];
     }
 
-    /*-(void)transactionWasSuccesfulWithResults:(NSDictionary *)results
+    -(void)transactionWasSuccesfulWithResults:(NSDictionary *)results
     {
         NSLog(@"Success."); 
 

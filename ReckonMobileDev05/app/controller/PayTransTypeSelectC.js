@@ -51,14 +51,14 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     onCreditCardTap: function(){
         //RM.PayMgr.showScreen('PayTransTerminal', this.data
         cordova.exec(function (data) {
-            //alert(JSON.stringify(data));
+            alert(JSON.stringify(data));
             //Success
             
         }, function (data) {
-            //alert(JSON.stringify(data));
+            alert(JSON.stringify(data));
             //Failure
             
-        }, "PayDevice", "doTransaction", [this.data.Amount]);
+        }, "PayDevice", "doTransaction", ["200"]);
     },
     
     onCashTap: function(){

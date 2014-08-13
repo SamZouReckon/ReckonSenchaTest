@@ -35,7 +35,7 @@ Ext.define('RM.view.Modules', {
         		store: {
         			fields: ['ModuleCode', {name:'Activated', type:'bool'}, 'ShortName', 'FullName', 'Description', 'Image']
         		},    
-                /*itemTpl: new Ext.XTemplate(
+                itemTpl: new Ext.XTemplate(
                     '<div ><img src="resources/images/{Image}-'+
                     '<tpl if="Activated == true">'+
                         'on'+                                            
@@ -45,7 +45,7 @@ Ext.define('RM.view.Modules', {
                     '</tpl>'+
                     '.svg" style= "width: 90px; height: 90px;">'+
                     '<div style= "color: #969696;">{ShortName}</div></div>'
-                ),*/	
+                ),
                 itemTpl: new Ext.XTemplate(
                     '<div ><img src="resources/images/{Image}-on.svg" style= "width: 90px; height: 90px;">'+
                     '<div style= "color: #969696;">{ShortName}</div></div>'

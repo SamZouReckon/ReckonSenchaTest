@@ -58,8 +58,8 @@ Ext.define('RM.view.dashboard.Alerts', {
             '<div >' +
             '<div class="rm-digittext">' + data.InvoicesOverdueNr + '</div>' +
             '<div class="rm-fltl rm-mt5">' +
-            '<div class="rm-billtext rm-pl5 rm-nextgrayarrow rm-fontsize96">Invoices</div>' +            
-            '<div class="rm-billtext">Overdue</div>' +
+            '<div class="rm-billtext rm-nextgrayarrow rm-fontsize96">Invoices</div>' +            
+            '<div class="rm-billtext">overdue</div>' +
             '<div class="rm-billamount">' + RM.AppMgr.formatCurrency(data.InvoicesOverdueAmount, 0) + '</div>' + 
             '</div>' +
             '<div class="rm-clr"></div>' +

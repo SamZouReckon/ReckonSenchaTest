@@ -7,7 +7,7 @@ Ext.define('RM.view.dashboard.TopExpenses', {
 	
     initialize: function() {        
 		this.callParent(arguments);
-        this.dashboardPieChartColors = ["#a1d079", "#009f94", "#00aeee", "#ed3d57", "#fdc00d", "#fced04"];
+        this.dashboardPieChartColors = ["#a0cf79", "#009f93", "#00aded", "#ed3c56", "#ffc10e", "#fbec04"];
 		this.add([{
 				
                 html: '<h2 class="rm-hearderbg">TOP EXPENSES</h2>'
@@ -31,17 +31,17 @@ Ext.define('RM.view.dashboard.TopExpenses', {
 	},
     
     getContent: function(data){
-        var htmlContent = '<div class="rm-dashboardtopexpenses"><table width="100%" class="tableLayout"><tr><td width="48%">';                        
-        htmlContent += '<canvas id="dashboardPieChart" class="rm-dashboardpiechartcolor" width="124" height="124"></canvas></td><td width="52%">';
+        var htmlContent = '<div class="rm-dashboardtopexpenses"><table width="100%" class="tableLayout"><tr>';                        
+        htmlContent += '<td width="48%">';
 
         for(var i = 0; i< data.length; i++){
                     htmlContent+=
                     '<div class="rm-legendcolor" style="background :'+this.selectColor(i)+'"></div>'+
                     '<div class="rm-legend">'+data[i].Name+
-                    '<span class="rm-legendpercent"> ('+this.wholeNumber(data[i].Percentage)+'%)</span>'+'</div>'+
+                    '<span class="rm-legendpercent"> '+this.wholeNumber(data[i].Percentage)+'%</span>'+'</div>'+
                     '<div class= "rm-clear"></div>'
          }
-        htmlContent+= '</td></tr></table></div>';
+        htmlContent+= '</td><td width="52%"><canvas class = "rm-margin-auto10" id="dashboardPieChart" width="160" height="160"></canvas></td></tr></table></div>';
         return htmlContent;
     },
     
@@ -90,6 +90,10 @@ Ext.define('RM.view.dashboard.TopExpenses', {
             lastPosition += Math.PI*2*(data[i]/total);
         }                    
                         
-                        
+        ctx.fillStyle = '#FFF';
+        ctx.beginPath();
+        ctx.moveTo(center[0],center[1]);
+        ctx.arc(center[0],center[1],radius - 18, 0, Math.PI*2,false);        
+        ctx.fill();                
     }
 });

@@ -74,6 +74,9 @@ Ext.define('RM.controller.InvoicesC', {
         if(sortVal == 'customer'){
             this.activeList = view.add({xtype:'custinvsummarylist'});
         }
+        else if(sortVal == 'amount'){
+            this.activeList = view.add({xtype:'invoiceslist', sortVal:'', isShowCustomer: false});  //to get default sorting from server 
+        }
         else{            
             this.activeList = view.add({xtype:'invoiceslist', sortVal:sortVal, isShowCustomer: false});        
         }

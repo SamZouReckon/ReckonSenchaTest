@@ -1,5 +1,5 @@
 #import <Cordova/CDV.h>
-#import "CloudEftposSDK/CloudEftposSDK.h"
+#import "CloudEftposSDK.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -36,7 +36,7 @@ NSString * const password = @"questSW1!";
 		@try
         {
 			NSLog(@"Trying to load api.");              
-			cloudEftpos = [[CloudEftpos alloc] init];
+			//cloudEftpos = [[CloudEftpos alloc] init];
         }
         @catch (NSException *theException) 
         {
@@ -46,7 +46,8 @@ NSString * const password = @"questSW1!";
 		NSLog(@"CloudEftpos Loaded."); 
 
 		[cloudEftpos verifyCredentials:email password:password onCompletion:^(bool verified, NSError *error) {
-            if (!verified)
+            NSLog(@"Exception: %@", error);
+			if (!verified)
             {
                 // Cannot proceed. Should warn the user and try again later
                 NSLog(@"Error verifying credentials: %@", [error localizedDescription]);

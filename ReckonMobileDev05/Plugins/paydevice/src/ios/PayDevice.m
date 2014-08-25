@@ -31,12 +31,12 @@ NSString * const password = @"questSW1!";
 
 -(void)doTransaction:(CDVInvokedUrlCommand*)command
 {
-    [self.commandDelegate runInBackground:^{
+    //[self.commandDelegate runInBackground:^{
 		//Initialise the CloudEftpos Library and reconnect to the last PINpad if possible 	
 		@try
         {
 			NSLog(@"Trying to load api.");              
-			//cloudEftpos = [[CloudEftpos alloc] init];
+			cloudEftpos = [[CloudEftpos alloc] init];
         }
         @catch (NSException *theException) 
         {
@@ -93,7 +93,7 @@ NSString * const password = @"questSW1!";
         }
 
         //[MPEAPI initiatePurchaseTransactionWithInfo:@{@"amount": @"200.00", @"currency" : @"AUD"} andDelegate:self];*/
-    }];
+    //}];
 }
 
 	/*-(void)MPEinteractionEvent:(MPEbaseInteraction*) interaction

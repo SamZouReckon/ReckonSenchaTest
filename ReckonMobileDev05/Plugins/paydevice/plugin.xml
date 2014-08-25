@@ -27,9 +27,10 @@
             </feature>
         </config-file>
         
-        <source-file framework="true" src="src/ios/libCloudEftposSDK.a" compiler-flags="-all_load-lstdc++"/>
+        <source-file framework="true" src="src/ios/libCloudEftposSDK.a" compiler-flags="-all_load -lstdc++"/>
 		<header-file src="src/ios/CloudEftposSDK.h" />
 -       <source-file src="src/ios/PayDevice.m" />
+		<resource-file src="src/ios/CloudEftposSDKResources.bundle" />
 
 		<framework src="CoreBluetooth.framework"/>    
 		<framework src="Foundation.framework"/>

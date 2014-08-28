@@ -5334,7 +5334,7 @@ body.x-desktop {
 .rm-totalamount {
   font-size: 82%;
   color: #767676;
-  text-align: center;
+  padding-left: 10px;
   font-weight: bold; }
 
 .rm-digittext {
@@ -5443,13 +5443,13 @@ body.x-desktop {
   color: #a0cf79;
   font-weight: bold;
   font-size: 82%;
-  margin: 7px 5px; }
+  margin: 5px; }
 
 .rm-netposition-expenses {
   color: #ec3b55;
   font-weight: bold;
   font-size: 82%;
-  margin: 7px 5px; }
+  margin: 5px; }
 
 .rm-budgetoverviewarrow {
   background-image: url("../images/icons/rm-listitem-arrow.svg");
@@ -6590,7 +6590,7 @@ body.x-desktop {
   padding: 10px 10px 0px 10px; }
 
 .rm-dashboardtopexpenses {
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 15px; }
 
 .rm-dashboardnetposition {

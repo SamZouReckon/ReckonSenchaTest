@@ -77,8 +77,7 @@ Ext.define('RM.controller.ContactDetailC', {
 		if(!view){
 			view = {xtype:'contactdetail'};
         }
-        this.formattedNoteValue = null; //prevent showing note text from last contact
-        
+        this.formattedNoteValue = null; //prevent showing note text from last contact        
 		RM.ViewMgr.showPanel(view);		
 	},
     
@@ -89,7 +88,7 @@ Ext.define('RM.controller.ContactDetailC', {
     onShow: function(){
         RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getContactTitle().setHtml(this.isCreate ? 'Add contact' : 'View contact');
-        
+        this.loadCountrySpecificDetails();
         if (!this.dataLoaded) {
             var contactForm =  this.getContactForm(), businessOrIndividual = this.getBusinessOrIndividual();         
             
@@ -136,7 +135,13 @@ Ext.define('RM.controller.ContactDetailC', {
         this.isEditable = editable;
         this.getSaveBtn().setHidden(!editable);
         if(!editable) { RM.util.FormUtils.makeAllFieldsReadOnly(this.getContactForm()); }        
-    },      
+    },   
+    
+    loadCountrySpecificDetails: function(){
+        var countrySettings = RM.CashbookMgr.getCountrySettings();
+        var addressLabels = countrySettings.AddressLabels.split(' ');        
+        this.getAbn().setLabel(countrySettings.TaxLabel);
+    },
     
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,

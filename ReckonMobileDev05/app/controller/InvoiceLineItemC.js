@@ -246,8 +246,13 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.getItemNameFld().setHidden(true);
         this.getUnitPrice().setHidden(true);
         this.getDiscount().setHidden(true);
-        this.getAmount().setReadOnly(false);
-        this.getAmount().setCls('rm-flatfield');
+        this.getAmount().setReadOnly(!this.isEditable);        
+        if(!this.isEditable) {
+            this.getAmount().addCls(['rm-flatfield-disabled']);
+        }
+        else{
+            this.getAmount().setCls('rm-flatfield');
+        }
         this.getAmount().setLabel('Amount <span style="color: #F00">*</span>');       
     },
     

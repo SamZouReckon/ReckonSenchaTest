@@ -110,8 +110,6 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsCustomer = null;
                 this.detailsData.IsSupplier = null;
                 this.initialFormValues = contactForm.getValues();
-                this.getPostalAddressCountry().setHidden(true);	//As default address type is National
-        		this.getBusinessAddressCountry().setHidden(true);  //As default address type is National
                 this.dataLoaded = true;
             }            
         }        
@@ -138,10 +136,99 @@ Ext.define('RM.controller.ContactDetailC', {
     },   
     
     loadCountrySpecificDetails: function(){
-        var countrySettings = RM.CashbookMgr.getCountrySettings();
-        var addressLabels = countrySettings.AddressLabels.split(' ');        
-        this.getAbn().setLabel(countrySettings.TaxLabel);
+        var countrySettings = RM.CashbookMgr.getCountrySettings();        
+        this.getAbn().setLabel(countrySettings.TaxLabel);        
+        this.showCountrySpecificPostalFields();   
+        this.showCountrySpecificBusinessFields();
     },
+    
+    showCountrySpecificPostalFields: function(){
+        var countrySettings = RM.CashbookMgr.getCountrySettings();        
+        var addressFields = countrySettings.AddressLabels.split(' ');        
+        this.hideAllPostalAddressFields(true);
+        for(var i = 0; i < addressFields.length; i++){
+            this.showPostalAddressField(addressFields[i]);
+        }      
+    },
+    
+    showCountrySpecificBusinessFields: function(){
+        var countrySettings = RM.CashbookMgr.getCountrySettings();        
+        var addressFields = countrySettings.AddressLabels.split(' ');        
+        this.hideAllBusinessAddressFields(true);
+        for(var i = 0; i < addressFields.length; i++){
+            this.showBusinessAddressField(addressFields[i]);
+        }      
+    },
+    
+    hideAllPostalAddressFields: function(boolValue){
+        var contactDetail = this.getContactDetail(); 
+        contactDetail.down('field[name=PostalAddress.Address1]').setHidden(boolValue);
+        contactDetail.down('field[name=PostalAddress.Address2]').setHidden(boolValue);
+        contactDetail.down('field[name=PostalAddress.Suburb]').setHidden(boolValue);
+        contactDetail.down('field[name=PostalAddress.Town]').setHidden(boolValue);
+        contactDetail.down('field[name=PostalAddress.State]').setHidden(boolValue);
+        contactDetail.down('field[name=PostalAddress.PostCode]').setHidden(boolValue);
+        contactDetail.down('field[name=PostalAddress.Country]').setHidden(boolValue);
+    },
+    
+    hideAllBusinessAddressFields: function(boolValue){
+        var contactDetail = this.getContactDetail(); 
+        contactDetail.down('field[name=BusinessAddress.Address1]').setHidden(boolValue);
+        contactDetail.down('field[name=BusinessAddress.Address2]').setHidden(boolValue);
+        contactDetail.down('field[name=BusinessAddress.Suburb]').setHidden(boolValue);
+        contactDetail.down('field[name=BusinessAddress.Town]').setHidden(boolValue);
+        contactDetail.down('field[name=BusinessAddress.State]').setHidden(boolValue);
+        contactDetail.down('field[name=BusinessAddress.PostCode]').setHidden(boolValue);
+        contactDetail.down('field[name=BusinessAddress.Country]').setHidden(boolValue);
+    },
+    
+    showPostalAddressField: function(fieldName) {
+       var contactDetail = this.getContactDetail();        
+       switch (fieldName) {
+           case 'Line1':
+               contactDetail.down('field[name=PostalAddress.Address1]').setHidden(false);
+               break;
+           case 'Line2':
+               contactDetail.down('field[name=PostalAddress.Address2]').setHidden(false);
+               break;
+           case 'Suburb':
+               contactDetail.down('field[name=PostalAddress.Suburb]').setHidden(false);
+               break;
+           case 'Town':
+               contactDetail.down('field[name=PostalAddress.Town]').setHidden(false);
+               break;
+           case 'State':
+               contactDetail.down('field[name=PostalAddress.State]').setHidden(false);
+               break;
+           case 'Postcode':
+               contactDetail.down('field[name=PostalAddress.PostCode]').setHidden(false);
+               break;       
+       }
+	},
+    
+    showBusinessAddressField: function(fieldName) {
+       var contactDetail = this.getContactDetail();        
+       switch (fieldName) {
+           case 'Line1':
+               contactDetail.down('field[name=BusinessAddress.Address1]').setHidden(false);
+               break;
+           case 'Line2':
+               contactDetail.down('field[name=BusinessAddress.Address2]').setHidden(false);
+               break;
+           case 'Suburb':
+               contactDetail.down('field[name=BusinessAddress.Suburb]').setHidden(false);
+               break;
+           case 'Town':
+               contactDetail.down('field[name=BusinessAddress.Town]').setHidden(false);
+               break;
+           case 'State':
+               contactDetail.down('field[name=BusinessAddress.State]').setHidden(false);
+               break;
+           case 'Postcode':
+               contactDetail.down('field[name=BusinessAddress.PostCode]').setHidden(false);
+               break;       
+       }
+	},
     
     loadFormData: function () {
         RM.AppMgr.getServerRecById('Contacts', this.detailsData.ContactId,
@@ -326,19 +413,23 @@ Ext.define('RM.controller.ContactDetailC', {
     
     onPostalAddressSelect: function(selectfield, newValue, oldValue){
         //National: 1 International:2
+        //If National, show fields from Cashbook's CountrySettings.AddressLabels
+        //If International, show all fields 
         if(newValue === 1){
-            this.getPostalAddressCountry().setHidden(true);
+            this.showCountrySpecificPostalFields();
         }else{
-            this.getPostalAddressCountry().setHidden(false);
+            this.hideAllPostalAddressFields(false);
         }
     },
     
     onBusinessAddressSelect: function(selectfield, newValue, oldValue){
         //National: 1 International:2
+        //If National, show fields from Cashbook's CountrySettings.AddressLabels
+        //If International, show all fields 
 	    if(newValue === 1){
-            this.getBusinessAddressCountry().setHidden(true);
+            this.showCountrySpecificBusinessFields();
         }else{
-            this.getBusinessAddressCountry().setHidden(false);
+            this.hideAllBusinessAddressFields(false);
         } 
     },
     

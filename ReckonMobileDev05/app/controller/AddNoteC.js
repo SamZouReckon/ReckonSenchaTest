@@ -70,7 +70,7 @@ Ext.define('RM.controller.AddNoteC', {
         if(noteText)
             this.noteCb.call(this.noteCbs, noteText);
         else
-          RM.AppMgr.showOkMsgBox('Please enter some text for the note.');     
+          RM.AppMgr.showOkMsgBox('Please enter some text for the ' + this.noteTitle.toLowerCase());     
     },
 
     back: function () {

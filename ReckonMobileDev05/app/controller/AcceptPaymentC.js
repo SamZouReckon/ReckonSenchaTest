@@ -114,11 +114,6 @@ Ext.define('RM.controller.AcceptPaymentC', {
             isValid = false;
         } 
          
-        if(!vals.PaymentMethodId){
-            this.getPaymentMethod().showValidation(false);
-            isValid = false;
-        }
-         
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
             return false;

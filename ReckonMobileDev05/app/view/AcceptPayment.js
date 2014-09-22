@@ -22,7 +22,8 @@ Ext.define('RM.view.AcceptPayment', {
             }, {
                 xtype: 'spacer'
             }, {
-                text: 'Pay',
+                //text: 'Pay',
+                text: 'Save',
                 itemId: 'pay',                
                 ui: 'rm_topbarbuttonright'
             }
@@ -59,7 +60,7 @@ Ext.define('RM.view.AcceptPayment', {
 				},{
 					xtype: 'extselectfield',
 					label: 'Payment method',
-                    rmmandatory: true,
+                    //rmmandatory: true,
                     labelWidth: '9em',
 					usePicker: true,
 					name: 'PaymentMethodId',

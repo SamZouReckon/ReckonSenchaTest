@@ -59,7 +59,12 @@ Ext.define('RM.component.RMAmountField', {
         // otherwise leave the input control visible and clear the display value
         else {
             this.displayEl.hide(); 
-        }                   
+        }  
+        //Fix for the case where we see display element but not the value as we type in
+        //For details check task# 12023 in TFS
+        if(this.inputEl.id === document.activeElement.id){
+            this.displayEl.hide();
+        }
     },
     
     showInputFld: function(){

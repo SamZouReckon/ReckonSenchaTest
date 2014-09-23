@@ -31,7 +31,7 @@ Ext.define('RM.view.dashboard.TopExpenses', {
 	},
     
     getContent: function(data){
-        var htmlContent = '<div class="rm-dashboardtopexpenses"><table width="100%" class="tableLayout"><tr>';                        
+        var htmlContent = '<div class="rm-dashboardtopexpenses"><table width="100%"><tr>';                        
         htmlContent += '<td width="48%">';
 
         for(var i = 0; i< data.length; i++){

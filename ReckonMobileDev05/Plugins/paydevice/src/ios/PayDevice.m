@@ -16,9 +16,11 @@ NSString * const password = @"questSW1!";
 
 @interface PayDevice : CDVPlugin
 
-- (void)doTransaction:(CDVInvokedUrlCommand*)command;
-//- (void)MPEinteractionEvent: (MPEbaseInteraction*) interaction;
-//- (void)isSecureDeviceConnected:(CDVInvokedUrlCommand*)command;
+-(void)createEftposObject:(CDVInvokedUrlCommand*)command;
+-(void)Authenticate:(CDVInvokedUrlCommand*)command;
+-(void)authorisePOS:(CDVInvokedUrlCommand*)command;
+-(void)showTools:(CDVInvokedUrlCommand*)command;
+-(void)startTransaction:(CDVInvokedUrlCommand*)command;
 
 @property (nonatomic, strong) NSNumber *amount;
 @property (nonatomic, strong) CloudEftpos *cloudEftpos;
@@ -29,17 +31,13 @@ NSString * const password = @"questSW1!";
 
 @synthesize cloudEftpos;
 
--(void)doTransaction:(CDVInvokedUrlCommand*)command
+-(void)createEftposObject:(CDVInvokedUrlCommand*)command
 {
-    //[self.commandDelegate runInBackground:^{
-    //Initialise the CloudEftpos Library and reconnect to the last PINpad if possible
-    NSLog(@"Trying to load api.");
     cloudEftpos = [[CloudEftpos alloc] init];
-    //NSLog(@"Exception: %@", theException);
-    
-    
-    NSLog(@"CloudEftpos Loaded.");
-    
+}
+
+-(void)Authenticate:(CDVInvokedUrlCommand*)command
+{
     [cloudEftpos verifyCredentials:email password:password onCompletion:^(bool verified, NSError *error) {
         if (!verified)
         {
@@ -61,164 +59,103 @@ NSString * const password = @"questSW1!";
             NSLog(@"Verified and authorised!");
         }];
     }];
-    
-    NSLog(@"CloudEftpos authenticated.");
-    
-    [cloudEftpos advancedMenuWithPresentingViewController:self.viewController
-                                                 animated:YES
-                                                  onClose:^{
-                                                      
-                                                  } onPrint:^(NSString *type, NSString *receipt) {
-                                                      
-                                                  }];
-    
-    
-    /*[cloudEftpos pairDeviceWithPresentingViewController:self.viewController
-                                               animated:true
-                                           onCompletion:^(NSError *error) {
-                                               if (error) {
-                                                   NSLog(@"Error pairing to PINpad: %@", [error localizedDescription]);
-                                                   return;
-                                               }
-                                               // PINpad is now paired - a status update should trigger to
-                                               // indicate a "connected" state
-                                           }];
-     */
-    //NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    //[f setNumberStyle:NSNumberFormatterDecimalStyle];
-    //NSNumber * amount = [f numberFromString:[command.arguments objectAtIndex:0]];
-    
-    //NSLog(@"Converted amount to number.");
-    //[[NSUserDefaults standardUserDefaults] setObject:@"https://mpos-global.test.point.fi:450/"
-    //forKey:@"paymentengineurl"];
-    //NSLog(@"Changed to NZ/AU.");
-    //callBackId = command.callbackId;
-    //NSLog(@"%@ amount = ", amount);
-    //[MPEAPI instance].interactionDelegate = self;
-    
-    /*MPEpurchaseTransaction* transaction = [MPEpurchaseTransaction new];
-     Transaction.amountPurchase = 95.00f;
-     
-     NSError* errorPtr;
-     if (![[MPEAPI instance] MPEsubmitTransaction:transaction error:&errorPtr)
-     {
-     //Report any error for the failed submit. Use an alert view with
-     // the error object for example.
-     }
-     
-     //[MPEAPI initiatePurchaseTransactionWithInfo:@{@"amount": @"200.00", @"currency" : @"AUD"} andDelegate:self];*/
-    //}];
 }
 
-/*-(void)MPEinteractionEvent:(MPEbaseInteraction*) interaction
- {
- MPEinteractionType interactionType = interaction.interactionType;
- 
- switch(interactionType)
- {
- case ITDisplayMessage :
- {
- MPEdisplayMessageInteraction* displayInteraction = (MPEdisplayMessageInteraction*) interaction;
- 
- NSLog(@"%@.",displayInteraction.message);
- //[self displayMessageInteraction:displayInteraction];
- 
- break;
- }
- case ITPinEntry :
- {
- MPEpinEntryInteraction* displayInteraction = (MPEpinEntryInteraction*) interaction;
- 
- NSLog(@"%@.",displayInteraction.message);
- //[self displayMessageInteraction:displayInteraction];
- 
- break;
- }
- default:
- {
- // Unknown interaction event.
- NSLog(@"No interaction");
- NSAssert(NO, @"Unknown interaction event encountered.");
- break;
- }
- }
- }
- 
- -(void) MPEtransactionResult:(MPETransactionStatus)transactionStatus transaction:(MPEbaseTransaction*)transaction error:(NSError*)error
- {
- /*switch(transactionStatus)
- {
- case accepted:
- {
- // Let the user know it worked.
- //[self displaySuccesfulTransaction:transaction];
- break;
- }
- case declined:
- {
- //[self displayDeclinedTransaction:transaction];
- break;
- }
- case error:
- {
- //[self displayTransactionError:transaction error:error];
- break;
- }
- default:
- {
- NSAssert(NO,@"Unknown transaction status received.");
- break;
- }
- }
- }
- 
- -(void)transactionWasSuccesfulWithResults:(NSDictionary *)results
- {
- NSLog(@"Success.");
- 
- CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:results];
- 
- [self.commandDelegate sendPluginResult:pluginResult callbackId:callBackId];
- }
- 
- -(void)transactionWasSuccesfulWithResults:(NSDictionary *)results
- {
- NSLog(@"Success.");
- 
- CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:results];
- 
- [self.commandDelegate sendPluginResult:pluginResult callbackId:callBackId];
- }
- 
- -(void)transactionFailedWithResults:(NSDictionary *)results
- {
- NSLog(@"Failure.");
- 
- CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:results];
- 
- [self.commandDelegate sendPluginResult:pluginResult callbackId:callBackId];
- }
- 
- -(void)presentTransactionList:(NSArray *)transactionList
- {
- 
- }
- 
- - (void)isSecureDeviceConnected:(CDVInvokedUrlCommand*)command
- {
- BOOL isDeviceConnected = [MPEAPI isSecureDeviceConnected];
- 
- NSLog(@"%@",isDeviceConnected);
- 
- NSMutableDictionary *jsonObj = [[NSMutableDictionary alloc] init];
- [jsonObj setValue:[NSNumber numberWithBool:isDeviceConnected] forKey:@"DeviceConnected"];
- 
- CDVPluginResult *pluginResult = [ CDVPluginResult
- resultWithStatus    : CDVCommandStatus_OK
- messageAsDictionary : jsonObj
- ];
- 
- [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
- }*/
+-(void)authorisePOS:(CDVInvokedUrlCommand*)command
+{
+    [cloudEftpos authorisePOS:@"Reckon Test" onCompletion:^(bool authorised, NSError *error) {
+        if (authorised)
+            NSLog(@"POS authorised");
+        else
+            NSLog(@"Authorisation failed");
+    }];
+}
+
+-(void)showTools:(CDVInvokedUrlCommand*)command
+{
+    [cloudEftpos advancedMenuWithPresentingViewController:self.viewController
+         animated:YES
+          onClose:^{
+              
+          } onPrint:^(NSString *type, NSString *receipt) {
+      
+    }];
+}
+
+-(void)startTransaction:(CDVInvokedUrlCommand*)command
+{
+    // Get POS reference
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *transCount = [prefs valueForKey:@"transCount"];
+    if (transCount == nil)
+    {
+        transCount = [NSNumber numberWithInt:0];
+    }
+    transCount = [NSNumber numberWithInt:([transCount intValue] + 1)];
+    [prefs setValue:transCount forKey:@"transCount"];
+    
+    // Add sequence number (different sequence number for different transactions in the one tender)
+    int sequenceNumber = 1;
+    NSString *posReference = [NSString stringWithFormat:@"%d%d", [transCount intValue], sequenceNumber];
+    
+    // Create TransactionRequest for $40
+    TransactionRequest *tr = [[TransactionRequest alloc] init];
+    [tr setAmount:4000];
+    [tr setCashout:0];
+    [tr setTipamount:0];
+    [tr setTransactionType:Purchase];
+    [tr setPosReference:posReference];
+    
+    // Enter transaction state
+    [prefs setValue:posReference forKey:@"lastPosReference"];
+    [prefs setValue:[NSNumber numberWithBool:YES] forKey:@"transactionInProgress"];
+    // Store any other details for this transaction that will be required if there is a power failure or crash
+    // This MUST be saved, otherwise there is a risk we could lose a transaction
+    if (![prefs synchronize])
+    {
+        // Error, unable to save transaction state
+        return;
+    }
+    
+    // Start transaction
+    [cloudEftpos startTransaction:tr
+     withPresentingViewController:self.viewController
+                         animated:true
+                     onCompletion:^(NSDictionary *results, NSError *error) {
+                         if (error) {
+                             NSLog(@"Error with transaction: %@", [error localizedDescription]);
+                             
+                             UIAlertView *errorAlert = [[UIAlertView alloc]
+                                                        initWithTitle: @"Error"
+                                                        message: [error localizedDescription]
+                                                        delegate:self
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
+                             [errorAlert show];
+                             return;
+                         }
+                         // Extract data from result
+                         bool approved = [(NSNumber *)[results valueForKey:@"approved"] boolValue];
+                         NSString *responseCode = [results valueForKey:@"responseCode"];
+                         NSString *responseText = [results valueForKey:@"responseText"];
+                         // Do something with result...
+                         NSLog(@"%@", results);
+                         // Remove transaction state
+                         [prefs setValue:[NSNumber numberWithBool:NO] forKey:@"transactionInProgress"];
+                         
+                         UIImage *image = [results valueForKey:@"signatureImage"];
+                         if (image != nil)
+                         {
+                             // Convert UIImage to JPEG
+                             NSData *imgData = UIImageJPEGRepresentation(image, 1); // 1 is compression quality
+                             
+                             // Identify the home directory and file name
+                             NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Test.jpg"];
+                             
+                             // Write the file.  Choose YES atomically to enforce an all or none write. Use the NO flag if partially written files are okay which can occur in cases of corruption
+                             [imgData writeToFile:jpgPath atomically:YES];
+                         }
+                     }];
+}
 
 @end

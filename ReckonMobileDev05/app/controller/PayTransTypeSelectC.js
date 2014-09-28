@@ -51,18 +51,59 @@ Ext.define('RM.controller.PayTransTypeSelectC', {
     onCreditCardTap: function(){
         //RM.PayMgr.showScreen('PayTransTerminal', this.data
         cordova.exec(function (data) {
-            alert(JSON.stringify(data));
-            //Success
-            
-        }, function (data) {
-            alert(JSON.stringify(data));
-            //Failure
-            
-        }, "PayDevice", "doTransaction", ["200"]);
+        //alert(JSON.stringify(data));
+        //Success
+           
+       }, function (data) {
+       //alert(JSON.stringify(data));
+       //Failure
+           
+  	}, "PayDevice", "createEftposObject", []);
+        
+        
+       cordova.exec(function (data) {
+        //alert(JSON.stringify(data));
+        //Success
+           
+       }, function (data) {
+       //alert(JSON.stringify(data));
+       //Failure
+           
+  	}, "PayDevice", "Authenticate", []);
+        
+
+        cordova.exec(function (data) {
+        //alert(JSON.stringify(data));
+        //Success
+           
+       }, function (data) {
+       //alert(JSON.stringify(data));
+       //Failure
+           
+  	}, "PayDevice", "authorisePOS", []);
+                   
+        cordova.exec(function (data) {
+        //alert(JSON.stringify(data));
+        //Success
+           
+       }, function (data) {
+       //alert(JSON.stringify(data));
+       //Failure
+           
+  	}, "PayDevice", "showTools", []);
     },
     
     onCashTap: function(){
-        RM.PayMgr.showScreen('PayRecvCash', this.data, this.callback, this.callbackScope);
+        //RM.PayMgr.showScreen('PayRecvCash', this.data, this.callback, this.callbackScope);
+        cordova.exec(function (data) {
+        //alert(JSON.stringify(data));
+        //Success
+           
+       }, function (data) {
+       //alert(JSON.stringify(data));
+       //Failure
+           
+  	}, "PayDevice", "startTransaction", []);
     },
     
     onChequeTap: function(){

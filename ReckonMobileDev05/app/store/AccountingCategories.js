@@ -3,7 +3,7 @@ Ext.define('RM.store.AccountingCategories', {
 	config: {
 		model:'RM.model.AccountingCategory',
         sorters: 'Name',
-        groupDir: 'DESC',
+        //groupDir: 'DESC',
         groupField: 'AccountType'
     }
 });

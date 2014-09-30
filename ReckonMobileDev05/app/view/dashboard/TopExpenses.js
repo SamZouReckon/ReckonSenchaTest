@@ -10,7 +10,7 @@ Ext.define('RM.view.dashboard.TopExpenses', {
         this.dashboardPieChartColors = ["#a0cf79", "#009f93", "#00aded", "#ed3c56", "#ffc10e", "#fbec04"];
 		this.add([{
 				
-                html: '<h2 class="rm-hearderbg">TOP EXPENSES</h2>'
+                html: '<h2 class="rm-hearderbg">TOP EXPENSES YEAR TO DATE</h2>'
 			},{
 				html: ''
 		}]);

@@ -25,6 +25,10 @@ Ext.define('RM.view.Accounts', {
 				docked: 'top'
 			},{
                 xtype: 'list',
+                store: 'AccountingCategories',
+                itemTpl: '<div class = "rm-orgnametext">{Name}</div>',
+                emptyText: 'No accounts found.',
+                grouped: true,
                 flex: 1
             }
         ] 

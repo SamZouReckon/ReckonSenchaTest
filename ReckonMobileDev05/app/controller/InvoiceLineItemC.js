@@ -227,7 +227,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     				this
     			);
             }
-            else if (tf.getName() == 'AccountName') {
+            else if (tf.getName() == 'AccountName') {                
                 RM.Selectors.showAccounts(                    
                     false,
     				function (data) {                                               
@@ -235,7 +235,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                         this.itemChanged(data[0])                        
     				},
     				this
-    			);
+    			);                
             }
         }           
     },

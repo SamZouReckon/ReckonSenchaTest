@@ -403,16 +403,22 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.setTaxModified(false);
         
         this.ignoreEvents = true;
+        
+        var taxCode = newItem.SaleTaxCodeId ? newItem.SaleTaxCodeId : newItem.DefaultTaxGroupId;
+        var description = newItem.SaleDescription ? newItem.SalesDescription : newItem.Name;
+       
         this.getItemForm().setValues({ 
             ItemId: newItem.ItemId,
             AccountId: newItem.AccountingCategoryId,
             ItemName:newItem.ItemPath, 
             AccountName:newItem.Name, 
-            TaxGroupId: this.isTaxTracking() ? newItem.SaleTaxCodeId : null,         
-            Description: newItem.SalesDescription,
+            TaxGroupId: this.isTaxTracking() ? taxCode : null,         
+            Description: description,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
+        
         this.ignoreEvents = false;
+        
         var that = this;
         this.getServerCalculatedValues('Item', function() {
             // Make sure the details fields are visible after an item is selected

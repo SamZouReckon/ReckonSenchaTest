@@ -28,8 +28,8 @@ Ext.define('RM.view.Invoices', {
         sortfields: [         
                     {text: 'Due date',  value: 'duedate'},                    
                     {text: 'Amount', value: 'amount'},
-                    {text: 'Customer',  value: 'customer'},
-                	{text: 'Invoice number',  value: 'invoicenumber'}
+                    {text: 'Customer',  value: 'customer'}
+                	//{text: 'Invoice number',  value: 'invoicenumber'}
         ]
                 
       }

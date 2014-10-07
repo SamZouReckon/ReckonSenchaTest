@@ -244,7 +244,7 @@ Ext.define('RM.view.ContactDetail', {
                                     labelWidth: '7.5em'
             					},{
             						name: 'PostalAddress.Town',   
-            						label: 'Town',
+            						label: 'Town/City',
                                     maxLength: 80,
                                     labelWidth: '7.5em'
             					},{
@@ -308,7 +308,7 @@ Ext.define('RM.view.ContactDetail', {
                                     labelWidth: '7.5em'
             					},{
             						name: 'BusinessAddress.Town',   
-            						label: 'Town',
+            						label: 'Town/City',
                                     maxLength: 80,
                                     labelWidth: '7.5em'
             					},{

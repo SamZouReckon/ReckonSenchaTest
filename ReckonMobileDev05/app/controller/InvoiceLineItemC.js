@@ -114,6 +114,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     onShow: function () {
         RM.ViewMgr.regFormBackHandler(this.back, this);
         
+        //Load country specific labels
+        var countrySettings = RM.CashbookMgr.getCountrySettings();        
+        this.getTax().setLabel(countrySettings.LineItemTaxLabel);
+        this.getTaxCode().setLabel(countrySettings.LineItemTaxCodeLabel);
+        
         var itemForm = this.getItemForm();
 
         this.getAddBtn().setHidden(!this.isEditable);

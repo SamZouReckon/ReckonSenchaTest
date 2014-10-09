@@ -184,14 +184,15 @@ Ext.define('RM.view.InvoiceLineItem', {
     
     setTaxModified: function(isModified) {
         var taxField = this.down('#Tax');
+        var countrySettings = RM.CashbookMgr.getCountrySettings();   
         if(isModified) {
             taxField.addCls(['rm-field-warning']);
-            taxField.setLabel('Tax (modified)');
+            taxField.setLabel(countrySettings.LineItemTaxLabel + ' (modified)');            
             taxField.removeCls('clear-icon-hidden');
         }
         else {
             taxField.removeCls(['rm-field-warning']);
-            taxField.setLabel('Tax');
+            taxField.setLabel(countrySettings.LineItemTaxLabel);
             taxField.addCls('clear-icon-hidden');
         }        
     }

@@ -410,7 +410,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.ignoreEvents = true;
         
         var taxCode = newItem.SaleTaxCodeId ? newItem.SaleTaxCodeId : newItem.DefaultTaxGroupId;
-        var description = newItem.SaleDescription ? newItem.SalesDescription : newItem.Description;
+        var description = newItem.SalesDescription ? newItem.SalesDescription : newItem.Description;
        
         this.getItemForm().setValues({ 
             ItemId: newItem.ItemId,

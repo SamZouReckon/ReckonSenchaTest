@@ -517,6 +517,10 @@ Ext.define('RM.core.AppMgr', {
         this.showErrorMsgBox('Please enter a valid email address.');
     },
     
+    showNoMultipleEmailMsg: function(){
+        this.showErrorMsgBox('Only one email address can be entered');
+    },
+    
     showInvalidURLMsg: function() {
         this.showErrorMsgBox('Please enter a valid Url, with no spaces or quotes.');
     },
@@ -791,11 +795,15 @@ Ext.define('RM.core.AppMgr', {
         });        
     },
     
-    validateEmail: function(inputVal) {	
+    validateEmail: function(inputVal) {
+        //Fail the test if email value contains blank space
+        if(inputVal.indexOf(' ') >= 1){
+            return false;
+        }
         var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
         if (pattern.test(inputVal)) {         
             return true;
-        }
+        }        
         else {   
             return false; 
         }

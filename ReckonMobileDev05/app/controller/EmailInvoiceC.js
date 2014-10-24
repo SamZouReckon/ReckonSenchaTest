@@ -6,6 +6,8 @@ Ext.define('RM.controller.EmailInvoiceC', {
             emailInvoice: 'emailinvoice',
             emailInvoiceForm: 'emailinvoice formpanel',
             email: 'emailinvoice emailfield[name=Email]',
+            cc: 'emailinvoice emailfield[name=CC]',
+            bcc: 'emailinvoice emailfield[name=BCC]',
             subject: 'emailinvoice textfield[name=Subject]',
             message: 'emailinvoice #emailForm textareafield',
             sentCont: 'emailinvoice #sentcont',
@@ -65,7 +67,7 @@ Ext.define('RM.controller.EmailInvoiceC', {
         
         RM.AppMgr.getServerRec('InvoiceMessagesTemplates', {InvoiceId: this.invoiceData.InvoiceId}, 
             function(rec){
-                emailInvoiceForm.setValues({Email: this.invoiceData.CustomerEmail, Subject: rec.Subject, Body: rec.Body });
+                emailInvoiceForm.setValues({Email: this.invoiceData.CustomerEmail, CC: rec.CC, BCC: rec.BCC, Subject: rec.Subject, Body: rec.Body });
                 this.loadTemplates();
             },
             this,
@@ -132,19 +134,54 @@ Ext.define('RM.controller.EmailInvoiceC', {
         if (vals.Email == '') {
             this.getEmail().showValidation(false);
             isValid = false;
+        }        
+         
+        if (!RM.AppMgr.validateEmail(vals.Email)) {             
+            this.getEmail().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidEmailMsg();
+            return isValid;
+        }
+        
+        if(this.checkForMultipleEmailAddresses(vals.Email)){
+            this.getEmail().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showNoMultipleEmailMsg();
+            return isValid;
+        }
+        
+        if (vals.CC && !RM.AppMgr.validateEmail(vals.CC)) {             
+            this.getCc().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidEmailMsg();
+            return isValid;
+        }
+        
+        if(this.checkForMultipleEmailAddresses(vals.CC)){
+            this.getCc().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showNoMultipleEmailMsg();
+            return isValid;
+        }
+        
+        if (vals.BCC && !RM.AppMgr.validateEmail(vals.BCC)) {             
+            this.getBcc().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showInvalidEmailMsg();
+            return isValid;
+        }
+        
+        if(this.checkForMultipleEmailAddresses(vals.BCC)){
+            this.getBcc().showValidation(false);
+            isValid = false;
+            RM.AppMgr.showNoMultipleEmailMsg();
+            return isValid;
         }
          
         if (vals.Subject == '') {
             this.getSubject().showValidation(false);
             isValid = false;
             RM.AppMgr.showInvalidFormMsg();
-            return isValid;
-        }
-         
-        if (!RM.AppMgr.validateEmail(vals.Email)) {             
-            this.getEmail().showValidation(false);
-            isValid = false;
-            RM.AppMgr.showInvalidEmailMsg();
             return isValid;
         }
         
@@ -154,6 +191,12 @@ Ext.define('RM.controller.EmailInvoiceC', {
          
         return isValid;
     },  
+    
+    checkForMultipleEmailAddresses: function(fieldVal){
+        if(fieldVal.indexOf(',') !== -1 || fieldVal.indexOf(';') !== -1){
+            return true;
+        }            
+    },
     
     onSend: function () {
         var vals = this.getEmailInvoiceForm().getValues();

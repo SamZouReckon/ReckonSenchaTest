@@ -51,7 +51,12 @@ Ext.define('RM.controller.InvoiceActionsC', {
     },
 
     onShow: function(){
-        this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.invoiceData.Status));
+        if(this.invoiceData.Status === 2 && this.invoiceData.BalanceDue < this.invoiceData.Amount) {
+            this.getInvStatus().setHtml(RM.InvoicesMgr.getPartiallyPaidInvoiceStatusText());                                    
+        }
+        else {
+            this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.invoiceData.Status));
+        }
         
         var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));        
         var hideEmail = !(RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canDo('Invoices', 'PrintEmail'));

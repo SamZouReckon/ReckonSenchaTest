@@ -4,7 +4,7 @@ Ext.define('RM.view.dashboard.NetPosition', {
     config: {
         
 		items: [{
-				html: '<h2 class="rm-hearderbg">NET POSITION</h2>'
+				html: '<h2 class="rm-hearderbg">NET POSITION YEAR TO DATE</h2>'
 			},{
 				itemId: 'cont'
 		}]

@@ -5,6 +5,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     config: {
         refs: {
             acceptPayment: 'acceptpayment',
+            transactionDate: 'acceptpayment extdatepickerfield[name=TransactionDate]',
             acceptPaymentForm: 'acceptpayment formpanel',
             amountPaid: 'acceptpayment textfield[name=AmountPaid]',
             bankAccount: 'acceptpayment extselectfield[name=BankAccountId]',
@@ -33,7 +34,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
     },
 
     showView: function (invoiceData) {
-        //console.log(Ext.encode(invoiceData));
+        //console.log(Ext.encode(invoiceData));        
         
         this.customerName = invoiceData.CustomerName;
         this.invoiceId = invoiceData.InvoiceId;
@@ -56,6 +57,9 @@ Ext.define('RM.controller.AcceptPaymentC', {
         RM.ViewMgr.regFormBackHandler(this.onBack, this);
         //form.reset();        
         form.setValues({AmountPaid: this.fullAmount});
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        this.getTransactionDate().setValue(today);
     },
     
     onHide: function(){
@@ -80,8 +84,7 @@ Ext.define('RM.controller.AcceptPaymentC', {
                 //this.getTemplateFld().setValue(this.invoiceData.TemplateId);
             },
             this
-        );
-        
+        );        
     },
     
     showMsg: function () {
@@ -103,7 +106,11 @@ Ext.define('RM.controller.AcceptPaymentC', {
     
      validateForm: function(vals){        
         var isValid = true;
-        console.log('AcceptPaymentC validation');
+        if(!vals.TransactionDate){
+            this.getTransactionDate().showValidation(false);
+            isValid = false;
+        } 
+         
         if( vals.AmountPaid === undefined || vals.AmountPaid === null || vals.AmountPaid === ''){
             this.getAmountPaid().showValidation(false);
             isValid = false;
@@ -113,11 +120,6 @@ Ext.define('RM.controller.AcceptPaymentC', {
             this.getBankAccount().showValidation(false);
             isValid = false;
         } 
-         
-        if(!vals.PaymentMethodId){
-            this.getPaymentMethod().showValidation(false);
-            isValid = false;
-        }
          
         if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
@@ -146,7 +148,10 @@ Ext.define('RM.controller.AcceptPaymentC', {
         vals.InvoiceId = this.invoiceId;
         vals.AccountsReceivableCategoryId = this.accountsReceivableCategoryId;
         vals.CustomerSupplierId = this.customerId;
-        vals.customerName = this.customerName;
+        vals.CustomerName = this.customerName;
+        
+        // Some date fernagling, the default json serialization of dates will format the date in UTC which will alter the time from 00:00:00
+        vals.TransactionDate = RM.util.Dates.encodeAsUTC(vals.TransactionDate);
         
         if(this.validateForm(vals)){ 
             RM.AppMgr.saveServerRec('AcceptPayment', true, vals,

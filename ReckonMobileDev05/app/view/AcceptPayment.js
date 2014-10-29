@@ -22,7 +22,8 @@ Ext.define('RM.view.AcceptPayment', {
             }, {
                 xtype: 'spacer'
             }, {
-                text: 'Pay',
+                //text: 'Pay',
+                text: 'Save',
                 itemId: 'pay',                
                 ui: 'rm_topbarbuttonright'
             }
@@ -31,6 +32,17 @@ Ext.define('RM.view.AcceptPayment', {
 			xtype: 'secureformpanel',
 			padding: 0,
 			items: [
+                {
+					xtype: 'extdatepickerfield',
+					name : 'TransactionDate',
+					dateFormat : 'jS M Y',        //'D, d F Y',
+					placeHolder: 'select',
+					label : 'Payment Date',
+                    labelWidth: '9em',
+                    cls: 'rm-flatfield',
+                    ui : 'plain',
+                    rmmandatory: true
+				},
                 {
 					xtype: 'rmamountfield',
 					name: 'AmountPaid',
@@ -57,9 +69,16 @@ Ext.define('RM.view.AcceptPayment', {
 					cls: 'rm-flatfield',
 					ui: 'plain'
 				},{
+                    xtype: 'exttextfield',
+                    name: 'Reference',
+                    label: 'Reference',                    
+                    cls: 'rm-flatfield',
+                    placeHolder: 'enter',
+                    clearIcon: false
+                },{
 					xtype: 'extselectfield',
 					label: 'Payment method',
-                    rmmandatory: true,
+                    //rmmandatory: true,
                     labelWidth: '9em',
 					usePicker: true,
 					name: 'PaymentMethodId',

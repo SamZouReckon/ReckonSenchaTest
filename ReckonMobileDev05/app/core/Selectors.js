@@ -36,8 +36,10 @@ Ext.define('RM.core.Selectors', {
 	},
     
     showAccounts: function(selectDetails, cb, cbs){
+        RM.ViewMgr.showLoadingMask(); //to prevent double tap on accounts field
         var accountsC = RM.AppMgr.getAppControllerInstance('RM.controller.AccountsC');
 		accountsC.showView(selectDetails, cb, cbs);
+        setTimeout(function () { RM.ViewMgr.hideLoadingMask(); }, 500);
     },
 
 	showItemDetail: function(showTaxCode, item, cb, cbs){

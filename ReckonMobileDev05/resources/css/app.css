@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -5611,6 +5610,8 @@ body.x-desktop {
   background: #FFF; }
 .x-picker .x-picker-inner {
   background: #FFF;
+  padding-top: 0.6em;
+  padding-bottom: 0.5em;
   border: 0;
   border-radius: 0;
   margin-left: 0;

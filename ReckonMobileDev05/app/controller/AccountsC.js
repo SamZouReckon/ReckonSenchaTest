@@ -28,18 +28,17 @@ Ext.define('RM.controller.AccountsC', {
 
     },
     
-    showView: function (selectDetails, cb, cbs) {       
+    showView: function (selectDetails, cb, cbs) {           
         this.selectDetails = selectDetails;
         this.selectCb = cb;
         this.selectCbs = cbs;        
         var view = { xtype: 'accounts', selectDetails: selectDetails}; //create a new view each time as we want selectDetails to be effective
         RM.ViewMgr.showPanel(view); 
         if(this.nameFilter) delete this.nameFilter;
-        this.loadList();
+        this.loadList();        
     },
 
     onItemSelect: function (list, rec) {
-
         setTimeout(function () { list.deselect(rec); }, 500);
         var item = rec.data;
         if(this.selectDetails){
@@ -54,8 +53,7 @@ Ext.define('RM.controller.AccountsC', {
        else{
 			this.selectCb.call(this.selectCbs, [item]);
 			RM.ViewMgr.back({ type: 'slide', direction: 'left' });
-       }
-    
+       }    
     },
     
     back: function () {
@@ -63,14 +61,11 @@ Ext.define('RM.controller.AccountsC', {
     },
 
     loadList: function () {
-        this.getAccountsList().setStore('AccountingCategories');
         var store = this.getAccountsList().getStore();
-        store.setData(RM.CashbookMgr.getAccountingCategories());
         store.clearFilter();
         if (this.nameFilter){
             store.filter('Name', this.nameFilter);
         }
-        this.getAccountsList().setItemTpl('<div class = "rm-orgnametext">{Name}</div>');		      
     },
 
     setLoadTimer: function () {

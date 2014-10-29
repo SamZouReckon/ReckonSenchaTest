@@ -17,15 +17,14 @@ Ext.define('RM.component.InvoicesList', {
         this.isShowCustomer = this.config.isShowCustomer;
         this.callParent(arguments);
         
-        var groupDueDate = (this.config.sortVal == 'duedate');
-        
         var store = Ext.data.StoreManager.lookup('Invoices');
-        
+        var groupDueDate = (this.config.sortVal == 'duedate');
         if(groupDueDate){
             store.setGroupField('DuePeriodName');    
         }
         else{
-            store.setGroupField(null);              
+            store.setGroupField(null);
+            this.sort = this.config.sortVal;
         }
 
         this.loadList();
@@ -81,7 +80,11 @@ Ext.define('RM.component.InvoicesList', {
         
         if(this.search){
             store.filter('search', this.search);
-        }     
+        }
+
+        if (this.sort) {            
+            store.sort(this.sort);
+        };
         
         RM.AppMgr.loadStore(store);
     },

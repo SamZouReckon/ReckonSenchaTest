@@ -114,6 +114,11 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     onShow: function () {
         RM.ViewMgr.regFormBackHandler(this.back, this);
         
+        //Load country specific labels
+        var countrySettings = RM.CashbookMgr.getCountrySettings();        
+        this.getTax().setLabel(countrySettings.LineItemTaxLabel);
+        this.getTaxCode().setLabel(countrySettings.LineItemTaxCodeLabel);
+        
         var itemForm = this.getItemForm();
 
         this.getAddBtn().setHidden(!this.isEditable);
@@ -227,7 +232,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
     				this
     			);
             }
-            else if (tf.getName() == 'AccountName') {
+            else if (tf.getName() == 'AccountName') {                
                 RM.Selectors.showAccounts(                    
                     false,
     				function (data) {                                               
@@ -235,7 +240,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
                         this.itemChanged(data[0])                        
     				},
     				this
-    			);
+    			);                
             }
         }           
     },
@@ -253,7 +258,6 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         else{
             this.getAmount().setCls('rm-flatfield');
         }
-        this.getAmount().setLabel('Amount <span style="color: #F00">*</span>');       
     },
     
     showItemFields: function(){
@@ -404,16 +408,22 @@ Ext.define('RM.controller.InvoiceLineItemC', {
         this.setTaxModified(false);
         
         this.ignoreEvents = true;
+        
+        var taxCode = newItem.SaleTaxCodeId ? newItem.SaleTaxCodeId : newItem.DefaultTaxGroupId;
+        var description = newItem.SalesDescription ? newItem.SalesDescription : newItem.Description;
+       
         this.getItemForm().setValues({ 
             ItemId: newItem.ItemId,
             AccountId: newItem.AccountingCategoryId,
             ItemName:newItem.ItemPath, 
             AccountName:newItem.Name, 
-            TaxGroupId: this.isTaxTracking() ? newItem.SaleTaxCodeId : null,         
-            Description: newItem.SalesDescription,
+            TaxGroupId: this.isTaxTracking() ? taxCode : null,         
+            Description: description,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });
+        
         this.ignoreEvents = false;
+        
         var that = this;
         this.getServerCalculatedValues('Item', function() {
             // Make sure the details fields are visible after an item is selected

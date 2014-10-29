@@ -30,7 +30,8 @@ Ext.define('RM.view.AddNote', {
 			padding: 0,
 			items: [{
                 xtype: 'textareafield',
-    			itemId: 'notetext',            
+    			itemId: 'notetext',
+                autoCapitalize: true,
                 clearIcon: false,
                 cls: 'rm-addnotefield'
                 //cls: 'rm-flatfield rm-inputel-alignl',                

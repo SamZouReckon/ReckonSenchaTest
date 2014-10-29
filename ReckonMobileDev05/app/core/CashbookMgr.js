@@ -16,6 +16,10 @@ Ext.define('RM.core.CashbookMgr', {
         return this.getCurrentCashbook().AccountingCategories;
     },
     
+    getCountrySettings: function(){
+        return this.getCurrentCashbook().CountrySettings;        
+    },
+    
     getSalesPreferences: function() {
         return this.getCurrentCashbook().SalesPreferences;
     },

@@ -80,6 +80,14 @@ Ext.define('RM.view.ContactDetail', {
                         labelWidth: '9em'                                
                     },
                     {
+                        xtype: 'rmamountfield',
+    					name: 'CreditLimit',                        
+    					label: 'Credit limit',
+    					placeHolder: 'enter',                                            
+                        decimalPlaces: 2,
+                        prefix: '$'
+                    },
+                    {
 						xtype: 'extselectfield',
                         name: 'BusinessOrIndividual',
                         itemId: 'businessOrIndividual',
@@ -96,8 +104,7 @@ Ext.define('RM.view.ContactDetail', {
                         placeHolder: 'choose',
                         border: '1 0 1 0',
                         style: 'border-color: #DBDBDB; border-style: solid;'
-			        },
-                    {
+			        },{
                         xtype: 'container',
                         itemId: 'detailsFields',
                         defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},

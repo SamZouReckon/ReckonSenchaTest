@@ -357,10 +357,14 @@ Ext.define('RM.core.ViewMgr', {
     },
     
 	navigationHandler: function(newView, oldView) {
-        newView = this.viewOrActiveSlideNavChild(newView);
+        newView = this.viewOrActiveSlideNavChild(newView); 
+        //to stop app from firing 'rm-activeviewchanged' twice
+        if(this.activeView === newView){
+            return;
+        }
         oldView = this.viewOrActiveSlideNavChild(oldView);
         this.activeView = newView;
-        this.app.fireEvent('rm-activeviewchanged', newView);        
+        this.app.fireEvent('rm-activeviewchanged', newView, oldView);        
     },
     
     viewOrActiveSlideNavChild: function(view) {

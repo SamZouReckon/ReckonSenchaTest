@@ -66,6 +66,20 @@ Ext.define('RM.view.ContactDetail', {
                         placeHolder: 'choose'
 					},
                     {
+                        xtype: 'extselectfield',
+                        cls: 'rm-flatfield', 
+                        usePicker: true,
+                        autoSelect: false,  
+                        itemId: 'terms',
+                        store: 'Terms',
+                        displayField: 'TermName',
+						valueField: 'TermID',
+                        label: 'Terms',
+                        name: 'Terms',
+                        placeHolder: 'choose',
+                        labelWidth: '9em'                                
+                    },
+                    {
 						xtype: 'extselectfield',
                         name: 'BusinessOrIndividual',
                         itemId: 'businessOrIndividual',
@@ -82,7 +96,8 @@ Ext.define('RM.view.ContactDetail', {
                         placeHolder: 'choose',
                         border: '1 0 1 0',
                         style: 'border-color: #DBDBDB; border-style: solid;'
-			        },{
+			        },
+                    {
                         xtype: 'container',
                         itemId: 'detailsFields',
                         defaults:{xtype: 'exttextfield', labelWidth: 180, cls: 'rm-flatfield', placeHolder: 'enter', clearIcon: false},

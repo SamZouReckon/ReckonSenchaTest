@@ -64,8 +64,14 @@ Ext.define('RM.view.ContactDetail', {
                         autoSelect: false,                                        
 						ui:'plain',
                         placeHolder: 'choose'
-					},
-                    {
+					},{
+                        xtype: 'rmamountfield',
+    					name: 'CreditLimit',                        
+    					label: 'Credit limit',
+    					placeHolder: 'enter',                                            
+                        decimalPlaces: 2,
+                        prefix: '$'
+                    },{
 						xtype: 'extselectfield',
                         name: 'BusinessOrIndividual',
                         itemId: 'businessOrIndividual',

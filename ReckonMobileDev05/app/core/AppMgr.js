@@ -795,11 +795,7 @@ Ext.define('RM.core.AppMgr', {
         });        
     },
     
-    validateEmail: function(inputVal) {
-        //Fail the test if email value contains blank space
-        if(inputVal.indexOf(' ') >= 1){
-            return false;
-        }
+    validateEmail: function(inputVal) {        
         var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
         if (pattern.test(inputVal)) {         
             return true;

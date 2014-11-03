@@ -193,7 +193,7 @@ Ext.define('RM.controller.EmailInvoiceC', {
     },  
     
     checkForMultipleEmailAddresses: function(fieldVal){
-        if(fieldVal.indexOf(',') !== -1 || fieldVal.indexOf(';') !== -1){
+        if(fieldVal.indexOf(',') !== -1 || fieldVal.indexOf(';') !== -1 || fieldVal.indexOf(' ') >= 1){
             return true;
         }            
     },

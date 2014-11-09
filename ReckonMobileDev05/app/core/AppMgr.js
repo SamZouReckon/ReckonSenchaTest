@@ -671,6 +671,9 @@ Ext.define('RM.core.AppMgr', {
     showUnsavedChangesMsgBox: function(cb, cbs){
         this.showYesNoMsgBox('Do you want to save your changes?', cb, cbs);
     },
+    showCustomiseButtonMsgBox: function (msgText,yesText,noText, cb, cbs) {
+        this.showRMMsgPopup(msgText, 'warning', [{ text: yesText, itemId: 'yes', cls: 'x-button-green' }, { text: noText, itemId: 'no' }], cb, cbs);
+    },
     
     isSimulator: function(){
         return !Ext.isDefined(device.model);

@@ -2,6 +2,7 @@ Ext.define('RM.controller.DashboardC', {
     extend: 'Ext.app.Controller',
     config: {
         refs: {
+            dashboard: 'dashboard',
 			netPosition: 'dashboard dbnetposition',
 			alerts: 'dashboard dbalerts',
 			topExpenses: 'dashboard dbtopexpenses',
@@ -10,11 +11,7 @@ Ext.define('RM.controller.DashboardC', {
             noaccessCont: 'dashboard #noaccesscont',
             refresh: 'dashboard #refresh'
         },
-        control: {
-			'dashboard': {
-                //contready: 'loadItems'
-                show: 'onShow'
-            },            
+        control: {			        
 			'refresh': {
                 tap: 'refreshDashboard'
             }	
@@ -24,31 +21,24 @@ Ext.define('RM.controller.DashboardC', {
     
     init: function() {
        this.callParent();        
-       RM.AppMgr.application.on( {'rm-permissionsupdated' : this.showDashboardData, 'itemupdated': this.onItemUpdated, scope : this} );        
+       RM.AppMgr.application.on( {'rm-activeviewchanged': this.onActiveViewChanged, scope : this} );
     },
+    
+    onActiveViewChanged: function(newView, oldView) {      
+        var dashboard = this.getDashboard();
+        if(dashboard && newView.xtype && newView.xtype === dashboard.xtype) {
+            this.refreshDashboard();        
+        }
+    },    
     
     showView: function(dashboardData){
         this.dashboardData = dashboardData;
         this.showDashboardData();
-    },    
+    },  
     
-    onShow: function(){
-        if(this.needsRefresh) {
-            this.refreshDashboard()
-        }
-        else {
-            this.showDashboardData();
-        }        
-    },
-    
-    onItemUpdated: function() {
-        this.needsRefresh = true;
-    },
-    
-    refreshDashboard: function(){
+    refreshDashboard: function(){        
         RM.AppMgr.getServerRecs('Dashboard', null,
-            function(recs){
-                this.needsRefresh = false;
+            function(recs){                
                 this.dashboardData = recs[0];
                 this.showDashboardData();                
             },

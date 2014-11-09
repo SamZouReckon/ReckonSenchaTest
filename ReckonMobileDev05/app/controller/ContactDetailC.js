@@ -26,7 +26,8 @@ Ext.define('RM.controller.ContactDetailC', {
             businessAddress: 'contactdetail #businessAddress',
             sameAddress: 'contactdetail field[name=SameAddress]',
             postalAddressCountry: 'contactdetail #postalAddress field[name=PostalAddress.Country]',
-            businessAddressCountry: 'contactdetail #businessAddress field[name=BusinessAddress.Country]'
+            businessAddressCountry: 'contactdetail #businessAddress field[name=BusinessAddress.Country]',
+            termsFld: 'contactdetail textfield[name=Terms]',
         },
         control: {
             'contactdetail': {
@@ -89,6 +90,13 @@ Ext.define('RM.controller.ContactDetailC', {
         RM.ViewMgr.regFormBackHandler(this.back, this);
         this.getContactTitle().setHtml(this.isCreate ? 'Add contact' : 'View contact');
         this.loadCountrySpecificDetails();
+        
+        //Load the terms list from the store
+        var store = this.getTermsFld().getStore();        
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl('Terms')); 
+        store.getProxy().setExtraParams({ Id : RM.CashbookMgr.getCashbookId() });
+        RM.AppMgr.loadStore(store);   
+        
         if (!this.dataLoaded) {
             var contactForm =  this.getContactForm(), businessOrIndividual = this.getBusinessOrIndividual();         
             
@@ -111,7 +119,7 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.detailsData.IsSupplier = null;
                 this.initialFormValues = contactForm.getValues();
                 this.dataLoaded = true;
-            }            
+            }  
         }        
         
     },

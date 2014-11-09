@@ -62,7 +62,13 @@ Ext.define('RM.view.MainNavContainer', {
                             ),
                             
             listeners: {
-                itemtap: function (list, index, target, record, e, eOpts) {
+                itemtap: function (list, index, target, record, e, eOpts) {  
+                    //Stop event from propagating so we can select lock again when app is unlocked
+                    if(record.raw.index && record.raw.index === 'Lock'){ 
+                        this.closeContainer();
+                        RM.AppMgr.lock();                        
+                        return false;
+                    }
                     //cause slide nav to close when already selected item is closed again
                     if(list.isSelected(record))
                         RM.ViewMgr.closeMainNav();
@@ -80,9 +86,12 @@ Ext.define('RM.view.MainNavContainer', {
         items: [],
         oneitems: [
         {
+            index: 'Lock',
             title: 'Lock',
-            activated: true,
-            handler: function () {
+            activated: true,  
+            handler: function(){
+                //To avoid white screen on app startup as 0 is set as default selected item in parent class
+                //Handler for lock is itemtap event, check listeners itemtap above
                 RM.AppMgr.lock();
             },
 			group: 'GENERAL'
@@ -293,7 +302,7 @@ Ext.define('RM.view.MainNavContainer', {
         }*/
     },
     
-    onSelect: function(list, item, eOpts) {
+    onSelect: function(list, item, eOpts) {       
         this.callParent(arguments);
         this.fireEvent('itemselected', item.raw);
     },

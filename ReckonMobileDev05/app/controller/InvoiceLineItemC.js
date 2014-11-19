@@ -417,7 +417,7 @@ Ext.define('RM.controller.InvoiceLineItemC', {
             AccountId: newItem.AccountingCategoryId,
             ItemName:newItem.ItemPath, 
             AccountName:newItem.Name, 
-            TaxGroupId: this.isTaxTracking() ? taxCode : null,         
+            TaxGroupId: this.isTaxTracking() && taxCode ? taxCode : null,         
             Description: description,
             UnitPrice: this.isTaxInclusive() ? '' : newItem.UnitPriceExTax
         });

@@ -98,9 +98,9 @@ Ext.define('RM.core.InvoicesMgr', {
 		);
     },
     
-    showContactDetail: function(isCreate, data, cb, cbs){
+    showContactDetail: function(isCreate, data, cb, cbs, callbackViewName){
         var contactDetailC = RM.AppMgr.getAppControllerInstance('RM.controller.ContactDetailC');
-        contactDetailC.showView(isCreate, data, cb, cbs);  
+        contactDetailC.showView(isCreate, data, cb, cbs, callbackViewName);
     },
     
     showCreateItem: function(cb, cbs){

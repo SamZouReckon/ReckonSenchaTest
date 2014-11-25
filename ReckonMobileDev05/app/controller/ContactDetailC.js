@@ -65,13 +65,13 @@ Ext.define('RM.controller.ContactDetailC', {
 
     },
 	
-	showView: function(isCreate, data, cb, cbs){
+	showView: function(isCreate, data, cb, cbs, callbackViewName){
         this.isCreate = isCreate;
         this.isEditable = true;
         this.detailsData = data ? data : {};
         this.detailsCb = cb;
         this.detailsCbs = cbs;
-        
+        this.callbackViewName = callbackViewName;
         this.dataLoaded = false;
         
 		var view = this.getContactDetail();
@@ -364,7 +364,11 @@ Ext.define('RM.controller.ContactDetailC', {
             delete vals.BusinessOrIndividual;
                           
             RM.AppMgr.saveServerRec('Contacts', this.isCreate, vals,
-    			function () {
+    			function (val) {
+    			    if (this.callbackViewName && this.callbackViewName == 'Customers')
+    			    {
+    			        this.detailsCb.call(this.detailsCbs, val);
+    			    }    			    
                     RM.AppMgr.itemUpdated('contact');
                     RM.ViewMgr.back();
     			},

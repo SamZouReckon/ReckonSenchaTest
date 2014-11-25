@@ -71,9 +71,15 @@ Ext.define('RM.controller.CustomersC', {
         RM.InvoicesMgr.showContactDetail(
             true,
             null,
-            function(){
+            function (val) {
+                var data = val[0];
+                if (data.ContactId) {
+                    this.selectCb.call(this.selectCbs, data);
+                    RM.ViewMgr.back({ type: 'slide', direction: 'left' });
+                }
             },
-            this
+            this,
+            'Customers'
        );
         
     },    

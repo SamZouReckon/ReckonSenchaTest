@@ -144,7 +144,7 @@ Ext.define('RM.view.ContactDetail', {
                             hidden: true, 
                             border: '1 0 1 0'
     					}, {
-    					    xtype: 'extnumberfield',
+    					    xtype: 'rmnumberfield',
     						name: 'ABN',                                       
     						label: 'ABN',
                             labelWidth: '10em',

@@ -28,6 +28,7 @@ Ext.define('RM.controller.ContactDetailC', {
             postalAddressCountry: 'contactdetail #postalAddress field[name=PostalAddress.Country]',
             businessAddressCountry: 'contactdetail #businessAddress field[name=BusinessAddress.Country]',
             termsFld: 'contactdetail textfield[name=Terms]',
+            creditLimitFld: 'contactdetail textfield[name=CreditLimit]'
         },
         control: {
             'contactdetail': {
@@ -459,8 +460,11 @@ Ext.define('RM.controller.ContactDetailC', {
         }
         else if(selection == 'Suppliers'){
             this.detailsData.IsCustomer = false;
-            this.detailsData.IsSupplier = true;
-        }        
+            this.detailsData.IsSupplier = true;            
+        }
+        //hide paymentterms and creditlimit fields when supplier
+        this.getTermsFld().setHidden(!this.detailsData.IsCustomer);
+        this.getCreditLimitFld().setHidden(!this.detailsData.IsCustomer)
     },
     
     onBusinessOrIndividualSelect: function() {

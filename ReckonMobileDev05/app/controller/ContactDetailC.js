@@ -464,7 +464,7 @@ Ext.define('RM.controller.ContactDetailC', {
         }
         //hide paymentterms and creditlimit fields when supplier
         this.getTermsFld().setHidden(!this.detailsData.IsCustomer);
-        this.getCreditLimitFld().setHidden(!this.detailsData.IsCustomer)
+        this.getCreditLimitFld().setHidden(!this.detailsData.IsCustomer);
     },
     
     onBusinessOrIndividualSelect: function() {

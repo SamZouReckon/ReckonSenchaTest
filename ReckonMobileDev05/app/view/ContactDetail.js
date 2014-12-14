@@ -75,7 +75,7 @@ Ext.define('RM.view.ContactDetail', {
                         displayField: 'TermName',
 						valueField: 'TermID',
                         clearIcon: true,
-                        label: 'Terms',
+                        label: 'Payment terms',
                         name: 'Terms',
                         placeHolder: 'choose',
                         labelWidth: '9em'                                

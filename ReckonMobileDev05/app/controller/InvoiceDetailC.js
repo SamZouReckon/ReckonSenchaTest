@@ -17,7 +17,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
             dateFld: 'invoicedetail extdatepickerfield[name=Date]',
             refNrFld: 'invoicedetail textfield[name=Ref]',
             amountsFld: 'invoicedetail extselectfield[name=AmountTaxStatus]',
-            invStatus: 'invoicedetail #invoiceStatus'
+            invStatus: 'invoicedetail #invoiceStatus',
+            termsFld: 'invoicedetail textfield[name=Terms]'
         },
         control: {
             'invoicedetail': {
@@ -56,6 +57,9 @@ Ext.define('RM.controller.InvoiceDetailC', {
             },
             dateFld : {
                 change: 'onInvoiceDateChanged'
+            },
+            termsFld: {
+                change: 'onTermsChange'
             }
         }
     },
@@ -114,7 +118,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add invoice' : 'View invoice');
         
         this.applyViewEditableRules();        
-        this.getInvoiceDetail().setActionsHidden(this.isCreate);
+        this.getInvoiceDetail().setActionsHidden(this.isCreate);                
 
         if (!this.dataLoaded) {
             
@@ -149,12 +153,28 @@ Ext.define('RM.controller.InvoiceDetailC', {
                     dateField.updateValue(lockOffDate);                    
                 }
                 
+                //Load the terms list from the store
+                var store = this.getTermsFld().getStore();
+                store.getProxy().setUrl(RM.AppMgr.getApiUrl('Terms'));
+                store.getProxy().setExtraParams({ Id: RM.CashbookMgr.getCashbookId() });
+                RM.AppMgr.loadStore(store, this.setCashbookDefaultTerm, this);
                 this.dataLoaded = true;
             }           
         }
 
     },
 
+    setCashbookDefaultTerm: function () {
+        var me = this;
+        var store = this.getTermsFld().getStore();
+        this.getTermsFld().setValue(null);
+        store.each(function (item) {
+            if (item.data.IsSelected) {
+                me.getTermsFld().setValue(item.data.TermID);                
+            }
+        })
+    },
+    
     onHide: function(){
         RM.ViewMgr.deRegFormBackHandler(this.back);
     },
@@ -293,7 +313,13 @@ Ext.define('RM.controller.InvoiceDetailC', {
                     null,
     				function (data) {
     				    //tf.setValue(data.Name);
-    				    this.getInvoiceForm().setValues({ CustomerId: data.ContactId, CustomerName: data.Description });
+    				    this.getInvoiceForm().setValues({ CustomerId: data.ContactId, CustomerName: data.Description});
+    				    if (data.Terms != null) {
+    				        this.getTermsFld().setValue(data.Terms);
+    				    }
+    				    else {
+    				        this.setCashbookDefaultTerm();
+    				    }
                         this.getLineItems().setCustomerId(data.ContactId);
                         this.calculateBreakdown();
             		},
@@ -355,11 +381,20 @@ Ext.define('RM.controller.InvoiceDetailC', {
         }        
     },
 
-    onInvoiceDateChanged: function(dateField, newValue, oldValue) {
+    onTermsChange: function() {
+        if (!this.getTermsFld().getValue()) {
+            this.getDueDateFld().setValue('');
+            this.getDueDateFld().setReadOnly(false);
+        }
+        this.calculateTermDueDate();
+    },
+
+    onInvoiceDateChanged: function (dateField, newValue, oldValue) {        
         if(!this.dataLoaded) return;
         //  Recalculate the invoice tax amounts, since tax rates are date dependent
         this.calculateBreakdown();
         this.getLineItems().setInvoiceDate(newValue);
+        this.calculateTermDueDate(newValue);
     },
     
     showNotes: function(){
@@ -392,7 +427,30 @@ Ext.define('RM.controller.InvoiceDetailC', {
     onEditLineItem: function(){
         this.lineItemsDirty = true;
         this.calculateBreakdown();
-    },    
+    },
+
+    calculateTermDueDate: function (invoiceIssueDate) {
+        var me = this;
+        var term = this.getTermsFld().getValue();
+        var issueDate = this.getDateFld().getValue() || invoiceIssueDate;
+        
+        if (!term || !issueDate) {
+            return;
+        }
+
+        RM.AppMgr.getServerRec('TermDueDate', { CashbookId: RM.CashbookMgr.getCashbookId(), IssueDate: issueDate, TermId: term },
+			function response(respRecs) {
+			    me.getDueDateFld().setValue(new Date(respRecs.DueDate));
+			    me.getDueDateFld().setReadOnly(true);
+			},
+			this,
+            function (eventMsg) {
+                RM.AppMgr.showOkMsgBox(eventMsg);
+                this.goBack();
+            },
+            'Loading due date...'
+		);
+    },
     
     calculateBreakdown: function () {
         

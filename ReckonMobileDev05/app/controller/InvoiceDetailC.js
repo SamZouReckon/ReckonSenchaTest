@@ -313,13 +313,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
                     null,
     				function (data) {
     				    //tf.setValue(data.Name);
-    				    this.getInvoiceForm().setValues({ CustomerId: data.ContactId, CustomerName: data.Description});
-    				    if (data.Terms != null) {
-    				        this.getTermsFld().setValue(data.Terms);
-    				    }
-    				    else {
-    				        this.setCashbookDefaultTerm();
-    				    }
+    				    this.getInvoiceForm().setValues({ CustomerId: data.ContactId, CustomerName: data.Description });
+    				    this.loadCustomerSpecificTermsList(data.ContactId);    				    
                         this.getLineItems().setCustomerId(data.ContactId);
                         this.calculateBreakdown();
             		},
@@ -428,6 +423,31 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.lineItemsDirty = true;
         this.calculateBreakdown();
     },
+
+    loadCustomerSpecificTermsList: function(CustomerId){
+        var me = this;        
+
+        RM.AppMgr.getServerRecs('Terms/GetContactTerms', { CashbookId: RM.CashbookMgr.getCashbookId(), CustomerId: CustomerId, OnlyCustomerTerm: true, OnlySupplierTerm: false },
+			function response(respRecs) {
+			    var store = me.getTermsFld().getStore(store);
+			    store.setData(respRecs);
+			    me.getTermsFld().setStore(store);
+			    store.each(function (item) {
+			        if (item.data.IsSelected) {
+			            me.getTermsFld().setValue(item.data.TermID);
+			        }
+			    })
+			},
+			this,
+            function (eventMsg) {
+                RM.AppMgr.showOkMsgBox(eventMsg);
+                this.goBack();
+            },
+            'Loading...'
+		);
+    },
+
+    
 
     calculateTermDueDate: function (invoiceIssueDate) {
         var me = this;

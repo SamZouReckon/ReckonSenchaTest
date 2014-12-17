@@ -124,8 +124,7 @@ Ext.define('RM.controller.ContactDetailC', {
                 this.initialFormValues = contactForm.getValues();                              
                 this.dataLoaded = true;
             }
-        }
-        //this.showHideClearIconOnTermsField();
+        }        
     },
 
     //Hide term field clear icon if there is a term set on cashbook 
@@ -135,6 +134,7 @@ Ext.define('RM.controller.ContactDetailC', {
         }
     },
 
+    //callback function to load store request, used for loading term while creating a new record
     setCashbookDefaultTerm: function () {
         var me = this;
         var store = this.getTermsFld().getStore();
@@ -159,6 +159,19 @@ Ext.define('RM.controller.ContactDetailC', {
         else {
             this.goBack();
         }
+    },
+
+    //Set cashbook default term when no default term set on contact while loading contact data  
+    setDefaultTermWhenNoTermSet: function () {
+        var me = this;
+        var store = this.getTermsFld().getStore();
+        store.each(function (item) {
+            if (item.data.IsSelected) {
+                me.getTermsFld().setValue(item.data.TermID);
+                me.getTermsFld().hideClearIcon();
+                me.cashbookHasDefaultTerm = true;
+            }
+        });
     },
 
     setEditable: function (editable) {
@@ -586,7 +599,7 @@ Ext.define('RM.controller.ContactDetailC', {
             this.getBusinessAddressCountry().setHidden(false);
         }
         if (data.Terms == null) {
-            this.setCashbookDefaultTerm();
+            this.setDefaultTermWhenNoTermSet();
         }
     },
 

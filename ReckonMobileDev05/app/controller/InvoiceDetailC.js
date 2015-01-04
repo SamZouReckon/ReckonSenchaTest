@@ -157,6 +157,9 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 var store = this.getTermsFld().getStore();
                 store.getProxy().setUrl(RM.AppMgr.getApiUrl('Terms'));
                 store.getProxy().setExtraParams({ Id: RM.CashbookMgr.getCashbookId() });
+                //Below two line are commented out for now as there is no default term coming in
+                //store.getProxy().setUrl(RM.AppMgr.getApiUrl('Terms/GetContactTerms'));
+                //store.getProxy().setExtraParams({ CashbookId: RM.CashbookMgr.getCashbookId(), CustomerId: RM.Consts.EmptyGuid, OnlyCustomerTerm: true, OnlySupplierTerm: false });
                 RM.AppMgr.loadStore(store, this.setCashbookDefaultTerm, this);
                 this.dataLoaded = true;
             }           

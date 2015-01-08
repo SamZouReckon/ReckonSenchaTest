@@ -41,12 +41,28 @@ Ext.define('RM.view.EmailInvoice', {
 							{
 								xtype: 'extemailfield',
 								name: 'Email',
-								label: 'Email',
+								label: 'To',
 								cls: 'rm-flatfield',
 								clearIcon: false,
 								placeHolder: 'enter',
                                 rmmandatory: true,
-                                labelWidth: '5em'                                
+                                labelWidth: '3em'                                
+							},{
+								xtype: 'extemailfield',
+								name: 'CC',
+								label: 'Cc',
+								cls: 'rm-flatfield',
+								clearIcon: false,
+								placeHolder: 'enter',
+                                labelWidth: '3em'                                
+							},{
+								xtype: 'extemailfield',
+								name: 'BCC',
+								label: 'Bcc',
+								cls: 'rm-flatfield',
+								clearIcon: false,
+								placeHolder: 'enter',
+                                labelWidth: '3em'                                
 							},{
 								xtype: 'exttextfield',
 								name: 'Subject',

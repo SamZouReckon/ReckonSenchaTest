@@ -72,10 +72,23 @@ Ext.define('RM.view.InvoiceDetail', {
 					placeHolder: 'select',
 					label : 'Due date',
                     cls: 'rm-flatfield ',
-                    labelWidth: '5em',
-                    clearIcon: true,
+                    labelWidth: '5em',                    
                     ui : 'plain'
                     
+				},{
+				    xtype: 'extselectfield',
+				    cls: 'rm-flatfield',
+				    usePicker: true,
+				    clearIcon: true,
+				    autoSelect: false,
+				    itemId: 'terms',
+				    store: 'Terms',
+				    displayField: 'TermName',
+				    valueField: 'TermID',
+				    label: 'Payment terms',
+				    name: 'Terms',
+				    placeHolder: 'choose',
+				    labelWidth: '9em'
 				},{
 					xtype: 'exttextfield',
 					name: 'InvCode',

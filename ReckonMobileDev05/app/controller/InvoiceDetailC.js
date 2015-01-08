@@ -17,7 +17,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
             dateFld: 'invoicedetail extdatepickerfield[name=Date]',
             refNrFld: 'invoicedetail textfield[name=Ref]',
             amountsFld: 'invoicedetail extselectfield[name=AmountTaxStatus]',
-            invStatus: 'invoicedetail #invoiceStatus'
+            invStatus: 'invoicedetail #invoiceStatus',
+            termsFld: 'invoicedetail textfield[name=Terms]'
         },
         control: {
             'invoicedetail': {
@@ -56,6 +57,9 @@ Ext.define('RM.controller.InvoiceDetailC', {
             },
             dateFld : {
                 change: 'onInvoiceDateChanged'
+            },
+            termsFld: {
+                change: 'onTermsChange'
             }
         }
     },
@@ -114,8 +118,8 @@ Ext.define('RM.controller.InvoiceDetailC', {
         this.getInvoiceTitle().setHtml(this.isCreate ? 'Add invoice' : 'View invoice');
         
         this.applyViewEditableRules();        
-        this.getInvoiceDetail().setActionsHidden(this.isCreate);    
-        
+        this.getInvoiceDetail().setActionsHidden(this.isCreate);                
+
         if (!this.dataLoaded) {
             
             if (!this.isCreate) {                
@@ -149,12 +153,31 @@ Ext.define('RM.controller.InvoiceDetailC', {
                     dateField.updateValue(lockOffDate);                    
                 }
                 
+                //Load the terms list from the store
+                var store = this.getTermsFld().getStore();
+                store.getProxy().setUrl(RM.AppMgr.getApiUrl('Terms'));
+                store.getProxy().setExtraParams({ Id: RM.CashbookMgr.getCashbookId() });
+                //Below two line are commented out for now as there is no default term coming in
+                //store.getProxy().setUrl(RM.AppMgr.getApiUrl('Terms/GetContactTerms'));
+                //store.getProxy().setExtraParams({ CashbookId: RM.CashbookMgr.getCashbookId(), CustomerId: RM.Consts.EmptyGuid, OnlyCustomerTerm: true, OnlySupplierTerm: false });
+                RM.AppMgr.loadStore(store, this.setCashbookDefaultTerm, this);
                 this.dataLoaded = true;
             }           
         }
 
     },
 
+    setCashbookDefaultTerm: function () {
+        var me = this;
+        var store = this.getTermsFld().getStore();
+        this.getTermsFld().setValue(null);
+        store.each(function (item) {
+            if (item.data.IsSelected) {
+                me.getTermsFld().setValue(item.data.TermID);                
+            }
+        })
+    },
+    
     onHide: function(){
         RM.ViewMgr.deRegFormBackHandler(this.back);
     },
@@ -294,6 +317,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
     				function (data) {
     				    //tf.setValue(data.Name);
     				    this.getInvoiceForm().setValues({ CustomerId: data.ContactId, CustomerName: data.Description });
+    				    this.loadCustomerSpecificTermsList(data.ContactId);    				    
                         this.getLineItems().setCustomerId(data.ContactId);
                         this.calculateBreakdown();
             		},
@@ -355,11 +379,20 @@ Ext.define('RM.controller.InvoiceDetailC', {
         }        
     },
 
-    onInvoiceDateChanged: function(dateField, newValue, oldValue) {
+    onTermsChange: function() {
+        if (!this.getTermsFld().getValue()) {
+            this.getDueDateFld().setValue('');
+            this.getDueDateFld().setReadOnly(false);
+        }
+        this.calculateTermDueDate();
+    },
+
+    onInvoiceDateChanged: function (dateField, newValue, oldValue) {        
         if(!this.dataLoaded) return;
         //  Recalculate the invoice tax amounts, since tax rates are date dependent
         this.calculateBreakdown();
         this.getLineItems().setInvoiceDate(newValue);
+        this.calculateTermDueDate(newValue);
     },
     
     showNotes: function(){
@@ -392,7 +425,55 @@ Ext.define('RM.controller.InvoiceDetailC', {
     onEditLineItem: function(){
         this.lineItemsDirty = true;
         this.calculateBreakdown();
-    },    
+    },
+
+    loadCustomerSpecificTermsList: function(CustomerId){
+        var me = this;        
+
+        RM.AppMgr.getServerRecs('Terms/GetContactTerms', { CashbookId: RM.CashbookMgr.getCashbookId(), CustomerId: CustomerId, OnlyCustomerTerm: true, OnlySupplierTerm: false },
+			function response(respRecs) {
+			    var store = me.getTermsFld().getStore(store);
+			    store.setData(respRecs);
+			    me.getTermsFld().setStore(store);
+			    store.each(function (item) {
+			        if (item.data.IsSelected) {
+			            me.getTermsFld().setValue(item.data.TermID);
+			        }
+			    })
+			},
+			this,
+            function (eventMsg) {
+                RM.AppMgr.showOkMsgBox(eventMsg);
+                this.goBack();
+            },
+            'Loading...'
+		);
+    },
+
+    
+
+    calculateTermDueDate: function (invoiceIssueDate) {
+        var me = this;
+        var term = this.getTermsFld().getValue();
+        var issueDate = this.getDateFld().getValue() || invoiceIssueDate;
+        
+        if (!term || !issueDate) {
+            return;
+        }
+
+        RM.AppMgr.getServerRec('TermDueDate', { CashbookId: RM.CashbookMgr.getCashbookId(), IssueDate: issueDate, TermId: term },
+			function response(respRecs) {
+			    me.getDueDateFld().setValue(new Date(respRecs.DueDate));
+			    me.getDueDateFld().setReadOnly(true);
+			},
+			this,
+            function (eventMsg) {
+                RM.AppMgr.showOkMsgBox(eventMsg);
+                this.goBack();
+            },
+            'Loading due date...'
+		);
+    },
     
     calculateBreakdown: function () {
         
@@ -629,29 +710,32 @@ Ext.define('RM.controller.InvoiceDetailC', {
                 });   
                 
                 this.detailsCb.call(this.detailsCbs, 'save', vals);
-        
-                RM.AppMgr.saveServerRec('Invoices', this.isCreate, vals,
-        			function (recs) {        			    
-                        RM.AppMgr.itemUpdated('invoice');                           
-                        
-                        if(afterSaveCallback) { 
-                            if(this.isCreate) { this.detailsData.InvoiceId = recs[0].InvoiceId; }
-                            this.detailsData.CustomerId = vals.CustomerId;
-                            this.detailsData.AccountsReceivableCategoryId = recs[0].AccountsReceivableCategoryId;
-                            // Clear the loaded flag to force a reload of invoice information when the view is shown again                            
-                            this.dataLoaded = false;                                             
-                            this.isCreate = false;                        
-                            afterSaveCallback.apply(this);                            
-                        }       			     
-        			    else {
-                            this.goBack();                             
+
+                RM.AppMgr.getServerRecById('CustomerAvailableCreditLimit', vals.CustomerId,
+                        function (data) {
+                            if (data.HasCreditLimit && data.AvailableCredit < vals.BalanceDue) 
+                            {
+                                RM.AppMgr.showCustomiseButtonMsgBox("This invoice will exceed the customer's credit limit. Save anyway?", 'YES, SAVE INVOICE', 'NO, CONTINUE EDITING',
+                                 function (result) {
+                                     if (result === 'yes') {
+                                         this.saveInvoice(afterSaveCallback, vals);
+
+                                     }
+                                     else {
+                                         //Stay on the current screen for the user user to modify.
+                                         return;
+                                     }
+                                 }, this);
+                            }
+                            else {
+                                this.saveInvoice(afterSaveCallback, vals);
+                            };
+                        },
+                        this,
+                        function (eventMsg) {
+                            RM.AppMgr.showOkMsgBox(eventMsg);
                         }
-        			},
-        			this,
-                    function(recs, eventMsg){
-                        RM.AppMgr.showOkMsgBox(eventMsg);                
-                    }
-        		);            
+                    );       
             }
             else{            
                 RM.AppMgr.showErrorMsgBox('No items have been added to this invoice.');
@@ -674,6 +758,31 @@ Ext.define('RM.controller.InvoiceDetailC', {
         });
         
         return changesExist;
-    }
+    },
+    saveInvoice: function (afterSaveCallback, vals)
+    {
+        RM.AppMgr.saveServerRec('Invoices', this.isCreate, vals,
+                    function (recs) {
+                        RM.AppMgr.itemUpdated('invoice');
 
+                        if (afterSaveCallback) {
+                            if (this.isCreate) { this.detailsData.InvoiceId = recs[0].InvoiceId; }
+                            this.detailsData.CustomerId = vals.CustomerId;
+                            this.detailsData.AccountsReceivableCategoryId = recs[0].AccountsReceivableCategoryId;
+                            // Clear the loaded flag to force a reload of invoice information when the view is shown again                            
+                            this.dataLoaded = false;
+                            this.isCreate = false;
+                            afterSaveCallback.apply(this);
+                        }
+                        else {
+                            this.goBack();
+                        }
+                    },
+                    this,
+                    function (recs, eventMsg) {
+                        RM.AppMgr.showOkMsgBox(eventMsg);
+                    }
+        );
+   }
+  
 });

@@ -46,6 +46,9 @@ Ext.define('RM.component.ExtSelectField', {
     setValue: function(){
         this.callParent(arguments);
         this.showValidation(true);
+        //add a new event to fire when an item is actually loaded in the field
+        //this event is useful when we want to hide clear icon as setClearIcon(false) does not hide the clear icon
+        this.fireEvent('itemloaded', this);
     },
     
     reset: function(){

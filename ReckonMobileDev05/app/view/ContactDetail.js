@@ -66,6 +66,29 @@ Ext.define('RM.view.ContactDetail', {
                         placeHolder: 'choose'
 					},
                     {
+                        xtype: 'extselectfield',
+                        cls: 'rm-flatfield', 
+                        usePicker: true,
+                        autoSelect: false,  
+                        itemId: 'terms',
+                        store: 'Terms',
+                        displayField: 'TermName',
+						valueField: 'TermID',
+                        clearIcon: true,
+                        label: 'Payment terms',
+                        name: 'Terms',
+                        placeHolder: 'choose',
+                        labelWidth: '9em'                                
+                    },
+                    {
+                        xtype: 'rmamountfield',
+    					name: 'CreditLimit',                        
+    					label: 'Credit limit',
+    					placeHolder: 'enter',                                            
+                        decimalPlaces: 2,
+                        prefix: '$'
+                    },
+                    {
 						xtype: 'extselectfield',
                         name: 'BusinessOrIndividual',
                         itemId: 'businessOrIndividual',
@@ -120,7 +143,8 @@ Ext.define('RM.view.ContactDetail', {
                             labelWidth: '7em',
                             hidden: true, 
                             border: '1 0 1 0'
-    					},{
+    					}, {
+    					    xtype: 'rmnumberfield',
     						name: 'ABN',                                       
     						label: 'ABN',
                             labelWidth: '10em',

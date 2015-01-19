@@ -766,7 +766,10 @@ Ext.define('RM.controller.InvoiceDetailC', {
                         RM.AppMgr.itemUpdated('invoice');
 
                         if (afterSaveCallback) {
-                            if (this.isCreate) { this.detailsData.InvoiceId = recs[0].InvoiceId; }
+                            if (this.isCreate) {
+                                this.detailsData.InvoiceId = recs[0].InvoiceId;
+                                this.detailsData.TemplateId = recs[0].TemplateId;
+                            }
                             this.detailsData.CustomerId = vals.CustomerId;
                             this.detailsData.AccountsReceivableCategoryId = recs[0].AccountsReceivableCategoryId;
                             // Clear the loaded flag to force a reload of invoice information when the view is shown again                            

@@ -7,6 +7,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
             invActions: 'invoiceactions',
             invStatus: 'invoiceactions #invoiceStatus',
             invApproveBtn: 'invoiceactions #approve',
+            invDraftBtn: 'invoiceactions #draft',
             invPayBtn: 'invoiceactions #pay',
             invPayAppBtn: 'invoiceactions #payApp',
             invEmailBtn: 'invoiceactions #email',
@@ -21,7 +22,10 @@ Ext.define('RM.controller.InvoiceActionsC', {
             },
             'invoiceactions #approve': {
                 tap: 'onApprove'
-            },            
+            },
+            'invoiceactions #draft': {
+                tap: 'onDraft'
+            },
             'invoiceactions #pay': {
                 tap: 'onPay'
             },
@@ -58,7 +62,9 @@ Ext.define('RM.controller.InvoiceActionsC', {
             this.getInvStatus().setHtml(RM.InvoicesMgr.getInvoiceStatusText(this.invoiceData.Status));
         }
         
-        var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));        
+        var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
+        //Draft button can only be visible when Approvals is on and if the Invoice has received no payments
+        var hideDraft = !(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled && (this.invoiceData.Status === RM.Consts.InvoiceStatus.APPROVED && this.invoiceData.BalanceDue === this.invoiceData.Amount));
         var hideEmail = !(RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canDo('Invoices', 'PrintEmail'));
         var hidePay = !RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status) || 
                       !RM.PermissionsMgr.canAddEdit('Receipts') ||
@@ -77,6 +83,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
             }            
         }
         
+        this.getInvDraftBtn().setHidden(hideDraft);
         this.getInvApproveBtn().setHidden(hideApprove);        
         this.getInvEmailBtn().setHidden(hideEmail);
         this.getInvPayBtn().setHidden(hidePay);   
@@ -96,7 +103,23 @@ Ext.define('RM.controller.InvoiceActionsC', {
                 RM.AppMgr.showOkMsgBox(eventMsg);
             }
 		);  
-    },    
+    },
+
+    onDraft: function(){
+        RM.AppMgr.saveServerRec('InvoiceDraft', true, { InvoiceId: this.invoiceData.InvoiceId },
+			function () {
+			    RM.AppMgr.itemUpdated('invoice');
+			    RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' status changed to draft.');
+			    this.invoiceData.Status = RM.Consts.InvoiceStatus.DRAFT;
+			    this.getInvStatus().removeCls("rm-approved-hearderbg");
+			    this.onShow();
+			},
+			this,
+            function (recs, eventMsg) {
+                RM.AppMgr.showOkMsgBox(eventMsg);
+            }
+		);
+    },
     
     onPay: function () {
         RM.InvoicesMgr.showAcceptPayment(this.invoiceData);

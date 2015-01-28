@@ -57,10 +57,17 @@ Ext.define('RM.view.InvoiceActions', {
             text: 'Return to draft',
             itemId: 'draft',
             cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
-            icon: 'resources/images/icons/rm-receive.svg',
+            icon: 'resources/images/icons/rm-note.svg',
             iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'            			
-        },{
+        }, {
+            text: 'Delete invoice',
+            itemId: 'deleteInvoice',
+            cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
+            icon: 'resources/images/icons/rm-cross.svg',
+            iconCls: 'rm-invoiceactioniconcls',
+            iconAlign: 'left'
+        }, {
 			text: 'Email customer',
 			itemId: 'email',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',

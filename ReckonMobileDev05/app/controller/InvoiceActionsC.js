@@ -8,6 +8,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
             invStatus: 'invoiceactions #invoiceStatus',
             invApproveBtn: 'invoiceactions #approve',
             invDraftBtn: 'invoiceactions #draft',
+            invDeleteBtn: 'invoiceactions #deleteInvoice',
             invPayBtn: 'invoiceactions #pay',
             invPayAppBtn: 'invoiceactions #payApp',
             invEmailBtn: 'invoiceactions #email',
@@ -25,6 +26,9 @@ Ext.define('RM.controller.InvoiceActionsC', {
             },
             'invoiceactions #draft': {
                 tap: 'onDraft'
+            },
+            'invoiceactions #deleteInvoice': {
+                tap: 'onDelete'
             },
             'invoiceactions #pay': {
                 tap: 'onPay'
@@ -65,6 +69,8 @@ Ext.define('RM.controller.InvoiceActionsC', {
         var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
         //Draft button can only be visible when Approvals is on and if the Invoice has received no payments
         var hideDraft = !(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled && (this.invoiceData.Status === RM.Consts.InvoiceStatus.APPROVED && this.invoiceData.BalanceDue === this.invoiceData.Amount));
+        //Delete option can only be visible when invoice is draft or approved and unpaid 
+        var hideDelete = !((this.invoiceData.Status === RM.Consts.InvoiceStatus.DRAFT || this.invoiceData.Status === RM.Consts.InvoiceStatus.APPROVED) && this.invoiceData.BalanceDue === this.invoiceData.Amount);
         var hideEmail = !(RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canDo('Invoices', 'PrintEmail'));
         var hidePay = !RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status) || 
                       !RM.PermissionsMgr.canAddEdit('Receipts') ||
@@ -84,6 +90,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         }
         
         this.getInvDraftBtn().setHidden(hideDraft);
+        this.getInvDeleteBtn().setHidden(hideDelete);
         this.getInvApproveBtn().setHidden(hideApprove);        
         this.getInvEmailBtn().setHidden(hideEmail);
         this.getInvPayBtn().setHidden(hidePay);   
@@ -121,6 +128,25 @@ Ext.define('RM.controller.InvoiceActionsC', {
 		);
     },
     
+    onDelete: function () {
+        RM.AppMgr.showYesNoMsgBox("Do you want to delete the invoice?",
+            function (result) {
+                if (result === 'yes') {
+                    RM.AppMgr.saveServerRec('InvoiceDelete', true, { InvoiceId: this.invoiceData.InvoiceId },
+                        function () {
+                            RM.AppMgr.itemUpdated('invoice');
+                            RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' deleted.');
+                            RM.ViewMgr.backTo('slidenavigationview');
+                        },
+                        this,
+                        function (recs, eventMsg) {
+                            RM.AppMgr.showOkMsgBox(eventMsg);
+                        }
+                    );
+                }
+            }, this);        
+    },
+
     onPay: function () {
         RM.InvoicesMgr.showAcceptPayment(this.invoiceData);
     },

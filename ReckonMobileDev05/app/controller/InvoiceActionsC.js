@@ -68,7 +68,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         
         var hideApprove = !(RM.InvoicesMgr.isInvoiceStatusApprovable(this.invoiceData.Status) && RM.PermissionsMgr.canApprove('Invoices'));
         //Draft button can only be visible when Approvals is on and if the Invoice has received no payments
-        var hideDraft = !(RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled && (this.invoiceData.Status === RM.Consts.InvoiceStatus.APPROVED && this.invoiceData.BalanceDue === this.invoiceData.Amount));
+        var hideDraft = !(RM.PermissionsMgr.canAddEdit('Invoices') && RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled && (this.invoiceData.Status === RM.Consts.InvoiceStatus.APPROVED && this.invoiceData.BalanceDue === this.invoiceData.Amount));
         //Delete option can only be visible when invoice is draft or approved and unpaid and canDelete permission turned on 
         var hideDelete = !(RM.PermissionsMgr.canDelete('Invoices') && (this.invoiceData.Status === RM.Consts.InvoiceStatus.DRAFT || this.invoiceData.Status === RM.Consts.InvoiceStatus.APPROVED) && this.invoiceData.BalanceDue === this.invoiceData.Amount);
         var hideEmail = !(RM.InvoicesMgr.isInvoiceStatusEmailable(this.invoiceData.Status) && RM.PermissionsMgr.canDo('Invoices', 'PrintEmail'));

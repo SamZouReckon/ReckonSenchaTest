@@ -103,7 +103,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
     },
     
     onApprove: function () {        
-        RM.AppMgr.saveServerRec('InvoiceApprove', true, {InvoiceId: this.invoiceData.InvoiceId},
+        RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.APPROVED },
 			function () {
                 RM.AppMgr.itemUpdated('invoice');
                 RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode +' was Approved.');     
@@ -119,7 +119,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
     },
 
     onDraft: function(){
-        RM.AppMgr.saveServerRec('InvoiceDraft', true, { InvoiceId: this.invoiceData.InvoiceId },
+        RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.DRAFT },
 			function () {
 			    RM.AppMgr.itemUpdated('invoice');
 			    RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' status changed to draft.');

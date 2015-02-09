@@ -7459,3 +7459,9 @@ body.x-desktop {
 
 .rm-pay-charge-bg {
   background: #00BD9D; }
+
+.rm-multiselectfield .x-input-el + .x-field-mask::after {
+  opacity: 0; }
+.rm-multiselectfield .x-input-el:checked + .x-field-mask::after {
+  color: #00BD9D;
+  opacity: 1; }

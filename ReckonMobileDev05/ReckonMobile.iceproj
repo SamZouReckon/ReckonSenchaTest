@@ -163,6 +163,9 @@
     <Content Include="app\component\ExtSelectField.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="app\component\ExtTextAreaField.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="app\component\ExtTextField.js">
       <SubType>Content</SubType>
     </Content>
@@ -209,6 +212,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="app\component\RMMsgPopup.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="app\component\RMMultiSelectField.js">
       <SubType>Content</SubType>
     </Content>
     <Content Include="app\component\RMNumberField.js">

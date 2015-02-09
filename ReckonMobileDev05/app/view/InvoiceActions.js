@@ -45,7 +45,16 @@ Ext.define('RM.view.InvoiceActions', {
             iconCls: 'rm-invoiceactioniconcls',
             iconAlign: 'left'	
             			
-        }/*,{
+        },{
+            text: 'Mark as paid',
+            itemId: 'markAsPaid',
+            cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',
+            icon: 'resources/images/icons/rm-tick.svg',
+            iconCls: 'rm-invoiceactioniconcls',
+            iconAlign: 'left'
+
+        }
+        /*,{
 			text: 'Receive payment with Pay',
 			itemId: 'payApp',
 			cls: 'rm-arrowimgbtn rm-invoiceaction-bg rm-invoiceactionbtnlabel',

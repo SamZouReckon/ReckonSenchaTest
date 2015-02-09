@@ -12,6 +12,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
             invPayBtn: 'invoiceactions #pay',
             invPayAppBtn: 'invoiceactions #payApp',
             invEmailBtn: 'invoiceactions #email',
+            invMarkAsPaidBtn: 'invoiceactions #markAsPaid',
             warningMessage: 'invoiceactions #lockOffWarning'
         },
         control: {
@@ -44,6 +45,9 @@ Ext.define('RM.controller.InvoiceActionsC', {
             },
             'invoiceactions #history': {
                 tap: 'onHistory'
+            },
+            'invoiceactions #markAsPaid': {
+                tap: 'onMarkAsPaid'
             }
         }
 
@@ -75,6 +79,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         var hidePay = !RM.InvoicesMgr.isInvoiceStatusPayable(this.invoiceData.Status) || 
                       !RM.PermissionsMgr.canAddEdit('Receipts') ||
                       this.invoiceData.BalanceDue === 0;
+        var hideMarkAsPaid = !(this.invoiceData.Amount == 0 && !RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled && this.invoiceData.Status != RM.Consts.InvoiceStatus.PAID && RM.PermissionsMgr.canApprove('Invoices')); 
                 
         // Handle lock-off rules
         if(RM.CashbookMgr.getLockOffDate().getTime() >= this.invoiceData.Date.getTime()) {
@@ -93,7 +98,8 @@ Ext.define('RM.controller.InvoiceActionsC', {
         this.getInvDeleteBtn().setHidden(hideDelete);
         this.getInvApproveBtn().setHidden(hideApprove);        
         this.getInvEmailBtn().setHidden(hideEmail);
-        this.getInvPayBtn().setHidden(hidePay);   
+        this.getInvPayBtn().setHidden(hidePay);
+        this.getInvMarkAsPaidBtn().setHidden(hideMarkAsPaid);
     },
     
     onApprove: function () {        
@@ -170,6 +176,21 @@ Ext.define('RM.controller.InvoiceActionsC', {
 
     onHistory: function () {
         RM.Selectors.showHistory('Invoice', RM.Consts.HistoryTypes.INVOICE, this.invoiceData.InvoiceId);
+    },
+
+    onMarkAsPaid: function () {
+        RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.PAID },
+             function () {
+                 RM.AppMgr.itemUpdated('invoice');
+                 this.invoiceData.Status = RM.Consts.InvoiceStatus.PAID;
+                 this.getInvStatus().addCls("rm-approved-hearderbg");
+                 this.onShow();
+             },
+             this,
+             function (recs, eventMsg) {
+                 RM.AppMgr.showOkMsgBox(eventMsg);
+             }
+         );
     },
 
     back: function () {

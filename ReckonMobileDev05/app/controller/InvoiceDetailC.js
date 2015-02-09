@@ -719,7 +719,6 @@ Ext.define('RM.controller.InvoiceDetailC', {
                                  function (result) {
                                      if (result === 'yes') {
                                          this.saveInvoice(afterSaveCallback, vals);
-
                                      }
                                      else {
                                          //Stay on the current screen for the user user to modify.
@@ -776,9 +775,10 @@ Ext.define('RM.controller.InvoiceDetailC', {
                             this.dataLoaded = false;
                             this.isCreate = false;
                             afterSaveCallback.apply(this);
+                            this.markInvoiceToPaid(vals, recs[0].InvoiceId, false);
                         }
                         else {
-                            this.goBack();
+                            this.markInvoiceToPaid(vals, recs[0].InvoiceId, true);
                         }
                     },
                     this,
@@ -786,6 +786,39 @@ Ext.define('RM.controller.InvoiceDetailC', {
                         RM.AppMgr.showOkMsgBox(eventMsg);
                     }
         );
-   }
+    },
+    markInvoiceToPaid: function (vals,invoiceId, isGoBack)
+    {
+        //When create a new invoice, approval is off and balance is $0 amount. show popup.
+        // balance is $0 amount, need to show the popup.
+        if (vals.Amount == 0 && !RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
+            RM.AppMgr.showCustomiseButtonMsgBox("This invoice is for $0. Do you want to mark it as paid", 'MARK AS PAID', 'NOT NOW',
+                function (result) {
+                    if (result === 'yes') {
+
+                        RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: invoiceId, Status: RM.Consts.InvoiceStatus.PAID },
+                           function () {
+                               RM.AppMgr.itemUpdated('invoice');
+                               this.detailsData.Status = RM.Consts.InvoiceStatus.PAID;
+                               if (isGoBack)
+                                   this.goBack();
+                           },
+                           this,
+                           function (recs, eventMsg) {
+                               RM.AppMgr.showOkMsgBox(eventMsg);
+                           }
+                       );
+                    }
+                    else {
+                        if (isGoBack)
+                            this.goBack();
+                    }
+                }, this);
+        }
+        else {
+            if (isGoBack)
+                this.goBack();
+        }
+    }
   
 });

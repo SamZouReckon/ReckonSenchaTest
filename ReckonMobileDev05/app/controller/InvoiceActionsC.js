@@ -138,7 +138,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
         RM.AppMgr.showYesNoMsgBox("Do you want to delete the invoice?",
             function (result) {
                 if (result === 'yes') {
-                    RM.AppMgr.saveServerRec('InvoiceDelete', true, { InvoiceId: this.invoiceData.InvoiceId },
+                    RM.AppMgr.deleteServerRec('Invoices/' + this.invoiceData.InvoiceId,
                         function () {
                             RM.AppMgr.itemUpdated('invoice');
                             RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' deleted.');
@@ -182,9 +182,8 @@ Ext.define('RM.controller.InvoiceActionsC', {
         RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.PAID },
              function () {
                  RM.AppMgr.itemUpdated('invoice');
-                 this.invoiceData.Status = RM.Consts.InvoiceStatus.PAID;
-                 this.getInvStatus().addCls("rm-approved-hearderbg");
-                 this.onShow();
+                 RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' has been marked to paid.');
+                 RM.ViewMgr.backTo('slidenavigationview');
              },
              this,
              function (recs, eventMsg) {

@@ -102,22 +102,46 @@ Ext.define('RM.controller.InvoiceActionsC', {
         this.getInvMarkAsPaidBtn().setHidden(hideMarkAsPaid);
     },
     
-    onApprove: function () {        
-        RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.APPROVED },
-			function () {
-                RM.AppMgr.itemUpdated('invoice');
-                RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode +' was Approved.');     
-                this.invoiceData.Status = RM.Consts.InvoiceStatus.APPROVED;
-                this.getInvStatus().addCls("rm-approved-hearderbg");
-                this.onShow();
-			},
-			this,
-            function(recs, eventMsg){
-                RM.AppMgr.showOkMsgBox(eventMsg);
-            }
-		);  
+    onApprove: function () {
+        RM.AppMgr.getServerRecById('CustomerAvailableCreditLimit', this.invoiceData.CustomerId,
+                  function (data) {
+                      if (data.HasCreditLimit && data.AvailableCredit < this.invoiceData.BalanceDue) {
+                          RM.AppMgr.showCustomiseButtonMsgBox("This invoice will exceed the customer's credit limit. Approve anyway?", 'YES, APPROVE INVOICE', 'NO',
+                           function (result) {
+                               if (result === 'yes') {
+                                   this.approve();
+                               }
+                               else {
+                                   //Stay on the current screen for the user user to modify.
+                                   return;
+                               }
+                           }, this);
+                      }
+                      else {
+                          this.approve();
+                      };
+                  },
+                  this,
+                  function (eventMsg) {
+                      RM.AppMgr.showOkMsgBox(eventMsg);
+                  }
+              );
     },
-
+    approve: function () {
+        RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.APPROVED },
+                function () {
+                    RM.AppMgr.itemUpdated('invoice');
+                    RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' was Approved.');
+                    this.invoiceData.Status = RM.Consts.InvoiceStatus.APPROVED;
+                    this.getInvStatus().addCls("rm-approved-hearderbg");
+                    this.onShow();
+                },
+                this,
+                function (recs, eventMsg) {
+                    RM.AppMgr.showOkMsgBox(eventMsg);
+                }
+            );
+    },
     onDraft: function(){
         RM.AppMgr.saveServerRec('InvoiceChangeStatus', false, { InvoiceId: this.invoiceData.InvoiceId, Status: RM.Consts.InvoiceStatus.DRAFT },
 			function () {

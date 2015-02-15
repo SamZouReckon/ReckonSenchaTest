@@ -792,7 +792,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
         //When create a new invoice, approval is off and balance is $0 amount. show popup.
         // balance is $0 amount, need to show the popup.
         if (vals.Amount == 0 && !RM.CashbookMgr.getSalesPreferences().ApprovalProcessEnabled) {
-            RM.AppMgr.showCustomiseButtonMsgBox("This invoice is for $0. Do you want to mark it as paid", 'MARK AS PAID', 'NOT NOW',
+            RM.AppMgr.showCustomiseButtonMsgBox("This invoice is for $0.00. Do you want to mark it as paid", 'MARK AS PAID', 'NOT NOW',
                 function (result) {
                     if (result === 'yes') {
 

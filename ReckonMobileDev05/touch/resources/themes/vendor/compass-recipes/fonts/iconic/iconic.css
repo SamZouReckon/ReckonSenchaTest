@@ -53,7 +53,7 @@ a.iconic:hover {
 .iconic.spin-alt:before { content: "{"; }
 .iconic.moon:before { content: "]"; }
 .iconic.sun:before { content: "}"; }
-.iconic.map-pin:before { content: '\\'; }
+.iconic.map-pin:before { content: "\\"; }
 .iconic.pin:before { content: "|"; }
 .iconic.eyedropper:before { content: "~"; }
 .iconic.denied:before { content: "`"; }

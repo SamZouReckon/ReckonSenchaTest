@@ -4,38 +4,36 @@ Ext.define('RM.controller.TimeSheetsC', {
         refs: {
             timesheets: 'timesheets',
             timeSheetsList: 'timesheets list',
-            timeSheetsCal: 'timesheets timesheetscalendar'
+            timeSheetsCal: 'timesheets rmcalendar'
         },
         control: {
             'timesheets': {
-                show: 'onShow',
-                calshow: 'onCalShow',
-                calhide: 'onCalHide'
+                show: 'onShow'                
             },
             'timesheets sortsearchbar': {
                 search: function (val) {
                     this.searchFilter = val;
                     this.setLoadTimer();
                 },
-
                 searchclear: function () {
                     delete this.searchFilter;
                     this.loadList();
                 }
-            },	            
-            'timesheetscalendar': {
-                monthselect: 'onMonthSelect',
-                dateselect: 'onDateSelect'
-
-            },
+            },          
             'timesheets list': {
                 select: 'onItemSelect'
             },
             'timesheets #add': {
                 tap: 'add'
+            },
+            'timesheets rmcalendar': {
+                weekChange: 'onWeekChange',
+                monthChange: 'onMonthChange'
+            },
+            'timesheets tabpanel': {
+                activeitemchange: 'onActiveItemChange'
             }
         }
-
     },
 
     init: function () {
@@ -45,17 +43,26 @@ Ext.define('RM.controller.TimeSheetsC', {
     onShow: function () {
         var store = Ext.data.StoreManager.lookup('TimeEntries');
         store.getProxy().setUrl(RM.AppMgr.getApiUrl('TimeEntries'));
-        //store.load();
-        //this.loadList();
+        store.load();
+        this.loadList();
     },
-    
-    onCalShow: function(){
-        this.getTimeSheetsCal().getComponent(0).refresh();
+
+    onActiveItemChange: function (tabpanel, value, oldValue, eOpts) {
+        if (value.config.xtype === 'rmcalendar') {
+
+        }
+        if (value.config.title === 'List') {
+
+        }
     },
-    
-    onCalHide: function(){
-        
-    },    
+
+    onWeekChange: function (weekDaysArray) {
+        console.log(weekDaysArray);
+    },
+
+    onMonthChange: function (start, end){
+        console.log(start + ' ' + end);
+    },
 
     onItemUpdated: function (itemType) {
         if (itemType == 'timesheet' && this.getTimesheets()) {
@@ -65,7 +72,6 @@ Ext.define('RM.controller.TimeSheetsC', {
     },
 
     onItemSelect: function (list, rec) {
-
         if (rec.data.TimeEntryId == '00000000-0000-0000-0000-000000000000') {
             this.add();
             setTimeout(function () { list.deselect(rec); }, 50);
@@ -81,37 +87,17 @@ Ext.define('RM.controller.TimeSheetsC', {
 				this
 			);
         }
-    },
-
-    onMonthSelect: function (date) {
-        this.onDateSelect(date);
-    },
-
-    onDateSelect: function (date) {
-        //var store = Ext.data.StoreManager.lookup('TimeEntries');
-        //this.getTimeSheetsList().getStore().filter('startDate', date);
-        this.startDateFilter = date;
-        this.loadList();
-    },
+    }, 
 
     add: function () {
         RM.TimeSheetsMgr.showTimeSheetDetail(null,
-			function (closeType, data) {
-			    //if(closeType == 'save')
-			    //	Ext.Msg.alert('Save', Ext.encode(data), Ext.emptyFn);
+			function (closeType, data) {			    
 			    if (closeType == 'save')
-			        this.loadList();
-			    //return null;
+			        this.loadList();			    
 			},
 			this
 		);
-    },
-
-    loadCalendar: function(){
-        //Ext.getStore('TimeEntriesCalendar').load();
-        RM.AppMgr.loadStore(Ext.getStore('TimeEntriesCalendar'));
-    },
-    
+    },  
     
     loadList: function () {
         var store = this.getTimeSheetsList().getStore();
@@ -121,8 +107,7 @@ Ext.define('RM.controller.TimeSheetsC', {
         }
         if(this.startDateFilter){
             store.filter('startDate', this.startDateFilter);            
-        }        
-        
+        }       
         RM.AppMgr.loadStore(store);
     },
 
@@ -133,5 +118,4 @@ Ext.define('RM.controller.TimeSheetsC', {
         }
         this.loadTimer = Ext.defer(this.loadList, 1000, this);
     }
-
 });

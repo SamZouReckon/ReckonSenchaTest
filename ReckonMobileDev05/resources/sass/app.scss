@@ -37,6 +37,7 @@ $font-family: 'Open Sans', sans-serif !default;
 @import 'TouchCalendarView.scss';
 @import 'TouchCalendarSimpleEvents.scss';
 @import 'dashboard.scss';
+@import 'rmcalendar.scss';
 
 @include TouchCalendarView;
 @include TouchCalendarSimpleEvents;
@@ -2356,5 +2357,28 @@ $font-family: 'Open Sans', sans-serif !default;
 	background: #00BD9D;
 }
 
+.rm-tabbar{
+    .x-tabbar.x-docked-top{
+        padding: 0;
+        background: #FFF;     
+        border-bottom: 1px solid #475561;   
+    }
+
+    .x-tabbar.x-docked-top .x-tab .x-button-label{
+        line-height: 2.2em;
+    }
+
+    .x-tabbar.x-docked-top .x-tab{
+        border-radius: 0;
+        height: 2.6em;
+        margin-top: -1px;
+        background: #FFF;
+        color: #475561;
+    }
+    .x-tabbar-dark.x-docked-top .x-tab-active {
+        background: #475561;
+        color: #FFF;
+    }
+}
 
 

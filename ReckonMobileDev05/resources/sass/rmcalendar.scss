@@ -1,0 +1,121 @@
+/*
+ * Originally written by Ondrej Jirman <megous@megous.com>
+ *
+ * Rewritten into SASS/Compass by Codier, 2012
+ * Rewritten to match Reckon requirement
+ */
+@import "compass";
+
+.rmcalendar {
+  $bd-color: #A3A7AF;
+
+  color: #3F4E5E;
+  background-color: #EEE;
+  width: 100%;
+
+  table {
+    width: 100%;
+    position: relative;
+    table-layout: fixed;
+    font-size: 20px;
+  }
+
+  tbody {
+    td {
+      
+      &:last-child {
+        //border-right: 0px;
+      }
+    }
+    tr{
+        &.selected{
+            border: 1px solid black;
+        }
+    }
+  }
+  // cell styles
+  td {
+    height: 43px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;  
+  
+    &.weekend {      
+    }
+
+    &.today {
+        font-weight: bold;
+      
+    }
+
+    &.unselectable {
+      color: #89909A;      
+    }
+    //Empty class just to detect date don't remove it
+    &.selected {      
+        color: #ff0000;
+    }
+
+    &.today.selected {      
+      font-weight: bold;   
+      color: #ff0000;   
+    }
+
+    &.prevmonth, &.nextmonth {
+      color: #89909A;
+    }
+  }
+
+  thead {   
+
+    th {
+      font-size: 12px;
+      vertical-align: bottom;
+      font-weight: bold;
+      padding-bottom: 3px;
+      color: #3F4E5E;
+      text-align: center;
+      height: 62px;
+
+      &.goto-prevmonth {
+        background: url(../images/icons/rm-btn-back-arrow.svg) no-repeat;
+        background-position-x: 20%;
+        background-position-y: 8px;
+        background-size: 12px;
+        cursor: pointer;
+      }
+
+      &.goto-nextmonth {
+        background: url(../images/icons/rm-btn-arrow.svg) no-repeat;
+        background-position-x: 80%;
+        background-position-y: 8px;
+        background-size: 12px;
+        cursor: pointer;
+      }
+      
+      /*&.goto-prevyear {
+        background: url(../images/larr.png) center center no-repeat;
+        background-size: 7px;
+        cursor: pointer;
+      }*/
+
+      /*&.goto-nextyear {
+        background: url(../images/rarr.png) center center no-repeat;
+        background-size: 7px;
+        cursor: pointer;
+      }*/
+
+      .month-year-label {
+        font-size: 16px;
+        font-weight: bold;
+        height: 30px;
+        left: 30%;
+        position: absolute;
+        text-align: center;
+        top: 6px;
+        width: 40%;
+        z-index: 999;
+      }
+     }
+   }
+}

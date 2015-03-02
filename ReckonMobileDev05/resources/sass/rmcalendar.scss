@@ -44,8 +44,11 @@
     }
 
     &.today {
-        font-weight: bold;
-      
+        font-weight: bold;      
+    }
+
+    &.hasdata{
+        color: #00BD9D;
     }
 
     &.unselectable {

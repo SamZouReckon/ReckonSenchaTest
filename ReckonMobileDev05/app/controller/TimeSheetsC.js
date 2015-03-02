@@ -21,7 +21,7 @@ Ext.define('RM.controller.TimeSheetsC', {
                 }
             },          
             'timesheets list': {
-                select: 'onItemSelect'
+                select: 'onItemSelect'                
             },
             'timesheets #add': {
                 tap: 'add'
@@ -38,55 +38,52 @@ Ext.define('RM.controller.TimeSheetsC', {
 
     init: function () {
         this.getApplication().addListener('itemupdated', 'onItemUpdated', this);
-    },
+    },   
 
     onShow: function () {
-        var store = Ext.data.StoreManager.lookup('TimeEntries');
-        store.getProxy().setUrl(RM.AppMgr.getApiUrl('TimeEntries'));
-        store.load();
-        this.loadList();
+        var store = this.getTimeSheetsList().getStore();
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));        
+        this.listLoaded = false;
     },
 
-    onActiveItemChange: function (tabpanel, value, oldValue, eOpts) {
-        if (value.config.xtype === 'rmcalendar') {
-
-        }
+    onActiveItemChange: function (tabpanel, value, oldValue, eOpts) {        
         if (value.config.title === 'List') {
-
+            this.loadList();
+        }
+        if (value.config.title === 'Calendar') {
+            this.getTimeSheetsCal().refreshCalendarData();
         }
     },
 
     onWeekChange: function (weekDaysArray) {
-        console.log(weekDaysArray);
+        this.startDateFilter = weekDaysArray[0];
+        this.endDateFilter = weekDaysArray[6];
+
+        if (!this.listLoaded) {
+            this.loadList();
+            this.listLoaded = true;
+        }
     },
 
-    onMonthChange: function (start, end){
-        console.log(start + ' ' + end);
+    onMonthChange: function (start, end){        
     },
 
     onItemUpdated: function (itemType) {
-        if (itemType == 'timesheet' && this.getTimesheets()) {
-            this.loadCalendar();
+        if (itemType == 'timesheet' && this.getTimesheets()) {            
             this.loadList();
         }
     },
 
-    onItemSelect: function (list, rec) {
-        if (rec.data.TimeEntryId == '00000000-0000-0000-0000-000000000000') {
-            this.add();
-            setTimeout(function () { list.deselect(rec); }, 50);
-        }
-        else {
-            // Delay the selection clear so get a flash of the selection
-            setTimeout(function () { list.deselect(rec); }, 500);
-            RM.TimeSheetsMgr.showTimeSheetDetail(rec.data,
-				function (closeType, data) {
-				    if (closeType == 'save')
-				        this.loadList();
-				},
-				this
-			);
-        }
+    onItemSelect: function (list, rec) {        
+        // Delay the selection clear so get a flash of the selection
+        setTimeout(function () { list.deselect(rec); }, 500);
+        RM.TimeSheetsMgr.showTimeSheetDetail(rec.data,
+		    function (closeType, data) {
+			    if (closeType == 'save')
+				    this.loadList();
+		    },
+		    this
+	    );        
     }, 
 
     add: function () {
@@ -107,7 +104,10 @@ Ext.define('RM.controller.TimeSheetsC', {
         }
         if(this.startDateFilter){
             store.filter('startDate', this.startDateFilter);            
-        }       
+        }
+        if (this.endDateFilter) {
+            store.filter('endDate', this.endDateFilter);
+        }
         RM.AppMgr.loadStore(store);
     },
 

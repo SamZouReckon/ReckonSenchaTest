@@ -1,7 +1,7 @@
 Ext.define('RM.view.TimeSheets', {
 	extend: 'Ext.Panel',
 	xtype: 'timesheets',
-	requires: ['RM.component.RMList', 'RM.view.TimeSheetsCalendar', 'RM.component.RMCalendar'],
+	requires: ['RM.component.RMList', 'RM.component.RMCalendar'],
 	config: {
 		
 		layout: 'vbox',
@@ -50,10 +50,8 @@ Ext.define('RM.view.TimeSheets', {
                             flex: 1,
 			                grouped: true,                  
 			                emptyText: 'No timesheets found.',
-			                itemTpl: new Ext.XTemplate(
-                                '<tpl if="TimeEntryId == \'00000000-0000-0000-0000-000000000000\'">',
-                                '<div class="rm-invoicelineitem-add" style = "padding-left: 0; font-weight: normal;">Add time for today</div>',
-                                '<tpl else>',
+			                itemTpl: new Ext.XTemplate(                                
+                                '<tpl>',
                                     '<div>',
                                         '<div style="width: 65%; display: inline-block;">',
                                             '<div class="rm-orgnametext">{[this.customerText(values.CustomerName)]}</div>',
@@ -107,7 +105,8 @@ Ext.define('RM.view.TimeSheets', {
 			        ]
 			    }, {
 			        title: 'Calendar',
-			        xtype: 'rmcalendar'			        
+			        xtype: 'rmcalendar',
+                    store: 'TimeEntriesCalendar'
 			    }]
 			}
 		]

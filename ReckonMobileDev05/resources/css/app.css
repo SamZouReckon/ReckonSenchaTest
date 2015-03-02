@@ -5345,6 +5345,8 @@ body.x-desktop {
   vertical-align: middle; }
 .rmcalendar td.today {
   font-weight: bold; }
+.rmcalendar td.hasdata {
+  color: #00BD9D; }
 .rmcalendar td.unselectable {
   color: #89909A; }
 .rmcalendar td.selected {

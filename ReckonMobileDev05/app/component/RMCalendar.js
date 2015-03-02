@@ -9,13 +9,13 @@ Ext.define('RM.component.RMCalendar', {
         cls: 'rmcalendar',
         value: new Date(),
         minDate: null,
-        maxDate: null
+        maxDate: null,
+        store: null
     },
 
     initialize: function () {
         var me = this;
         me.callParent(arguments);
-
         me.element.on({
             tap: function (event, targetDom) {
                 var target = Ext.get(targetDom);
@@ -54,6 +54,53 @@ Ext.define('RM.component.RMCalendar', {
 
         this.monthViewStartDate = null;
         this.monthViewEndDate = null;
+        this.monthViewData = null;
+        this.on('monthChange', this.onMonthChange);        
+    },
+
+    onMonthChange: function (start, end) {        
+        this.refreshCalendarStore(start, end);
+    },
+
+    refreshCalendarData: function () {
+        if (this.monthViewStartDate && this.monthViewEndDate) {
+            this.refreshCalendarStore(this.monthViewStartDate, this.monthViewEndDate);
+        }        
+    },
+
+    refreshCalendarStore: function(startDate, endDate){
+        var store = this.getStore();
+        if (!store) {
+            return;
+        }
+        store = Ext.data.StoreManager.lookup(store);
+        store.setPageSize(50);
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));
+        store.filter('startDate', startDate);
+        store.filter('endDate', endDate);
+        store.load({
+            callback: function (records, operation, success) {
+                this.monthViewData = records;
+                this.loadCalendarData();
+            },
+            scope: this
+        });
+    },
+
+    loadCalendarData: function () {
+        if (!this.monthViewData) {
+            return;
+        }
+        var count = this.monthViewData.length;
+        var dayQuery;
+        var dayCell;
+        var date;
+        for (var i = 0; i < count; i++) {
+            date = new Date(this.monthViewData[i].raw.Date);
+            dayQuery = 'td[datetime="' + this.dateToString(date) + '"]';
+            dayCell = this.element.select(dayQuery);
+            this.monthViewData[i].raw.HasTS ? dayCell.addCls('hasdata') : dayCell.addCls('');
+        }
     },
 
     applyMinDate: function (newVal, oldVal) {
@@ -90,6 +137,7 @@ Ext.define('RM.component.RMCalendar', {
             me.element.setHtml(me.generateCalendar(d.getMonth(), d.getFullYear()));
             me.setToday();
             v && me.setSelected(v);
+            me.loadCalendarData();
         }, 0);
     },
 
@@ -304,7 +352,6 @@ Ext.define('RM.component.RMCalendar', {
         } else if (unit === 'year') {
             newDay = new Date(v.getFullYear() + delta, v.getMonth(), day);
         }
-
 
         if (this.getMinDate() && Ext.Date.getLastDateOfMonth(newDay) < this.getMinDate()) {
             return;

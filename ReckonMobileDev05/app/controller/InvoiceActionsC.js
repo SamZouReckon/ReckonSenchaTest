@@ -207,7 +207,8 @@ Ext.define('RM.controller.InvoiceActionsC', {
              function () {
                  RM.AppMgr.itemUpdated('invoice');
                  RM.AppMgr.showSuccessMsgBox('Invoice ' + this.invoiceData.InvCode + ' has been marked to paid.');
-                 RM.ViewMgr.backTo('slidenavigationview');
+                 this.invoiceData.Status = RM.Consts.InvoiceStatus.PAID;
+                 this.getInvMarkAsPaidBtn().setHidden(true);
              },
              this,
              function (recs, eventMsg) {

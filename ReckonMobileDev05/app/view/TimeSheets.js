@@ -40,66 +40,36 @@ Ext.define('RM.view.TimeSheets', {
 			            {
 			                xtype: 'sortsearchbar',
 			                docked: 'top',
-			                sortfields: [
-                                { text: 'Customer', value: 'customer' }, 
-                                { text: 'Date', value: 'date' }                                               	            
+			                sortfields: [                                
+                                { text: 'Customer', value: 'CustomerName' },
+                                { text: 'Project', value: 'ProjectName' },
+                                { text: 'Date', value: 'Date' }                                               	            
 			                ]
 			            }, {
 			                xtype: 'rmlist',
 			                store: 'TimeEntries',
                             flex: 1,
-			                grouped: true,                  
+                            grouped: true,
+                            loadingText: null,
 			                emptyText: 'No timesheets found.',
 			                itemTpl: new Ext.XTemplate(                                
-                                '<tpl>',
-                                    '<div>',
-                                        '<div style="width: 65%; display: inline-block;">',
-                                            '<div class="rm-orgnametext">{[this.customerText(values.CustomerName)]}</div>',
+                                    '<tpl>',                                                                       
+                                        '<div class = "rm-colorgrey">',
+                                        '{[this.formatDate(values.Date)]}',
+                                        '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToTime(values.Duration)]})</span>',
                                         '</div>',
-                                        '<div style="width: 35%; display: inline-block; vertical-align: top;">',
-                                            '<div class="rm-nextgrayarrow rm-orgnametext rm-alignr" style="font-weight: normal;">{[RM.AppMgr.minsToTime(values.Duration)]}</div>',
+                                        '<div class = "rm-fontsize70">',
+                                        '{[this.showStatus(values.StatusCode)]}',
                                         '</div>',
-                                    '</div>',
-                                    '<div>',
-                                        '<div style = "width: 65%; display: inline-block;">',
-                                            '<div class="rm-timesheetrowfields rm-pt5" >{[this.projectText(values.ProjectName)]}</div>',
-                                        '</div>',
-                                        '<div style = "width: 35%; display: inline-block; vertical-align: top;" >',
-                                            '<div class="rm-timesheetrowfields rm-alignr rm-pt5" style="margin-right: 20px;">{[this.billableText(values.Billable)]}</div>',
-                                        '</div>',
-                                    '</div>',
-                                    '<div>',
-                                        '<div style = "display: inline-block;">',
-                                            '<div class="rm-timesheetrowfields rm-pt5">{[this.itemText(values.ItemName)]}</div>',
-                                        '</div>',
-                                    '</div>',
-                                '</tpl>',
-                                {
-                                    billableText: function (billable) {
-                                        if (billable)
-                                            return "";
-                                        else
-                                            return "Not billable";
+                                    '</tpl>',                                
+                                    {                                    
+                                        formatDate: function(val) {
+                                            return Ext.Date.format(val, 'j M Y');
+                                        },
+                                        showStatus: function (val) {
+                                            return RM.TimeSheetsMgr.getTimeSheetStatusText(val);
+                                        }
                                     }
-                                },
-                                {
-                                    customerText: function (customerName) {
-                                        if (customerName == null) return "No customer";
-                                        else return customerName;
-                                    }
-                                },
-                                {
-                                    projectText: function (projectName) {
-                                        if (projectName == null) return "No project";
-                                        else return projectName;
-                                    }
-                                },
-                                {
-                                    itemText: function (itemName) {
-                                        if (itemName == null) return "No item";
-                                        else return itemName;
-                                    }
-                                }
                                 )
 			                }
 			        ]

@@ -332,12 +332,6 @@ Ext.define('RM.core.AppMgr', {
         this.clearLoadingTimer();
         RM.ViewMgr.showLoadingMask(); 
         return;
-        
-        this.loadingTimer = window.setInterval(
-            function(){ 
-                RM.ViewMgr.showLoadingMask();
-            }
-            ,3000);         
     },
     
     clearLoadingTimer: function(){

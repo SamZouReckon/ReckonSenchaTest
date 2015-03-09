@@ -183,12 +183,6 @@
     <Content Include="app\component\SortSearchBar.js">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="app\component\touchcalendar\TouchCalendarSimpleEvents.js">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="app\component\touchcalendar\TouchCalendarView.js">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="app\component\VisibleOnFocus.js">
       <SubType>Content</SubType>
     </Content>
@@ -376,9 +370,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="app\controller\TimeSheetsC.js">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="app\controller\TimeSheetsCalendarC.js">
       <SubType>Content</SubType>
     </Content>
     <Content Include="app\core\AppMgr.js">
@@ -838,9 +829,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="app\view\TimeSheets.js" />
-    <Content Include="app\view\TimeSheetsCalendar.js">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="bootstrap.js" />
     <Content Include="bootstrap.json" />
     <Content Include="build.xml">
@@ -1161,12 +1149,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="resources\sass\stylesheets\fonts\tizen\TizenSansRegular.ttf">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="resources\sass\TouchCalendarSimpleEvents.scss">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="resources\sass\TouchCalendarView.scss">
       <SubType>Content</SubType>
     </Content>
     <Content Include="resources\stylesheets\app.css">
@@ -3556,7 +3538,6 @@
     <Folder Include="app\" />
     <Folder Include="app\component\" />
     <Folder Include="app\component\slidenavigation\" />
-    <Folder Include="app\component\touchcalendar\" />
     <Folder Include="app\controller\" />
     <Folder Include="app\core\" />
     <Folder Include="app\model\" />

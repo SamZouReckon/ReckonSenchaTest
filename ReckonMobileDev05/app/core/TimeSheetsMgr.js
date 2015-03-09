@@ -35,6 +35,19 @@ Ext.define('RM.core.TimeSheetsMgr', {
 		);	
 	},
 
+	getTimeSheetStatusText: function (status) {
+	    switch (status) {	        
+	        case RM.Consts.TimeSheetStatus.NON_BILLABLE:
+	            return 'Non-billable';
+	        case RM.Consts.TimeSheetStatus.UNBILLED:
+	            return 'Unbilled';
+	        case RM.Consts.TimeSheetStatus.INVOICED:
+	            return 'Invoiced';
+	        case RM.Consts.InvoiceStatus.BILLED:
+	            return 'Billed';	        
+	    }
+	    return 'Unknown';
+	}
 
     /*
     showTimeSheetNotes: function () {

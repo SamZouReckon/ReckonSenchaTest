@@ -5328,18 +5328,19 @@ body.x-desktop {
  * Rewritten to match Reckon requirement
  */
 .rmcalendar {
-  color: #3F4E5E;
-  background-color: #EEE;
-  width: 100%; }
+  color: #646464;
+  background-color: #FFFFFF;
+  width: 100%;
+  padding: 2px; }
 .rmcalendar table {
   width: 100%;
   position: relative;
   table-layout: fixed;
   font-size: 20px; }
 .rmcalendar tbody tr.selected {
-  border: 1px solid black; }
+  border: 2px solid #465460; }
 .rmcalendar td {
-  height: 43px;
+  height: 38px;
   position: relative;
   text-align: center;
   vertical-align: middle; }
@@ -5349,11 +5350,8 @@ body.x-desktop {
   color: #00BD9D; }
 .rmcalendar td.unselectable {
   color: #89909A; }
-.rmcalendar td.selected {
-  color: #ff0000; }
 .rmcalendar td.today.selected {
-  font-weight: bold;
-  color: #ff0000; }
+  font-weight: bold; }
 .rmcalendar td.prevmonth, .rmcalendar td.nextmonth {
   color: #89909A; }
 .rmcalendar thead th {
@@ -5361,7 +5359,7 @@ body.x-desktop {
   vertical-align: bottom;
   font-weight: bold;
   padding-bottom: 3px;
-  color: #3F4E5E;
+  color: #646464;
   text-align: center;
   height: 62px;
   /*&.goto-prevyear {
@@ -5387,7 +5385,7 @@ body.x-desktop {
   background-size: 12px;
   cursor: pointer; }
 .rmcalendar thead th .month-year-label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   height: 30px;
   left: 30%;
@@ -5396,122 +5394,6 @@ body.x-desktop {
   top: 6px;
   width: 40%;
   z-index: 999; }
-
-#swipePanelId {
-  z-index: 0; }
-
-.touch-calendar-view table {
-  width: 100%;
-  table-layout: fixed;
-  /*font-size: 20px;*/
-  color: #ffffff;
-  background-color: #4e4e4e; }
-.touch-calendar-view table.week td {
-  vertical-align: top; }
-.touch-calendar-view table.day td.time-block {
-  text-align: left;
-  background-image: none;
-  font-size: 0.7em;
-  height: 32px; }
-.touch-calendar-view tbody td {
-  border: 1px solid #787878; }
-.touch-calendar-view td {
-  font-weight: normal;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  /*font-size: 1.3em;*/
-  color: #FFFFFF;
-  background-color: #606060;
-  /*@include background-gradient($date-bg-color, 'recessed');*/ }
-.touch-calendar-view td.today {
-  background-color: #C00000; }
-.touch-calendar-view td.weekend {
-  background-color: #606060; }
-.touch-calendar-view td.unselectable {
-  color: #89909A;
-  background-image: none;
-  background-color: #cda3a8;
-  background-image: -webkit-linear-gradient(top, #bb8289, #c49399 10%, #cda3a8 65%, #cea5aa);
-  background-image: -moz-linear-gradient(top, #bb8289, #c49399 10%, #cda3a8 65%, #cea5aa);
-  background-image: -o-linear-gradient(top, #bb8289, #c49399 10%, #cda3a8 65%, #cea5aa);
-  background-image: linear-gradient(top, #bb8289, #c49399 10%, #cda3a8 65%, #cea5aa); }
-.touch-calendar-view td.selected {
-  background-color: #323232; }
-.touch-calendar-view td.today.selected {
-  background-color: #C00000; }
-.touch-calendar-view td.prev-month, .touch-calendar-view td.next-month {
-  color: #6E6E6E;
-  background-color: #4E4E4E; }
-.touch-calendar-view td.prev-month.selected, .touch-calendar-view td.next-month.selected {
-  color: #FFFFFF;
-  background-color: #323232; }
-.touch-calendar-view thead {
-  /*@include background-gradient($date-bg-color, 'matte');*/
-  background: #4e4e4e; }
-.touch-calendar-view thead th {
-  font-size: 9px;
-  vertical-align: bottom;
-  padding-bottom: 3px;
-  color: #dcdcdc;
-  text-align: center;
-  height: 15px;
-  font-weight: normal;
-  text-transform: uppercase; }
-.touch-calendar-view thead tr#touchcalendernav th {
-  height: 46px;
-  text-transform: capitalize; }
-.touch-calendar-view thead tr#touchcalendernav th:nth-child(1) {
-  background: url(../images/larr.svg) center center no-repeat;
-  background-size: 7px;
-  cursor: pointer; }
-.touch-calendar-view thead tr#touchcalendernav th:nth-child(5) {
-  background: url(../images/rarr.svg) center center no-repeat;
-  background-size: 7px;
-  cursor: pointer; }
-.touch-calendar-view thead tr#touchcalendernav th span {
-  font-size: 18px;
-  font-weight: normal;
-  text-align: center;
-  z-index: 999;
-  color: white;
-  line-height: 40px; }
-
-.tipBG {
-  background-image: url("../images/tipBg.png");
-  background-position: left top;
-  background-repeat: repeat-x;
-  height: 8px; }
-
-.topTip {
-  background-image: url("../images/rm-swipebar.svg");
-  background-position: center 2px;
-  background-repeat: repeat-y;
-  height: 10px;
-  width: 36px;
-  margin: 2px auto; }
-
-.touch-calendar-view td {
-  position: relative; }
-.touch-calendar-view td span.simple-event-wrapper, .touch-calendar-view td span.simple-event-wrapper-multi {
-  position: absolute;
-  overflow: hidden; }
-.touch-calendar-view td span.simple-event-multi {
-  float: left;
-  height: 5px;
-  width: 5px;
-  -webkit-border-radius: 5px;
-  background-color: #FFF;
-  margin: 2px auto 0 0px; }
-.touch-calendar-view td span.simple-event {
-  height: 2px;
-  width: 2px;
-  -webkit-border-radius: 2px;
-  background-color: #FFF;
-  margin: 0 auto;
-  display: block; }
-.touch-calendar-view td .selected span.simple-event, .touch-calendar-view td td.today span.simple-event {
-  background-color: #FFF; }
 
 .rm-reddotright {
   background-image: url("../images/redDot.svg"); }

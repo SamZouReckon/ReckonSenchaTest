@@ -4,21 +4,17 @@ Ext.define('RM.controller.TimeSheetsC', {
         refs: {
             timesheets: 'timesheets',
             timeSheetsList: 'timesheets list',
-            timeSheetsCal: 'timesheets rmcalendar'
+            timeSheetsCal: 'timesheets rmcalendar',
+            sortSearchBar: 'timesheets sortsearchbar'
         },
         control: {
             'timesheets': {
                 show: 'onShow'                
             },
             'timesheets sortsearchbar': {
-                search: function (val) {
-                    this.searchFilter = val;
-                    this.setLoadTimer();
-                },
-                searchclear: function () {
-                    delete this.searchFilter;
-                    this.loadList();
-                }
+                sort: 'onSort',
+                search: 'onSearch',
+                searchclear: 'onSearchClear'
             },          
             'timesheets list': {
                 select: 'onItemSelect'                
@@ -44,6 +40,82 @@ Ext.define('RM.controller.TimeSheetsC', {
         var store = this.getTimeSheetsList().getStore();
         store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));        
         this.listLoaded = false;
+        var sortOptions = this.getSortSearchBar().config.sortfields;
+        if (sortOptions.length > 0) {
+            this.loadListHeaderAndItemTpl(sortOptions[0].value);
+        }        
+    },
+
+    loadListHeaderAndItemTpl: function (val) {
+        this.sortVal = val;
+        this.getTimeSheetsList().getStore().setGrouper({
+            sortProperty: val,
+            groupFn: function (item) {
+                if (val === 'Date') {
+                    return Ext.Date.format(item.get('Date'), 'j M Y');
+                }
+                else {
+                    return !item.get(val) ? 'None' : item.get(val);
+                }
+            }
+        });
+
+        if (val !== 'Date') {
+            this.getTimeSheetsList().setItemTpl(new Ext.XTemplate(
+                                    '<tpl>',
+                                        '<div class = "rm-colorgrey">',
+                                        '{[this.formatDate(values.Date)]}',
+                                        '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToTime(values.Duration)]})</span>',
+                                        '</div>',
+                                        '<div class = "rm-fontsize70">',
+                                        '{[this.showStatus(values.StatusCode)]}',
+                                        '</div>',
+                                    '</tpl>',
+                                    {
+                                        formatDate: function (val) {
+                                            return Ext.Date.format(val, 'j M Y');
+                                        },
+                                        showStatus: function (val) {
+                                            return RM.TimeSheetsMgr.getTimeSheetStatusText(val);
+                                        }
+                                    }
+                                ));
+        }
+        else {
+            this.getTimeSheetsList().setItemTpl(new Ext.XTemplate(
+                                    '<tpl>',
+                                        '<div class = "rm-colorgrey">',
+                                        '{[this.handleCustomerName(values.CustomerName)]}',
+                                        '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToTime(values.Duration)]})</span>',
+                                        '</div>',
+                                        '<div class = "rm-fontsize70">',
+                                        '{[this.showStatus(values.StatusCode)]}',
+                                        '</div>',
+                                    '</tpl>',
+                                    {
+                                        handleCustomerName: function (val) {
+                                            return val ? val : 'No Customer';
+                                        },
+                                        showStatus: function(val){
+                                            return RM.TimeSheetsMgr.getTimeSheetStatusText(val);
+                                        }
+                                    }
+                                ));
+        }
+    },
+
+    onSort: function(val){
+        this.loadListHeaderAndItemTpl(val);
+    },
+
+    onSearch: function(val){
+        this.searchFilter = val;
+        this.setLoadTimer();
+    },
+
+    onSearchClear: function(){
+        delete this.searchFilter;
+        this.loadList();
     },
 
     onActiveItemChange: function (tabpanel, value, oldValue, eOpts) {        

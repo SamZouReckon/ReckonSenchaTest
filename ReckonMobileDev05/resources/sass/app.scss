@@ -34,13 +34,9 @@ $font-family: 'Open Sans', sans-serif !default;
 @import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
-@import 'TouchCalendarView.scss';
-@import 'TouchCalendarSimpleEvents.scss';
 @import 'dashboard.scss';
 @import 'rmcalendar.scss';
 
-@include TouchCalendarView;
-@include TouchCalendarSimpleEvents;
 @include dashboard;
 
 // You may remove any of the following modules that you

@@ -7,11 +7,12 @@
 @import "compass";
 
 .rmcalendar {
-  $bd-color: #A3A7AF;
+  //$bd-color: #A3A7AF;
 
-  color: #3F4E5E;
-  background-color: #EEE;
+  color: #646464;
+  background-color: #FFFFFF;
   width: 100%;
+  padding: 2px;
 
   table {
     width: 100%;
@@ -29,13 +30,13 @@
     }
     tr{
         &.selected{
-            border: 1px solid black;
+            border: 2px solid #465460;
         }
     }
   }
   // cell styles
   td {
-    height: 43px;
+    height: 38px;
     position: relative;
     text-align: center;
     vertical-align: middle;  
@@ -56,12 +57,10 @@
     }
     //Empty class just to detect date don't remove it
     &.selected {      
-        color: #ff0000;
     }
 
     &.today.selected {      
-      font-weight: bold;   
-      color: #ff0000;   
+      font-weight: bold;        
     }
 
     &.prevmonth, &.nextmonth {
@@ -76,7 +75,7 @@
       vertical-align: bottom;
       font-weight: bold;
       padding-bottom: 3px;
-      color: #3F4E5E;
+      color: #646464;
       text-align: center;
       height: 62px;
 
@@ -109,7 +108,7 @@
       }*/
 
       .month-year-label {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
         height: 30px;
         left: 30%;

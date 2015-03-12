@@ -159,13 +159,27 @@ Ext.define('RM.controller.TimeSheetsC', {
     }, 
 
     add: function () {
-        RM.TimeSheetsMgr.showTimeSheetDetail(null,
-			function (closeType, data) {			    
-			    if (closeType == 'save')
-			        this.loadList();			    
-			},
-			this
-		);
+        RM.AppMgr.showCustomiseButtonMsgBox("Select timesheet entry method",'', 'WEEKLY', 'DAILY','CANCEL',
+                                 function (result) {
+                                     if (result === 'yes') {
+                                         return;
+                                     }
+                                     else if (result === 'no')
+                                     {
+                                         return;
+                                     }
+                                     else {
+                                         //Cancel
+                                         return;
+                                     }
+                                 }, this);
+        //RM.TimeSheetsMgr.showTimeSheetDetail(null,
+		//	function (closeType, data) {			    
+		//	    if (closeType == 'save')
+		//	        this.loadList();			    
+		//	},
+		//	this
+		//);
     },  
     
     loadList: function () {

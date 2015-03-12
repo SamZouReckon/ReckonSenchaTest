@@ -43,7 +43,7 @@ Ext.define('RM.core.TimeSheetsMgr', {
 	            return 'Unbilled';
 	        case RM.Consts.TimeSheetStatus.INVOICED:
 	            return 'Invoiced';
-	        case RM.Consts.InvoiceStatus.BILLED:
+	        case RM.Consts.TimeSheetStatus.BILLED:
 	            return 'Billed';	        
 	    }
 	    return 'Unknown';

@@ -15,14 +15,16 @@ Ext.define('RM.component.RMCalendar', {
 
     initialize: function () {
         var me = this;
+        this.weekSelectedByTap = false;     //to detect week selected by tapping the week row
         me.callParent(arguments);
         me.element.on({
             tap: function (event, targetDom) {
                 var target = Ext.get(targetDom);
                 if (!target.hasCls('unselectable')) {
+                    me.weekSelectedByTap = true;
                     var newDate = me.getCellDate(target);
                     me.setValue(newDate);
-                    me.fireEvent('change', me, newDate);
+                    //me.fireEvent('change', me, newDate);
                 }
             },
             delegate: 'td',
@@ -33,10 +35,12 @@ Ext.define('RM.component.RMCalendar', {
             tap: function (event, targetDom) {
                 var target = Ext.get(targetDom);
                 if (target.hasCls("goto-prevmonth")) {
+                    me.weekSelectedByTap = false;
                     me.loadTimeDelta('month', -1);
                 }
 
                 if (target.hasCls("goto-nextmonth")) {
+                    me.weekSelectedByTap = false;
                     me.loadTimeDelta('month', 1);
                 }
 
@@ -55,25 +59,26 @@ Ext.define('RM.component.RMCalendar', {
         this.monthViewStartDate = null;
         this.monthViewEndDate = null;
         this.monthViewData = null;
-        this.on('monthChange', this.onMonthChange);        
+        this.on('monthChange', this.onMonthChange);
     },
 
-    onMonthChange: function (start, end) {        
+    onMonthChange: function (start, end) {
         this.refreshCalendarStore(start, end);
     },
 
     refreshCalendarData: function () {
         if (this.monthViewStartDate && this.monthViewEndDate) {
             this.refreshCalendarStore(this.monthViewStartDate, this.monthViewEndDate);
-        }        
+        }
     },
 
-    refreshCalendarStore: function(startDate, endDate){
+    refreshCalendarStore: function (startDate, endDate) {
         var store = this.getStore();
         if (!store) {
             return;
         }
         store = Ext.data.StoreManager.lookup(store);
+        //setPagesize for whole month 7 week rows
         store.setPageSize(50);
         store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));
         store.filter('startDate', startDate);
@@ -118,12 +123,16 @@ Ext.define('RM.component.RMCalendar', {
     },
 
     applyValue: function (newVal, oldVal) {
-        if (!Ext.isDate(newVal)) {
-            newVal = null;
-        }
-        if (!this.sameDay(newVal, oldVal)) {
+        if (Ext.isDate(newVal)) {
             return newVal;
         }
+        //commented out to select the same selected row again
+        //if (!Ext.isDate(newVal)) {
+        //    newVal = null;
+        //}
+        //if (!this.sameDay(newVal, oldVal)) {
+        //    return newVal;
+        //}
     },
 
     updateValue: function (newVal, oldVal) {
@@ -253,14 +262,18 @@ Ext.define('RM.component.RMCalendar', {
             this.selectedWeekDaysArray = weekDaysArray;
             this.fireEvent('weekChange', weekDaysArray);
         }
-        //avoid firing weekChange event when a day of the same week is selected
+            //avoid firing weekChange event when a day of the same week is selected
         else if (this.selectedWeekDaysArray[0].getTime() !== weekDaysArray[0].getTime()) {
             this.selectedWeekDaysArray = weekDaysArray;
             this.fireEvent('weekChange', weekDaysArray);
-        }                        
+        }
+        //fire weekSelect event when a week row is tapped
+        if (this.weekSelectedByTap) {
+            this.fireEvent('weekSelect', weekDaysArray);
+        }
     },
 
-    getSelectedWeekDaysArray: function(){
+    getSelectedWeekDaysArray: function () {
         return this.selectedWeekDaysArray;
     },
 
@@ -312,7 +325,7 @@ Ext.define('RM.component.RMCalendar', {
         this.setToday();
     },
 
-    setMonthViewStartEndDate: function (monthTable) {        
+    setMonthViewStartEndDate: function (monthTable) {
         var startDate = this.stringToDate(monthTable.first('tr').first('td').getAttribute('datetime'));
         var endDate = this.stringToDate(monthTable.last('tr').last('td').getAttribute('datetime'));
         if (!this.monthViewStartDate) {
@@ -325,32 +338,35 @@ Ext.define('RM.component.RMCalendar', {
         this.monthViewEndDate = endDate;
     },
 
-    getMonthViewStartDate: function(){
+    getMonthViewStartDate: function () {
         return this.setMonthViewStartDate;
     },
 
-    getMonthViewEndDate: function() {
+    getMonthViewEndDate: function () {
         return this.setMonthViewEndDate;
     },
 
     loadTimeDelta: function (unit, delta) {
-        var day;
-
-        var selected = this.element.down('.selected').down('.selected'); // to select date from selected row
-        if (selected) {
-            day = this.stringToDate(selected.dom.getAttribute('datetime')).getDate();
-        } else {
-            day = new Date().getDate();
-        }
+        //var day;
+        //var selected = this.element.down('.selected').down('.selected'); // to select date from selected row
+        //if (selected) {
+        //    day = this.stringToDate(selected.dom.getAttribute('datetime')).getDate();
+        //} else {
+        //    day = new Date().getDate();
+        //}
 
         var v = this.getValue() || new Date();
-
+        //var dayAdjustment = new Date(v.getFullYear(), v.getMonth() + delta, 1);
         var newDay;
 
-        if (unit === 'month') {
-            newDay = new Date(v.getFullYear(), v.getMonth() + delta, day);
+        if (unit === 'month') {            
+            //newDay = new Date(v.getFullYear(), v.getMonth() + delta, Ext.Date.getDaysInMonth(dayAdjustment) < day ? Ext.Date.getDaysInMonth(dayAdjustment) : day);
+            //set first day to select first week of the month
+            newDay = new Date(v.getFullYear(), v.getMonth() + delta, 1);
         } else if (unit === 'year') {
-            newDay = new Date(v.getFullYear() + delta, v.getMonth(), day);
+            //newDay = new Date(v.getFullYear() + delta, v.getMonth(), Ext.Date.getDaysInMonth(dayAdjustment) < day ? Ext.Date.getDaysInMonth(dayAdjustment) : day);
+            //set first day to select first week of the month
+            newDay = new Date(v.getFullYear() + delta, v.getMonth(), 1);
         }
 
         if (this.getMinDate() && Ext.Date.getLastDateOfMonth(newDay) < this.getMinDate()) {

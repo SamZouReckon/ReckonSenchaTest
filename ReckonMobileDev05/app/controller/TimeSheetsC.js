@@ -3,28 +3,30 @@ Ext.define('RM.controller.TimeSheetsC', {
     config: {
         refs: {
             timesheets: 'timesheets',
+            tabPanel: 'timesheets tabpanel',
             timeSheetsList: 'timesheets list',
             timeSheetsCal: 'timesheets rmcalendar',
             sortSearchBar: 'timesheets sortsearchbar'
         },
         control: {
             'timesheets': {
-                show: 'onShow'                
+                show: 'onShow'
             },
             'timesheets sortsearchbar': {
                 sort: 'onSort',
                 search: 'onSearch',
                 searchclear: 'onSearchClear'
-            },          
+            },
             'timesheets list': {
-                select: 'onItemSelect'                
+                select: 'onItemSelect'
             },
             'timesheets #add': {
                 tap: 'add'
             },
             'timesheets rmcalendar': {
                 weekChange: 'onWeekChange',
-                monthChange: 'onMonthChange'
+                monthChange: 'onMonthChange',
+                weekSelect: 'onWeekSelected'
             },
             'timesheets tabpanel': {
                 activeitemchange: 'onActiveItemChange'
@@ -34,20 +36,25 @@ Ext.define('RM.controller.TimeSheetsC', {
 
     init: function () {
         this.getApplication().addListener('itemupdated', 'onItemUpdated', this);
-    },   
+    },
 
     onShow: function () {
         var store = this.getTimeSheetsList().getStore();
-        store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));        
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));
         this.listLoaded = false;
         var sortOptions = this.getSortSearchBar().config.sortfields;
         if (sortOptions.length > 0) {
             this.loadListHeaderAndItemTpl(sortOptions[0].value);
-        }        
+        }
+    },
+
+    onWeekSelected: function () {
+        this.getTabPanel().setActiveItem(0);
     },
 
     loadListHeaderAndItemTpl: function (val) {
         this.sortVal = val;
+
         this.getTimeSheetsList().getStore().setGrouper({
             sortProperty: val,
             groupFn: function (item) {
@@ -60,65 +67,52 @@ Ext.define('RM.controller.TimeSheetsC', {
             }
         });
 
-        if (val !== 'Date') {
-            this.getTimeSheetsList().setItemTpl(new Ext.XTemplate(
-                                    '<tpl>',
-                                        '<div class = "rm-colorgrey">',
-                                        '{[this.formatDate(values.Date)]}',
-                                        '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToTime(values.Duration)]})</span>',
-                                        '</div>',
-                                        '<div class = "rm-fontsize70">',
-                                        '{[this.showStatus(values.StatusCode)]}',
-                                        '</div>',
-                                    '</tpl>',
-                                    {
-                                        formatDate: function (val) {
-                                            return Ext.Date.format(val, 'j M Y');
-                                        },
-                                        showStatus: function (val) {
-                                            return RM.TimeSheetsMgr.getTimeSheetStatusText(val);
-                                        }
-                                    }
-                                ));
-        }
-        else {
-            this.getTimeSheetsList().setItemTpl(new Ext.XTemplate(
-                                    '<tpl>',
-                                        '<div class = "rm-colorgrey">',
+        this.getTimeSheetsList().setItemTpl(new Ext.XTemplate(
+                                        '<div class = "rm-colorgrey rm-nextgrayarrow">',
+                                        '<tpl if = "this.isSortByDate()">',
                                         '{[this.handleCustomerName(values.CustomerName)]}',
+                                        '<tpl else>',
+                                        '{[this.formatDate(values.Date)]}',
+                                        '</tpl>',
                                         '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToTime(values.Duration)]})</span>',
                                         '</div>',
                                         '<div class = "rm-fontsize70">',
-                                        '{[this.showStatus(values.StatusCode)]}',
+                                        '{[this.showStatus(values.Status)]}',
                                         '</div>',
-                                    '</tpl>',
-                                    {
-                                        handleCustomerName: function (val) {
-                                            return val ? val : 'No Customer';
-                                        },
-                                        showStatus: function(val){
-                                            return RM.TimeSheetsMgr.getTimeSheetStatusText(val);
+                                        {
+                                            isSortByDate: function () {
+                                                return val === 'Date';
+                                            },
+                                            formatDate: function (valDate) {
+                                                return Ext.Date.format(valDate, 'j M Y');
+                                            },
+                                            handleCustomerName: function (valName) {
+                                                return valName ? valName : 'No Customer';
+                                            },
+                                            showStatus: function (valStatus) {
+                                                return RM.TimeSheetsMgr.getTimeSheetStatusText(valStatus);
+                                            }
                                         }
-                                    }
                                 ));
-        }
+
+
     },
 
-    onSort: function(val){
+    onSort: function (val) {
         this.loadListHeaderAndItemTpl(val);
     },
 
-    onSearch: function(val){
+    onSearch: function (val) {
         this.searchFilter = val;
         this.setLoadTimer();
     },
 
-    onSearchClear: function(){
+    onSearchClear: function () {
         delete this.searchFilter;
         this.loadList();
     },
 
-    onActiveItemChange: function (tabpanel, value, oldValue, eOpts) {        
+    onActiveItemChange: function (tabpanel, value, oldValue, eOpts) {
         if (value.config.title === 'List') {
             this.loadList();
         }
@@ -128,6 +122,7 @@ Ext.define('RM.controller.TimeSheetsC', {
     },
 
     onWeekChange: function (weekDaysArray) {
+        //Week start Monday and end Sunday
         this.startDateFilter = weekDaysArray[0];
         this.endDateFilter = weekDaysArray[6];
 
@@ -137,45 +132,45 @@ Ext.define('RM.controller.TimeSheetsC', {
         }
     },
 
-    onMonthChange: function (start, end){        
+    onMonthChange: function (start, end) {
     },
 
     onItemUpdated: function (itemType) {
-        if (itemType == 'timesheet' && this.getTimesheets()) {            
+        if (itemType == 'timesheet' && this.getTimesheets()) {
             this.loadList();
         }
     },
 
-    onItemSelect: function (list, rec) {        
+    onItemSelect: function (list, rec) {
         // Delay the selection clear so get a flash of the selection
         setTimeout(function () { list.deselect(rec); }, 500);
         RM.TimeSheetsMgr.showTimeSheetDetail(rec.data,
 		    function (closeType, data) {
-			    if (closeType == 'save')
-				    this.loadList();
+		        if (closeType == 'save')
+		            this.loadList();
 		    },
 		    this
-	    );        
-    }, 
+	    );
+    },
 
     add: function () {
         RM.TimeSheetsMgr.showTimeSheetDetail(null,
-			function (closeType, data) {			    
+			function (closeType, data) {
 			    if (closeType == 'save')
-			        this.loadList();			    
+			        this.loadList();
 			},
 			this
 		);
-    },  
-    
+    },
+
     loadList: function () {
         var store = this.getTimeSheetsList().getStore();
         store.clearFilter();
-        if(this.searchFilter){
-            store.filter('search', this.searchFilter);            
+        if (this.searchFilter) {
+            store.filter('search', this.searchFilter);
         }
-        if(this.startDateFilter){
-            store.filter('startDate', this.startDateFilter);            
+        if (this.startDateFilter) {
+            store.filter('startDate', this.startDateFilter);
         }
         if (this.endDateFilter) {
             store.filter('endDate', this.endDateFilter);

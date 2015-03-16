@@ -49,11 +49,11 @@
     }
 
     &.hasdata{
-        color: #00BD9D;
+        color: #00BD9D !important;
     }
 
     &.unselectable {
-      color: #89909A;      
+      color: #d1d1d1;      
     }
     //Empty class just to detect date don't remove it
     &.selected {      
@@ -64,7 +64,7 @@
     }
 
     &.prevmonth, &.nextmonth {
-      color: #89909A;
+      color: #d1d1d1;
     }
   }
 

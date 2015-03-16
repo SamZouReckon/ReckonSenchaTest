@@ -5347,13 +5347,13 @@ body.x-desktop {
 .rmcalendar td.today {
   font-weight: bold; }
 .rmcalendar td.hasdata {
-  color: #00BD9D; }
+  color: #00BD9D !important; }
 .rmcalendar td.unselectable {
-  color: #89909A; }
+  color: #d1d1d1; }
 .rmcalendar td.today.selected {
   font-weight: bold; }
 .rmcalendar td.prevmonth, .rmcalendar td.nextmonth {
-  color: #89909A; }
+  color: #d1d1d1; }
 .rmcalendar thead th {
   font-size: 12px;
   vertical-align: bottom;

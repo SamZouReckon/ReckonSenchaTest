@@ -83,13 +83,10 @@ Ext.define('RM.component.RMCalendar', {
         store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));
         store.filter('startDate', startDate);
         store.filter('endDate', endDate);
-        store.load({
-            callback: function (records, operation, success) {
-                this.monthViewData = records;
-                this.loadCalendarData();
-            },
-            scope: this
-        });
+        RM.AppMgr.loadStore(store, function (records, operation, success) {
+            this.monthViewData = records;
+            this.loadCalendarData();
+        }, this);
     },
 
     loadCalendarData: function () {
@@ -359,7 +356,7 @@ Ext.define('RM.component.RMCalendar', {
         //var dayAdjustment = new Date(v.getFullYear(), v.getMonth() + delta, 1);
         var newDay;
 
-        if (unit === 'month') {            
+        if (unit === 'month') {
             //newDay = new Date(v.getFullYear(), v.getMonth() + delta, Ext.Date.getDaysInMonth(dayAdjustment) < day ? Ext.Date.getDaysInMonth(dayAdjustment) : day);
             //set first day to select first week of the month
             newDay = new Date(v.getFullYear(), v.getMonth() + delta, 1);

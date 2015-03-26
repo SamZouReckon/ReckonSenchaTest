@@ -211,25 +211,24 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     
     validateForm: function(vals){        
         var isValid = true;
-
-        if (!vals.Duration) {
+        
+        if(!vals.ItemName){            
+            this.getItemName().showValidation(false);
+            isValid = false;            
+        }
+        
+        if(!vals.Duration){
+            this.getDuration().showValidation(false);
             RM.AppMgr.showInvalidDurationMsg();
             isValid = false;
             return isValid;
         }
-
-        if(!vals.ItemName){            
-            this.getItemName().showValidation(false);
+        
+        if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
-            isValid = false;
-            return isValid;
-        }        
+        }
         
-        //if(!isValid){            
-        //    RM.AppMgr.showInvalidFormMsg();
-        //}
-        
-        //return isValid;
+        return isValid;
    }
 
 });

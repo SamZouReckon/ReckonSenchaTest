@@ -2,9 +2,8 @@ Ext.define('RM.view.TimeSheetDetail', {
 	extend: 'RM.component.SecurePanel',
 	xtype: 'timesheetdetail',
 	requires: ['RM.component.RMCheckbox','RM.component.DurationField', 'RM.component.ExtDatePickerField'],
-	config: {
-		
-        style: 'background: #FFF',
+	config: {		
+	    cls: 'rm-whitebg',
 		layout: 'fit',        
 		items: [
 			{
@@ -19,7 +18,7 @@ Ext.define('RM.view.TimeSheetDetail', {
                         width: '2.6em'						
 					}, {
 						xtype: 'component',
-						html: 'Time Sheet Detail',
+						html: '',
 						itemId: 'title',
 						cls: 'rm-topbartitle'
 					}, {
@@ -33,7 +32,7 @@ Ext.define('RM.view.TimeSheetDetail', {
 			}, {
 				xtype: 'secureformpanel',
 				itemId: 'timeSheetForm',
-                style: 'background: #FFF',
+				cls: 'rm-whitebg',
 				padding: 0,
 				items: [
 					{
@@ -42,6 +41,22 @@ Ext.define('RM.view.TimeSheetDetail', {
 					}, {
 						xtype: 'hiddenfield',
 						name: 'CustomerId'
+					}, {
+					    xtype: 'durationfield',
+					    name: 'Duration',
+					    itemId: 'duration',
+					    clearIcon: false,
+					    cls: ['rm-flatfield', 'rm-timerfield'],
+					    placeHolder: '00:00',                        
+                        maxHours: 23
+					}, {
+					    xtype: 'extdatepickerfield',
+					    name: 'Date',
+					    label: 'Date',
+					    dateFormat: 'jS M Y',
+					    cls: 'rm-flatfield',
+					    ui: 'plain',
+					    placeHolder: 'select'
 					}, {
 						xtype: 'exttextfield',
 						name: 'CustomerName',
@@ -61,14 +76,6 @@ Ext.define('RM.view.TimeSheetDetail', {
 						readOnly: true,
                         placeHolder: 'select (optional)'
 					}, {
-						xtype: 'extdatepickerfield',
-						name: 'Date',
-						label: 'Date',
-						dateFormat : 'jS M Y',
-						cls: 'rm-flatfield',
-						ui: 'plain',
-						placeHolder: 'select'
-					}, {
 						xtype: 'hiddenfield',
 						name: 'ItemId'
 					}, {
@@ -80,64 +87,25 @@ Ext.define('RM.view.TimeSheetDetail', {
 						placeHolder: 'select',
                         rmmandatory: true,
 						readOnly: true
-					},/*{
-                        xtype: 'selectfield',
-                        label: 'Tax code',
-                        labelWidth: '6em',
-    					usePicker: true,
-    					name: 'SaleTaxCodeId',
-    					store: 'GSTCodes',
-    					displayField: 'GSTCode',
-    					valueField: 'GSTCodeId',
-    					cls: 'rm-flatfield',
-                        ui:'plain'
-                    },*/ {
-						xtype: 'durationfield',
-						name: 'Duration',
-                        itemId: 'duration',
-						label: 'Duration <span style="color: #F00">*</span>',
-                        labelWidth: '8em',
-						cls: 'rm-flatfield',                
-						placeHolder: 'select',
-                        
-					},{
-						xtype: 'exttextfield',
-						name: 'Notes',
-						label: 'Description',
-                        itemId: 'description',
-                        labelWidth: 110,
-						cls: 'rm-flatfield',
-						clearIcon: false,
-						placeHolder: 'enter (optional)',
-                        readOnly: true
-					},{
-						xtype: 'exttextfield',
-						label: 'History',
-                        itemId: 'history',
-						cls: 'rm-flatfield',
-						clearIcon: false,
-						placeHolder: 'view',
-                        readOnly: true
-                        
-					},{
+					}, {
                         xtype: 'rmtogglefield',
                         name: 'Billable',
                         onText: 'Yes',
                         offText: 'No',
                         toggleState: false,
-						label: 'Billable to customer',                        
-                        labelWidth: '10em',                        
-                        border: '1 0 1 0',
-                        style: 'border-color: #DBDBDB; border-style: solid;'
-					}/*, {
-						xtype: 'rmcheckbox',
-						name: 'Billable',
-						text: 'This time is billable to the customer',  
-                        labelCls: 'rm-checkbox-smalltext',
-                        cls: 'rm-checkbox-rightalign',						
-                        border: '1 0 0 0',
-                        style: 'border-color: #DBDBDB; border-style: solid;'
-					}*/
+						label: 'Billable',                        
+                        labelWidth: '10em',                 
+                    }, {
+                        xtype: 'exttextfield',
+                        name: 'Notes',
+                        label: 'Notes',
+                        itemId: 'description',
+                        labelWidth: 110,
+                        cls: 'rm-flatfield rm-flatfield-last',
+                        clearIcon: false,
+                        placeHolder: 'enter (optional)',
+                        readOnly: true
+                    }
                 
 				]
 			}

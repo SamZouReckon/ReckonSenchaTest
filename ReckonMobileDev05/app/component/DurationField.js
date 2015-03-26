@@ -4,7 +4,7 @@ Ext.define('RM.component.DurationField', {
     requires: 'RM.component.DurationPicker',
 
     constructor: function (config) {
-        that = this,
+        this.callParent(arguments);
 		this.duration = 0;
         config.clearIcon = false; 			//set false to hide clear icon, its not required for this control
 
@@ -22,26 +22,25 @@ Ext.define('RM.component.DurationField', {
 
             listeners: {
                 change: function (picker, values) {
-                    that.setValue(picker.getValue());  //uncomment once value from server comes in minutes (picker's getValue function returns minute value)                    
+                    this.setValue(picker.getValue());  //uncomment once value from server comes in minutes (picker's getValue function returns minute value)                    
                 },
                 show: function(picker){
                     RM.ViewMgr.regBackHandler(picker.hide, picker);
                 },
                 hide: function(){
                     RM.ViewMgr.deRegBackHandler();    
-                }                
+                },
+                scope: this
             }
         });
 
         Ext.Viewport.add(this.picker);
 
         this.on("focus", function (field, e) {           
-            that.picker.show();
-            that.picker.setValue(that.getValue());
+            this.picker.show();
+            this.picker.setValue(this.getValue());
             field.blur();
-        });
-
-        this.callParent(arguments);
+        }, this);        
     },
 
     setValue: function (duration) { 
@@ -55,14 +54,7 @@ Ext.define('RM.component.DurationField', {
         return this.duration;   
     },
     
-    /*
-    reset: function(){
-        this.callParent(arguments);
-        this.setLabelCls('');
-    },*/
-    
     showValidation: function(valid){        
          this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');
-    }   
-
+    } 
 });

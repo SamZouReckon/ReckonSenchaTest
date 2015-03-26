@@ -8,7 +8,16 @@ Ext.define('RM.core.TimeSheetsMgr', {
         
     },
 	
-    
+    showSelectWeekScreen: function (cb, cbs) {
+        var selectWeekC = RM.AppMgr.getAppControllerInstance('RM.controller.SelectWeekC');
+        selectWeekC.showView(cb, cbs);
+    },
+
+    showTimeSheetWeekly: function(data, cb,cbs){
+        var timeSheetWeeklyC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetWeeklyC');
+        timeSheetWeeklyC.showView(data, cb, cbs);
+    },
+
 	showTimeSheetDetail: function(data, cb, cbs){
 		var timeSheetDetailC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetDetailC');
 		timeSheetDetailC.showView(data, cb, cbs);

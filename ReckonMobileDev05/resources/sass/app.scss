@@ -250,25 +250,6 @@ $font-family: 'Open Sans', sans-serif !default;
     opacity: 0.2;
   }
 
-.x-picker-slot-title {	
-    height: 1.5em;
-    position:relative;
-    z-index: 2;    
-    border: none;
-    border-radius: 0 !important;
-    text-shadow: none;
-    text-align: center;    
-    text-transform: uppercase;    
-    padding: 0.2em 1.02em;
-
-    > div {
-      text-shadow: none;
-      font-weight: normal;
-      font-size: 0.8em;
-      color: white;      
-    }    
-  } 
-
 .x-picker .x-scroll-container {    
 	border: 0;
     text-align: center;
@@ -1006,7 +987,8 @@ $font-family: 'Open Sans', sans-serif !default;
 	.rm-colorlightgrey{color: #969696;}
 	.rm-pref-headingtitle{color: #646464;}
     .rm-border1px { border-top: 1px solid #DBDBDB;}
-
+    .rm-field-border-left {border-left: 1px solid #DBDBDB;}
+    .rm-field-border-top {border-top: 1px solid #DBDBDB;}
 	.rm-greenbtn-bg { background: #00BD9D; }
 	.rm-greybtn-bg { background: #475561; }
 	.rm-lightgreybtn-bg { background: #F2F2F2; }
@@ -2387,3 +2369,62 @@ $font-family: 'Open Sans', sans-serif !default;
     }
 }
 
+.rm-duration-picker{
+    //for duration picker title
+    .x-picker-slot-title {	
+        height: 1.8em;
+        position:relative;
+        z-index: 2;    
+        border: 1px solid #DADBDF;
+        border-right: none;
+        border-left: none;
+        border-radius: 0 !important;     
+        background: #FFFFFF !important;
+        box-shadow: none;
+        > div {
+          text-shadow: none;
+          font-weight: normal;  
+          font-size: medium; 
+          color: #646464;
+          text-shadow: none;
+        }    
+      }    
+
+    //duration slot border
+    .x-picker-slot  {  
+      border-right: 1px solid #DADBDF;
+    }
+}
+
+//to align duration picker title to top
+.x-picker .x-picker-inner {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.rm-timerfield{
+    .x-input-el {
+        font-size: 300%; 
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }    
+}
+
+.rm-notesfield{
+      padding-right: 48px;      
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 14px; 
+      .x-input-el {
+          display: none;
+      }   
+}
+
+.rm-notesfield-nonempty{
+    background-image: url("../images/icons/rm-notes-present.svg");
+}
+
+.rm-notesfield-empty{
+    background-image: url("../images/icons/rm-notes-absent.svg");
+}

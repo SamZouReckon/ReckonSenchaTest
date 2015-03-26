@@ -154,20 +154,41 @@ Ext.define('RM.controller.TimeSheetsC', {
     },
 
     add: function () {
-        RM.AppMgr.showCustomiseButtonMsgBox("Select timesheet entry method",'', 'WEEKLY', 'DAILY','CANCEL',
-                                 function (result) {
-                                     if (result === 'yes') {
-                                         return;
-                                     }
-                                     else if (result === 'no')
-                                     {
-                                         return;
-                                     }
-                                     else {
-                                         //Cancel
-                                         return;
-                                     }
-                                 }, this);
+        RM.AppMgr.showRMMsgPopup('Select timesheet entry method', '', [{ text: 'WEEKLY', itemId: 'weekly', cls: 'x-button-green' }, { text: 'DAILY', itemId: 'daily' }, { text: 'CANCEL', itemId: 'cancel', cls: 'x-button-silver' }], function (selection) {
+            if (selection === 'weekly') {                
+                RM.TimeSheetsMgr.showSelectWeekScreen(
+                	function (closeType, data) {
+                	    if (closeType == 'save')
+                	        this.loadList();
+                	},
+                	this
+                );
+            }
+            else if (selection === 'daily') {
+                RM.TimeSheetsMgr.showTimeSheetDetail(null,
+                	function (closeType, data) {			    
+                	    if (closeType == 'save')
+                	        this.loadList();			    
+                	},
+                	this
+                );
+            }
+        }, this);
+
+        //RM.AppMgr.showCustomiseButtonMsgBox("Select timesheet entry method",'', 'WEEKLY', 'DAILY','CANCEL',
+        //                         function (result) {
+        //                             if (result === 'yes') {
+        //                                 return;
+        //                             }
+        //                             else if (result === 'no')
+        //                             {
+        //                                 return;
+        //                             }
+        //                             else {
+        //                                 //Cancel
+        //                                 return;
+        //                             }
+        //                         }, this);
         //RM.TimeSheetsMgr.showTimeSheetDetail(null,
 		//	function (closeType, data) {			    
 		//	    if (closeType == 'save')

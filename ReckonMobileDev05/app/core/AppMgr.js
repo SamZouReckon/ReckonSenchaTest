@@ -510,6 +510,10 @@ Ext.define('RM.core.AppMgr', {
     showInvalidEmailMsg: function(){
         this.showErrorMsgBox('Please enter a valid email address.');
     },
+
+    showInvalidDurationMsg: function(){
+        this.showErrorMsgBox('Please enter hours or minutes.');
+    },
     
     showNoMultipleEmailMsg: function(){
         this.showErrorMsgBox('Only one email address can be entered');
@@ -707,12 +711,16 @@ Ext.define('RM.core.AppMgr', {
         
       var hours =   Math.floor(totalMins / 60), mins = (hours > 0) ? totalMins % 60 : totalMins, timeStr = '';
      
-      if(hours > 0){
-          timeStr = hours + 'h ';
+      if(hours >= 0){
+          //timeStr = hours + 'h ';
+          hours = (hours < 10) ? ('0' + hours) : hours;
+          timeStr = hours + ':';
       }
 
-      if(mins > 0){
-          timeStr += mins + 'm';          
+      if(mins >= 0){
+          //timeStr += mins + 'm';
+          mins = (mins < 10) ? ('0' + mins) : mins;
+          timeStr += mins;
       }
       
        return timeStr.trim();        

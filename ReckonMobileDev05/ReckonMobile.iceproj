@@ -183,6 +183,7 @@
     <Content Include="app\component\SortSearchBar.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="app\component\TimeEntryDayRow.js" />
     <Content Include="app\component\VisibleOnFocus.js">
       <SubType>Content</SubType>
     </Content>
@@ -360,6 +361,7 @@
     <Content Include="app\controller\ReceiptPhotoPreviewC.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="app\controller\SelectWeekC.js" />
     <Content Include="app\controller\SuppliersC.js">
       <SubType>Content</SubType>
     </Content>
@@ -372,6 +374,7 @@
     <Content Include="app\controller\TimeSheetsC.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="app\controller\TimeSheetWeeklyC.js" />
     <Content Include="app\core\AppMgr.js">
       <SubType>Content</SubType>
     </Content>
@@ -807,6 +810,7 @@
     <Content Include="app\view\ReceiptUpload.js">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="app\view\SelectWeek.js" />
     <Content Include="app\view\settings\CompanySettings.js">
       <SubType>Content</SubType>
     </Content>
@@ -829,6 +833,7 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="app\view\TimeSheets.js" />
+    <Content Include="app\view\TimeSheetWeekly.js" />
     <Content Include="bootstrap.js" />
     <Content Include="bootstrap.json" />
     <Content Include="build.xml">

@@ -12,7 +12,6 @@ Ext.define('RM.controller.TimeSheetDetailC', {
             billable: 'timesheetdetail checkboxfield',
             description: 'timesheetdetail #description',
             billableCheckbox: 'timesheetdetail rmtogglefield[name=Billable]',
-            historyFld: 'timesheetdetail #history',
             itemName: 'timesheetdetail #itemName',
             duration: 'timesheetdetail #duration',
             dateFld: 'timesheetdetail extdatepickerfield[name=Date]'
@@ -59,10 +58,9 @@ Ext.define('RM.controller.TimeSheetDetailC', {
 
     onShow: function () {
         RM.ViewMgr.regFormBackHandler(this.back, this);
-        this.getTimeSheetTitle().setHtml(this.isCreate ? 'Add Timesheet' : 'View Timesheet');
+        this.getTimeSheetTitle().setHtml(this.isCreate ? 'Add entry' : 'View entry');
 
         if (!this.dataLoaded) {
-            this.getHistoryFld().setHidden(this.isCreate);
             var timesheetForm = this.getTimeSheetForm();
             timesheetForm.reset();
             if (!this.isCreate) {
@@ -88,9 +86,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
                 this.initialFormValues = timesheetForm.getValues();
             }
             this.dataLoaded = true;
-        }
-        //this.getTimeSheetForm().setValues(this.detailsData);
-        
+        }        
     },
     
     onHide: function(){
@@ -215,22 +211,25 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     
     validateForm: function(vals){        
         var isValid = true;
-        
-        if(vals.ItemName == ''){            
+
+        if (!vals.Duration) {
+            RM.AppMgr.showInvalidDurationMsg();
+            isValid = false;
+            return isValid;
+        }
+
+        if(!vals.ItemName){            
             this.getItemName().showValidation(false);
-            isValid = false;            
-        }
-        
-        if(vals.Duration == '' || vals.Duration == 0){
-            this.getDuration().showValidation(false);
-            isValid = false;            
-        }
-        
-        if(!isValid){            
             RM.AppMgr.showInvalidFormMsg();
-        }
+            isValid = false;
+            return isValid;
+        }        
         
-        return isValid;
+        //if(!isValid){            
+        //    RM.AppMgr.showInvalidFormMsg();
+        //}
+        
+        //return isValid;
    }
 
 });

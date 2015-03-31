@@ -56,7 +56,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
     },
 
     onShow: function () {
-        //RM.ViewMgr.regFormBackHandler(this.back, this);
+        RM.ViewMgr.regFormBackHandler(this.back, this);
         if (!this.weekDaysRowsAdded) {
             this.addWeekDaysRows();
             //record initial value of the form to compare later - isFormDirty
@@ -65,7 +65,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
     },
 
     onHide: function () {
-        //RM.ViewMgr.deRegFormBackHandler(this.back);
+        RM.ViewMgr.deRegFormBackHandler(this.back);
     },
 
     isFormDirty: function () {
@@ -99,7 +99,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
                 false,
 				function (data) {
 				    var rec = data[0];
-				    this.detailsData.TaxTypeId = rec.SaleTaxCodeId;
+				    //this.detailsData.TaxTypeId = rec.SaleTaxCodeId;
 				    this.getTimeSheetForm().setValues({ ItemId: rec.ItemId, ItemName: rec.ItemPath });
 				},
 				this

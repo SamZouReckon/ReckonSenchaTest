@@ -51,6 +51,12 @@ Ext.define('RM.component.DurationPicker', {
         cls: 'rm-duration-picker'
     },
 
+    initialize: function() {
+        this.callParent();
+        this.on('hide', function () {
+            this.destroy();
+        }, this);
+    },
 
     /**
      *

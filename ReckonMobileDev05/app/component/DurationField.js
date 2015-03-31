@@ -1,24 +1,34 @@
 Ext.define('RM.component.DurationField', {
-    extend: "Ext.field.Text",
+    extend: 'RM.component.ExtTextField',
     xtype: 'durationfield',
     requires: 'RM.component.DurationPicker',
 
-    constructor: function (config) {
+    initialize: function () {        
         this.callParent(arguments);
-		this.duration = 0;
-        config.clearIcon = false; 			//set false to hide clear icon, its not required for this control
+        this.duration = 0;        
+        this.on('tap', function (field) {
+            this.showPicker();            
+        }, this);
+    },
 
-        this.picker = Ext.create("RM.component.DurationPicker", {
+    constructor: function (config) {        
+        config.clearIcon = false; 			
+        config.readOnly = true;
+        this.callParent(arguments);
+    },
+
+    showPicker: function () {
+        durationPicker = Ext.create("RM.component.DurationPicker", {
             hidden: true,
             zIndex: 9999,
 
             //Get config values if present else asign default
-            useTitles: config.useTitles || true,
-            increment: config.increment || 1,
-            minHours: config.minHours || 0,
-            maxHours: config.maxHours || 1000,
-            hoursTitle: config.hoursTitle || 'Hours',
-            minutesTitle: config.minutesTitle || 'Minutes',
+            useTitles: this.config.useTitles || true,
+            increment: this.config.increment || 1,
+            minHours: this.config.minHours || 0,
+            maxHours: this.config.maxHours || 1000,
+            hoursTitle: this.config.hoursTitle || 'Hours',
+            minutesTitle: this.config.minutesTitle || 'Minutes',
 
             listeners: {
                 change: function (picker, values) {
@@ -33,14 +43,8 @@ Ext.define('RM.component.DurationField', {
                 scope: this
             }
         });
-
-        Ext.Viewport.add(this.picker);
-
-        this.on("focus", function (field, e) {           
-            this.picker.show();
-            this.picker.setValue(this.getValue());
-            field.blur();
-        }, this);        
+        durationPicker.show();
+        durationPicker.setValue(this.getValue());
     },
 
     setValue: function (duration) { 
@@ -52,9 +56,6 @@ Ext.define('RM.component.DurationField', {
 
     getValue: function () {        
         return this.duration;   
-    },
-    
-    showValidation: function(valid){        
-         this.setLabelCls(valid ? '' : 'rm-manfld-notset-lbl');
-    } 
+    }
+
 });

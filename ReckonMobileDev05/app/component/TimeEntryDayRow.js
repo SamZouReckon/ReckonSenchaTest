@@ -1,6 +1,7 @@
 Ext.define('RM.component.TimeEntryDayRow', {
     extend: 'Ext.form.Panel',
     xtype: 'timeentrydayrow',
+    
     config: {
         layout: 'hbox',
         items: [
@@ -13,7 +14,8 @@ Ext.define('RM.component.TimeEntryDayRow', {
             disabled: true,
             placeHolder: 'select',
             flex: 5
-        }, {
+        },
+        {
             xtype: 'durationfield',
             name: 'Duration',
             cls: 'rm-flatfield',
@@ -21,7 +23,8 @@ Ext.define('RM.component.TimeEntryDayRow', {
             clearIcon: false,
             maxHours: 23,
             flex: 3
-        }, {
+        },
+        {
             xtype: 'exttextfield',
             name: 'Notes',
             cls: ['rm-flatfield', 'rm-notesfield', 'rm-notesfield-empty', 'rm-field-border-left'],

@@ -29,7 +29,7 @@
     "org.apache.cordova.inappbrowser",
     "org.apache.cordova.statusbar"
   ],
-  "FrameworkVersion": "3.2.0",
+  "FrameworkVersion": "3.7.0",
   "DisplayName": "",
   "Author": "",
   "Description": "ReckonMobileDev05",
@@ -41,5 +41,7 @@
   "WP8Publisher": "",
   "WP8SupportedResolutions": [],
   "Framework": "Cordova",
-  "projectVersion": "1"
+  "projectVersion": "1",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8PackageIdentityName": "1234Telerik.com.reckon.ReckonMobileDev05"
 }

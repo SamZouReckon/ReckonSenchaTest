@@ -2,7 +2,7 @@ Ext.define('RM.core.TimeSheetsMgr', {
     alternateClassName: 'RM.TimeSheetsMgr',
     singleton: true,
 	
-	requires: ['RM.view.TimeSheetDetail', 'RM.component.PopupNotes'],
+    requires: ['RM.view.TimeSheetDetail', 'RM.component.PopupNotes', 'RM.view.SelectWeek', 'RM.view.TimeSheetWeekly'],
 
     init: function (application) {
         
@@ -13,20 +13,17 @@ Ext.define('RM.core.TimeSheetsMgr', {
         selectWeekC.showView(cb, cbs);
     },
 
-    showTimeSheetWeekly: function(data, cb,cbs){
+    showTimeSheetWeekly: function (data, cb, cbs) {
+        RM.ViewMgr.showLoadingMask();
         var timeSheetWeeklyC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetWeeklyC');
         timeSheetWeeklyC.showView(data, cb, cbs);
+        setTimeout(function () { RM.ViewMgr.hideLoadingMask(); }, 500);
     },
 
 	showTimeSheetDetail: function(data, cb, cbs){
 		var timeSheetDetailC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetDetailC');
 		timeSheetDetailC.showView(data, cb, cbs);
-	},
-	
-    showTimeSheetsCal: function(){
-        var timeSheetsCalC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetsCalendarC');
-        timeSheetsCalC.showView();
-    },
+	},    
 
 	addNote: function(invoiceId, cb, cbs){
 		var addNote = RM.AppMgr.getAppControllerInstance('RM.controller.AddNoteC');

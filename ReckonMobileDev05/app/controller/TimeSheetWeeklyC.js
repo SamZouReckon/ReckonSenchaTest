@@ -1,14 +1,13 @@
 Ext.define('RM.controller.TimeSheetWeeklyC', {
     extend: 'Ext.app.Controller',
-    requires: ['RM.view.TimeSheetWeekly', 'RM.component.TimeEntryDayRow'],
+    requires: ['RM.view.TimeSheetWeekly','RM.component.TimeEntryDayRow'],
     config: {
         refs: {
-            timeSheetWeekly: 'timesheetweekly',
+            timeSheetWeekly: { selector: 'timesheetweekly', xtype: 'timesheetweekly', autoCreate: true },
             saveBtn: 'timesheetweekly #save',
             timeSheetForm: 'timesheetweekly #timeSheetForm',
             customerId: 'timesheetweekly hiddenfield[name=CustomerId]',
             projectId: 'timesheetweekly hiddenfield[name=ProjectId]',
-            billable: 'timesheetweekly checkboxfield',
             billableCheckbox: 'timesheetweekly rmtogglefield[name=Billable]',
             itemName: 'timesheetweekly #itemName'
         },
@@ -30,17 +29,15 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
     },
 
     init: function () {
+        this.callParent(arguments);
         this.serverApiName = 'TimeEntries';
     },
 
-    showView: function (weekDaysArray, cb, cbs) {
-        this.isCreate = true;
+    showView: function (weekDaysArray, cb, cbs) {        
         this.weekDaysRowsAdded = false;
         this.weekDaysArray = weekDaysArray;
-        this.detailsData = weekDaysArray;
-        this.detailsCb = cb;
-        this.detailsCbs = cbs;
-        this.noteText = '';        
+        this.cb = cb;
+        this.cbs = cbs;
         var view = this.getTimeSheetWeekly();
         if (!view) {
             view = { xtype: 'timesheetweekly' };
@@ -59,7 +56,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
     },
 
     onShow: function () {
-        RM.ViewMgr.regFormBackHandler(this.back, this);
+        //RM.ViewMgr.regFormBackHandler(this.back, this);
         if (!this.weekDaysRowsAdded) {
             this.addWeekDaysRows();
             //record initial value of the form to compare later - isFormDirty
@@ -68,7 +65,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
     },
 
     onHide: function () {
-        RM.ViewMgr.deRegFormBackHandler(this.back);
+        //RM.ViewMgr.deRegFormBackHandler(this.back);
     },
 
     isFormDirty: function () {
@@ -154,7 +151,6 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
 
     getAllFormValues: function(){
         var formVals = this.getTimeSheetForm().getValues();
-        //formVals.TaxTypeId = formVals.SaleTaxCodeId;
         formVals.Billable = this.getBillableCheckbox().getValue();
         formVals.WeekDaysData = this.getWeekDaysData();
         return formVals

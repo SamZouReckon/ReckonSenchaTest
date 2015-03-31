@@ -1,6 +1,6 @@
 Ext.define('RM.controller.SelectWeekC', {
     extend: 'Ext.app.Controller',
-    requires: 'RM.view.SelectWeek',
+    
     config: {
         refs: {
             selectWeek: 'selectweek',
@@ -44,9 +44,7 @@ Ext.define('RM.controller.SelectWeekC', {
     },
 
     onWeekSelected: function (weekDaysArray) {
-        RM.TimeSheetsMgr.showTimeSheetWeekly(weekDaysArray, function () {
-
-        }, this);
+        RM.TimeSheetsMgr.showTimeSheetWeekly(weekDaysArray);
     }
 
 });

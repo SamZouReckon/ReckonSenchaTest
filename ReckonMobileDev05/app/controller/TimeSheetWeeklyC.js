@@ -34,34 +34,37 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
     },
 
     showView: function (weekDaysArray, cb, cbs) {        
-        this.weekDaysRowsAdded = false;
+        //this.weekDaysRowsAdded = false;
         this.weekDaysArray = weekDaysArray;
         this.cb = cb;
         this.cbs = cbs;
-        var view = this.getTimeSheetWeekly();
-        if (!view) {
-            view = { xtype: 'timesheetweekly' };
-        }        
-        RM.ViewMgr.showPanel(view);        
-    },
-
-    addWeekDaysRows: function () {
-        var view = this.getTimeSheetWeekly();
+        var view = this.getTimeSheetWeekly();        
         for (var i = 0; i < this.weekDaysArray.length; i++) {
             var row = view.add({ xtype: 'timeentrydayrow', scrollable: null });
             row.setValues({ Date: this.weekDaysArray[i] });
         }
-        view.add({ xtype: 'component', cls: 'rm-field-border-top' })
-        this.weekDaysRowsAdded = true;
+        view.add({ xtype: 'component', cls: 'rm-field-border-top' });
+        this.initialFormValues = this.getAllFormValues();
+        RM.ViewMgr.showPanel(view);        
     },
 
+    //addWeekDaysRows: function () {
+    //    var view = this.getTimeSheetWeekly();
+    //    for (var i = 0; i < this.weekDaysArray.length; i++) {
+    //        var row = view.add({ xtype: 'timeentrydayrow', scrollable: null });
+    //        row.setValues({ Date: this.weekDaysArray[i] });
+    //    }
+    //    view.add({ xtype: 'component', cls: 'rm-field-border-top' })
+    //    this.weekDaysRowsAdded = true;
+    //},
+
     onShow: function () {
-        RM.ViewMgr.regFormBackHandler(this.back, this);
-        if (!this.weekDaysRowsAdded) {
-            this.addWeekDaysRows();
-            //record initial value of the form to compare later - isFormDirty
-            this.initialFormValues = this.getAllFormValues();
-        }
+        RM.ViewMgr.regFormBackHandler(this.back, this);        
+        //if (!this.weekDaysRowsAdded) {
+        //    this.addWeekDaysRows();
+        //    //record initial value of the form to compare later - isFormDirty
+        //    this.initialFormValues = this.getAllFormValues();
+        //}
     },
 
     onHide: function () {

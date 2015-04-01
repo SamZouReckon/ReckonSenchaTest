@@ -14,9 +14,12 @@ Ext.define('RM.core.TimeSheetsMgr', {
     },
 
     showTimeSheetWeekly: function (data, cb, cbs) {
-        RM.ViewMgr.showLoadingMask();
-        var timeSheetWeeklyC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetWeeklyC');
-        timeSheetWeeklyC.showView(data, cb, cbs);
+        //setTimeout to avoid double tap and load the weekly screen faster
+        setTimeout(function () {
+            RM.ViewMgr.showLoadingMask();
+            var timeSheetWeeklyC = RM.AppMgr.getAppControllerInstance('RM.controller.TimeSheetWeeklyC');
+            timeSheetWeeklyC.showView(data, cb, cbs);
+        }, 0);
         setTimeout(function () { RM.ViewMgr.hideLoadingMask(); }, 500);
     },
 

@@ -254,6 +254,10 @@ Ext.define('RM.component.RMCalendar', {
             var date = this.stringToDate(dayCells[i].getAttribute('datetime'));
             weekDaysArray.push(date);
         }
+        //fire weekSelect event when a week row is tapped
+        if (this.weekSelectedByTap) {
+            this.fireEvent('weekSelect', weekDaysArray);
+        }
         //raise weekChange event when we make a selection for the first time
         if (!this.selectedWeekDaysArray) {
             this.selectedWeekDaysArray = weekDaysArray;
@@ -263,11 +267,7 @@ Ext.define('RM.component.RMCalendar', {
         else if (this.selectedWeekDaysArray[0].getTime() !== weekDaysArray[0].getTime()) {
             this.selectedWeekDaysArray = weekDaysArray;
             this.fireEvent('weekChange', weekDaysArray);
-        }
-        //fire weekSelect event when a week row is tapped
-        if (this.weekSelectedByTap) {
-            this.fireEvent('weekSelect', weekDaysArray);
-        }
+        }        
     },
 
     getSelectedWeekDaysArray: function () {

@@ -1,7 +1,6 @@
 Ext.define('RM.component.TimeEntryDayRow', {
-    extend: 'Ext.form.Panel',
-    xtype: 'timeentrydayrow',
-    
+    extend: 'RM.component.SecureFormPanel',
+    xtype: 'timeentrydayrow',    
     config: {
         layout: 'hbox',
         items: [
@@ -14,8 +13,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             disabled: true,
             placeHolder: 'select',
             flex: 5
-        },
-        {
+        },{
             xtype: 'durationfield',
             name: 'Duration',
             cls: 'rm-flatfield',
@@ -23,8 +21,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             clearIcon: false,
             maxHours: 23,
             flex: 3
-        },
-        {
+        },{
             xtype: 'exttextfield',
             name: 'Notes',
             cls: ['rm-flatfield', 'rm-notesfield', 'rm-notesfield-empty', 'rm-field-border-left'],
@@ -55,7 +52,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             this.noteText,
             function (noteText) {
                 RM.ViewMgr.back();
-                this.noteText = noteText; //Enables preserving of new lines when going from textfield to textarea
+                this.noteText = noteText; 
                 this.down('[name=Notes]').setValue(noteText.replace(/(\r\n|\n|\r)/g, ' '));
             },
             this

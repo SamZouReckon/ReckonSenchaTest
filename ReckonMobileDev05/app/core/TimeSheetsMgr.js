@@ -53,23 +53,5 @@ Ext.define('RM.core.TimeSheetsMgr', {
 	            return 'Billed';	        
 	    }
 	    return 'Unknown';
-	}
-
-    /*
-    showTimeSheetNotes: function () {
-        var notesPopup = Ext.create('RM.component.PopupNotes');
-        notesPopup.show(
-			function () {
-
-			},
-			this
-		);
-
-    },
-    	
-	getTimeEntriesStore: function(){
-	
-	
-	}*/
-	
+	}	
 });

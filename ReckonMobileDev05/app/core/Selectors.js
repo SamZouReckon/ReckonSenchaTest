@@ -2,7 +2,7 @@ Ext.define('RM.core.Selectors', {
     alternateClassName: 'RM.Selectors',
     singleton: true,
 
-	requires: ['RM.view.CashBooks', 'RM.view.Projects', 'RM.view.Suppliers', 'RM.view.ItemsAmounts', 'RM.view.ItemDetail'],
+    requires: ['RM.view.CashBooks', 'RM.view.Projects', 'RM.view.Suppliers', 'RM.view.ItemsAmounts', 'RM.view.ItemDetail', 'RM.component.DurationPicker'],
 
     init: function (application) {
 		this.app = application;	
@@ -82,6 +82,36 @@ Ext.define('RM.core.Selectors', {
     showNoteText: function(title, isEditable, saveText, text, cb, cbs){
         var addNoteC = RM.AppMgr.getAppControllerInstance('RM.controller.AddNoteC');
 		addNoteC.showView(title, isEditable, saveText, text, cb, cbs);        
-     }
+    },
+
+    showDurationPicker: function(durationField){
+        var durationPicker = Ext.create("RM.component.DurationPicker", {
+            hidden: true,
+            zIndex: 9999,
+
+            //Get config values if present else asign default
+            useTitles: durationField.config.useTitles || true,
+            increment: durationField.config.increment || 1,
+            minHours: durationField.config.minHours || 0,
+            maxHours: durationField.config.maxHours || 24,
+            hoursTitle: durationField.config.hoursTitle || 'Hours',
+            minutesTitle: durationField.config.minutesTitle || 'Minutes',
+
+            listeners: {
+                change: function (picker, values) {
+                    durationField.setValue(picker.getValue());
+                },
+                show: function (picker) {
+                    RM.ViewMgr.regBackHandler(picker.hide, picker);
+                },
+                hide: function () {
+                    RM.ViewMgr.deRegBackHandler();
+                },
+                scope: durationField
+            }
+        });
+        durationPicker.show();
+        durationPicker.setValue(durationField.getValue());
+    }
     
 });

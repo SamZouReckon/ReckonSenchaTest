@@ -24,12 +24,11 @@ Ext.define('RM.controller.TimeSheetsC', {
                 tap: 'add'
             },
             'timesheets rmcalendar': {
-                weekChange: 'onWeekChange',
-                monthChange: 'onMonthChange',
+                weekChange: 'onWeekChange',                
                 weekSelect: 'onWeekSelected'
             },
             'timesheets tabpanel': {
-                activeitemchange: 'onActiveItemChange'
+                activeitemchange: 'onActiveItemChange',
             }
         }
     },
@@ -40,17 +39,20 @@ Ext.define('RM.controller.TimeSheetsC', {
 
     onShow: function () {
         var store = this.getTimeSheetsList().getStore();
-        store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));
-        this.listLoaded = false;
+        store.getProxy().setUrl(RM.AppMgr.getApiUrl(store.getStoreId()));        
         var sortOptions = this.getSortSearchBar().config.sortfields;
+
         if (sortOptions.length > 0) {
             this.loadListHeaderAndItemTpl(sortOptions[0].value);
         }
-    },
 
-    onWeekSelected: function () {
-        this.getTabPanel().setActiveItem(0);
-    },
+        if (!this.searchFilter && !this.endDateFilter) {
+            this.firstTimeListLoading = true;            
+        }
+        else {
+            this.loadList();
+        }        
+    },    
 
     loadListHeaderAndItemTpl: function (val) {
         this.sortVal = val;
@@ -121,20 +123,25 @@ Ext.define('RM.controller.TimeSheetsC', {
         }
     },
 
-    onWeekChange: function (weekDaysArray) {
-        //Week start Monday and end Sunday
-        this.startDateFilter = weekDaysArray[0];
-        this.endDateFilter = weekDaysArray[6];
-
-        if (!this.listLoaded) {
+    onWeekChange: function (weekDaysArray) {        
+        this.setStartEndDateFilter(weekDaysArray);
+        if (this.firstTimeListLoading) {
             this.loadList();
-            this.listLoaded = true;
+            this.firstTimeListLoading = false;
         }
     },
 
-    onMonthChange: function (start, end) {
+    onWeekSelected: function (weekDaysArray) {
+        this.setStartEndDateFilter(weekDaysArray);
+        this.getTabPanel().setActiveItem(0);
     },
 
+    setStartEndDateFilter: function (weekDaysArray) {
+        //Week start Monday and end Sunday
+        this.startDateFilter = weekDaysArray[0];
+        this.endDateFilter = weekDaysArray[6];
+    },
+    
     onItemUpdated: function (itemType) {
         if (itemType == 'timesheet' && this.getTimesheets()) {
             this.loadList();
@@ -173,43 +180,17 @@ Ext.define('RM.controller.TimeSheetsC', {
                 	this
                 );
             }
-        }, this);
-
-        //RM.AppMgr.showCustomiseButtonMsgBox("Select timesheet entry method",'', 'WEEKLY', 'DAILY','CANCEL',
-        //                         function (result) {
-        //                             if (result === 'yes') {
-        //                                 return;
-        //                             }
-        //                             else if (result === 'no')
-        //                             {
-        //                                 return;
-        //                             }
-        //                             else {
-        //                                 //Cancel
-        //                                 return;
-        //                             }
-        //                         }, this);
-        //RM.TimeSheetsMgr.showTimeSheetDetail(null,
-		//	function (closeType, data) {			    
-		//	    if (closeType == 'save')
-		//	        this.loadList();			    
-		//	},
-		//	this
-		//);
+        }, this);       
     },  
     
-    loadList: function () {
+    loadList: function () {        
         var store = this.getTimeSheetsList().getStore();
         store.clearFilter();
         if (this.searchFilter) {
             store.filter('search', this.searchFilter);
-        }
-        if (this.startDateFilter) {
-            store.filter('startDate', this.startDateFilter);
-        }
-        if (this.endDateFilter) {
-            store.filter('endDate', this.endDateFilter);
-        }
+        }        
+        store.filter('startDate', this.startDateFilter);
+        store.filter('endDate', this.endDateFilter);
         RM.AppMgr.loadStore(store);
     },
 

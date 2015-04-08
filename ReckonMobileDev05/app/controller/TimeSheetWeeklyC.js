@@ -33,19 +33,23 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         this.serverApiName = 'TimeEntries';
     },
 
-    showView: function (weekDaysArray, cb, cbs) {        
-        //this.weekDaysRowsAdded = false;
-        this.weekDaysArray = weekDaysArray;
+    showView: function (weekDaysArray, cb, cbs) {
+        //this.weekDaysRowsAdded = false;        
         this.cb = cb;
         this.cbs = cbs;
-        var view = this.getTimeSheetWeekly();        
-        for (var i = 0; i < this.weekDaysArray.length; i++) {
-            var row = view.add({ xtype: 'timeentrydayrow', scrollable: null });
-            row.setValues({ Date: this.weekDaysArray[i] });
-        }
-        view.add({ xtype: 'component', cls: 'rm-field-border-top' });
-        this.initialFormValues = this.getAllFormValues();
-        RM.ViewMgr.showPanel(view);        
+        var me = this;
+        this.initialFormValues = null;
+        var view = this.getTimeSheetWeekly();
+        //to load this screen faster on Android phones
+        setTimeout(function () {
+            for (var i = 0; i < weekDaysArray.length; i++) {
+                var row = view.add({ xtype: 'timeentrydayrow', scrollable: null });
+                row.setValues({ Date: weekDaysArray[i] });
+            }
+            view.add({ xtype: 'component', cls: 'rm-field-border-top' });
+            me.initialFormValues = me.getAllFormValues();
+        }, 250);
+        RM.ViewMgr.showPanel(view);
     },
 
     //addWeekDaysRows: function () {

@@ -1,7 +1,6 @@
 Ext.define('RM.view.TimeSheetWeekly', {
     extend: 'RM.component.SecurePanel',
     xtype: 'timesheetweekly',
-    requires: ['RM.component.RMCheckbox', 'RM.component.DurationField', 'RM.component.ExtDatePickerField', 'RM.component.TimeEntryDayRow'],
     config: {        
         layout: 'vbox',
         cls: 'rm-whitebg',

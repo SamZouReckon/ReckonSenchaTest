@@ -76,7 +76,7 @@ Ext.define('RM.controller.TimeSheetsC', {
                                         '<tpl else>',
                                         '{[this.formatDate(values.Date)]}',
                                         '</tpl>',
-                                        '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToTime(values.Duration)]})</span>',
+                                        '<span class = "rm-colorlightgrey rm-ml5">({[RM.AppMgr.minsToHoursMinutes(values.Duration)]})</span>',
                                         '</div>',
                                         '<div class = "rm-fontsize70">',
                                         '{[this.showStatus(values.Status)]}',

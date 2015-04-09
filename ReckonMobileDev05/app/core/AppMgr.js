@@ -724,7 +724,22 @@ Ext.define('RM.core.AppMgr', {
       }
       
        return timeStr.trim();        
-    },    
+    },
+
+    minsToHoursMinutes: function (totalMins) {
+
+        var hours = Math.floor(totalMins / 60), mins = (hours > 0) ? totalMins % 60 : totalMins, timeStr = '';
+
+        if (hours > 0) {
+            timeStr = hours + 'h ';
+        }
+
+        if (mins > 0) {
+            timeStr += mins + 'm';
+        }
+
+        return timeStr.trim();
+    },
     
     numberPrecision: function (value) {
         if (Ext.isNumber(value)) {

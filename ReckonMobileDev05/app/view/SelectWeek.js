@@ -23,7 +23,8 @@ Ext.define('RM.view.SelectWeek', {
 					}
 			    ]
 			}, {
-                xtype: 'rmcalendar'
+			    xtype: 'rmcalendar',
+			    store: 'TimeEntriesCalendar'
 			}
         ]
     }

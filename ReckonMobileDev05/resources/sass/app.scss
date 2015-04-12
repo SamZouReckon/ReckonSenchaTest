@@ -2412,7 +2412,6 @@ $font-family: 'Open Sans', sans-serif !default;
 }
 
 .rm-notesfield{
-      padding-right: 48px;      
       background-repeat: no-repeat;
       background-position: center;
       background-size: 14px; 
@@ -2427,4 +2426,9 @@ $font-family: 'Open Sans', sans-serif !default;
 
 .rm-notesfield-empty{
     background-image: url("../images/icons/rm-notes-absent.svg");
+}
+
+.rm-actiontitle{
+    padding: 0.6em;
+    color: #475561;
 }

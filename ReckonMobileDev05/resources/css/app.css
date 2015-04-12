@@ -7462,7 +7462,6 @@ body.x-desktop {
   margin: 0; }
 
 .rm-notesfield {
-  padding-right: 48px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 14px; }
@@ -7474,3 +7473,7 @@ body.x-desktop {
 
 .rm-notesfield-empty {
   background-image: url("../images/icons/rm-notes-absent.svg"); }
+
+.rm-actiontitle {
+  padding: 0.6em;
+  color: #475561; }

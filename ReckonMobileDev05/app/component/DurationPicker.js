@@ -23,7 +23,7 @@ Ext.define('RM.component.DurationPicker', {
         /**
          * @cfg {Number} end value of hours.
          */
-        maxHours: 23,
+        maxHours: 24,
 
 
         /**
@@ -87,6 +87,11 @@ Ext.define('RM.component.DurationPicker', {
      */
     getValue: function () {
         var value = this.callParent(arguments);
+        //maximum value for duration is 24hrs so if it is more than 24hrs ceil it to 24hrs
+        if (value.hours >= 24) {
+            value.hours = 24;
+            value.minutes = 0;
+        }
         var duration = value.hours * 60 + value.minutes;
         return duration;
     },

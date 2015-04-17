@@ -969,6 +969,11 @@ $font-family: 'Open Sans', sans-serif !default;
         background-size: 25px;
     }
 
+    .rm-sharpedge-btn{
+        border: 0;
+        border-radius: 0;
+    }
+
 	.rm-alignr{ text-align: right !important; }
     .rm-alignl{ text-align: left !important;}
     .rm-alignc{ text-align: center !important;}
@@ -983,6 +988,7 @@ $font-family: 'Open Sans', sans-serif !default;
 	.rm-colorgreenoptions{ color: #00BD9D !important;}
     .rm-colorblue{color: #5095E1;}
 	.rm-colorblack{color: #333333;}
+    .rm-colorwhite{color: #FFFFFF;}
 	.rm-colorgrey{color: #646464}
 	.rm-colorlightgrey{color: #969696;}
 	.rm-pref-headingtitle{color: #646464;}
@@ -2426,9 +2432,4 @@ $font-family: 'Open Sans', sans-serif !default;
 
 .rm-notesfield-empty{
     background-image: url("../images/icons/rm-notes-absent.svg");
-}
-
-.rm-actiontitle{
-    padding: 0.6em;
-    color: #475561;
 }

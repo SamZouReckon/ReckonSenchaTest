@@ -5,8 +5,8 @@ Ext.define('RM.component.DurationField', {
 
     initialize: function () {        
         this.callParent(arguments);
-        this.duration = 0;        
-        this.on('tap', function () {
+        this.duration = 0;       
+        this.on('tap', function () {            
             RM.Selectors.showDurationPicker(this);
         }, this);
     },

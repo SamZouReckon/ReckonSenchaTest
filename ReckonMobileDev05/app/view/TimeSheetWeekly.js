@@ -29,7 +29,8 @@ Ext.define('RM.view.TimeSheetWeekly', {
 					}, {
 					    text: 'Save',
 					    itemId: 'save',
-					    ui: 'rm_topbarbuttonright'
+					    ui: 'rm_topbarbuttonright',
+                        hidden: true
 					}
 			    ]
 			}, {
@@ -37,10 +38,10 @@ Ext.define('RM.view.TimeSheetWeekly', {
 			    scrollable: null,
 			    itemId: 'timeSheetForm',                
 			    items: [
-					{
+					/*{
 					    xtype: 'hiddenfield',
 					    name: 'TimeEntryId'
-					}, {
+					},*/ {
 					    xtype: 'hiddenfield',
 					    name: 'CustomerId'
 					}, {
@@ -83,6 +84,30 @@ Ext.define('RM.view.TimeSheetWeekly', {
 					    labelWidth: '10em'
 					}
 			    ]
+			}, {
+			    xtype: 'panel',
+			    layout: {
+			        type: 'hbox'			        
+			    },
+			    cls: 'rm-field-border-top',
+			    items: [{
+			        xtype: 'button',
+			        itemId: 'loadbtn',
+			        text: 'Select criteria and tap to add/edit entries',
+			        width: '100%',
+                    height: 47,
+			        cls: ['rm-greenbtn-bg', 'rm-sharpedge-btn', 'rm-colorwhite', 'rm-fontsize80']
+			    }, {
+			        xtype: 'button',
+			        itemId: 'resetbtn',
+			        text: 'Tap to enable and edit above fields',
+			        width: '100%',
+			        height: 47,
+			        cls: ['rm-greybtn-bg', 'rm-sharpedge-btn', 'rm-colorwhite', 'rm-fontsize80'],
+                    hidden: true
+			    }
+			    ]
+
 			}
         ]
     }

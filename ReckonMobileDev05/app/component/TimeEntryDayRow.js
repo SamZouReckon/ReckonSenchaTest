@@ -19,7 +19,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             cls: 'rm-flatfield',
             placeHolder: '00:00',
             clearIcon: false,
-            maxHours: 23,
+            maxHours: 24,
             flex: 3
         },{
             xtype: 'exttextfield',
@@ -35,7 +35,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
     initialize: function () {
         this.callParent(arguments);
         var notesField = this.down('[name=Notes]');
-        notesField.on('tap', function () {
+        notesField.on('tap', function () {            
             this.editDescription();
         }, this);
         notesField.on('change', function () {
@@ -61,6 +61,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
 
     updateNotesFieldState: function () {
         var notesField = this.down('[name=Notes]');
+        this.noteText = notesField.getValue();
         if (notesField.getValue()) {
             notesField.setCls(['rm-flatfield', 'rm-notesfield', 'rm-notesfield-nonempty', 'rm-field-border-left']);
         }

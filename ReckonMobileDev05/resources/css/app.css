@@ -6313,6 +6313,10 @@ body.x-desktop {
 .rm-btn-iconsize {
   background-size: 25px; }
 
+.rm-sharpedge-btn {
+  border: 0;
+  border-radius: 0; }
+
 .rm-alignr {
   text-align: right !important; }
 
@@ -6357,6 +6361,9 @@ body.x-desktop {
 
 .rm-colorblack {
   color: #333333; }
+
+.rm-colorwhite {
+  color: #FFFFFF; }
 
 .rm-colorgrey {
   color: #646464; }
@@ -7473,7 +7480,3 @@ body.x-desktop {
 
 .rm-notesfield-empty {
   background-image: url("../images/icons/rm-notes-absent.svg"); }
-
-.rm-actiontitle {
-  padding: 0.6em;
-  color: #475561; }

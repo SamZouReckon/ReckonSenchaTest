@@ -16,7 +16,10 @@ Ext.define('RM.component.RMToggleField', {
         var me = this;        
         this.callParent();
         this.setValue(this.config.toggleState);
-        this.element.on('tap', function () {me.toggleState();}, this);
+        this.element.on('tap', function () {
+            if(!this.getDisabled())
+            me.toggleState();
+        }, this);
     },    
     
     toggleState: function () {    

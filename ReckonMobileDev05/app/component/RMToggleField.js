@@ -20,6 +20,9 @@ Ext.define('RM.component.RMToggleField', {
             if(!this.getDisabled())
             me.toggleState();
         }, this);
+        this.on('disabledchange', function (field, value) {
+            value ? field.addCls(['rm-flatfield-disabled', 'rm-input-el-padding-right-25']) : field.removeCls(['rm-flatfield-disabled']);
+        }, this);
     },    
     
     toggleState: function () {    

@@ -26,7 +26,8 @@ Ext.define('RM.view.TimeSheetDetail', {
 					}, {
 						text: 'Save',
 						itemId: 'save',                        
-						ui: 'rm_topbarbuttonright'
+						ui: 'rm_topbarbuttonright',
+						hidden: true
 					}
 				]
 			}, {
@@ -45,10 +46,11 @@ Ext.define('RM.view.TimeSheetDetail', {
 					    xtype: 'durationfield',
 					    name: 'Duration',
 					    itemId: 'duration',
+                        hidden: true,
 					    clearIcon: false,
 					    cls: ['rm-flatfield', 'rm-timerfield'],
 					    placeHolder: '00:00',                        
-                        maxHours: 23
+                        maxHours: 99
 					}, {
 					    xtype: 'extdatepickerfield',
 					    name: 'Date',
@@ -102,13 +104,35 @@ Ext.define('RM.view.TimeSheetDetail', {
                         itemId: 'description',
                         labelWidth: 110,
                         cls: 'rm-flatfield rm-flatfield-last',
+                        hidden: true,
                         clearIcon: false,
                         placeHolder: 'enter (optional)',
                         readOnly: true
+                    }, {
+                        xtype: 'button',
+                        itemId: 'loadbtn',
+                        text: 'Select criteria and tap to add/edit entry',
+                        height: 47,
+                        cls: ['rm-greenbtn-bg', 'rm-sharpedge-btn', 'rm-colorwhite', 'rm-fontsize80']
+                    }, {
+                        xtype: 'button',
+                        itemId: 'resetbtn',
+                        text: 'Tap to change entry criteria and reset',
+                        height: 47,
+                        cls: ['rm-greybtn-bg', 'rm-sharpedge-btn', 'rm-colorwhite', 'rm-fontsize80'],
+                        hidden: true
                     }
                 
 				]
-			}
+			}, {
+			    xtype: 'button',
+			    text: 'Delete',
+			    itemId: 'deletebtn',
+			    docked: 'bottom',
+			    height: 47,
+			    cls: ['rm-greenbtn-bg', 'rm-sharpedge-btn', 'rm-colorwhite', 'rm-fontsize80'],
+                hidden: true
+		    }
 		]
 	}
 });

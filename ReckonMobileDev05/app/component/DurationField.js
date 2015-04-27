@@ -9,6 +9,9 @@ Ext.define('RM.component.DurationField', {
         this.on('tap', function () {            
             RM.Selectors.showDurationPicker(this);
         }, this);
+        this.on('disabledchange', function (field, value) {
+            value ? field.addCls(['rm-flatfield-disabled']) : field.removeCls(['rm-flatfield-disabled']);
+        }, this);
     },
 
     constructor: function (config) {        

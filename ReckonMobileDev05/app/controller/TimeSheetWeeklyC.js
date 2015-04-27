@@ -10,8 +10,8 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
             projectId: 'timesheetweekly hiddenfield[name=ProjectId]',
             billableCheckbox: 'timesheetweekly rmtogglefield[name=Billable]',
             itemName: 'timesheetweekly #itemName',            
-            loadBtn: 'timesheetweekly panel #loadbtn',
-            resetBtn: 'timesheetweekly panel #resetbtn'
+            loadBtn: 'timesheetweekly #loadbtn',
+            resetBtn: 'timesheetweekly #resetbtn'
         },
         control: {
             'timesheetweekly': {
@@ -109,11 +109,13 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         }
         this.loadTimeData();
         this.getLoadBtn().setText('Reselect criteria and tap to reset entries');
-        this.turnWeekdaysEditMode(true);             
+        this.turnWeekdaysEditMode(true);
+        this.showDateFieldAsDisabledLabel(false);
     },
 
     onResetBtnTap: function () {
-        this.turnWeekdaysEditMode(false);        
+        this.turnWeekdaysEditMode(false);
+        this.showDateFieldAsDisabledLabel(true);
     },
 
     turnWeekdaysEditMode: function(editVal){
@@ -191,7 +193,10 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         var weekDaysRows = timeSheetWeekly.query('timeentrydayrow');
         var weekDaysData = new Array();
         for (var i = 0; i < weekDaysRows.length; i++) {
-            weekDaysData.push(weekDaysRows[i].getValues());
+            var formVals = weekDaysRows[i].getValues();
+            if (formVals.Duration) {
+                weekDaysData.push(formVals);
+            }
         }
         return weekDaysData;
     },
@@ -202,6 +207,20 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         for (var i = 0; i < dataArray.length; i++) {
             dataArray[i].Date = new Date(dataArray[i].Date);
             weekDaysRows[i].setValues(dataArray[i]);
+            weekDaysRows[i].setDisabled(RM.TimeSheetsMgr.isTimesheetInvoicedOrBilled(dataArray[i].Status));
+        }
+    },
+
+    showDateFieldAsDisabledLabel: function(val) {
+        var timeSheetWeekly = this.getTimeSheetWeekly();
+        var weekDaysRows = timeSheetWeekly.query('timeentrydayrow');
+        if (val) {
+            val = 'rm-flatfield-disabled-label-look';
+        } else {
+            val = ['rm-flatfield-as-label'];
+        }
+        for (var i = 0; i < weekDaysRows.length; i++) {
+            weekDaysRows[i].down('[name=Date]').setCls(val);  
         }
     },
     
@@ -214,12 +233,15 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         }
     },
 
-    validateWeekDaysData: function(weekDaysData){
-        for (var i = 0; i < weekDaysData.length; i++) {
-            if (!weekDaysData[i].Duration) {
-                return false;
-            }            
+    validateWeekDaysData: function (weekDaysData) {
+        if (weekDaysData.length <= 0) {
+            return false;
         }
+        //for (var i = 0; i < weekDaysData.length; i++) {
+        //    if (!weekDaysData[i].Duration) {
+        //        return false;
+        //    }            
+        //}
         return true;
     },
 
@@ -227,7 +249,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         var formVals = this.getTimeSheetForm().getValues();
         formVals.Billable = this.getBillableCheckbox().getValue();
         formVals.WeekDaysData = this.getWeekDaysData();
-        return formVals
+        return formVals;
     },
 
     save: function () {

@@ -53,5 +53,9 @@ Ext.define('RM.core.TimeSheetsMgr', {
 	            return 'Billed';	        
 	    }
 	    return 'Unknown';
-	}	
+	},
+
+    isTimesheetInvoicedOrBilled: function(status) {
+        return (status === RM.Consts.TimeSheetStatus.INVOICED || status === RM.Consts.TimeSheetStatus.BILLED);
+    }
 });

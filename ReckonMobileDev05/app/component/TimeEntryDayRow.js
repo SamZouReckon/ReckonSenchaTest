@@ -8,8 +8,8 @@ Ext.define('RM.component.TimeEntryDayRow', {
             xtype: 'extdatepickerfield',
             name: 'Date',            
             dateFormat: 'D jS',
-            cls: ['rm-flatfield', 'rm-inputel-alignl'],
-            ui: 'plain',
+            cls: ['rm-flatfield','rm-inputel-alignl'],
+            //cls: ['rm-flatfield-disabled-label-look'],
             disabled: true,
             placeHolder: 'select',
             flex: 5
@@ -19,7 +19,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             cls: 'rm-flatfield',
             placeHolder: '00:00',
             clearIcon: false,
-            maxHours: 24,
+            maxHours: 99,
             flex: 3
         },{
             xtype: 'exttextfield',

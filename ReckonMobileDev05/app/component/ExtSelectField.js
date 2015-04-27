@@ -17,7 +17,10 @@ Ext.define('RM.component.ExtSelectField', {
             }, 
             this
         );
-        
+        this.on('disabledchange', function (field, value) {
+            value ? field.addCls(['rm-flatfield-disabled']) : field.removeCls(['rm-flatfield-disabled']);
+        }, this);
+
         var fieldPicker = this.getPhonePicker();
         if(fieldPicker){
             fieldPicker.setListeners(

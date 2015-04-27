@@ -8,7 +8,9 @@ Ext.define('RM.component.ExtDatePickerField', {
         if(this.config.rmmandatory){
             this.setLabel(this.getLabel() + ' <span style="color: #F00">*</span>');    
         } 
-        
+        this.on('disabledchange', function (field, value) {
+            value ? field.addCls(['rm-flatfield-disabled']) : field.removeCls(['rm-flatfield-disabled']);
+        }, this);
         this.resetPickerConfig();
     },    
 

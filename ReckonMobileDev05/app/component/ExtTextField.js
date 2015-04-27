@@ -23,7 +23,9 @@ Ext.define('RM.component.ExtTextField', {
             this.on('focus', this.onMyFocus, this);
             this.on('blur', this.onMyBlur, this);
         }
-        
+        this.on('disabledchange', function(field, value) {
+            value ? field.addCls(['rm-flatfield-disabled']) : field.removeCls(['rm-flatfield-disabled']);
+        }, this);
         this.mixins.visibleOnFocus.constructor.call(this);
     },
 

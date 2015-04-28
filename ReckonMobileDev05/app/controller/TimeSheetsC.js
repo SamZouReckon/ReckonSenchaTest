@@ -55,16 +55,17 @@ Ext.define('RM.controller.TimeSheetsC', {
     },    
 
     loadListHeaderAndItemTpl: function (val) {
+        var me = this;
         this.sortVal = val;
 
         this.getTimeSheetsList().getStore().setGrouper({
-            sortProperty: val,
+            //sortProperty: 'Date',
             groupFn: function (item) {
-                if (val === 'Date') {
+                if (me.sortVal === 'Date') {
                     return Ext.Date.format(item.get('Date'), 'j M Y');
                 }
                 else {
-                    return !item.get(val) ? 'None' : item.get(val);
+                    return !item.get(me.sortVal) ? 'None' : item.get(me.sortVal);
                 }
             }
         });
@@ -83,7 +84,7 @@ Ext.define('RM.controller.TimeSheetsC', {
                                         '</div>',
                                         {
                                             isSortByDate: function () {
-                                                return val === 'Date';
+                                                return me.sortVal === 'Date';
                                             },
                                             formatDate: function (valDate) {
                                                 return Ext.Date.format(valDate, 'j M Y');

@@ -160,7 +160,8 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
 				    //this.detailsData.TaxTypeId = rec.SaleTaxCodeId;
 				    this.getTimeSheetForm().setValues({ ItemId: rec.ItemId, ItemName: rec.ItemPath });
 				},
-				this
+				this,
+                RM.Consts.ChargeableItemTypes.SERVICE
 			);
         }        
     },    
@@ -256,7 +257,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         var formVals = this.getAllFormValues();                
 
         if (this.validateForm(formVals)) {
-            RM.AppMgr.saveServerRec(this.serverApiName, this.isCreate, formVals,
+            RM.AppMgr.saveServerRec(this.serverApiName, true, formVals,
                function () {
                    RM.AppMgr.showSuccessMsgBox('Timesheet saved', function () {
                        RM.AppMgr.itemUpdated('timesheet');

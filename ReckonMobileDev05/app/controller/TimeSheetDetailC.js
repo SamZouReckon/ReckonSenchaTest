@@ -111,7 +111,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
     applyViewEditableRules: function () {
         var editable = this.isEditable();
         this.getSaveBtn().setHidden(!editable);
-        this.getDeleteBtn().setHidden(!editable);
+        this.getDeleteBtn().setHidden(!editable && !this.isCreate);
         this.getTimeSheetForm().setDisabled(!editable);
     },
 
@@ -156,7 +156,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         this.detailsData = data;
         var invoicedOrBilled = RM.TimeSheetsMgr.isTimesheetInvoicedOrBilled(data.Status);
         this.getSaveBtn().setHidden(invoicedOrBilled);
-        this.getDeleteBtn().setHidden(invoicedOrBilled);
+        this.getDeleteBtn().setHidden(invoicedOrBilled || this.isCreate);
         this.getDuration().setValue(data.Duration);
         this.getDescription().setValue(data.Notes);
         this.getDuration().setDisabled(invoicedOrBilled);
@@ -244,7 +244,8 @@ Ext.define('RM.controller.TimeSheetDetailC', {
 				    //this.getTimeSheetForm().setValues({ ItemId: data[0].ItemId, ItemName: data[0].Name, SaleTaxCodeId: data[0].SaleTaxCodeId });
                     this.getTimeSheetForm().setValues({ ItemId: rec.ItemId, ItemName:rec.ItemPath});
 				},
-				this
+				this,
+                RM.Consts.ChargeableItemTypes.SERVICE
 			);
         }
         else if (tf.getName() == 'Notes') {

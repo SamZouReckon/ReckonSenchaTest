@@ -261,7 +261,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
                function () {
                    RM.AppMgr.showSuccessMsgBox('Timesheet saved', function () {
                        RM.AppMgr.itemUpdated('timesheet');
-                       this.goBack();
+                       RM.ViewMgr.backTo('slidenavigationview');
                    }, this);
                    RM.AppMgr.itemUpdated('timesheet');
                },

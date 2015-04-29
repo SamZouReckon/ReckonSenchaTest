@@ -50,7 +50,9 @@ Ext.define('RM.controller.TimeSheetsC', {
             this.firstTimeListLoading = true;            
         }
         else {
+            //load data in the list and refresh cal e.g. when book is changed 
             this.loadList();
+            this.getTimeSheetsCal().refreshCalendarData();
         }        
     },    
 
@@ -58,8 +60,7 @@ Ext.define('RM.controller.TimeSheetsC', {
         var me = this;
         this.sortVal = val;
 
-        this.getTimeSheetsList().getStore().setGrouper({
-            //sortProperty: 'Date',
+        this.getTimeSheetsList().getStore().setGrouper({            
             groupFn: function (item) {
                 if (me.sortVal === 'Date') {
                     return Ext.Date.format(item.get('Date'), 'j M Y');
@@ -103,6 +104,7 @@ Ext.define('RM.controller.TimeSheetsC', {
 
     onSort: function (val) {
         this.loadListHeaderAndItemTpl(val);
+        this.loadList();
     },
 
     onSearch: function (val) {
@@ -145,7 +147,9 @@ Ext.define('RM.controller.TimeSheetsC', {
     
     onItemUpdated: function (itemType) {
         if (itemType == 'timesheet' && this.getTimesheets()) {
+            //update list and calendar view when new timesheets are added/deleted 
             this.loadList();
+            this.getTimeSheetsCal().refreshCalendarData();
         }
     },
 
@@ -192,6 +196,7 @@ Ext.define('RM.controller.TimeSheetsC', {
         }        
         store.filter('startDate', this.startDateFilter);
         store.filter('endDate', this.endDateFilter);
+        store.sort(this.sortVal);
         RM.AppMgr.loadStore(store);
     },
 

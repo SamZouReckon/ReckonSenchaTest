@@ -1,7 +1,7 @@
 {
   "ProjectGuid": "ded88774-d691-4e8e-bd16-c1122722fc75",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
-  "AppIdentifier": "com.reckon.ReckonMobileDev05",
+  "AppIdentifier": "com.reckon.ReckonTimesheet",
   "ProjectName": "ReckonMobileDev05",
   "IsRunnable": "true",
   "AndroidPermissions": [
@@ -17,7 +17,7 @@
   ],
   "iOSStatusBarStyle": "Default",
   "AndroidHardwareAcceleration": "true",
-  "BundleVersion": "1.1.0",
+  "BundleVersion": "1.1.3",
   "iOSDisplayName": "",
   "iOSDeviceFamily": [
     "1",
@@ -30,9 +30,9 @@
     "org.apache.cordova.statusbar"
   ],
   "FrameworkVersion": "3.7.0",
-  "DisplayName": "",
+  "DisplayName": "ReckonTimesheet",
   "Author": "",
-  "Description": "ReckonMobileDev05",
+  "Description": "ReckonTimesheet",
   "WP8Requirements": [],
   "WP8Capabilities": [],
   "WP8TileTitle": "",
@@ -43,5 +43,6 @@
   "Framework": "Cordova",
   "projectVersion": "1",
   "WP8WindowsPublisherName": "CN=Telerik",
-  "WP8PackageIdentityName": "1234Telerik.com.reckon.ReckonMobileDev05"
+  "WP8PackageIdentityName": "1234Telerik.com.reckon.ReckonMobileDev05",
+  "WPSdk": "8.0"
 }

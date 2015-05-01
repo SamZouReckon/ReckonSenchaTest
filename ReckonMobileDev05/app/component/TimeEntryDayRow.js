@@ -8,11 +8,11 @@ Ext.define('RM.component.TimeEntryDayRow', {
             xtype: 'extdatepickerfield',
             name: 'Date',            
             dateFormat: 'D jS',
-            cls: ['rm-flatfield','rm-inputel-alignl'],
+            cls: ['rm-flatfield-disabled-label-look', 'rm-inputel-alignl'],
             //cls: ['rm-flatfield-disabled-label-look'],
             disabled: true,
             placeHolder: 'select',
-            flex: 5
+            flex: 3
         },{
             xtype: 'durationfield',
             name: 'Duration',
@@ -28,6 +28,9 @@ Ext.define('RM.component.TimeEntryDayRow', {
             clearIcon: false,
             readOnly: true,
             width: 48 
+        },{
+            xtype: 'hiddenfield',
+            name: 'Status'
         }
         ]
     },    
@@ -35,12 +38,21 @@ Ext.define('RM.component.TimeEntryDayRow', {
     initialize: function () {
         this.callParent(arguments);
         var notesField = this.down('[name=Notes]');
-        notesField.on('tap', function () {            
+        this.toggleNotesFieldState(notesField, notesField.getDisabled());
+
+        notesField.on('tap', function () {
             this.editDescription();
         }, this);
         notesField.on('change', function () {
             this.updateNotesFieldState();
         }, this);
+        notesField.on('disabledchange', function (field, value) {
+            this.toggleNotesFieldState(field,value);
+        }, this);
+    },
+
+    toggleNotesFieldState: function(field, value) {
+        value ? field.addCls(['rm-notesfield-disabled']) : field.removeCls(['rm-notesfield-disabled']);
     },
 
     editDescription: function () {

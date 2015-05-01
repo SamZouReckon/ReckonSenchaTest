@@ -47,6 +47,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         this.cbs = cbs;
         var me = this;
         this.initialFormValues = null;
+        this.selectionCriteria = null;
         this.startDate = weekDaysArray[0];
         this.endDate = weekDaysArray[6];
         var view = this.getTimeSheetWeekly();
@@ -95,7 +96,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
 			this,
             function (eventMsg) {
                 RM.AppMgr.showOkMsgBox(eventMsg);
-                this.goBack();
+                me.goBack();
             },
             'Loading...'
 		);
@@ -107,10 +108,15 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
             RM.AppMgr.showErrorMsgBox('Please select an Item.');
             return;
         }
-        this.loadTimeData();
+        //var selectionCriteria = this.getTimeSheetForm().getValues();
+        //if (!RM.AppMgr.isFormValsEqual(selectionCriteria, this.selectionCriteria)) {
+        //    this.selectionCriteria = selectionCriteria;
+        //    this.loadTimeData();
+        //}
         this.getLoadBtn().setText('Reselect criteria and tap to reset entries');
         this.turnWeekdaysEditMode(true);
         this.showDateFieldAsDisabledLabel(false);
+        this.loadTimeData();
     },
 
     onResetBtnTap: function () {
@@ -195,7 +201,7 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         var weekDaysData = new Array();
         for (var i = 0; i < weekDaysRows.length; i++) {
             var formVals = weekDaysRows[i].getValues();
-            if (formVals.Duration) {
+            if (formVals.Duration && !RM.TimeSheetsMgr.isTimesheetInvoicedOrBilled(formVals.Status)) {
                 weekDaysData.push(formVals);
             }
         }
@@ -238,11 +244,6 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         if (weekDaysData.length <= 0) {
             return false;
         }
-        //for (var i = 0; i < weekDaysData.length; i++) {
-        //    if (!weekDaysData[i].Duration) {
-        //        return false;
-        //    }            
-        //}
         return true;
     },
 

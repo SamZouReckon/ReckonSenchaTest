@@ -2461,3 +2461,7 @@ $font-family: 'Open Sans', sans-serif !default;
 .rm-notesfield-empty{
     background-image: url("../images/icons/rm-notes-absent.svg");
 }
+
+.rm-notesfield-disabled{
+    background-image: none;
+}

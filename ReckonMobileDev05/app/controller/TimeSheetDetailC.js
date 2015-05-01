@@ -127,7 +127,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         RM.ViewMgr.deRegFormBackHandler(this.back);
     },
 
-    loadTimeData: function () {
+    loadTimeData: function (cb, cbs) {
         var me = this;
         var formVals = this.getTimeSheetForm().getValues();
 
@@ -139,20 +139,17 @@ Ext.define('RM.controller.TimeSheetDetailC', {
                 itemId: formVals.ItemId,
                 billable: this.getBillableCheckbox().getValue()
             },
-			function response(respRecs) {
-			    me.setTimeData(respRecs[0]);
-			},
-			this,
+			cb,
+            cbs,
             function (eventMsg) {
                 RM.AppMgr.showOkMsgBox(eventMsg);
-                this.goBack();
+                me.goBack();
             },
             'Loading...'
 		);
     },
 
     setTimeData: function (data) {
-        //Ext.toast(RM.TimeSheetsMgr.isTimesheetInvoicedOrBilled(data.Status), 7000);
         this.detailsData = data;
         var invoicedOrBilled = RM.TimeSheetsMgr.isTimesheetInvoicedOrBilled(data.Status);
         this.getSaveBtn().setHidden(invoicedOrBilled);
@@ -183,7 +180,9 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         this.getDescription().setHidden(false);
         this.getLoadBtn().setText('Reselect criteria and tap to reset entry');
         this.turnTimeEditMode(true);
-        this.loadTimeData();
+        this.loadTimeData(function(respRecs) {
+            this.setTimeData(respRecs[0]);
+        }, this);
     },
 
     onResetBtnTap: function () {
@@ -309,21 +308,35 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         var vals = Ext.applyIf(formVals, this.detailsData);        
         vals.Notes = this.noteText;
                 
-        if(this.validateForm(vals)){ 
-             RM.AppMgr.saveServerRec(this.serverApiName, this.isCreate, vals,
-    			function () { 
-                    RM.AppMgr.showSuccessMsgBox('Timesheet saved',function(){
+        if (this.validateForm(vals)) {
+            if (!this.isCreate) {
+                this.loadTimeData(function(respRecs) {
+                    if (!respRecs[0].Duration) {
+                        this.saveTimeSheet(vals);
+                    } else {
+                        Ext.toast('Timesheet with the same combination already exists.', 3000);
+                    }
+                }, this);
+            } 
+            else {
+                this.saveTimeSheet(vals);
+            }
+        }
+    },
+
+    saveTimeSheet: function (vals) {
+        RM.AppMgr.saveServerRec(this.serverApiName, this.isCreate, vals,
+                   function () {
+                       RM.AppMgr.showSuccessMsgBox('Timesheet saved', function () {
+                           RM.ViewMgr.backTo('slidenavigationview');
+                       }, this);
                        RM.AppMgr.itemUpdated('timesheet');
-                       this.goBack(); 
-                    }, this);                        
-    			    RM.AppMgr.itemUpdated('timesheet');
-    			},
-    			this,
-                function(recs, eventMsg){
-                    RM.AppMgr.showOkMsgBox(eventMsg);              
-                }
-		    );
-        }        
+                   },
+                   this,
+                   function (recs, eventMsg) {
+                       RM.AppMgr.showOkMsgBox(eventMsg);
+                   }
+               );
     },
     
     validateForm: function(vals){        

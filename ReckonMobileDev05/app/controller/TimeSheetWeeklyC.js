@@ -48,6 +48,8 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
         var me = this;
         this.initialFormValues = null;
         this.selectionCriteria = null;
+        this.editedFieldValues = null;
+
         this.startDate = weekDaysArray[0];
         this.endDate = weekDaysArray[6];
         var view = this.getTimeSheetWeekly();
@@ -108,18 +110,21 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
             RM.AppMgr.showErrorMsgBox('Please select an Item.');
             return;
         }
-        //var selectionCriteria = this.getTimeSheetForm().getValues();
-        //if (!RM.AppMgr.isFormValsEqual(selectionCriteria, this.selectionCriteria)) {
-        //    this.selectionCriteria = selectionCriteria;
-        //    this.loadTimeData();
-        //}
         this.getLoadBtn().setText('Reselect criteria and tap to reset entries');
         this.turnWeekdaysEditMode(true);
         this.showDateFieldAsDisabledLabel(false);
-        this.loadTimeData();
+
+        var selectionCriteria = this.getTimeSheetForm().getValues();
+        if (!RM.AppMgr.isFormValsEqual(selectionCriteria, this.selectionCriteria)) {
+            this.selectionCriteria = selectionCriteria;
+            this.loadTimeData();
+        } else {
+            this.setWeekDaysData(this.editedFieldValues);
+        }
     },
 
     onResetBtnTap: function () {
+        this.editedFieldValues = this.readWeekDaysData();
         this.turnWeekdaysEditMode(false);
         this.showDateFieldAsDisabledLabel(true);
     },
@@ -204,6 +209,16 @@ Ext.define('RM.controller.TimeSheetWeeklyC', {
             if (formVals.Duration && !RM.TimeSheetsMgr.isTimesheetInvoicedOrBilled(formVals.Status)) {
                 weekDaysData.push(formVals);
             }
+        }
+        return weekDaysData;
+    },
+
+    readWeekDaysData: function() {
+        var timeSheetWeekly = this.getTimeSheetWeekly();
+        var weekDaysRows = timeSheetWeekly.query('timeentrydayrow');
+        var weekDaysData = new Array();
+        for (var i = 0; i < weekDaysRows.length; i++) {
+                weekDaysData.push(weekDaysRows[i].getValues());
         }
         return weekDaysData;
     },

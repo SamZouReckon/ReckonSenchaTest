@@ -12,7 +12,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             //cls: ['rm-flatfield-disabled-label-look'],
             disabled: true,
             placeHolder: 'select',
-            flex: 3
+            width: 120
         },{
             xtype: 'durationfield',
             name: 'Duration',
@@ -20,7 +20,7 @@ Ext.define('RM.component.TimeEntryDayRow', {
             placeHolder: '00:00',
             clearIcon: false,
             maxHours: 99,
-            flex: 3
+            flex: 1
         },{
             xtype: 'exttextfield',
             name: 'Notes',

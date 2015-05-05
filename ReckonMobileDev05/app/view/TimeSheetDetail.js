@@ -35,8 +35,11 @@ Ext.define('RM.view.TimeSheetDetail', {
 				itemId: 'timeSheetForm',
 				cls: 'rm-whitebg',
 				padding: 0,
-				items: [
-					{
+				items: [{
+				        xtype: 'component',
+				        itemId: 'status',
+				        cls: 'rm-hearderbg'
+				    }, {
 						xtype: 'hiddenfield',
 						name: 'TimeEntryId'
 					}, {

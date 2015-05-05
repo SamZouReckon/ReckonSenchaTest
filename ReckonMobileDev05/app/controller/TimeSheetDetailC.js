@@ -17,7 +17,8 @@ Ext.define('RM.controller.TimeSheetDetailC', {
             dateFld: 'timesheetdetail extdatepickerfield[name=Date]',
             loadBtn: 'timesheetdetail #loadbtn',
             resetBtn: 'timesheetdetail #resetbtn',
-            deleteBtn: 'timesheetdetail #deletebtn'
+            deleteBtn: 'timesheetdetail #deletebtn',
+            status: 'timesheetdetail #status'
         },
         control: {
             'timesheetdetail': {
@@ -85,6 +86,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
                         data.Notes = data.Notes ? data.Notes.replace(/(\r\n|\n|\r)/g, ' ') : '';
                         timesheetForm.setValues(data);
                         this.getBillableCheckbox().setValue(data.Billable);
+                        this.getStatus().setHtml(RM.TimeSheetsMgr.getTimeSheetStatusText(data.Status));
                         this.openInEditMode();
 					    this.applyViewEditableRules();
 					    this.initialFormValues = timesheetForm.getValues();
@@ -311,7 +313,7 @@ Ext.define('RM.controller.TimeSheetDetailC', {
         if (this.validateForm(vals)) {
             if (!this.isCreate) {
                 this.loadTimeData(function(respRecs) {
-                    if (!respRecs[0].Duration) {
+                    if (!respRecs[0].Duration || this.isCombinationSameAsOriginal(vals)) {
                         this.saveTimeSheet(vals);
                     } else {
                         Ext.toast('Timesheet with the same combination already exists.', 3000);
@@ -322,6 +324,17 @@ Ext.define('RM.controller.TimeSheetDetailC', {
                 this.saveTimeSheet(vals);
             }
         }
+    },
+
+    isCombinationSameAsOriginal: function(editedFields) {
+        if (this.initialFormValues.CustomerId === editedFields.CustomerId
+            && this.initialFormValues.ProjectId === editedFields.ProjectId
+            && this.initialFormValues.ItemId === editedFields.ItemId
+            && this.initialFormValues.Billable === editedFields.Billable
+            && this.initialFormValues.Date === editedFields.Date) {
+            return true;
+        }
+        return false;
     },
 
     saveTimeSheet: function (vals) {

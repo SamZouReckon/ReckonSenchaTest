@@ -6948,7 +6948,9 @@ body.x-desktop {
   line-height: 1.2em;
   display: block;
   overflow: hidden;
-  margin-left: 5px; }
+  margin-left: 5px; 
+  color:#00bd9d;
+}
 
 .rm-togglefield-on .x-input-el {
   padding-right: 25px;

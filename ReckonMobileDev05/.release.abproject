@@ -1,0 +1,6 @@
+{
+  "CorePlugins": [
+    "org.apache.cordova.inappbrowser",
+    "org.apache.cordova.statusbar"
+  ]
+}

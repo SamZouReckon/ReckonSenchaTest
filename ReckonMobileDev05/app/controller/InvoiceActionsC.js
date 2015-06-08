@@ -105,7 +105,7 @@ Ext.define('RM.controller.InvoiceActionsC', {
     onApprove: function () {
         RM.AppMgr.getServerRecById('CustomerAvailableCreditLimit', this.invoiceData.CustomerId,
                   function (data) {
-                      if (data.HasCreditLimit && data.AvailableCredit < this.invoiceData.BalanceDue) {
+                      if (data.HasCreditLimit && this.invoiceData.BalanceDue > 0 && data.AvailableCredit < this.invoiceData.BalanceDue) {
                           RM.AppMgr.showCustomiseButtonMsgBox("This invoice will exceed the customer's credit limit. Approve anyway?", 'YES, APPROVE INVOICE', 'NO',
                            function (result) {
                                if (result === 'yes') {

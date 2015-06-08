@@ -713,7 +713,7 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
                 RM.AppMgr.getServerRecById('CustomerAvailableCreditLimit', vals.CustomerId,
                         function (data) {
-                            if (data.HasCreditLimit && data.AvailableCredit < vals.BalanceDue) 
+                            if (data.HasCreditLimit && vals.BalanceDue > 0 && data.AvailableCredit < vals.BalanceDue)
                             {
                                 RM.AppMgr.showCustomiseButtonMsgBox("This invoice will exceed the customer's credit limit. Save anyway?", 'YES, SAVE INVOICE', 'NO, CONTINUE EDITING',
                                  function (result) {

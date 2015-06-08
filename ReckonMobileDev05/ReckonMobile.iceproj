@@ -940,6 +940,111 @@
     <Content Include="packager.json">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Plugins\cordova-plugin-app-version\plugin.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-app-version\README.md">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-app-version\src\android\AppVersion.java">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-app-version\src\ios\AppVersion.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-app-version\src\ios\AppVersion.m">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-app-version\www\AppVersionPlugin.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-redraw\plugin.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-redraw\src\android\Redraw.java">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\cordova-plugin-redraw\www\redraw-plugin.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\org.apache.cordova.plugin.softkeyboard\package.json">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\org.apache.cordova.plugin.softkeyboard\plugin.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\org.apache.cordova.plugin.softkeyboard\README.md">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\org.apache.cordova.plugin.softkeyboard\src\android\org.apache.cordova.plugin.softkeyboard\SoftKeyboard.java">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\org.apache.cordova.plugin.softkeyboard\www\softkeyboard.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\plugin.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\baseInteraction.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\baseInteractionResult.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\MPEAPI">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\MPEAPI.bundle\en.lproj\InfoPlist.strings">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\MPEAPI.bundle\en.lproj\MPEerrorStrings.strings">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\MPEAPI.bundle\Info.plist">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\MPEAPI.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\MPEError.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\PayDevice.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\src\ios\PayDevice.m">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\paydevice\www\paydevice.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\.gitignore">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\LICENSE">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\plugin.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\readme.md">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\src\android\Sms.java">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\src\ios\Sms.h">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\src\ios\Sms.m">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\src\wp8\Sms.cs">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Plugins\phonegap-sms-plugin-master\www\sms.js">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="resources\css\app.css">
       <SubType>Content</SubType>
     </Content>
@@ -4800,6 +4905,32 @@
     <Folder Include="img\" />
     <Folder Include="js\" />
     <Folder Include="Plugins\" />
+    <Folder Include="Plugins\cordova-plugin-app-version\" />
+    <Folder Include="Plugins\cordova-plugin-app-version\src\" />
+    <Folder Include="Plugins\cordova-plugin-app-version\src\android\" />
+    <Folder Include="Plugins\cordova-plugin-app-version\src\ios\" />
+    <Folder Include="Plugins\cordova-plugin-app-version\www\" />
+    <Folder Include="Plugins\cordova-plugin-redraw\" />
+    <Folder Include="Plugins\cordova-plugin-redraw\src\" />
+    <Folder Include="Plugins\cordova-plugin-redraw\src\android\" />
+    <Folder Include="Plugins\cordova-plugin-redraw\www\" />
+    <Folder Include="Plugins\org.apache.cordova.plugin.softkeyboard\" />
+    <Folder Include="Plugins\org.apache.cordova.plugin.softkeyboard\src\" />
+    <Folder Include="Plugins\org.apache.cordova.plugin.softkeyboard\src\android\" />
+    <Folder Include="Plugins\org.apache.cordova.plugin.softkeyboard\src\android\org.apache.cordova.plugin.softkeyboard\" />
+    <Folder Include="Plugins\org.apache.cordova.plugin.softkeyboard\www\" />
+    <Folder Include="Plugins\paydevice\" />
+    <Folder Include="Plugins\paydevice\src\" />
+    <Folder Include="Plugins\paydevice\src\ios\" />
+    <Folder Include="Plugins\paydevice\src\ios\MPEAPI.bundle\" />
+    <Folder Include="Plugins\paydevice\src\ios\MPEAPI.bundle\en.lproj\" />
+    <Folder Include="Plugins\paydevice\www\" />
+    <Folder Include="Plugins\phonegap-sms-plugin-master\" />
+    <Folder Include="Plugins\phonegap-sms-plugin-master\src\" />
+    <Folder Include="Plugins\phonegap-sms-plugin-master\src\android\" />
+    <Folder Include="Plugins\phonegap-sms-plugin-master\src\ios\" />
+    <Folder Include="Plugins\phonegap-sms-plugin-master\src\wp8\" />
+    <Folder Include="Plugins\phonegap-sms-plugin-master\www\" />
     <Folder Include="resources\" />
     <Folder Include="resources\css\" />
     <Folder Include="resources\css\fonts\" />

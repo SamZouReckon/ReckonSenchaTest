@@ -713,13 +713,12 @@ Ext.define('RM.controller.InvoiceDetailC', {
 
                 RM.AppMgr.getServerRecById('CustomerAvailableCreditLimit', vals.CustomerId,
                         function (data) {
-                            if (data.HasCreditLimit && data.AvailableCredit < vals.BalanceDue) 
+                            if (data.HasCreditLimit && vals.BalanceDue > 0 && data.AvailableCredit < vals.BalanceDue)
                             {
                                 RM.AppMgr.showCustomiseButtonMsgBox("This invoice will exceed the customer's credit limit. Save anyway?", 'YES, SAVE INVOICE', 'NO, CONTINUE EDITING',
                                  function (result) {
                                      if (result === 'yes') {
                                          this.saveInvoice(afterSaveCallback, vals);
-
                                      }
                                      else {
                                          //Stay on the current screen for the user user to modify.
@@ -766,7 +765,10 @@ Ext.define('RM.controller.InvoiceDetailC', {
                         RM.AppMgr.itemUpdated('invoice');
 
                         if (afterSaveCallback) {
-                            if (this.isCreate) { this.detailsData.InvoiceId = recs[0].InvoiceId; }
+                            if (this.isCreate) {
+                                this.detailsData.InvoiceId = recs[0].InvoiceId;
+                                this.detailsData.TemplateId = recs[0].TemplateId;
+                            }
                             this.detailsData.CustomerId = vals.CustomerId;
                             this.detailsData.AccountsReceivableCategoryId = recs[0].AccountsReceivableCategoryId;
                             // Clear the loaded flag to force a reload of invoice information when the view is shown again                            
@@ -783,6 +785,6 @@ Ext.define('RM.controller.InvoiceDetailC', {
                         RM.AppMgr.showOkMsgBox(eventMsg);
                     }
         );
-   }
+    }
   
 });

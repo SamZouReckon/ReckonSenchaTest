@@ -1691,6 +1691,7 @@ $font-family: 'Open Sans', sans-serif !default;
 		display: block;
 		overflow: hidden;		
         margin-left: 5px;
+        color:#00bd9d;
 	}
 }
 
@@ -2356,5 +2357,17 @@ $font-family: 'Open Sans', sans-serif !default;
 	background: #00BD9D;
 }
 
+.rm-multiselectfield{
+    
+    //unchecked
+    .x-input-el + .x-field-mask::after {        
+        opacity: 0;
+    }
 
+    //checked
+    .x-input-el:checked + .x-field-mask::after {
+        color: #00BD9D;
+        opacity: 1;
+    }
+}
 

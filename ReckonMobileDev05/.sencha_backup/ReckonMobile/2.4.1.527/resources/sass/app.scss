@@ -1,0 +1,2373 @@
+// The following two lines import the default Sencha Touch theme. If you are building
+// a new theme, remove them and the add your own CSS on top of the base CSS (which
+// is already included in your app.json file).
+//@import 'sencha-touch/default';
+//@import 'sencha-touch/default/all';
+
+// Custom code goes here..
+
+// Examples of using the icon mixin:
+// @include icon('user');
+
+//$base-color: #F82C2C;				//Global theme color used for theming app
+$base-color: #333333;
+
+$rm-default-color: #969696;
+$rm-warning-color: #8e6c09;
+$rm-warning-bg-color: #fbe29e;
+
+$list-color: #646464;				//List Text color
+$list-header-bg-color: #F8F8F8;		//group header bg color
+$list-header-gradient: none;		//group header gradient
+$list-bg-color: #FFFFFF ;			//List row bg color
+$list-pressed-color: #F0F0F0;		//List row color when pressed
+$list-active-color: #F0F0F0;		//List row color when selected
+$list-active-gradient: none;		//List row gradient, none for flat look
+$include-list-highlights: none;
+
+@import 'open_sans.scss';
+
+// use custom web font as default
+$font-family: 'Open Sans', sans-serif !default;
+
+
+@import 'sencha-touch/default';
+@import 'sencha-touch/default/all';
+
+@import 'TouchCalendarView.scss';
+@import 'TouchCalendarSimpleEvents.scss';
+@import 'dashboard.scss';
+
+@include TouchCalendarView;
+@include TouchCalendarSimpleEvents;
+@include dashboard;
+
+// You may remove any of the following modules that you
+// do not use in order to create a smaller css file.
+/*@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-layout;
+@include sencha-carousel;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-list-pullrefresh;*/
+
+.x-button-label{
+	font-weight: normal;
+}
+
+//topbarbutton style is for flat toolbar buttons
+  @mixin rm_topbarbuttonstyle {
+	background: none;    
+    border: none;
+    min-height: 0;
+    text-shadow: none;     
+    line-height: auto;
+    height: $global-row-height;
+    //padding: 0em 0.5em;
+    margin: 0;
+	border-radius:0;	
+    
+
+    & > * {
+      overflow: visible;
+    }
+
+    .x-button-icon {
+      //-webkit-mask-size: $toolbar-icon-size;
+      //width: $toolbar-icon-size;
+      //height: $toolbar-icon-size;
+      background-size: 80%;
+    }
+
+    &.x-button-pressing, &.x-button-pressed {
+      background: none;
+
+      
+      .x-button-icon.x-button-mask {
+        @include background-gradient(#fff, 'flat');
+      }
+    }
+  }
+  
+  //For TextFields with flat look and white bg color in label and field, also icon on left side using bg image on lalel
+@mixin rm_flatfieldlefticon($img){
+        background: white;			
+		border-top: 1px solid #DBDBDB;		
+		@if($img!=""){
+			//background-image: theme_image('default', $img)!important;
+			background-image: url($img) !important;
+			background-repeat: no-repeat;	
+			background-position-x: 5%;
+            background-position-y: 50%; 					
+			}			
+		.x-form-label{			
+			color:#646464;
+			background-color: inherit;
+			text-align: left;	
+			margin-left: 52px;	
+		}
+		.x-input-el{
+			text-align: right;	
+			color: #969696;	
+            background-color: inherit;
+            font-size: 0.8em;
+            min-height: 3.2em; 
+            //font-weight: bold;
+            //padding-top: 0.9em;
+            padding-right: 0.6em;	
+		}    
+	
+}
+
+// Android Textfield input color fix 
+.x-android .x-input-el {
+    -webkit-text-fill-color: $rm-default-color !important;    
+}
+
+//For TextFields with flat look and white bg color in label and field, also icon on right side using bg image
+@mixin rm_flatfield($img){	
+		background: white;
+		border-top: 1px solid #DBDBDB;
+		@if($img!=""){
+			//background-image: theme_image('default', $img)!important;
+			background-image: url($img) !important; 
+			background-repeat:no-repeat;	
+			background-position-x: 97%;
+            background-position-y: 50%;
+			.x-component-outer{
+				margin-right: 50px;
+			}	
+		}		
+		.x-form-label{
+			background-color: inherit;			
+		} 
+		
+		.x-form-label span{
+			color: #475561;
+			font-weight: normal !important;
+		}	       
+        
+		.x-input-el{
+			text-align: right;	
+			color: $rm-default-color;
+            -webkit-text-fill-color: $rm-default-color;
+            background-color: inherit;
+            font-size: 0.8em;
+            min-height: 3.2em; 
+            //font-weight: bold;
+            //padding-top: 0.9em;	
+            padding-right: 0.6em;
+		}	
+        
+        input::-webkit-input-placeholder {
+           color: #A0A0A0;   
+           font-weight: normal;        
+        }	
+
+        .x-component-outer {
+            &:after {              
+              //-webkit-mask-size: 0 !important;                   
+              display: none;        
+            }
+        }
+
+        	
+}
+
+.rm-flatfield-fontweightnormal{	
+	.x-form-label span{
+		//color: #979797;			
+		font-weight: normal !important;
+	}
+	.x-input-el{
+		//color: #B6B6B6;
+		font-weight: normal !important;
+	}
+}
+
+//Toolbar UI for gray toolbar used for sort search component
+@include sencha-toolbar-ui('rm-sortsearch-topbar', #ECECEC, 'none');
+//@include sencha-toolbar-ui('rm-main-topbar', #2C2C2C, 'none');  //toolbar for Reckon Module screen
+//@include sencha-toolbar-ui('rm-slidenav-topbar',#3E3E3E,'matte'); //toolbar for slidenav menu toolbar
+//@include sencha-toolbar-ui('rm-slidenav-topbar',#333333,'matte'); //toolbar for slidenav menu toolbar
+
+
+//Slide nav button background when pressed
+.x-button.x-button-rm_topbarbuttonleft.x-button-pressing, 
+.x-button.x-button-rm_topbarbuttonleft.x-button-pressed, 
+.x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressing, 
+.x-toolbar .x-button.x-button-rm_topbarbuttonleft.x-button-pressed {
+	background: #C5C5C5 !important;
+}
+
+//Sortsearch bar - Search/clear button background when pressed
+.x-button.x-button-plain.x-button-pressing, 
+.x-button.x-button-plain.x-button-pressed, 
+.x-toolbar .x-button.x-button-plain.x-button-pressing, 
+.x-toolbar .x-button.x-button-plain.x-button-pressed {
+	background: #ECECEC;
+}
+
+//List item selection cls with white background when tapped
+
+.rm-listitemselection{    
+    background-color: #FFFFFF !important;        
+}
+
+//Below code block is mainly for list header text color and size
+.x-list{	
+	.x-list-header {
+      color: #646464;				//Changed from default color #777 to #646464	  
+      font-size: 0.8em;			//To get the right height of header without text wrap
+      font-weight: bold;
+      padding-left: 15px !important; //26px;
+      line-height: 1.7em;			
+      //      background: rgba(238,238,238,.8);
+      background-color: #F8F8F8;        //Added to get flat look    
+      //@include background-image(linear-gradient(top, rgba(238, 238, 238, 1), rgba(238, 238, 238, .9) 30%, rgba(238, 238, 238, .4))); //commented to remove gradient effect
+      border-bottom: none;
+      border-top: none !important;
+    }
+    
+    //.x-list-header-wrap .x-item-header, .x-list-normal .x-list-header {
+    //    border-bottom: none;
+    //}
+}
+
+
+//For datepicker 
+.x-picker-bar {
+    border-top: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
+    height: 2.5em;
+    background: #00BD9D;
+	box-shadow: none;
+    opacity: 0.2;
+  }
+
+.x-picker-slot-title {	
+    height: 1.5em;
+    position:relative;
+    z-index: 2;    
+    border: none;
+    border-radius: 0 !important;
+    text-shadow: none;
+    text-align: center;    
+    text-transform: uppercase;    
+    padding: 0.2em 1.02em;
+
+    > div {
+      text-shadow: none;
+      font-weight: normal;
+      font-size: 0.8em;
+      color: white;      
+    }    
+  } 
+
+.x-picker .x-scroll-container {    
+	border: 0;
+    text-align: center;
+}
+
+.x-picker-slot .x-picker-item{
+	color: #475561;
+	font-weight: normal;
+}
+
+.x-picker-slot {
+	border: 0;
+}
+
+.x-picker {	
+		border-top: none; 
+		//background: #000000;
+        .x-toolbar{
+           background: #f8f9f9;
+		   
+        }
+		.x-toolbar .x-button{
+			@include rm_topbarbuttonstyle;
+			color: #000;			
+		}
+		.x-toolbar .x-button-normal{            
+            text-transform: uppercase;			
+            margin-left: -5px;
+            margin-right: 5px;
+		}
+		.x-toolbar .x-button-action{            
+            width: 3.8em !important;
+            text-transform: uppercase;			
+            margin-left: 5px;
+            margin-right: -5px;
+		}
+		.x-dock-body{
+			background: #FFF;
+		}
+		.x-picker-inner{
+			background: #FFF;
+			padding-top: 0.6em;
+			padding-bottom: 0.5em;
+            border: 0;
+            border-radius: 0;
+            margin-left: 0;
+            margin-right: 0;
+		}
+		
+	}
+ 	
+//datepicker end
+
+//For left side toolbar button with right side border
+  .x-button.x-button-rm_topbarbuttonleft,
+  .x-toolbar .x-button.x-button-rm_topbarbuttonleft{
+    @include rm_topbarbuttonstyle;
+	//border-right: 1px solid #000000;
+    //background: url(../images/rm-topbar-border.svg) repeat-y right top;
+	margin-left: -5px;
+    margin-right: 5px;
+    padding-left: 7px;
+    .x-button-label{
+        font-size: 85%;
+        font-weight: normal;
+    }
+    
+  }
+  
+  //For right side toolbar button with left side border
+  .x-button.x-button-rm_topbarbuttonright,
+  .x-toolbar .x-button.x-button-rm_topbarbuttonright {
+    @include rm_topbarbuttonstyle;
+	//border-left: 1px solid #000000;
+    //background: url(../images/rm-topbar-border.svg) repeat-y left top;
+	margin-left: 5px;
+    margin-right: -5px;
+    width: 3.4em;
+
+    .x-button-label{
+        font-size: 85%;
+        font-weight: normal;
+    }
+
+  }
+
+//For main (black) left side toolbar button with right side border
+  .x-button.x-button-rm_maintopbarbuttonleft,
+  .x-toolbar .x-button.x-button-rm_maintopbarbuttonleft{
+    @include rm_topbarbuttonstyle;
+	//border-right: 1px solid #000000;
+    //background: url(../images/rm-maintopbar-border.svg) repeat-y right top;
+	margin-left: -5px;
+    margin-right: 5px;
+    
+    .x-button-label{
+        font-size: 85%;
+        font-weight: normal;
+    }
+    
+  }
+
+//For main (black) right side toolbar button with left side border
+  .x-button.x-button-rm_maintopbarbuttonright,
+  .x-toolbar .x-button.x-button-rm_maintopbarbuttonright {
+    @include rm_topbarbuttonstyle;
+	//border-left: 1px solid #000000;
+    //background: url(../images/rm-maintopbar-border.svg) repeat-y left top;
+	margin-left: 5px;
+    margin-right: -5px;
+    width: 3.4em;
+
+    .x-button-label{
+        font-size: 85%;
+        font-weight: normal;
+    }
+
+  }
+
+
+//Flat Select field
+.rm-flatselectfield.x-field-select .x-component-outer::after {
+			
+			background: none;
+			position: absolute;
+			width: 0;
+			height: 0;
+			top: 0;
+			left: auto;
+			right: 0;
+			margin-top: 0;
+		}
+
+.rm-emailpasswordfield.x-field{
+	@include rm_flatfieldlefticon("../images/icons/rm-email.svg");
+}
+
+.rm-flatfield{
+	@include rm_flatfield("");
+}
+.rm-flatfield-last{    
+    border-bottom: 1px solid #DBDBDB !important;	
+}
+.rm-field-input-formatted {
+    position:absolute; 
+    line-height: 3.2em; 
+    padding-top: 0;
+    padding-bottom: 0;
+    top:0; 
+    background:white !important;
+}
+.rm-field-warning{    
+    background: #F6F0DA;	
+    .rm-field-input-formatted {
+        background: #F6F0DA !important; 
+    }
+}
+
+
+// Flat textfield style code end
+
+
+.rm-arrowimgbtn {	
+	background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+	background-repeat:no-repeat;	
+	background-position-x: 95%;
+	background-position-y: 50%;
+    background-size: 10px 20px;
+	background-color: #EBEBEB;
+    color: #646464;
+	padding: 5px;
+    padding-left: 10px;	
+	border-radius: 0;
+	border:0;
+	height: $global-row-height;
+
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: normal;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+        padding-left: 5px;
+	}
+}
+
+.rm-whitebg{
+	background-color:#FFFFFF !important;
+}
+
+.rm-greybg{
+    background-color: #515151 !important;
+}
+
+.rm-lightgreenbg{
+    background-color: #E5F7F0 !important;
+}
+
+.rm-paybg{
+    background-color: #f7f7f7 !important;
+}
+
+.rm-border-top{
+    border-top: 1px solid #f7f7f7 !important;
+}
+
+.rm-border-bottom{
+    border-bottom: 1px solid #f7f7f7 !important;
+}
+
+.rm-border-left{
+    border-left: 1px solid #f7f7f7 !important;
+}
+
+// Dropdown menu style and button as menu items. Button text aligned to left using button-label 
+.rm-dropdown{
+	background: #4D4D4D;
+	color: #FFFFFF;
+	border: none;
+	border-radius:0;
+	padding: 0px;
+	margin:0px;	
+
+  .x-button-rm_btnaslistrow {
+		border-radius: 0;
+		border: none;
+		background: url(../images/rm-menuitem-topborder.svg) repeat-x left top;	
+		
+        
+	}
+  .x-button-label {    
+    text-overflow: ellipsis;
+    text-align: left;
+    font-weight: normal;
+    font-size: 115%;
+    display: block;
+    overflow: hidden;
+    padding:10px 10px 10px 15px;   	
+	}		
+}
+
+.rm-dropdown-img{
+	margin-left: 2px;
+	margin-bottom: 2px;
+	width: 7px;
+	height: 6px;
+}
+
+.rm-dropdownmain{
+	background: #000000;
+	color: #FFFFFF;
+	border: none;
+	border-radius:0;
+	padding: 0px;
+	margin:0px;	
+
+  .x-button-rm_btnaslistrow {
+		border-radius: 0;
+		border: none;
+		background: url(../images/rm-menuitem-topborder.svg) repeat-x left top;	
+		
+        
+	}
+  .x-button-label {    
+    text-overflow: ellipsis;
+    text-align: right;
+    font-weight: normal;
+    font-size: 115%;
+    display: block;
+    overflow: hidden;
+    padding:10px;   	
+	}		
+}
+
+// Main/Module dropdown menu style and button as menu items. Button text aligned to left using button-label 
+.x-button-rm_btnaslistrowmainmenu{
+    border-radius: 0;
+	border: none;		
+    background: #000000;
+	color: #FFFFFF;
+	border-bottom: 1px solid #4F4F4F;
+	padding: 0px;
+	margin:0px;
+}
+
+//Dropdown menu
+.x-button-rm_btnaslistrowmain {
+	border-radius: 0;
+	border: none;		
+    background: #A5A5A5;
+	color: #454545;
+	//border-top: 1px solid #4F4F4F;
+	padding: 0px;
+	margin:0px;   
+	.x-button-label {         
+        font-size: 90% !important;                
+    }	        
+}
+
+ 
+//For sortsearch dropdown button
+ .x-toolbar .x-button.x-button-rm_dropdownbtn {
+    @include rm_topbarbuttonstyle;
+	background: #ECECEC !important;
+	color: #646464 !important;	
+	margin: -5px;
+    padding-left: 15px !important;
+  }
+
+//dropdown button with dropdown arrow mark
+.rm-dropdownbtn{
+    color: #ffffff;
+	border: none;
+	border-radius:0;
+	padding: 0;
+	margin:0;  
+        
+    .x-button-label {    
+        text-overflow: ellipsis;
+        text-align: left;
+        font-weight: bold !important;
+        font-size: 92% !important;                
+	}	
+}
+
+
+.x-select-overlay .x-item-selected .x-list-label {
+	margin-right: 2.6em;
+	background: #4e4e4e;
+	color: #fff;
+}
+.x-select-overlay .x-list-item-body {
+	background: #4e4e4e;
+	color: #fff;
+	min-height: 46px;
+	padding: 0.65em 0.8em;
+}
+ .x-panel.x-floating,  .x-form.x-floating {
+	padding: 6px;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	-webkit-box-shadow: rgba(0,0,0,0.8) 0 0.2em 0.6em;
+	box-shadow: rgba(0,0,0,0.8) 0 0.2em 0.6em;
+	background-image: none;
+	background-color: #4e4e4e;
+	border: 0;
+	margin:0;
+}
+
+//Below code is to remove triangle shape from overlay when showBy method or Selectfield is used.
+.x-anchor.x-anchor-left,
+.x-anchor.x-anchor-right,
+.x-anchor.x-anchor-top,
+.x-anchor.x-anchor-bottom, {
+	margin:0;
+	height:0;
+	width: 0;
+	background-color: #4e4e4e;
+
+}
+ 
+ //To get white font in toolbar title
+.rm-topbartitle {
+	color: #FFFFFF;
+    font-size: 115%;
+}
+
+//Code block for swipe container and its button styled as list rows with button text aligned to left
+.rm-swipecontainer{
+	color: #FFFFFF;
+	background: #4E4E4E;
+	
+	.x-button-rm_btnaslistrow {
+		border-radius: 0;
+		border: 0;			
+		margin: 0;        
+		background-image: url("../images/icons/rm-listitem-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
+	    background-repeat:no-repeat, repeat-x;	
+	    background-position-x: 96%,0%;
+	    background-position-y: 50%,0%; 
+        background-size: 10px 20px, 4px;
+        height: $global-row-height;
+	}
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: normal;
+        font-size: 80%;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;        
+	    
+  }
+}
+
+//Keypad button style used in EnterPin screen
+.rm-flatkeypadbutton {
+	border-radius: 0;
+	border: 1px solid #DADBDF;	
+	margin: 0;
+	background: #FCFCFC;
+	color: #595959;
+    font-size: 140%;
+    
+    .x-button-label{
+        font-weight: normal;
+    }
+}
+
+.rm-flatkeypad-crossbtn{
+    background-image: url("../images/icons/rm-keypad-cross.svg");
+	background-repeat: no-repeat;	
+    background-position: center;
+    background-size: 28px;
+}
+
+.rm-flatkeypad-backspace{
+	background-image: url("../images/icons/rm-keypad-backspace.svg");
+	background-repeat: no-repeat;	
+    background-position: center;
+    background-size: 24px;
+}
+
+.rm-msgpopup {  
+	  background: #FFFFFF;
+	  color: $rm-default-color;  
+      border: 0;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      font-size: 90%;
+ 
+    .x-button-green	
+	 {    
+        width: 100%;
+        height: 3.25em;        
+        margin: 0;        
+        border-radius: 0;        
+        color: #F9F9F9;
+        background: #00BD9D;
+        border: 0;                    
+    }  
+
+	.x-button-grey 	
+	{    
+        width: 100%;
+        height: 3.25em;        
+        margin: 0;        
+        border-radius: 0;        
+        color: #F9F9F9;
+        background: #475561;  
+        border: 0; 
+    }
+
+    .x-layout-box-item {
+        text-align: center;
+    }  
+}
+
+//Popup menu used for popup dialog with cross icon. 
+.rm-popup {
+	  padding: 0;	  
+	  border: 0px;
+	  border-radius: 0px;
+	  background: #FFF;
+	  color: #787878;  
+      width: 100%;
+  	text-align: center;
+	 
+	 .rm-title {			
+			padding: 0.6em;			
+			text-align: center;
+			color: #787878;
+			font-weight: bold;
+			//font-size: 0.8em;
+			//height: 3em;
+			//border-bottom: 1px solid #dddddd;		
+	  }
+	  
+	  .rm-textitemgray{
+			margin-top: 0.2em;
+			margin-bottom: 0.2em;
+			padding: 0.5em;
+			text-align: left;
+			color: #C8C8C8;
+		
+			p {
+				margin-bottom: 0.2em;
+			}
+	  }
+
+	  .rm-textitemwhite{
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			padding: 0.5em;
+			text-align: left;
+			color: #FFFFFF;
+			
+			p {
+			  margin-bottom: 0.2em;
+			}
+	  } 
+	  
+	  .x-list{
+			background: #FFF;
+			color: #787878;	
+	  }
+	  
+      .x-list .x-list-item.x-item-selected.x-list-item-tpl { 	
+			background: #00BD9D;
+			color: #FFF;	
+	  }
+
+	  .rm-topright {
+		margin-top: 0.3em; 
+		margin-right: 0.3em;
+		border-radius: 0;
+		padding: 0.2em;
+		border: 0;
+		height: 1.8em;
+		color: #C8C8C8;
+		background: #4F4F4F;
+		p {
+		  margin-bottom: 0.2em;
+		}
+	  }	  
+
+	  .x-button-rm_btnaslistrow {
+			border-radius: 0;
+			border: 0;			
+			margin: 0;	
+			background-image: url("../images/icons/rm-listitem-arrow.svg"), url(../images/rm-menuitem-topborder.svg);
+    	    background-repeat:no-repeat, repeat-x;	
+    	    background-position-x: 95%,0%;
+    	    background-position-y: 50%,0%; 
+            background-size: 10px 20px, 4px;
+            height: $global-row-height;
+
+			.x-button-label {    
+				text-overflow: ellipsis;
+				text-align: left;
+				font-weight: normal;
+                font-size: 100%;
+				//line-height: 1.2em;
+				display: block;
+				overflow: hidden;
+				padding: 5px;	
+			}
+		}
+
+	  /*.x-button-close {
+		position: absolute;
+		width: 31px;
+		height: 31px;
+		border:0;		 
+		background: url("../images/icons/rm-popupcross.svg") no-repeat;
+        background-size: 31px;    
+		top: -14px; // ST2.1 tweak
+		right: -14px; // ST2.1 tweak
+	  }
+
+	  .x-component-outer {
+		width: 100%;
+	  }*/
+	  
+	  .rm-picker {		
+		background-color: #4F4F4F;
+        text-shadow: none;        
+		color: #FFFFFF;
+		border:0;
+		border-radius:0;
+		background-image: url(../images/rm-menuitem-topborder.svg);
+        background-repeat:repeat-x;
+        background-position:top left;
+	  }
+	
+	.x-form-fieldset{
+		margin: 0;
+	}
+
+	 .x-form-fieldset .x-form-fieldset-inner {			
+			border:0;
+			border-radius:0;
+		}
+	
+	 .x-field-radio .x-form-label {		
+		  background: #FFF;
+		  color: #787878;		  
+		  text-align: left;		
+	  }  
+		
+	.x-field-radio .x-form-label span{
+		font-weight: normal;
+	}
+	/*.x-field-radio .x-field-input{
+		display: none;	
+	}*/
+
+	  /*.x-field-radio .x-input-el {	    
+		&:checked:before {
+		  background-color: $base-color;
+		}
+	  }  */
+	  
+}
+
+//
+//
+//
+//PakDev Code Starts here...
+//
+//
+//	
+    .rm-pl5{
+        padding-left: 5px;
+    }
+	.rm-pl10{
+		padding-left: 10px;
+	}
+	.rm-p1015{
+		padding: 10px 15px;
+	}
+	.rm-pl15{
+		padding-left: 15px !important;
+	}
+	.rm-pl30{ padding-left: 30px !important;}
+    .rm-pl0{
+        padding-left: 0px !important;
+    }
+    .rm-p10{
+        padding: 10px !important;
+    }
+    .rm-pt5{
+        padding-top: 5px;
+    }
+	.rm-pb5{
+		padding-bottom: 5px;
+	}
+    .rm-pr5{
+        padding-right: 5px;
+    }
+    .rm-margin-auto10{
+        margin: auto 10px;
+    }
+    .rm-ml5{
+        margin-left: 5px;
+    }
+	.rm-mb5{
+		margin-bottom: 5px;
+	}
+    .rm-mr5{
+        margin-right: 5px;
+    }
+    .rm-mr20{
+        margin-right: 20px;
+    }
+    .rm-fontsize100{
+        font-size: 100%;
+    }
+    .rm-fontsize120{
+        font-size: 120%;    
+    } 
+	.rm-fontsize180{
+		font-size: 180%;
+	} 
+	.rm-fintsize275{
+		font-size: 275%;
+	}
+    .rm-fontsize98{
+        font-size: 98%;
+    } 
+	.rm-fontsize94{
+		font-size: 94%;
+	}
+	.rm-fontsize90{
+		font-size: 90%;
+	}
+    .rm-fontsize70{
+        font-size: 70% !important;
+    } 
+    .rm-fontsize80{
+        font-size: 80%;
+    }
+    .rm-fontweightbold{
+        font-weight: bold;
+    }
+    .rm-lineheight180{
+        line-height: 180% !important;
+    }
+    .rm-p5{
+        padding: 5px;
+    }
+	.rm-pt5{ padding-top:5px !important;}
+	.rm-mt-10{ margin-top: -10px;}
+	.rm-m-1{ margin: -1px -5px -1px -5px; margin-top: -1px;}
+	.rm-tablelayout{
+		table-layout: fixed;
+	}
+
+	.rm-textlimit{
+		white-space: nowrap;
+		overflow: hidden;text-overflow: ellipsis;	
+	}
+
+    .rm-btn-iconsize{
+        background-size: 25px;
+    }
+
+	.rm-alignr{ text-align: right !important; }
+    .rm-alignl{ text-align: left !important;}
+    .rm-alignc{ text-align: center !important;}
+    .rm-inputel-alignl{ .x-input-el{ text-align: left; margin-left: 5px; font-weight: normal;}	 }
+    .rm-floatl { float: left !important;}
+    .rm-floatr { float: right !important;}
+    .rm-floatr15 { position: absolute; right: 15px;}
+    .rm-colorred {color: red !important;}
+	.rm-colorred-popup-no { color: #FE4045 !important;}
+	.rm-colorred-popup-yes { color: #9CCD70 !important;}
+    .rm-colorgreen {color: #A2D079;}
+	.rm-colorgreenoptions{ color: #00BD9D !important;}
+    .rm-colorblue{color: #5095E1;}
+	.rm-colorblack{color: #333333;}
+	.rm-colorgrey{color: #646464}
+	.rm-colorlightgrey{color: #969696;}
+	.rm-pref-headingtitle{color: #646464;}
+    .rm-border1px { border-top: 1px solid #DBDBDB;}
+
+	.rm-greenbtn-bg { background: #00BD9D; }
+	.rm-greybtn-bg { background: #475561; }
+	.rm-lightgreybtn-bg { background: #F2F2F2; }
+
+//cashbook.scss
+.rm-orgnametext{
+		color:#646464;font-size:90%;
+		font-weight:bold;
+	}
+	.rm-booknametext{
+		color:#969696;font-size:80%;
+		font-weight:bold;
+	}
+	.rm-accesstext{
+		color:#969696;
+        font-size: 68%;
+		font-weight: normal;
+        text-transform: uppercase;
+	}
+
+	@mixin rm-listdynamiccolor{
+		width:10px;height:10px;float:left;
+		background:#d2d2d2;margin-top:5px;
+	}
+
+    .rm-list-cashbook {
+        @include rm-listdynamiccolor;
+        background:#ff0913;
+    }
+
+    .rm-list-readonly-cashbook {
+        @include rm-listdynamiccolor;
+        background:#e7e7e7;
+    }
+	
+	.rm-nextgrayarrow {
+		background-position:right; 
+        background-repeat: no-repeat;
+		padding-right: 20px;
+        
+	}
+	
+	.rm-nextgrayarrow{		
+		background-image: url("../images/icons/rm-listitem-arrow.svg");
+        background-size: 10px 20px; 
+	}
+	
+	
+//bills.scss
+.rm-bill-listcls{
+		.rm-booknametext{
+			color:#969696;font-size:80%;
+			font-weight:normal;
+		}
+	}
+	.rm-reddotright{
+		//background-image: theme_image($theme-name, "pictos/base64/redDot.png");
+		background-image: url("../images/redDot.svg"); 
+		padding-left:18px;
+	}
+	
+	.rm-reddot {
+		background: red;
+		border-radius: 3px;
+		width: 6px;
+		height: 6px;
+		display: inline-block;
+		margin-left: 5px;
+		margin-bottom: 1px;
+	}
+
+//Timesheets
+
+.rm-timesheetrowfields{
+    color: #969696;
+    font-size: 80%;
+    font-weight: normal;
+}
+
+//Expenses
+
+.rm-expensesrowfields{
+    color: #969696;
+    font-size: 80%;
+    font-weight: normal;
+}
+//
+//
+//PakDev Code Ends here...
+//
+//
+
+//CustomerInvoices
+.rm-customerinvoices-invoicecount{
+	color: #969696; 
+    font-size: 90%;
+	font-weight: normal;
+}
+
+.rm-addnotefield{
+    .x-input-el{
+        text-align: left;	
+    	color: #969696;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+}
+
+//Invoices
+.rm-invoices-invoicecode{
+	color: #969696; 
+    font-size: 85%;
+    font-weight: bold;
+}
+
+.rm-invoices-invoiceamount{
+	color: #646464;
+    font-size: 90%;
+	font-weight: bold;
+}
+.rm-invoices-duestatus{
+    color: #969696;
+    font-size: 85%;
+	//font-weight: bold;
+}
+.rm-emailreminder{
+	color: #0096CF;     
+	font-weight: normal;		
+}
+
+//InvoiceTimeSelect
+.rm-notelink{
+	color: #0096CF; 
+    font-size: 80%;
+	font-weight: normal;
+}
+
+.rm-invoicetimeselect-date{
+	color: #969696;
+    font-size: 80%;
+	font-weight: bold;
+}
+
+.rm-invoicetimeselect-project{
+	color: #969696;
+    font-size: 80%;
+	font-weight: normal;
+}
+
+.rm-invoicetimeselect-desc{
+    color: #969696;
+    font-size: 80%;
+    font-weight: bold;
+}
+
+.rm-invoiceitemtext{
+	color: #00BD9D; 
+	font-size: 86%;     
+}
+
+.rm-invoiceitemamount{
+    text-align: right;
+    color: #646464;
+    font-size: 86%;
+    margin-left: 9px;     
+}
+
+.rm-checkbox-on{	
+	background-image: url("../images/icons/rm-checkbox-on.svg"); 
+}
+
+.rm-checkbox-off{	
+	background-image: url("../images/icons/rm-checkbox-off.svg"); 
+}
+
+.rm-checkbox{
+	background-position: center; 
+    background-repeat: no-repeat;
+    background-size: 24px;
+	width: 30px;
+	height: 30px;    
+}
+
+.rm-checkbox-label{
+		color: #969696;
+        font-size: 80%; 
+		font-weight: normal;
+        margin-left: 5px;
+        margin-right: 5px;
+}
+
+.rm-budgetlineitem-name{
+		color: #646464; 
+        font-size: 90%;
+		font-weight: bold;
+}
+
+.rm-budgetlineitem-field{
+		color: #646464;
+        font-size: 72%;	
+}
+
+.rm-budgetlineitem-value{        
+		color: #969696;
+        font-size: 84%; 
+        font-weight: bold;		
+}
+
+.rm-budgetlineitem-total-bgcolor{
+		background: #F0F0F0;
+}
+
+.rm-pricevalue{
+		color: #646464;
+        font-size: 90%;
+		font-weight: normal;
+}
+
+.rm-historydate{
+		color: #C8C8C8;
+        font-size: 70%;		
+}
+
+.rm-historytext{
+		color: #969696;
+        font-size: 80%;         	
+}
+
+.rm-invoiceaction-bg{
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #DBDBDB;    
+}
+
+.rm-note-icon{
+		
+		background-image: url("../images/icons/rm-note.svg");
+		background-position: center; 
+        background-repeat: no-repeat;
+        background-size: 16px;
+		width: 22px;
+		height: 26px;
+        margin-right: 2px
+}
+
+.rm-balance-breakdown-amount{
+	float: right;
+}
+
+.rm-balance-breakdown-row{	
+	padding: 0.6em;
+	background: #FFFFFF;
+	color: #646464;
+	margin-right: -8px;
+	margin-left: -8px;
+    border-bottom: 1px solid #DBDBDB;
+}
+
+.rm-balance-breakdown-due{	
+	padding: 0.6em;
+	background: #626262;
+	color: #FFFFFF;
+	margin-right: -8px;
+	margin-left: -8px;
+    border-bottom: 2px solid #DBDBDB;
+}
+
+.rm-emailinvoicebackground{
+    background: #F8F8F8;
+}
+
+.rm-emailscreenbtn {	
+	background: #EBEBEB;
+	padding: 0.3em;	
+	border-radius: 0;
+	border: 0;	
+	border-bottom: 2px solid #DBDBDB;
+    height: $global-row-height;
+	
+	.x-button-label { 		  
+		text-overflow: ellipsis;		
+		font-weight: bold;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+		margin-right: 15px;
+		color: #646464;
+	}
+}
+
+.rm-emailcheckmark{	
+	background-image: url("../images/icons/rm-emailtickmark.svg") !important;
+	background-repeat: no-repeat;
+	background-color: #A1CF79;
+	background-size: 30px;	
+	margin: 3px 10px 3px 10px;
+}
+
+.rm-emailpositivepanel{	
+	background-color: #A1CF79;
+	.x-innerhtml {		
+		color: #FFFFFF;		
+	}
+    padding: 20px 10px;
+    word-wrap: break-word;
+}
+
+.rm-emailcrossmark{	
+	background-image: url("../images/icons/rm-emailcrossmark.svg") !important;	
+	background-repeat: no-repeat;	
+	background-color: #ED3D57;
+	background-size: 28px;
+	margin: 3px 10px 3px 10px;
+}
+
+.rm-emailnegativepanel{	
+	background-color: #ED3D57;
+	.x-innerhtml {		
+		color: #FFFFFF;		
+	}
+	padding: 20px 10px;
+    word-wrap: break-word;	
+}
+
+.rm-paymenttype-btn-bg{	
+	background-color: #FFFFFF;
+    border-bottom: 1px solid #DBDBDB;
+    padding: 6px 18px 6px 18px;
+}
+
+.rm-pincode {
+	border-bottom: solid 3px #DCDCDC;
+	text-align: center;    
+}
+.rm-pincode-entered {	
+	background: url("../images/icons/rm-pinmask.svg") no-repeat center;				
+}
+
+.rm-dashboard{
+    background: #FFFFFF;
+    margin:-5px;    
+}
+
+.rm-dashboard-nodata{
+    padding: 10px 0px 10px 20px;  
+    font-size: 86%;   
+    color: #969696;   
+}
+.rm-clear{
+    height: 0px;
+    clear: both;
+}
+
+.rm-budgetoverview{
+    padding: 10px 10px 0px 10px;    
+}
+
+.rm-dashboardtopexpenses{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.rm-dashboardnetposition{
+	font-size: 82%;
+    margin: 7px 5px;
+    color: #646464;
+}
+
+.rm-activate-btn{
+    background: #91CA42;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 0;    
+}
+
+.rm-module-close-btn{
+    background: none;
+	background-image: url("../images/rm-module-close.svg")!important;	
+    background-repeat: no-repeat;	
+    background-size: 40px;
+    border: 0;
+    border-radius: 0; 
+    width: 42px;  
+    height: 42px;  
+	margin-top: 16px;
+}
+
+.rm-module-panel{    
+    border-top: 2px solid #D1D1D1;
+    padding: 15px;
+    background: #F0F0F0;
+}
+
+.rm-module-title{
+    font-weight: bold;
+    font-size: 17px;
+    color: #646464;  
+    padding: 15px;
+    padding-bottom: 0; 
+	margin-top: 9px;
+}
+
+.rm-module-msg{
+    font-weight: normal;
+    font-size: 16px;
+    color: #8C8C8C; 
+    padding: 10px 15px 10px 15px;
+}
+
+.rm-module-topbar-icon{    
+	background-image: url("../images/icons/rm-reckon-icon.svg")!important;
+    background-repeat: no-repeat;    
+    height: 34px;
+    width: 121px;
+    margin: 6px 8px;
+    background-size: 121px 34px;
+}
+
+.rm-module-panel-arrow{
+	
+	background-image: url("../images/rm-popup-arrow.png")!important;
+    background-size: 43px 22px;
+    background-repeat: no-repeat;	
+    width: 43px;
+	height: 22px;
+	position: absolute !important;
+	top: -22px;	
+	
+}
+
+//Used for first three items of slide nave menu class
+.rm-slidenav-menuitem{    
+    color: #DCDCDC;         //#B4B4B4;
+    background: #475460;        //#686868;
+    //margin-top: -0.7em; 
+    //margin-bottom: -0.65em; 
+    //margin-left: -0.8em;
+    //margin-right: -0.8em;
+    margin: -1em;    //-0.8em;
+    padding: 0.9em;    //0.8em;
+    //border-top: 1px solid #818181;
+}
+
+.rm-slidenav-menuicon{     
+    width: 3.5em !important;
+    margin-left: -1em;
+}
+
+//Used for slidenav menu items with not activated text
+.rm-slidenav-menuitem-msg {
+      
+      //IMPORTANT: Change width whenever there is a change in width of slide nave menu list: width: 275, in MainNavContainer.js class
+      width: 250px;
+      
+      //Main label or menu item text
+      .leftlabel {
+          display: inline;
+       }
+       
+      //Msg label (not activated)
+      .rightlabel {
+          display: inline;
+          font-size: 72%;
+          padding-top: 0.4em;
+          float: right;  
+       }
+      
+}
+
+.rm-slidenav-menu-title{
+    margin-top: -5px; 
+    margin-left: -1px;
+    text-align: left;
+}
+
+.rm-slidenav-menu-subtitle{
+    font-size: 13px; 
+    margin-top: -25px; 
+    float: left; 
+}
+
+.x-list.x-slidenavigation-list{  
+       
+        background : #EFEFEF;            //#3D3D3D; 
+	    
+        .x-title{
+            font-weight: normal;
+            position: absolute !important;
+        }
+
+        .x-list-item{		
+            color: #787878;            //#969696;
+			background : #EFEFEF;     //#3D3D3D;            	                     
+        }   
+
+        .x-list-item.x-list-item-tpl, 
+        .x-list-item .x-dock-horizontal {
+              //border-top: 1px solid #4F4F4F; 
+        }
+        
+        .x-list-item.x-list-item-tpl.x-list-footer-wrap, 
+        .x-list-item.x-list-footer-wrap .x-dock-horizontal {
+              //border-bottom: 1px solid #4F4F4F; 
+        }             
+		
+		.x-list-header{
+                background : #333333;        //#131313;
+                padding: 0.5em 1em;
+                line-height: 1.2em !important;
+				border: none;
+                color: #FFFFFF;
+				text-shadow: none;
+                margin-top: -1px;
+                margin-bottom: -1px				
+        }
+        
+        .x-list-item.x-item-selected .x-dock-horizontal, 
+        .x-list-item.x-item-selected.x-list-item-tpl {
+                color: #323232;               //#FFFFFF;	
+    			background : #FFFFFF;        //#3E3E3E; 					
+    			font-weight: bold;
+                text-shadow: none;
+                margin-bottom: -1px
+        }
+
+		
+}
+
+// set to white for all button icons, required for keypad x - delete button
+.x-button .x-button-icon.x-icon-mask, 
+.xtoolbar .x-button .x-button-icon.x-icon-mask{
+		background: #FFFFFF;
+}
+
+// Swipebar in swip panel of Invoice screen
+.rm-swipebar{
+    background-image: url("../images/rm-swipebar.svg")!important;
+    background-position: center top; 
+    background-repeat: no-repeat;
+    height: 2px;
+	width: 32px;
+    margin: 2px auto;
+}
+
+
+
+//Login button on EnterUsername view
+.rm-loginbtn{
+    /*background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+	background-repeat: no-repeat;	
+	background-position-x: 65%;
+	background-position-y: 50%;
+	background-size: 10px 20px;*/
+	background: #F0F0F0;    
+    color: #646464;	
+	border-radius: 0;
+	border: 0;
+    border-top: 1px solid #DBDBDB;
+    border-bottom: 1px solid #DBDBDB;	
+    height: $global-row-height;
+}
+
+//Login msg on EnterUsername screen
+.rm-intromsg{ 
+    font-size: 86%;   
+    color: #969696;    
+}
+
+.rm-errormsg{
+    font-size: 86%;   
+    color: #FE0000;   
+}
+
+//Msg on EnterPin screen
+.rm-pinmsg{
+    color: #969696;
+    padding: 20px 15px 20px 15px;
+}
+
+//Module Tiles on module screen
+.rm-moduletiles{
+	padding: 0px 10px 10px 0px;
+	text-align: center;
+}
+
+/* Target the tiled view item. Make it float using inline-block. */
+.rm-moduletiles-item {
+	width: 140px;
+	height: 145px;
+	display: inline-block;
+	margin: 10px 0 0 10px;
+}  
+
+//checkbox small text
+.rm-checkbox-smalltext{
+    font-size: 84%;    
+    margin-left: 9px;
+    margin-right: 9px;
+	
+	span{
+		color: #646464;
+	}    
+}
+
+//Code to get white background in invoices, timesheet and expenses details screen   
+.x-form .x-scroll-container {
+    background-color: #FFFFFF;
+}
+
+//Text color for invoiceline items heading colour
+.rm-invoicelineitem-text{
+    color: #646464;
+    font-size: 0.86em;
+    padding: 5px;
+}
+
+.rm-invoicelineitem-add {
+    color: #00BD9D;
+    font-size: 0.86em;
+    padding: 5px;    
+}
+
+//Added to get font padding right for list paging msg
+.x-list-paging {
+  padding: 15px; 
+}
+.x-list-paging .x-list-paging-msg {
+  color: #646464;
+  text-align: left;
+  font-size: 90%;
+  font-weight: bold;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0; 
+}
+.x-list-paging.x-loading {
+  padding: 15px; 
+}
+
+//To get the color in search field in gray toolbar while typing  
+.x-toolbar .x-form-field:focus {
+    color: #969696;    
+}
+
+//To remove box shadow from search field 
+.x-toolbar .x-field-textarea .x-component-outer, .x-toolbar .x-field-text .x-component-outer, .x-toolbar .x-field-number .x-component-outer, .x-toolbar .x-field-search .x-component-outer {
+    -webkit-box-shadow: none;    
+    box-shadow: none;
+}
+
+//ForgottenPassword screen msg
+.rm-resetpasswordmsg{
+    color: #646464; 
+    font-size: 72%;    
+}
+
+//Budget checkbox title
+.rm-budgetcheckboxtext{
+    color: #969696;
+    font-size: 90%;
+    margin-left: 16px;    
+}
+
+//Enter PIN screen header
+.rm-pinheader{
+    color: #646464;
+}
+
+//Create new item button
+.rm-createitembtn{
+    //background-image: url("../images/icons/rm-plus.png") !important;
+	//background-repeat: no-repeat;	
+	//background-position-x: 15px; 
+    //background-position-y: 50%;
+	background: #FFFFFF;
+    color: #0096D0;	
+	border-radius: 0;
+	border: 0;
+    border-top: 1px solid #DBDBDB;
+    //border-bottom: 1px solid #DBDBDB;	
+    height: $global-row-height;
+	
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+		font-weight: normal;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;		
+        margin-left: 5px;
+        color:#00bd9d;
+	}
+}
+
+//RMToggleField on
+.rm-togglefield-on{
+    //For Text of togglefield
+    .x-input-el {
+        padding-right: 25px;    
+        color: #646464;                
+    }
+
+    .x-field .x-field-input{
+        padding-right: 10px;
+    }
+
+    //For icon of togglefield
+    .x-input-el{	
+        background-image: url("../images/icons/rm-togglefield-on.svg") !important;
+        background-repeat: no-repeat;	
+    	background-position: right;
+        background-size: 18px;
+        position: absolute;
+        right: 10px;  
+        padding-top: 0.85em;    
+        padding-bottom: 0.9em;      
+    }
+}
+
+//RMToggleField off
+.rm-togglefield-off{
+    //For Text of togglefield
+    .x-input-el {
+        padding-right: 23px;
+        color: #646464;
+    }
+    
+    .x-field .x-field-input{
+        padding-right: 10px;
+    }
+    
+    //For icon of togglefield
+    .x-input-el{		
+        background-image: url("../images/icons/rm-togglefield-off.svg") !important;
+        background-repeat: no-repeat;	
+    	background-position: right;
+        background-size: 14px;
+        position: absolute;
+        right: 10px;  
+        padding-top: 0.85em;    
+        padding-bottom: 0.9em;        
+    }
+}
+
+//Loading mask style start
+.x-loading-spinner {
+    font-size: 0% !important;
+}
+
+.x-mask .x-mask-inner {
+    position: relative;
+    margin-top: -75px;
+    background: #FFFFFF;
+    color: $rm-default-color;
+    text-align: center;
+    padding: .4em;
+    font-size: .95em;
+    border-radius: 0; 
+    width: 100% !important;   
+}
+
+.x-mask .x-loading-spinner-outer {
+    background-image: url("../images/rm-loading-img.gif") !important;
+    background-repeat: no-repeat;
+    background-position: center;   
+}
+
+.x-mask.x-has-message .x-loading-spinner-outer {
+    height: 5em;
+}
+
+.x-mask .x-mask-message {
+    width: 100% !important;
+    color: $rm-default-color;
+    text-shadow: none;
+    max-width: none;
+    position: absolute;
+    bottom: 1.4em;
+}
+//Loading mask style end
+
+//To remove black border from toolbars
+.x-toolbar.x-docked-top {
+    border-bottom: none;
+}
+
+
+//MessageBox style start
+
+.x-msgbox {
+    //height: 170px;
+    width: 100%;
+    margin: 0;
+    padding: 0;    
+    border-radius: 0;
+    border: none;
+    background-color: #FFFFFF;
+}
+
+.x-msgbox-buttons .x-button {    
+    //width: 100%;
+    //margin: 0;
+    //margin-bottom: -15px;    
+    border-radius: 0;
+    //padding: 0;
+    color: #646464 !important;
+    background: #efefef !important;  
+    border: 0 !important; 
+    //border-top: 1px solid #B4B4B4 !important;
+}
+
+.x-msgbox-text {   
+    color: $rm-default-color !important;
+    text-shadow: none !important;
+    text-align: center;
+    font-size: 90%;
+}
+
+.x-msgbox .x-title {
+    font-size: .9em;
+    line-height: 1.4em;
+    color: $rm-default-color;
+    text-shadow: none;
+}
+
+
+//MsgBox Style End
+
+//Mandatory field red color highlighting
+.rm-manfld-notset-lbl span{
+    color: red !important;	
+} 
+
+//style to show border on top of RMCheckbox in form fields 
+.rm-checkbox-rightalign {
+    padding-right: 5px;
+    .x-layout-box.x-pack-start {
+        -webkit-box-pack: end !important;
+        box-pack: end !important;
+    }    
+}
+
+//Ammount field
+.rm-amountfield{
+    .x-input-el:before{
+        display: inline;
+        content: '$';
+    }
+}
+
+//RMPullRefresh style start
+// RM Pull refresh class
+.x-list-pullrefresh {
+  display: -webkit-box;
+  display: box;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  -webkit-box-align: center;
+  box-align: center;
+  -webkit-box-pack: center;
+  box-pack: center;
+  position: absolute;
+  top: -5em;
+  left: 0;
+  width: 100%;
+  height: 4.5em; }
+
+// RM Pull refresh red arrow class
+.x-list-pullrefresh-arrow {
+    width: 100%;
+    height: 41px;
+    background-image: url("../images/rm-pullarrow.svg") !important;
+    background-size: 20px 22px;
+    background-position: center center; 
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 200ms;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+// RM Pull refresh update class
+.x-list-pullrefresh-updated {
+  font-size: 110%;  
+  text-align: center;
+  color: #969696;
+  display: block !important; }
+
+// RM Pull refresh message class
+.x-list-pullrefresh-message {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 0.1em;
+    text-align: center;
+    color: #969696;
+}
+//RMPullRefresh style end
+
+.rm-dropdownmenu-bgcolor{
+    background: #000 !important;
+}
+
+// About screen code start
+.rm-about-product-name{
+    color: #646464;
+    font-size: 100%;
+}
+
+.rm-about-product-version{
+    color: #969696;
+    font-size: 84%;
+}
+
+.rm-about-product-copyright{
+    color: #969696;
+    font-size: 90%;
+}
+
+.rm-about-link{
+    color: #00bd9d;
+    font-size: 90%;
+}
+// About screen code end
+
+// Action button like camera or note with right arrow
+.rm-actionbtn {	
+	
+	padding: 5px !important;	
+
+	.x-button-label {    
+		text-overflow: ellipsis;
+		text-align: left;
+        font-size: 90%;
+		font-weight: bold !important;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;
+        padding-left: 0 !important;
+	}
+}
+
+//Photo Preview buttons style start
+.rm-photopreviewbtn {	
+    background-image: url("../images/icons");
+	background-color: #EBEBEB;
+    color: #646464;		
+    border-radius: 0;
+	border:0;
+    height: $global-row-height;
+    border-bottom: 2px solid #DBDBDB;
+	.x-button-label {    
+        
+		text-overflow: ellipsis;
+		text-align: center !important;
+        font-size: 84%;
+		font-weight: bold !important;
+		line-height: 1.2em;
+		display: block;
+		overflow: hidden;        
+	}
+}
+
+.rm-btnarrow-next {        
+    background-image: url("../images/icons/rm-btn-arrow.svg"); 
+	background-position: 96%;         
+    background-repeat: no-repeat;   
+    background-size: 10px 20px;   
+}
+
+.rm-btnarrow-prev {        
+    background-image: url("../images/icons/rm-btn-back-arrow.svg"); 
+	background-position: 4%;            
+    background-repeat: no-repeat;      
+    background-size: 10px 20px;  
+}
+
+//Photo Preview buttons style end
+
+//Invoice approved header
+.rm-approved-hearderbg{
+		background: #D9F4C1;
+        padding: 6px 14px 4px 14px;
+        border: none;
+        color: #74B23D;
+        text-shadow: none;
+        font-weight: bold;
+        font-size: 80%;
+	} 
+
+//Allow toggling the clearIcon when it is enabled
+.x-field-clearable {
+    .rm-field-input-formatted {
+        padding-right: 3.2em;
+    }
+
+    &.clear-icon-hidden {
+        .x-field-input { 
+            padding-right: 0 !important;
+            .x-clear-icon { display: none; }
+        }
+        .rm-field-input-formatted {
+            padding-right: 0.6em;
+        }
+    }        
+}
+
+
+//To simulate cursor in rmamountfield using field mask
+.rm-cursor-blinkbg .x-field-mask{ 
+        display: block !important;
+        background: $rm-default-color;
+        width: 2px;
+        height: 1em;
+        position: absolute;
+        top: 13px;
+        right: 7px;
+        bottom: 0;
+        padding-right: 2px;
+        left: initial !important;    
+}
+
+//custom numberfield keypad toolbar 
+.rm-keypad-topbar{   
+	border-radius: 0;
+	border: 1px solid #989898;	
+	margin: 0;
+	background: #3E3E3E;
+	color: #FBFBFB;
+    font-size: 0.8em; 
+    padding-left: 0px; 
+    padding-right: 0px;
+    
+    .x-button-label{
+        font-weight: normal;
+    } 
+}
+
+// AppStop update screen title
+.rm-update-title{
+    color: #505050;
+    font-size: 84%;
+    text-align: center;
+    font-weight: bold;
+}
+
+// AppStop update screen msg
+.rm-update-msg{
+    color: #969696;
+    font-size: 72%;
+    text-align: center;
+}
+
+//Dashboard no-access screen title
+.rm-update-title{
+    color: #505050;
+    font-size: 80%;
+    text-align: center;
+    font-weight: bold;
+}
+
+//Dashboard no-access screen msg
+.rm-update-msg{
+    color: #969696;
+    font-size: 76%;
+    text-align: center;
+}
+
+//sort search toolbar icon size
+.rm-sortsearchbtn{    
+        background-size: 22px;    
+}
+
+//Field clear icon
+.x-field-input .x-clear-icon {
+    background: url(../images/icons/rm-fieldclear.svg) no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    width: 2.2em;
+    height: 2.2em;
+    margin: .5em;
+    margin-top: -1.1em;
+    right: -.5em;
+}
+
+//LineItem cross bg size
+.rm-lineitemcrossbg{
+    background-size: 12px;    
+}
+
+//Button icon size
+.rm-btniconsize{
+    background-size: 26px;
+}
+
+//back btn icon
+.rm-backbtniconcls{
+    background-size: 12px !important;
+}
+
+//Invoice action button size
+.rm-invoiceactioniconcls{
+    background-size: 20px;
+}
+
+//Invoice action btn label
+.rm-invoiceactionbtnlabel .x-button-label{
+    font-weight: bold;
+    margin-left: 5px !important;
+    font-size: 90%;
+}
+
+//Photo btn label font
+.rm-photobtnfont .x-button-label{       
+    font-weight: bold !important;        
+}
+
+//Photo Button icon size
+.rm-photobtniconsize{
+    background-size: 24px 18px;
+}
+
+//rm-flatfield disabled class for readonly fields
+.rm-flatfield-disabled{
+    @include rm_flatfield("");
+    	.x-form-label{			
+			color: #C3C2C2;	
+		}     
+        
+		.x-input-el{
+			color: #C3C2C2 !important;
+            -webkit-text-fill-color: #C3C2C2 !important;        
+		}	
+        
+        input::-webkit-input-placeholder {
+           color: #C0C9D2;           
+        }
+}
+
+.rm-mask-obscured {
+    background: rgb(50,50,50);
+}
+
+.rm-warning-message {
+    background: $rm-warning-bg-color;  
+    color: $rm-warning-color;
+    font-size: 0.9em;
+    padding: 10px 15px;
+    border: 1px solid #dcb337;
+    border-left: none;
+    border-right: none;
+
+     strong { font-weight:bold;}
+}
+
+.rm-list-emptytext{
+    color: #969696;
+    font-weight: normal;
+    font-size: 115%;
+}
+
+.rm-list-emptytext-desc{
+    color: #969696;
+    font-weight: normal;
+    font-size: 84%; 
+    margin-left: 0.9em;   
+}
+
+.rm-list-emptytext-img{    
+    width: 22.39px;
+    height: 47.79px;    
+}
+
+.rm-white-flatbtn{
+    border: 0;
+    border-radius: 0;
+    background-color: #FFF !important;    
+}
+
+.rm-pay-graytext{
+    color: #a0a0a0 !important;
+}
+
+.rm-payhistoryrowtextcolor{
+	color: #646464 !important;
+}
+
+.rm-payhistoryrowprefixcolor{
+	color: #C8C8C8 !important;
+}
+
+.rm-pay-grayheadertext{
+    font-weight: bold; 
+    color: #646464; 
+    padding: 25px 10px;
+}
+
+.rm-payamountinput-arrow{
+    background-image: url("../images/icons/rm-btn-arrow.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 20px;
+}
+
+.rm-payamountinput-back-arrow{
+    background-image: url("../images/icons/rm-back-arrow-pay.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 20px;
+}
+
+.rm-pay-camerabtn{
+    background-image: url("../images/icons/rm-photo.svg") !important;
+	background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+}
+
+.rm-pay-inputclearbtn{
+    background-image: url("../images/icons/rm-fieldclear.svg") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;    
+}
+
+.rm-pay-currencyprefix{
+    font-size: 90%;
+    color: #c8c8c8; 
+    padding-top: 5px; 
+    margin-left: 10px;
+}
+
+.rm-pay-amount{
+    color: #646464;
+    font-size: 320%;
+	line-height: 1;
+	margin: 5px;
+}
+
+.rm-pay-clr{
+	padding: 20px !important;
+	background: none !important;
+}
+
+.rm-pay-gsttext{
+    padding-left: 10px; 
+    padding-top: 14px; 
+    color: #c8c8c8;
+}
+
+.rm-pay-description{
+    color: #c8c8c8;    
+}
+
+.rm-pay-amountinputtext{
+  color: #c8c8c8;
+  padding-top: 9px;
+  margin: 0px 5px 5px 10px; 
+}
+    
+.rm-iconsize25{
+    background-size: 25px !important;
+    background-position: center !important;;
+}   
+
+.rm-pay-text-big{
+    font-size: 130%;
+    font-weight: normal;
+    text-align: center;
+    color: #878787;
+} 
+
+.rm-pay-amount-text{
+    font-size: 130%;
+    font-weight: bold;
+    color: #636363;    
+}
+
+.rm-btn-arrow{
+    background-image: url("../images/icons/rm-btn-arrow.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 10px;
+    padding-right: 22px;    
+}
+
+.rm-pay-noimagebg{
+    background: #ECECEC !important;
+}
+
+.rm-paypreferences-leftalign{
+    position: absolute !important;
+    left: 15px;
+}
+
+.rm-linkbtn{	
+	color: #3D8ADE;
+	font-size: 80%;	
+	font-weight: normal;		
+}
+
+.rm-percentagefield{
+	background-image: url("../images/icons/rm-percentagefield.png");
+	background-position: right center; 
+    background-repeat: no-repeat;
+    background-size: 16px;
+	padding-right: 6px;
+	margin-right: 10px;
+}
+
+.rm-paymethod{
+	background-position: left 4px !important; 
+    background-repeat: no-repeat;
+    background-size: 20px;	
+}
+
+.rm-cash{	
+	background-image: url("../images/icons/rm-cash.svg"); 
+}
+
+.rm-cheque{	
+	background-image: url("../images/icons/rm-cheque.svg"); 
+}
+
+.rm-creditcard{	
+	background-image: url("../images/icons/rm-creditcard.svg"); 
+}
+
+.rm-manualcreditcard{
+	background-image: url("../images/icons/rm-manualcreditcard.svg");
+}
+
+.rm-flatbtn{
+	border: 0;
+    border-radius: 0;
+	color: #F9F9F9;
+	min-height: 2.6em;
+	.x-button-label{
+		font-weight: normal;
+	}
+}
+
+.rm-bigbtn{
+	height: 5.2em;
+}
+
+.rm-pay-discount-bg{
+	background: #FE3C57;
+}
+
+.rm-pay-surcharge-bg{
+	background: #475561;
+}
+
+.rm-pay-charge-bg{
+	background: #00BD9D;
+}
+
+.rm-multiselectfield{
+    
+    //unchecked
+    .x-input-el + .x-field-mask::after {        
+        opacity: 0;
+    }
+
+    //checked
+    .x-input-el:checked + .x-field-mask::after {
+        color: #00BD9D;
+        opacity: 1;
+    }
+}
+

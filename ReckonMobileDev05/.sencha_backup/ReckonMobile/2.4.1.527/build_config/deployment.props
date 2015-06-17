@@ -1,0 +1,11 @@
+# Project name must match the Release project folder and project name
+deployment.project.name=ReckonEdge
+
+# Where to find the above folder, relative to the Dev project folder location
+deployment.project.root=${basedir}/../..
+
+# Release project repo url
+deployment.project.repo=https://github.com/Reckon-APS/ReckonEdge.git
+
+#set to skip the commit of the generated build
+#skip-deployment=true

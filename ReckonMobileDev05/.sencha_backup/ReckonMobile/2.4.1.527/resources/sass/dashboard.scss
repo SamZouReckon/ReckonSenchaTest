@@ -1,0 +1,149 @@
+@mixin dashboard{
+	
+	
+	.rm-reddotright{		
+		background-image: url("../images/redDot.svg");		
+	}	
+	.rm-equalicon{
+		color:#acacac;font-size:105%;
+		text-align:center;
+	}
+	.rm-panelboardb{
+		border-bottom:1px solid #4c4c4c;
+	}
+	.rm-panelboard{
+		padding:10px;
+	}
+	.rm-digitpanel{
+		padding: 14px 14px;
+	}
+	.rm-totalamount{
+		font-size: 82%;
+		color:#767676;        
+		padding-left: 10px;
+		font-weight: bold;
+	}
+	.rm-digittext{
+		float: left;
+        font-size: 32px;
+        color: #969696;
+        font-weight: normal;
+        margin-right: 7px;
+        //margin-left: 18px;
+        line-height: 60px;
+        margin-top: -15px;
+        //text-align: right;
+        //width: 36px;
+	}
+	.rm-invoicetext{
+		font-size:82%;
+        color:#333;
+        text-align:left
+	}
+	.rm-billtext{
+		font-size:82%;
+        color:#646464;
+        text-align:left;
+		display: table;
+	}
+	.rm-overduetext{		
+		background-image: url("../images/icons/overDue_icon.png");
+		background-position:right center; background-repeat: no-repeat;
+		padding-right:25px;font-size:80%;font-weight:bold;color:#333;text-align:left
+	}
+	.rm-invoiceamount{
+		font-size:80%;
+        color:#787878;
+        text-align:left
+	}
+	.rm-billamount{
+		font-size:86%;
+		font-weight: bold;
+        color:#969696;
+        text-align:left        
+	}	
+	.rm-reddot{
+		background:red;border-radius:12px;
+		width:5px;height:5px;display:inline-block;
+		margin-left:5px;margin-bottom:1px;
+	}
+	.rm-accesstext{
+		span{
+			font-size:120% !important;
+		}
+	}	
+	.rm-hearderbg{
+		background: #ebebeb;
+        padding: 6px 14px 4px 14px;
+        border: none;
+        color: #646464;
+        text-shadow: none;
+        font-weight: bold;
+        font-size: 80%;
+	}
+	.rm-legendcolor {
+		height: 30px;
+		width: 7px;
+		//border-radius: 10px;
+		float: left;
+		margin: 5px 7px 5px 15px;
+	}
+	.rm-legend {
+		font-size: 72%;
+        //font-weight: bold;
+        color: #787878;
+        //float: left;
+        width: 80%;
+        height: 38px;
+        vertical-align: middle;
+    	display: table-cell;
+	}
+    .rm-legendpercent{        
+        font-weight: bold;
+    }
+	.rm-budgetoverviewname {
+		font-size: 70%;
+		color: #646464;
+		font-weight: bold;     
+        margin-left: 5px;   
+	}
+	.rm-budgetoverviewprice {
+		font-size: 70%;
+		color: #8C8C8C;
+	}
+	.rm-remainingforcast{
+		color: #8c8c8c;
+        font-size: 70%;
+        margin-right: 8%
+	}
+	.rm-reddotright{
+		background-position:right center; background-repeat: no-repeat;
+		padding:0 15px 0 0;
+	}
+    .rm-netpositionamount{               
+        color:#969696;        
+    }
+
+    .rm-netposition-income{               
+        color:#a0cf79;
+        font-weight:bold;
+		font-size: 82%;
+    	margin: 5px;		
+   }
+
+    .rm-netposition-expenses{               
+        color:#ec3b55;
+        font-weight:bold;      
+		font-size: 82%;
+    	margin: 5px;		
+    }
+
+    .rm-budgetoverviewarrow{
+        background-image: url("../images/icons/rm-listitem-arrow.svg");        
+        background-repeat: no-repeat;
+        background-position-x: right;
+        background-position-y: 65%;
+        background-size: 10px 20px;
+        margin-right: 15px;       
+    }
+}
